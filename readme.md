@@ -2,6 +2,8 @@
 
 ## Local Development Setup
 
+
+### Front-end
 Development uses a typical **Homestead** setup for a virtual machine. Once the machine is up and running run `vagrant ssh` and change directories into the laravel project directory.
 
 From the laravel project directory, head into the **public** directory:
