@@ -1,0 +1,24 @@
+{
+  "name": "scholarship_application_app",
+  "version": "0.0.1",
+  "authors": [
+    "Diego Lorenzo <dlorenzo@dosomething.org>",
+    "Aaron Schachter <aschachter@dosomething.org>"
+  ],
+  "description": "Component libraries for the project.",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "picturefill": "~1.2.1",
+    "jquery": "1.11.0",
+    "requirejs": "~2.1.11",
+    "hammerjs": "~1.0.10",
+    "jquery-hammerjs": "~1.0.6"
+  }
+}
