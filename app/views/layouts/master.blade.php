@@ -6,15 +6,14 @@
 	</head>
 
 	<body>
-		<header role="banner">
-      <h1>Scholarship App</h1>
-      <a href="#main-nav">Main Navigation</a>
-    </header>
+		@include('partials.header')
     
     <main role="main">
       @yield('main_content')
     </main>
 
 		@include('partials.navigation')
+
+    @include('partials.footer')
 	</body>
 </html>

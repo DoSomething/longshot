@@ -1,3 +1,27 @@
+# Scholarship Application App
+
+## Local Development Setup
+
+Development uses a typical **Homestead** setup for a virtual machine. Once the machine is up and running run `vagrant ssh` and change directories into the laravel project directory.
+
+From the laravel project directory, head into the **public** directory:
+
+  $ cd public
+
+Then to install the NPM modules, run:
+
+  $ npm install
+
+To install the Bower front-end packages, run:
+
+  $ bower install
+
+*more to come...*
+
+
+***
+
+
 ## Laravel PHP Framework
 
 [![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
