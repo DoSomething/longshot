@@ -6,21 +6,15 @@ Development uses a typical **Homestead** setup for a virtual machine. Once the m
 
 From the laravel project directory, head into the **public** directory:
 
-```
-  $ cd public
-```
+    $ cd public
 
 Then to install the NPM modules, run:
 
-```
-  $ npm install
-```
+    $ npm install
 
 To install the Bower front-end packages, run:
 
-```
-  $ bower install
-```
+    $ bower install
 
 *more to come...*
 
