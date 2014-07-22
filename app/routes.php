@@ -13,44 +13,41 @@
 
 Route::get('/', function()
 {
-	return View::make('hello');
+	return View::make('pages.home');
 });
 
 
-/**
- * Setting up some initial routes.
- */
 Route::get('about', function()
 {
-	return 'This is the About page';
+	return View::make('pages.about');
 });
 
 
 Route::get('faq', function()
 {
-	return 'This is the FAQs page';
+	return View::make('pages.faq');
 });
 
 
 Route::get('application', function()
 {
-	return 'This is the Application page';
+	return View::make('pages.application');
 });
 
 
 Route::get('recommendation', function()
 {
-	return 'This is the Recommendations page';
+	return View::make('pages.recommendation');
 });
 
 
 Route::get('status', function()
 {
-	return 'This is the Status page';
+	return View::make('pages.status');
 });
 
 
 Route::get('admin', function()
 {
-	return 'This is the Admin page';
+	return View::make('pages.admin');  // @TODO: Likely need to move this out of pages directory and into dedicated admin one.
 });
