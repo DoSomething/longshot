@@ -13,41 +13,41 @@
 
 Route::get('/', function()
 {
-	return View::make('pages.home');
+  return View::make('pages.home');
 });
 
 
 Route::get('about', function()
 {
-	return View::make('pages.about');
+  return View::make('pages.about');
 });
 
 
 Route::get('faq', function()
 {
-	return View::make('pages.faq');
+  return View::make('pages.faq');
 });
 
 
 Route::get('application', function()
 {
-	return View::make('pages.application');
+  return View::make('pages.application');
 });
 
 
 Route::get('recommendation', function()
 {
-	return View::make('pages.recommendation');
+  return View::make('pages.recommendation');
 });
 
 
 Route::get('status', function()
 {
-	return View::make('pages.status');
+  return View::make('pages.status');
 });
 
 
 Route::get('admin', function()
 {
-	return View::make('pages.admin');  // @TODO: Likely need to move this out of pages directory and into dedicated admin one.
+  return View::make('pages.admin');  // @TODO: Likely need to move this out of pages directory and into dedicated admin one.
 });
