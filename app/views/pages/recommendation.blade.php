@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('main_content')
-	<h1>Recommendation</h1>
+  <h1>Recommendation</h1>
 
   {{ Form::open(array('url' => '/recommendation')) }}
 

@@ -1,10 +1,10 @@
 @extends('layouts.master')
 
 @section('main_content')
-	<h1>Application</h1>
+  <h1>Application</h1>
 
-	<p>Here the main application page with the forms to fill out.</p>
-	<p><em>Form would need to happen over multiple stages. Likely split the form into partials than can be Ajax loaded per step.</em></p>
+  <p>Here the main application page with the forms to fill out.</p>
+  <p><em>Form would need to happen over multiple stages. Likely split the form into partials than can be Ajax loaded per step.</em></p>
 
   <div>
     <p>Current Progress: <progress max="100" value="25">25%</progress></p>
