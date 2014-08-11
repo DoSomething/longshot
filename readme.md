@@ -3,6 +3,16 @@
 ## Local Development Setup
 
 
+### Back-end
+
+*more to come...*
+
+To begin the migrations and setup your database, run:
+
+    $ php artisan migrate
+
+
+
 ### Front-end
 Development uses a typical **Homestead** setup for a virtual machine. Once the machine is up and running run `vagrant ssh` and change directories into the laravel project directory.
 
