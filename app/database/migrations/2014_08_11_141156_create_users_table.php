@@ -32,6 +32,7 @@ class CreateUsersTable extends Migration {
       $table->string('race')->nullable();
       $table->string('school')->nullable();
       $table->integer('grade')->nullable();
+      $table->string('remember_token', 100)->nullable();
       $table->timestamps();
 
     });
