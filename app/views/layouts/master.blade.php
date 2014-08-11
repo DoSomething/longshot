@@ -7,7 +7,14 @@
 
   <body>
     @include('partials.header')
-    
+
+
+    @if (Session::get('flash_message'))
+      <div class="flash">
+        <em>{{ Session::get('flash_message') }}</em>
+      </div>
+    @endif
+
     <main role="main">
       @yield('main_content')
     </main>
