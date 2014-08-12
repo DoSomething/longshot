@@ -7,6 +7,6 @@
       <li><a href="/application">Application</a></li>
       <li><a href="/recommendation">Recommendation</a></li>
       <li><a href="/status">Status</a></li>
-      <li><a href="/admin">Admin</a></li>
+      <li><a href="/login">Login</a></li>
   </ul>
 </nav>

@@ -3,29 +3,8 @@
 @section('main_content')
   <h1>Admin</h1>
 
+  <h2>Welcome, {{ $user->first_name }}!</h2>
+
   <p>Main Administrative information and settings go here!</p>
 
-  <h2>All Applications</h2>
-  <ul>
-    <li>Submitted application.</li>
-    <li>Submitted application.</li>
-    <li>Submitted application.</li>
-    <li>Submitted application.</li>
-    <li>Submitted application.</li>
-    <li>Submitted application.</li>
-    <li>Submitted application.</li>
-    <li>Submitted application.</li>
-    <li>Submitted application.</li>
-    <li>Submitted application.</li>
-    <li>Submitted application.</li>
-    <li>Submitted application.</li>
-    <li>Submitted application.</li>
-    <li>Submitted application.</li>
-    <li>Submitted application.</li>
-    <li>Submitted application.</li>
-    <li>Submitted application.</li>
-    <li>Submitted application.</li>
-    <li>Submitted application.</li>
-    <li>Submitted application.</li>
-  </ul>
 @stop

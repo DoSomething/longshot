@@ -11,43 +11,54 @@
 |
 */
 
-Route::get('/', function()
+
+// Sessions Routes
+Route::get('login', 'SessionsController@create');
+Route::get('logout', 'SessionsController@destroy');
+Route::resource('sessions', 'SessionsController', ['only' => ['create', 'store', 'destroy']]);
+
+
+// Home Route
+Route::get('/', ['as' => 'home', function()
 {
   return View::make('pages.home');
-});
+}]);
 
 
-Route::get('about', function()
-{
-  return View::make('pages.about');
-});
-
-
-Route::get('faq', function()
-{
-  return View::make('pages.faq');
-});
-
-
-Route::get('application', function()
-{
-  return View::make('pages.application');
-});
-
-
-Route::get('recommendation', function()
-{
-  return View::make('pages.recommendation');
-});
-
-
-Route::get('status', function()
-{
-  return View::make('pages.status');
-});
-
-
+// Admin Route
 Route::get('admin', function()
 {
-  return View::make('pages.admin');  // @TODO: Likely need to move this out of pages directory and into dedicated admin one.
+  return View::make('pages.admin', ['user' => Auth::user()]);
+})->before('auth');
+
+
+
+
+//Temporary Seeding New User
+Route::get('/seed', function()
+{
+
+  $user = new User;
+
+  $user->email = 'bs@dosomething.org';
+  $user->password = Hash::make('1234');
+  $user->role = 'admin';
+  $user->first_name = 'Braumhilda';
+  $user->last_name = 'Snosages';
+  $user->birthdate = '1998-10-05';
+  $user->phone = '555-555-5555';
+  $user->address_street = '321 Lederhosen Lane';
+  $user->address_premise = 'APT 8B';
+  $user->city = 'Steinway';
+  $user->state = 'NY';
+  $user->zip = 12345;
+  $user->gender = 'female';
+  $user->race = 'caucasian';
+  $user->school = 'Steinway High School';
+  $user->grade = 11;
+
+  $user->save();
+
+  return 'New user added!';
+
 });
