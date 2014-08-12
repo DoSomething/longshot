@@ -62,38 +62,3 @@ Route::get('/seed', function()
   return 'New user added!';
 
 });
-
-
-
-
-
-
-// OLD ROUTES  @TODO: Remove!
-// Route::get('about', function()
-// {
-//   return View::make('pages.about');
-// });
-
-
-// Route::get('faq', function()
-// {
-//   return View::make('pages.faq');
-// });
-
-
-// Route::get('application', function()
-// {
-//   return View::make('pages.application');
-// });
-
-
-// Route::get('recommendation', function()
-// {
-//   return View::make('pages.recommendation');
-// });
-
-
-// Route::get('status', function()
-// {
-//   return View::make('pages.status');
-// });
