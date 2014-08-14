@@ -3,13 +3,14 @@
 <html>
   <head>
     <title>Scholarship Application</title>
+    <link rel="icon" type="image/ico" href="/favicon.ico?v1"/>
   </head>
 
   <body>
-    @include('partials.header')
+    @include('layouts.partials.header')
 
 
-    @if (Session::get('flash_message'))
+    @if (Session::has('flash_message'))
       <div class="flash">
         <em>{{ Session::get('flash_message') }}</em>
       </div>
@@ -19,8 +20,8 @@
       @yield('main_content')
     </main>
 
-    @include('partials.navigation')
+    @include('layouts.partials.navigation')
 
-    @include('partials.footer')
+    @include('layouts.partials.footer')
   </body>
 </html>
