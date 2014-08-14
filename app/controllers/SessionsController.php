@@ -1,6 +1,19 @@
 <?php
 
+use Scholarship\Forms\LoginForm;
+
 class SessionsController extends \BaseController {
+
+  /**
+   * @var RegistrationForm
+   */
+  protected $loginForm;
+
+  function __construct(LoginForm $loginForm)
+  {
+    $this->loginForm = $loginForm;
+  }
+
 
   /**
    * Show the form for creating a new resource.
@@ -9,14 +22,12 @@ class SessionsController extends \BaseController {
    */
   public function create()
   {
-
     if (Auth::check())
     {
       return Redirect::to('admin');
     }
 
     return View::make('sessions.create');
-
   }
 
 
@@ -27,12 +38,11 @@ class SessionsController extends \BaseController {
    */
   public function store()
   {
+    $input = Input::only('email', 'password');
 
-    // @TODO: Validate
+    $this->loginForm->validate($input);
 
-    $attempt = Auth::attempt(Input::only('email', 'password'));
-
-    if ($attempt)
+    if (Auth::attempt($input))
     {
       return Redirect::intended('admin')->with('flash_message', 'You have been logged in!');
     }
@@ -47,13 +57,11 @@ class SessionsController extends \BaseController {
    * @param  int  $id
    * @return Response
    */
-  public function destroy()
+  public function destroy($id = null)
   {
-
     Auth::logout();
 
     return Redirect::home()->with('flash_message', 'You have been logged out!');
-
   }
 
 

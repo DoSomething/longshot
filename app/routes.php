@@ -12,20 +12,22 @@
 */
 
 
-// Sessions Routes
-Route::get('login', 'SessionsController@create');
-Route::get('logout', 'SessionsController@destroy');
+# Registration
+Route::get('register', ['as' => 'registration.create', 'uses' => 'RegistrationController@create'])->before('guest');
+Route::post('register', ['as' => 'registration.store', 'uses' => 'RegistrationController@store']);
+
+
+# Authentication
+Route::get('login', ['as' => 'login', 'uses' => 'SessionsController@create']);
+Route::get('logout', ['as' => 'logout', 'uses' => 'SessionsController@destroy']);
 Route::resource('sessions', 'SessionsController', ['only' => ['create', 'store', 'destroy']]);
 
 
-// Home Route
-Route::get('/', ['as' => 'home', function()
-{
-  return View::make('pages.home');
-}]);
+# Home
+Route::get('/', ['as' => 'home', 'uses' => 'PagesController@index']);
 
 
-// Admin Route
+# Admin
 Route::get('admin', function()
 {
   return View::make('pages.admin', ['user' => Auth::user()]);
@@ -40,22 +42,22 @@ Route::get('/seed', function()
 
   $user = new User;
 
-  $user->email = 'bs@dosomething.org';
-  $user->password = Hash::make('1234');
-  $user->role = 'admin';
   $user->first_name = 'Braumhilda';
   $user->last_name = 'Snosages';
-  $user->birthdate = '1998-10-05';
-  $user->phone = '555-555-5555';
-  $user->address_street = '321 Lederhosen Lane';
-  $user->address_premise = 'APT 8B';
-  $user->city = 'Steinway';
-  $user->state = 'NY';
-  $user->zip = 12345;
-  $user->gender = 'female';
-  $user->race = 'caucasian';
-  $user->school = 'Steinway High School';
-  $user->grade = 11;
+  $user->email = 'bs@dosomething.org';
+  $user->password = Hash::make('1234');
+  // $user->role = 'admin';
+  // $user->birthdate = '1998-10-05';
+  // $user->phone = '555-555-5555';
+  // $user->address_street = '321 Lederhosen Lane';
+  // $user->address_premise = 'APT 8B';
+  // $user->city = 'Steinway';
+  // $user->state = 'NY';
+  // $user->zip = 12345;
+  // $user->gender = 'female';
+  // $user->race = 'caucasian';
+  // $user->school = 'Steinway High School';
+  // $user->grade = 11;
 
   $user->save();
 

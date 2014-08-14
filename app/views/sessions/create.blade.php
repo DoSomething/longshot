@@ -6,18 +6,21 @@
 
   {{ Form::open(['route' => 'sessions.store']) }}
 
+    {{-- Email Field --}}
     <div>
       {{ Form::label('email', 'Email: ') }}
       {{ Form::email('email') }}
-      {{ $errors->first('email') }}
+      {{ errorsFor('email', $errors); }}
     </div>
 
+    {{-- Password Field --}}
     <div>
       {{ Form::label('password', 'Password: ') }}
       {{ Form::password('password') }}
-      {{ $errors->first('password') }}
+      {{ errorsFor('password', $errors); }}
     </div>
 
+    {{-- Submit Button --}}
     <div>
       {{ Form::submit('Login') }}
     </div>
