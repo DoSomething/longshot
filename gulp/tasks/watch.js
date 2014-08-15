@@ -9,8 +9,8 @@ var gulp       = require('gulp');
 var livereload = require('gulp-livereload');
 
 gulp.task('watch', ['setWatch'], function() {
-  gulp.watch('assets/sass/**', ['sass']);
-  gulp.watch('assets/images/**', ['images']);
-  gulp.watch('assets/js/main.js', ['browserify']);
-  gulp.watch('assets/dist/css/**').on('change', livereload.changed);
+  gulp.watch('app/assets/sass/**', ['compass']);
+  gulp.watch('app/assets/images/**', ['images']);
+  gulp.watch('app/assets/js/main.js', ['browserify']);
+  gulp.watch('public/dist/css/**').on('change', livereload.changed);
 });

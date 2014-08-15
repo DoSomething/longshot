@@ -4,6 +4,7 @@
   <head>
     <title>Scholarship Application</title>
     <link rel="icon" type="image/ico" href="/favicon.ico?v1"/>
+    <link rel="stylesheet" href="/dist/css/main.css"/>
   </head>
 
   <body>
