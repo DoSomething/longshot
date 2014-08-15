@@ -23,5 +23,8 @@
     @include('layouts.partials.navigation')
 
     @include('layouts.partials.footer')
+
+    <script src="/dist/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/dist/js/main.js"></script>
   </body>
 </html>

@@ -10,15 +10,12 @@
   "ignore": [
     "**/.*",
     "node_modules",
-    "bower_components",
+    "public/dist/bower_components",
     "test",
     "tests"
   ],
   "dependencies": {
-    "picturefill": "~1.2.1",
-    "jquery": "1.11.0",
-    "requirejs": "~2.1.11",
-    "hammerjs": "~1.0.10",
-    "jquery-hammerjs": "~1.0.6"
+    "jquery": "~2.1.1",
+    "picturefill": "~2.1.0"
   }
 }
