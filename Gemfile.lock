@@ -1,0 +1,13 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    sass (3.3.14)
+    susy (2.1.3)
+      sass (>= 3.3.0, < 3.5)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  sass (>= 3.3)
+  susy

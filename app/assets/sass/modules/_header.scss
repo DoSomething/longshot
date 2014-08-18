@@ -1,24 +1,18 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// BASE STYLES
+// HEADER STYLES
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+// @TODO: Maybe change the name of this module to 'BANNER' based on Aria role?
 
-// ---
-// Apply a natural box layout model to all elements
-// ---
+[role="banner"] { position: relative;
 
-* {
-	-webkit-box-sizing: border-box;
-		 -moz-box-sizing: border-box;
-					box-sizing: border-box;
+  .__title { @include rem(24); margin: 0; padding: 0 pxcalc(60,24); text-align: center; }
+
+  #btn-main-nav { left: 0; position: absolute; top: 0; }
+
 }
-
-body { @include rem($base_font_size); background-color: #eee; }
-
-img { display: block; height: auto; max-width: 100%; width: auto; }
-
 
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

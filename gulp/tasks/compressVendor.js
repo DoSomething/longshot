@@ -11,5 +11,5 @@ var uglify = require('gulp-uglify');
 gulp.task('compressVendor', function() {
   return gulp.src('./app/assets/js/vendor/**')
     .pipe(uglify())
-    .pipe(gulp.dest('public/dist/js'))
+    .pipe(gulp.dest('./public/dist/js'))
 });

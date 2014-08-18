@@ -10,11 +10,14 @@ var handleErrors = require('../util/handleErrors');
 gulp.task('sass', function () {
   return gulp.src('./app/assets/sass/**/*.scss')
     .pipe(sass({
-      compass: true,
+      bundleExec: true,
+      require: 'susy',
+      style: 'compressed',
       sourcemap: true,
-      sourcemapPath: '../sass'
+      sourcemapPath: '../../app/assets/sass',
+      cacheLocation: './app/assets/.sass-cache',
     }))
     .on('error', handleErrors)
     .pipe(autoprefixer('last 5 version'))
-    .pipe(gulp.dest('public/dist/css'));
+    .pipe(gulp.dest('./public/dist/css'));
 });

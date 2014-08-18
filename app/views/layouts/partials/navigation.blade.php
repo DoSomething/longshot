@@ -1,6 +1,6 @@
 <nav id="main-nav" class="main-nav">
-  <h1>Main Navigation</h1>
-  <ul>
+  <h1 class="visually-hidden">Main Navigation</h1>
+  <ul class="__menu -level-1">
       <li><a href="/">Home</a></li>
       <li><a href="/about">About</a></li>
       <li><a href="/faq">FAQs</a></li>
