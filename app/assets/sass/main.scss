@@ -1,5 +1,5 @@
-@import "compass";
-
+@import "susy";
+@import "utilities/_config.scss";
 
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -8,7 +8,7 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-@import "variables.scss";
+@import "_variables.scss";
 
 
 
@@ -18,8 +18,8 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-@import "utilities/functions.scss";
-@import "utilities/mixins.scss";
+@import "utilities/_functions.scss";
+@import "utilities/_mixins.scss";
 
 
 
@@ -29,12 +29,11 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-@import "defaults/normalize.scss";
-@import "defaults/font.scss";
-@import "defaults/base.scss";
-@import "defaults/layout.scss";
-// @import "defaults/forms.scss";
-// @import "defaults/icons.scss";
+@import "defaults/_normalize.scss";
+@import "defaults/_font.scss";
+@import "defaults/_base.scss";
+@import "defaults/_layout.scss";
+// @import "defaults/_forms.scss";
 
 
 
@@ -44,10 +43,12 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-// @import "modules/page.scss";
-// @import "modules/header.scss";
-// @import "modules/main-menu.scss";
-// @import "modules/footer.scss";
+@import "modules/_icon.scss";
+@import "modules/_button.scss";
+// @import "modules/_page.scss";
+@import "modules/_header.scss";
+@import "modules/_main-navigation.scss";
+// @import "modules/_footer.scss";
 
 
 
@@ -57,7 +58,7 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-@import "utilities/helpers.scss";
+@import "utilities/_helpers.scss";
 
 
 

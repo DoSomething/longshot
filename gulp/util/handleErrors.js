@@ -2,6 +2,9 @@
  * Task: handleErrors
  *
  * Provides gulp style logs to the bundle method in browserify.js
+ * @todo : gulp-notify works for OSX, but not Linux on VM. Need to
+ * test for funciton existence, and if not default to terminal
+ * messages.
  */
 
 var notify = require("gulp-notify");

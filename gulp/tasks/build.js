@@ -7,4 +7,4 @@
 
 var gulp = require('gulp');
 
-gulp.task('build', ['browserify', 'compass', 'images', 'fonts', 'compressVendor']);
+gulp.task('build', ['browserify', 'sass', 'images', 'fonts', 'compressVendor']);

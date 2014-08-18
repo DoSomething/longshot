@@ -11,11 +11,38 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
+html, body { height: 100%; }
+
+.page {  min-height: 100%; height: auto !important; height: 100%; overflow: hidden; position: relative; }
+
+.container,
+.main-nav { transition: transform 0.3s ease-out; }
+
+
+
+// JS ENABLED
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.js {
+
+  .main-nav { height: 100%; left: 0; position: fixed; top: 0; width: calc(100% - 60px); transform: translateX(-100%); }
+
+  .is-showing-main-nav {
+
+    .container { transform: translateX(calc(100% - 60px)); }
+
+    .main-nav { transform: translateX(0%); }
+
+  }
+
+}
+
+
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // MEDIA QUERIES
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 @media only screen and (min-width: $medium) {
-	
+
 }

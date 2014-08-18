@@ -1,23 +1,12 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// BASE STYLES
+// MAIN NAVIGATION STYLES
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-
-// ---
-// Apply a natural box layout model to all elements
-// ---
-
-* {
-	-webkit-box-sizing: border-box;
-		 -moz-box-sizing: border-box;
-					box-sizing: border-box;
+.main-nav {
+  .__menu { @include list_reset(); }
 }
-
-body { @include rem($base_font_size); background-color: #eee; }
-
-img { display: block; height: auto; max-width: 100%; width: auto; }
 
 
 
