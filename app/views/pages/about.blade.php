@@ -1,23 +1,33 @@
 @extends('layouts.master')
 
 @section('main_content')
-  <h1>About</h1>
+  <h1>About the 2014 Scholarships</h1>
 
-  <h2>Steps to Apply</h2>
   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda cupiditate repellat commodi, aliquam voluptas itaque tempore labore a cumque maxime, odio quasi quaerat impedit saepe aperiam distinctio illo enim non.</p>
+
+  <h2>How to Apply</h2>
+  <ol>
+    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non, unde</li>
+    <li>Blanditiis aut labore, et maxime nisi ex ipsam iure.</li>
+    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni, illum, ea!</li>
+    <li>Consectetur adipisicing elit. Quidem, quasi!</li>
+    <li>Magni deserunt vitae tempora, quam nesciunt nulla quibusdam voluptas sunt.</li>
+  </ol>
+
+  <h2>Important Dates</h2>
   <ul>
-    <li>Step 1: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non, unde</li>
-    <li>Step 2: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non, unde</li>
-    <li>Step 3: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non, unde</li>
-    <li>Step 4: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non, unde</li>
-    <li>Step 5: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non, unde</li>
+    <li>Date: October 1st, 2014</li>
+    <li>Date: October 22nd, 2014</li>
+    <li>Date: November 5th, 2014</li>
+    <li>Date: November 25th, 2014</li>
+    <li>Date: December 15th, 2014</li>
   </ul>
 
-  <h2>Key Dates</h2>
-  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda cupiditate repellat commodi, aliquam voluptas itaque tempore labore a cumque maxime, odio quasi quaerat impedit saepe aperiam distinctio illo enim non.</p>
+  <img src="http://placekitten.com/g/300/200" alt="kitten!">
 
   <h2>Judging</h2>
   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda cupiditate repellat commodi, aliquam voluptas itaque tempore labore a cumque maxime, odio quasi quaerat impedit saepe aperiam distinctio illo enim non.</p>
+  <p><a href="#">Official Rules</a></p>
 
   <h2>Downloads</h2>
   <ul>

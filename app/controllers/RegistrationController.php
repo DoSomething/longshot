@@ -35,15 +35,23 @@ class RegistrationController extends \BaseController {
    */
   public function store()
   {
-    $input = Input::only('first_name', 'last_name', 'email', 'password', 'password_confirmation');
+    if (Input::has('eligibility'))
+    {
+      $input = Input::only('first_name', 'last_name', 'email', 'password', 'password_confirmation');
 
-    $this->registrationForm->validate($input);  // Form errors caught and handled in Application Error Handler in /start/global.php
+      $this->registrationForm->validate($input);  // Form errors caught and handled in Application Error Handler in /start/global.php
 
-    $user = User::create($input);
+      $user = User::create($input);
 
-    Auth::login($user);
+      Auth::login($user);
 
-    return Redirect::home();
+      return Redirect::route('status');
+    }
+    else
+    {
+      return Redirect::back()->withInput()->with('flash_message', 'No soup (scholarship) for you!');
+    }
+
   }
 
 }

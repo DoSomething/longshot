@@ -12,6 +12,7 @@
         <li><a href="/application">Application</a></li>
         <li><a href="/recommendation">Recommendation</a></li>
         <li><a href="/status">Status</a></li>
+        <li>{{ link_to_profile() }}</li>
         <li><a href="/logout">Logout</a></li>
       @endif
   </ul>

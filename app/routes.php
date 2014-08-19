@@ -23,8 +23,11 @@ Route::get('logout', ['as' => 'logout', 'uses' => 'SessionsController@destroy'])
 Route::resource('sessions', 'SessionsController', ['only' => ['create', 'store', 'destroy']]);
 
 
-# Home
-Route::get('/', ['as' => 'home', 'uses' => 'PagesController@index']);
+# Pages
+Route::get('/', ['as' => 'home', 'uses' => 'PagesController@home']);
+Route::get('about', ['as' => 'about', 'uses' => 'PagesController@about']);
+Route::get('faq', ['as' => 'faq', 'uses' => 'PagesController@faq']);
+Route::get('status', ['as' => 'status', 'uses' => 'PagesController@status'])->before('auth');
 
 
 # Admin
@@ -33,6 +36,9 @@ Route::get('admin', function()
   return View::make('pages.admin', ['user' => Auth::user()]);
 })->before('auth');
 
+
+# Profile
+Route::resource('profile', 'ProfilesController', ['only' => ['create', 'store', 'show', 'edit', 'update']]);
 
 
 

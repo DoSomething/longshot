@@ -3,84 +3,46 @@
 class PagesController extends \BaseController {
 
   /**
-   * Display a listing of the resource.
+   * Display the Home page.
    *
    * @return Response
    */
-  public function index()
+  public function home()
   {
     return View::make('pages.home');
   }
 
 
   /**
-   * Show the form for creating a new resource.
+   * Display the About page.
    *
    * @return Response
    */
-  public function create()
+  public function about()
   {
-    //
+    return View::make('pages.about');
   }
 
 
   /**
-   * Store a newly created resource in storage.
+   * Display the FAQ page.
    *
    * @return Response
    */
-  public function store()
+  public function faq()
   {
-    //
+    return View::make('pages.faq');
   }
 
 
   /**
-   * Display the specified resource.
+   * Display the Status page.
    *
-   * @param  int  $id
    * @return Response
    */
-  public function show($id)
+  public function status()
   {
-    //
+    return View::make('pages.status');
   }
-
-
-  /**
-   * Show the form for editing the specified resource.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function edit($id)
-  {
-    //
-  }
-
-
-  /**
-   * Update the specified resource in storage.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function update($id)
-  {
-    //
-  }
-
-
-  /**
-   * Remove the specified resource from storage.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function destroy($id)
-  {
-    //
-  }
-
 
 }
