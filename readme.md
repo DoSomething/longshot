@@ -1,7 +1,17 @@
 # Scholarship Application App
 
-## Local Development Setup
+## Prerequisites
+1.  Composer
+2.  Node
+3.  Homestead
 
+## Local Development Setup
+1. Clone the repo
+2. Create a .env.local.php file from default.env.local.php
+3. Edit your `Homestead.yml` file to include this new info
+4. Add your app url (scholarship.dev) to your `etc/hosts` file
+5. Run `php artisan migrate` to create the database
+6. Visit scholarship.dev:8000
 
 ### Back-end
 
