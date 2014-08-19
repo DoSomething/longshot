@@ -34,6 +34,10 @@ Route::get('admin', function()
 })->before('auth');
 
 
+# Profile
+Route::get('/profile/{profile}', ['as' => 'profile', 'uses' => 'ProfilesController@show']);
+Route::resource('profile', 'ProfilesController', ['only' => ['show', 'edit', 'update']]);
+
 
 
 //Temporary Seeding New User

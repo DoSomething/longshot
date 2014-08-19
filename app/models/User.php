@@ -42,4 +42,28 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
   {
     $this->attributes['password'] = Hash::make($password);
   }
+
+
+  /**
+   * Get the Profile for a User
+   * @return object
+   */
+  public function profile()
+  {
+    return $this->hasOne('Profile');
+  }
+
+
+  /**
+   * Is the current User object the currently authenticated user.
+   */
+  public function isCurrent()
+  {
+    if (Auth::guest())
+    {
+      return false;
+    }
+
+    return Auth::user()->id === $this->id;
+  }
 }
