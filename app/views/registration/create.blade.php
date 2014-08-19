@@ -2,7 +2,9 @@
 
 @section('main_content')
 
-  <h1>Register to Apply!</h1>
+  <h1>Create an Account</h1>
+
+  <p>Have an account? {{ link_to_route('login', 'Login') }}</p>
 
   {{ Form::open(['route' => 'registration.store']) }}
 
@@ -38,6 +40,13 @@
     <div>
       {{ Form::label('password_confirmation', 'Confirm Password: ') }}
       {{ Form::password('password_confirmation') }}
+    </div>
+
+    {{-- Eligibility Check --}}
+    <div>
+      {{ Form::checkbox('eligibility', 'eligible', false, ['id' => 'eligibility']); }}
+      {{ Form::label('eligibility', 'Yes, I\'m eligible') }}
+      <p><small>Eligibility requirements ipsum dolor sit amet, consectetur. Et, iste adipisicing elit.</small></p>
     </div>
 
     {{-- Submit Button --}}

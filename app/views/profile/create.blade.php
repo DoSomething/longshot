@@ -1,9 +1,10 @@
 @extends('layouts.master')
 
 @section('main_content')
-  <h1>Edit Profile</h1>
 
-  {{ Form::model($user->profile, ['method' => 'PATCH', 'route' => ['profile.update', $user->id]]) }}
+  <h1>Complete Your Profile</h1>
+
+  {{ Form::open(['route' => 'profile.store']) }}
 
     {{-- Birthdate --}}
     <div>
@@ -84,7 +85,7 @@
 
     {{-- Submit Button --}}
     <div>
-      {{ Form::submit('Update Profile') }}
+      {{ Form::submit('Save Profile') }}
     </div>
 
   {{ Form::close() }}

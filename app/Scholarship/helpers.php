@@ -20,5 +20,5 @@ function errorsFor($attribute, $errors) {
  */
 function link_to_profile($text = 'Profile')
 {
-  return link_to_route('profile', $text, Auth::user()->id);
+  return link_to_route('profile.show', $text, Auth::user()->id);
 }

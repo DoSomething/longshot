@@ -24,7 +24,7 @@ class SessionsController extends \BaseController {
   {
     if (Auth::check())
     {
-      return Redirect::to('admin');
+      return Redirect::route('status');
     }
 
     return View::make('sessions.create');
@@ -44,10 +44,10 @@ class SessionsController extends \BaseController {
 
     if (Auth::attempt($input))
     {
-      return Redirect::intended('admin')->with('flash_message', 'You have been logged in!');
+      return Redirect::intended('status')->with('flash_message', 'You have been logged in!');
     }
 
-    return Redirect::back()->with('flash_message', 'Invalid credentials!')->withInput();
+    return Redirect::back()->withInput()->with('flash_message', 'Invalid credentials!');
   }
 
 

@@ -27,4 +27,9 @@
 
   {{ Form::close() }}
 
+  <ul>
+    <li>{{ link_to_route('registration.create', 'Create an account') }}</li>
+    <li><a href="#">Forgot Password</a></li>
+  </ul>
+
 @stop
