@@ -92,13 +92,10 @@ Route::filter('csrf', function()
 
 Route::filter('currentUser', function($route)
 {
-  if (Auth::guest())
-  {
+  if (Auth::guest()) {
     return Redirect::home();
   }
-
-  if (Auth::user()->id !== $route->parameter('profile'))
-  {
+  if (Auth::user()->id !== (int)$route->parameter('profile')) {
     return Redirect::home();
   }
 });
