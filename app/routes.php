@@ -30,43 +30,15 @@ Route::get('faq', ['as' => 'faq', 'uses' => 'PagesController@faq']);
 Route::get('status', ['as' => 'status', 'uses' => 'PagesController@status'])->before('auth');
 
 
-# Admin
-Route::get('admin', function()
-{
-  return View::make('pages.admin', ['user' => Auth::user()]);
-})->before('auth');
-
-
 # Profile
 Route::resource('profile', 'ProfilesController', ['only' => ['create', 'store', 'show', 'edit', 'update']]);
 
 
-
-//Temporary Seeding New User
-Route::get('/seed', function()
+# Admin
+Route::group(['before' => 'role:administrator'], function()
 {
-
-  $user = new User;
-
-  $user->first_name = 'Braumhilda';
-  $user->last_name = 'Snosages';
-  $user->email = 'bs@dosomething.org';
-  $user->password = Hash::make('1234');
-  // $user->role = 'admin';
-  // $user->birthdate = '1998-10-05';
-  // $user->phone = '555-555-5555';
-  // $user->address_street = '321 Lederhosen Lane';
-  // $user->address_premise = 'APT 8B';
-  // $user->city = 'Steinway';
-  // $user->state = 'NY';
-  // $user->zip = 12345;
-  // $user->gender = 'female';
-  // $user->race = 'caucasian';
-  // $user->school = 'Steinway High School';
-  // $user->grade = 11;
-
-  $user->save();
-
-  return 'New user added!';
-
+  Route::get('admin', function()
+  {
+    return View::make('pages.admin', ['user' => Auth::user()]);
+  });
 });

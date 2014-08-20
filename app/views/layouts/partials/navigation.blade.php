@@ -9,8 +9,6 @@
         <li><a href="/register">Apply</a></li>
         <li><a href="/login">Login</a></li>
       @else
-        <li><a href="/application">Application</a></li>
-        <li><a href="/recommendation">Recommendation</a></li>
         <li><a href="/status">Status</a></li>
         <li>{{ link_to_profile() }}</li>
         <li><a href="/logout">Logout</a></li>

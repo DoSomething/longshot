@@ -45,12 +45,55 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 
   /**
-   * Get the Profile for a User
+   * Get the Profile for a User.
    * @return object
    */
   public function profile()
   {
     return $this->hasOne('Profile');
+  }
+
+
+  /**
+   * Get the Roles for a User.
+   * @return object
+   */
+  public function roles()
+  {
+    return $this->belongsToMany('Role');
+  }
+
+
+  /**
+   * Check to see if User has a Role.
+   * @return object
+   */
+  public function hasRole($name)
+  {
+    foreach ($this->roles as $role)
+    {
+      if ($role->name === $name) return true;
+    }
+
+    return false;
+  }
+
+
+  /**
+   *
+   */
+  public function assignRole($role)
+  {
+    return $this->roles()->attach($role);
+  }
+
+
+  /**
+   *
+   */
+  public function removeRole($role)
+  {
+    return $this->roles()->detach($role);
   }
 
 
