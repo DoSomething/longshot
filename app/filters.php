@@ -102,7 +102,7 @@ Route::filter('currentUser', function($route)
     return Redirect::home();
   }
 
-  if (Auth::user()->id !== (int)$route->parameter('profile'))
+  if (Auth::user()->id !== $route->parameter('profile'))
   {
     return Redirect::home();
   }
