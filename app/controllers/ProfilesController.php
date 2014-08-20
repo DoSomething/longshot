@@ -24,7 +24,8 @@ class ProfilesController extends \BaseController {
    */
   public function create()
   {
-    return View::make('profile.create');
+    $states = Profile::getStates();
+    return View::make('profile.create')->with('states', $states);
   }
 
 
@@ -92,7 +93,8 @@ class ProfilesController extends \BaseController {
   public function edit($id)
   {
     $user = User::whereId($id)->firstOrFail();
-    return View::make('profile.edit')->withUser($user);
+    $states = Profile::getStates();
+    return View::make('profile.edit')->withUser($user)->with('states', $states);
   }
 
 

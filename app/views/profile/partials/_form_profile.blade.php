@@ -1,5 +1,4 @@
 
-
   {{-- Birthdate --}}
   <div>
     {{ Form::label('birthdate', 'Birthdate: ') }}
@@ -38,7 +37,7 @@
   {{-- State --}}
   <div>
     {{ Form::label('state', 'State: ') }}
-    {{ Form::select('state', array('L' => 'Large', 'S' => 'Small'), 'S'); }}
+    {{ Form::select('state', $states); }}
     {{ errorsFor('state', $errors); }}
   </div>
 
