@@ -13,7 +13,6 @@ class ProfilesController extends \BaseController {
   function __construct(ProfileForm $profileForm)
   {
     $this->profileForm = $profileForm;
-
     $this->beforeFilter('currentUser', ['only' => ['edit', 'update']]);
   }
 
@@ -93,7 +92,6 @@ class ProfilesController extends \BaseController {
   public function edit($id)
   {
     $user = User::whereId($id)->firstOrFail();
-
     return View::make('profile.edit')->withUser($user);
   }
 
@@ -107,13 +105,9 @@ class ProfilesController extends \BaseController {
   public function update($id)
   {
     $user = User::whereId($id)->firstOrFail();
-
     $input = Input::only('birthdate', 'phone', 'address_street', 'address_premise', 'city', 'state', 'zip', 'gender', 'race', 'school', 'grade');
-
     $this->profileForm->validate($input);
-
     $user->profile->fill($input)->save();
-
     return Redirect::route('profile.edit', $user->id)->with('flash_message', 'Your profile has been updated!');
   }
 

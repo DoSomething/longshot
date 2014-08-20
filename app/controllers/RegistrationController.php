@@ -38,13 +38,10 @@ class RegistrationController extends \BaseController {
     if (Input::has('eligibility'))
     {
       $input = Input::only('first_name', 'last_name', 'email', 'password', 'password_confirmation');
-
-      $this->registrationForm->validate($input);  // Form errors caught and handled in Application Error Handler in /start/global.php
-
+      // Form errors caught and handled in Application Error Handler in /start/global.php
+      $this->registrationForm->validate($input);
       $user = User::create($input);
-
       Auth::login($user);
-
       return Redirect::route('status');
     }
     else
