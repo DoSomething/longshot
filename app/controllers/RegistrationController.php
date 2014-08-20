@@ -38,9 +38,14 @@ class RegistrationController extends \BaseController {
     if (Input::has('eligibility'))
     {
       $input = Input::only('first_name', 'last_name', 'email', 'password', 'password_confirmation');
+
       // Form errors caught and handled in Application Error Handler in /start/global.php
       $this->registrationForm->validate($input);
       $user = User::create($input);
+
+      // Assign an initial role of 'applicant'.
+      $user->assignRole(2);
+
       Auth::login($user);
       return Redirect::route('status');
     }
@@ -48,7 +53,6 @@ class RegistrationController extends \BaseController {
     {
       return Redirect::back()->withInput()->with('flash_message', 'No soup (scholarship) for you!');
     }
-
   }
 
 }

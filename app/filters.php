@@ -89,13 +89,29 @@ Route::filter('csrf', function()
   }
 });
 
-
+/*
+|--------------------------------------------------------------------------
+| Custom Scholarship Application Filters
+|--------------------------------------------------------------------------
+|
+*/
 Route::filter('currentUser', function($route)
 {
-  if (Auth::guest()) {
+  if (Auth::guest())
+  {
     return Redirect::home();
   }
-  if (Auth::user()->id !== (int)$route->parameter('profile')) {
+
+  if (Auth::user()->id !== (int)$route->parameter('profile'))
+  {
     return Redirect::home();
+  }
+});
+
+Route::filter('role', function($route, $request, $role)
+{
+  if (Auth::guest() or ! Auth::user()->hasRole($role))
+  {
+    App::abort(403);
   }
 });

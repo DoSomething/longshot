@@ -13,7 +13,6 @@ class ProfileForm extends FormValidator {
     'birthdate'       => 'required',
     'phone'           => 'required',
     'address_street'  => 'required',
-    'address_premise' => 'required',
     'city'            => 'required',
     'state'           => 'required',
     'zip'             => 'required',
