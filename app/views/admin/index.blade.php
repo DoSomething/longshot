@@ -7,7 +7,7 @@
     <h1>Welcome, {{ $user->first_name }}!</h1>
 
     <p>There are a total of <strong>{{ $userCount }}</strong> users in the system.</p>
-    <p><a href="#" class="btn btn-primary btn-lg">View all Applicants</a></p>
+    <p>{{ link_to_route('applications', 'View all Applications', null, ['class' => 'btn btn-primary btn-lg']) }}</p>
   </div>
 </div>
 
@@ -33,6 +33,8 @@
         <p><a class="btn btn-default" href="#" role="button">View details »</a></p>
       </div>
     </div>
+
+    @include('layouts.partials.admin-footer')
   </div>
 
 @stop
