@@ -7,6 +7,8 @@
     {{ link_to_route('application.edit', 'Edit Your Applicaiton', $user->id) }}
   @endif
 
+{{-- @TODO: add all the user information here  --}}
+
   <p>{{ $user->application->accomplishments }}</p>
   <p>{{ $user->application->gpa }}</p>
   <p>{{ $user->application->test_type }} </p>

@@ -22,8 +22,17 @@ class AdminController extends \BaseController {
    */
   public function applications()
   {
-    $applicants = Role::with('users')->whereName('applicant')->firstOrFail();
-    $applicants = $applicants->users;
+    $sort_by = Request::get('sort_by');
+
+    $query = DB::table('users')
+                  ->leftJoin('role_user', 'users.id', '=', 'role_user.user_id')
+                  ->where('role_user.role_id', '=', 2);
+    if ($sort_by) {
+      // @TODO: add 'direction' to this, so you can reverse results.
+      $query->orderBy($sort_by, 'asc');
+    }
+
+    $applicants = $query->paginate(2);
 
     return View::make('admin.applications.index', compact('applicants'));
   }

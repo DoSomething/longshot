@@ -53,8 +53,8 @@
               <thead>
                 <tr>
                   <th>ID</th>
-                  <th>Name</th>
-                  <th>Status</th>
+                  <th> {{ sort_applicants_by('last_name', 'Name') }}</th>
+                  <th> {{ sort_applicants_by('status', 'Status') }} </th>
                   <th>Recommendations</th>
                   <th>Score</th>
                 </tr>
@@ -63,7 +63,7 @@
                 @foreach($applicants as $applicant)
                   <tr>
                     <td>{{ $applicant->id }}</td>
-                    <td>{{ $applicant->first_name . ' ' . $applicant->last_name }}</td>
+                    <td>{{link_to('/application/' . $applicant->id , $applicant->first_name . ' ' . $applicant->last_name) }}</td>
                     <td>completed</td>
                     <td>2</td>
                     <td>&#9733; &#9733; &#9733;</td>
@@ -71,6 +71,7 @@
                 @endforeach
               </tbody>
             </table>
+             {{ $applicants->links() }}
           </div>
         </div>
       </div>
