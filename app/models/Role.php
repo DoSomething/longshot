@@ -6,4 +6,13 @@ class Role extends Eloquent {
 
   public $timestamps = false;
 
+
+  /**
+   * Get the Users of a specific Role.
+   * @return object
+   */
+  public function users()
+  {
+    return $this->belongsToMany('User');
+  }
 }

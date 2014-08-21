@@ -42,4 +42,6 @@ Route::resource('application', 'ApplicationController');
 Route::group(['before' => 'role:administrator', 'prefix' => 'admin'], function()
 {
   Route::get('/', ['as' => 'admin', 'uses' => 'AdminController@index']);
+
+  Route::get('applications', ['as' => 'applications', 'uses' => 'AdminController@applications']);
 });
