@@ -2,7 +2,7 @@
 
 class Application extends Eloquent {
 
-  protected $fillable = [ 'birthdate', 'phone', 'address_street', 'address_premise', 'city', 'state', 'zip', 'gender', 'race', 'school', 'grade' ];
+  protected $fillable = [ 'accomplishments', 'gpa', 'test_type', 'test_score', 'activities', 'essay1', 'essay2' ];
 
   public function user()
   {
