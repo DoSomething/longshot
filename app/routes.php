@@ -35,10 +35,7 @@ Route::resource('profile', 'ProfilesController', ['only' => ['create', 'store', 
 
 
 # Admin
-Route::group(['before' => 'role:administrator'], function()
+Route::group(['before' => 'role:administrator', 'prefix' => 'admin'], function()
 {
-  Route::get('admin', function()
-  {
-    return View::make('pages.admin', ['user' => Auth::user()]);
-  });
+  Route::get('/', ['as' => 'admin', 'uses' => 'AdminController@index']);
 });
