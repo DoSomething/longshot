@@ -2,7 +2,7 @@
 
 @section('main_content')
 
-  <h1>Complete Your [panda] Application</h1>
+  <h1>Complete Your Application</h1>
 
   {{ Form::open(['route' => 'application.store']) }}
 

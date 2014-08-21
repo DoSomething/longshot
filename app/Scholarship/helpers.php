@@ -22,3 +22,12 @@ function link_to_profile($text = 'Profile')
 {
   return link_to_route('profile.show', $text, Auth::user()->id);
 }
+
+
+/**
+ * A helper function to sort applicants
+ */
+function sort_applicants_by($column, $body)
+{
+  return link_to_route('applications', $body, ['sort_by' => $column]);
+}
