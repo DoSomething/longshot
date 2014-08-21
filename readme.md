@@ -15,12 +15,13 @@
 
 ### Back-end
 
-*more to come...*
-
 To begin the migrations and setup your database, run:
 
     $ php artisan migrate
 
+After the migrations run and set the database up, seed the database by running:
+
+    $ php artisan db:seed
 
 
 ### Front-end
@@ -38,7 +39,6 @@ To build the Front-end assets which will be added to a **/public/dist/** directo
 
     $ gulp build
 
-*more to come...*
 
 
 ***
