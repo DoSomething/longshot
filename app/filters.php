@@ -101,11 +101,10 @@ Route::filter('currentUser', function($route)
   {
     return Redirect::home();
   }
-
-  if (Auth::user()->id !== $route->parameter('profile'))
-  {
-    return Redirect::home();
-  }
+  // @TODO: protect both the applicaiton/profile edit routes!
+  // if (Auth::user()->id !== (int)$route->parameter('profile')) {
+  //   return Redirect::home();
+  // }
 });
 
 Route::filter('role', function($route, $request, $role)

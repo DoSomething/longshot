@@ -31,7 +31,11 @@ Route::get('status', ['as' => 'status', 'uses' => 'PagesController@status'])->be
 
 
 # Profile
-Route::resource('profile', 'ProfilesController', ['only' => ['create', 'store', 'show', 'edit', 'update']]);
+Route::resource('profile', 'ProfilesController');
+
+
+# Application
+Route::resource('application', 'ApplicationController');
 
 
 # Admin
