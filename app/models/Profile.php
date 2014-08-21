@@ -13,7 +13,8 @@ class Profile extends Eloquent {
    * List of all US states
    * this could probably be done in a better way.
    */
-  public static function getStates() {
+  public static function getStates()
+  {
     $states = array(
             'AL'=>"Alabama",
             'AK'=>"Alaska",
@@ -69,5 +70,4 @@ class Profile extends Eloquent {
             );
     return $states;
   }
-
 }
