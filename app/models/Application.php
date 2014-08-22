@@ -9,4 +9,14 @@ class Application extends Eloquent {
     return $this->belongsTo('User');
   }
 
+
+  /**
+   * Get the scholarship for an application
+   */
+  public function scholarship()
+  {
+    return $this->belongsToOne('Scholarship')
+  }
+
+
 }

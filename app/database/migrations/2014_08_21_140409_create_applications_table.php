@@ -16,13 +16,14 @@ class CreateApplicationsTable extends Migration {
   {
    $table->increments('id');
    $table->integer('user_id');
+   $table->integer("app_id");
    $table->longtext('accomplishments');
    $table->longtext('activities');
    $table->longtext('essay1');
    $table->longtext('essay2');
    $table->string('test_type');
    $table->integer('test_score');
-   $table->integer('gpa');
+   $table->float('gpa');
    $table->timestamps();
   });
  }

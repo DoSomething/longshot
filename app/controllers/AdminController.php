@@ -37,4 +37,12 @@ class AdminController extends \BaseController {
     return View::make('admin.applications.index', compact('applicants'));
   }
 
+
+  /**
+   *
+   */
+  public function customize() {
+    
+  }
+
 }
