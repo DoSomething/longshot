@@ -47,4 +47,6 @@ Route::group(['before' => 'role:administrator', 'prefix' => 'admin'], function()
 
   Route::get('customize', ['as' => 'customize', 'uses' => 'AdminController@customize']);
 
+  Route::resource('scholarship', 'ScholarshipController');
+
 });

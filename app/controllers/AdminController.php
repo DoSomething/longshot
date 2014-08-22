@@ -42,7 +42,7 @@ class AdminController extends \BaseController {
    *
    */
   public function customize() {
-    
+    return View::make('admin.customize.index');
   }
 
 }
