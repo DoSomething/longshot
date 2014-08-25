@@ -65,6 +65,7 @@ class ApplicationController extends \BaseController {
 
 		$user->application()->save($application);
 
+		// @TODO: this should go to the recomendation page.
 		return Redirect::route('status')->with('flash_message', 'Application information has been saved!');
 	}
 

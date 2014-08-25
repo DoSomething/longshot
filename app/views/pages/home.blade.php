@@ -7,6 +7,6 @@
   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio doloribus, cumque voluptatem, dolor velit eveniet quidem. Dolore incidunt a asperiores vero natus est quibusdam suscipit quos magnam iste dignissimos, modi pariatur consequuntur soluta, architecto commodi!</p>
 
   @if (Auth::guest())
-    <a href="/register">Apply Now</a> or <a href="/login">Continue your application</a>
+    <a href="/register">Register & Apply</a> or <a href="/login">Login</a>
   @endif
 @stop
