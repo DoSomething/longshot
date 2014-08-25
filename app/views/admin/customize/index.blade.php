@@ -20,7 +20,7 @@
         {{ link_to_route('admin.scholarship.create', 'Create new scholarship »', '', array('class' => 'btn btn-default', 'role'=> 'button')) }}
       </div>
       <div class="col-md-4">
-        {{ link_to_route('admin.scholarship.update', 'Edit current scholarship »', '', array('class' => 'btn btn-default', 'role'=> 'button')) }}
+        {{ link_to_route('admin.scholarship.edit', 'Edit current scholarship »', '', array('class' => 'btn btn-default', 'role'=> 'button')) }}
      </div>
       <div class="col-md-4">
         <h2>Reports</h2>

@@ -59,7 +59,7 @@ class ProfilesController extends \BaseController {
 
     $user->profile()->save($profile);
 
-    return Redirect::route('status')->with('flash_message', 'Profile information has been saved!');
+    return Redirect::route('application.create')->with('flash_message', 'Profile information has been saved!');
   }
 
 
