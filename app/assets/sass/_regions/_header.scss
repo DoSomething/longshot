@@ -1,0 +1,31 @@
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// HEADER STYLES
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+[role="banner"] { background-color: $app_primary; padding-bottom: pxcalc(10); padding-top: pxcalc(10); position: relative;
+  > .wrapper { overflow: hidden; }
+
+  .__logo { float: left; margin: 0;
+    > a { display: block; }
+    img { max-height: 40px; }
+  }
+
+  #btn-main-nav { color: #fff; display: block; margin-top: -(pxcalc(25, 30)); padding: pxcalc(10,30); position: absolute; right: 0; top: 50%; }
+
+}
+
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// MEDIA QUERIES
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+@media only screen and (min-width: $medium) {
+
+  [role="banner"] {
+    #btn-main-nav { display: none; }
+  }
+
+}
