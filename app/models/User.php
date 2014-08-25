@@ -63,7 +63,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
   }
 
 
-
   /**
    * Get the Roles for a User.
    * @return object

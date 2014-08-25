@@ -12,7 +12,7 @@
 
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">Customize</a></li>
+        <li>{{ link_to_route('customize', 'Customize') }}</li>
         <li>{{ link_to_route('applications', 'Applications') }}</li>
         <li>{{ link_to_route('logout', 'Logout') }}</li>
       </ul>
@@ -23,4 +23,3 @@
     </div>
   </div>
 </div>
-
