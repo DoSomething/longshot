@@ -92,7 +92,8 @@ class ApplicationController extends \BaseController {
 	public function edit($id)
 	{
 		$user = User::whereId($id)->firstOrFail();
-		return View::make('application.edit')->withUser($user);
+		$scholarship = Scholarship::firstOrFail();
+		return View::make('application.edit')->with(compact('user', 'scholarship'));
 	}
 
 
