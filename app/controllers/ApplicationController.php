@@ -34,7 +34,9 @@ class ApplicationController extends \BaseController {
 	 */
 	public function create()
 	{
-		return View::make('application.create');
+		//@TODO: need to figure out which scholarship is the current run.  // @TODO: do we need only certain fields?
+		$scholarship = Scholarship::firstOrFail(); // ->select(['label_app_accomplishments', 'label_app_activities', 'label_app_essay1', 'label_app_essay2']);
+		return View::make('application.create')->with(compact('scholarship'));
 	}
 
 

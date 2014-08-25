@@ -1,6 +1,6 @@
   {{-- Accomplishments --}}
   <div>
-    {{ Form::label('accomplishments', 'Accomplishments: ') }}
+    {{ Form::label('accomplishments', $scholarship->label_app_accomplishments) }}
     {{ Form::textarea('accomplishments') }}
     {{ errorsFor('accomplishments', $errors); }}
   </div>
@@ -30,14 +30,14 @@
 
   {{-- Activities --}}
   <div>
-    {{ Form::label('activities', 'Activities: ') }}
+    {{ Form::label('activities', $scholarship->label_app_activities) }}
     {{ Form::textarea('activities') }}
     {{ errorsFor('activities', $errors); }}
   </div>
 
   {{-- Essay 1 --}}
   <div>
-    {{ Form::label('essay1', 'Essay 1: ') }}
+    {{ Form::label('essay1', $scholarship->label_app_essay1) }}
     {{ Form::textarea('essay1') }}
     {{ errorsFor('essay1', $errors); }}
   </div>
@@ -45,7 +45,7 @@
 
   {{-- Essay 2 --}}
   <div>
-    {{ Form::label('essay2', 'Essay 2: ') }}
+    {{ Form::label('essay2', $scholarship->label_app_essay2) }}
     {{ Form::textarea('essay2') }}
     {{ errorsFor('essay2', $errors); }}
   </div>
