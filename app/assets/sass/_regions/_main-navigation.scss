@@ -1,0 +1,66 @@
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// MAIN NAVIGATION STYLES
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.main-nav {
+  .__menu { @include list_reset(); }
+}
+
+.main-nav { background-color: $app_primary; text-align: center;
+  a { color: #fff; display: block; line-height: 1; padding: 1rem; text-decoration: none;
+    &:hover { background-color: rgba(#000, 0.2); }
+  }
+
+  .__menu { @include list_reset(); }
+}
+
+
+// JS ENABLED
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.js {
+
+  .main-nav { box-shadow: 3px 0 8px rgba(black, 0.3) inset; }
+
+}
+
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// MEDIA QUERIES
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+@media only screen and (min-width: $medium) {
+
+  // @TODO: clean this up!
+  .main-nav { background-color: transparent;
+    a { padding: 1rem 0;
+      > span { padding: 0 0.75rem; }
+
+      &:hover { background-color: transparent; text-decoration: underline; }
+    }
+
+    .__menu { overflow: hidden;
+      li { float: left;
+        span { border-right: 1px solid #fff; }
+        &:last-child span { border: 0 none; }
+      }
+
+      li:first-child { display: none; }
+    }
+
+  }
+
+
+  // JS ENABLED
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  .js {
+
+    .main-nav { box-shadow: none; }
+
+  }
+
+}
