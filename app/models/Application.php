@@ -2,7 +2,7 @@
 
 class Application extends Eloquent {
 
-  protected $fillable = [ 'accomplishments', 'gpa', 'test_type', 'test_score', 'activities', 'essay1', 'essay2' ];
+  protected $fillable = ['accomplishments', 'gpa', 'test_type', 'test_score', 'activities', 'essay1', 'essay2' ];
 
   public function user()
   {
@@ -17,6 +17,13 @@ class Application extends Eloquent {
   {
     return $this->belongsToOne('Scholarship');
   }
+
+
+  public function recommendation()
+  {
+      return $this->hasMany('Recommendation');
+  }
+
 
 
 }

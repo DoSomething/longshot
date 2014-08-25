@@ -33,6 +33,9 @@ Route::resource('profile', 'ProfilesController');
 # Application
 Route::resource('application', 'ApplicationController');
 
+# Recomendation
+Route::resource('recommendation', 'RecommendationController');
+
 
 # Admin
 Route::group(['before' => 'role:administrator', 'prefix' => 'admin'], function()
