@@ -13,6 +13,14 @@
 5. Run `php artisan migrate` to create the database
 6. Visit scholarship.dev:8000
 
+### Composer
+
+Before doing anything else, you need to install all the project's dependencies with `composer`. 
+
+Within the directory for the project in the Vagrant VM, run:
+
+    $ composer install
+
 ### Back-end
 
 To begin the migrations and setup your database, run:
