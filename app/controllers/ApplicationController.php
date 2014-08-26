@@ -65,7 +65,7 @@ class ApplicationController extends \BaseController {
 
 		$user->application()->save($application);
 
-		// @TODO: this should go to the recomendation page.
+		// @TODO: this should go to the recommendation page.
 		return Redirect::route('status')->with('flash_message', 'Application information has been saved!');
 	}
 
@@ -92,7 +92,8 @@ class ApplicationController extends \BaseController {
 	public function edit($id)
 	{
 		$user = User::whereId($id)->firstOrFail();
-		return View::make('application.edit')->withUser($user);
+		$scholarship = Scholarship::firstOrFail();
+		return View::make('application.edit')->with(compact('user', 'scholarship'));
 	}
 
 
