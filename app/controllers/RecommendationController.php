@@ -33,7 +33,18 @@ class RecommendationController extends \BaseController {
    */
   public function store()
   {
+    $input = Input::all();
 
+    $recommendation = new Recommendation;
+
+    foreach ($input as $key => $field) {
+      // skip form token
+      if ($key !== '_token') {
+        $recommendation->$key = $field;
+      }
+    }
+    // @TODO: also make sure to send an email.
+    $recommendation->save();
   }
 
   /**
@@ -57,7 +68,10 @@ class RecommendationController extends \BaseController {
    */
   public function edit($id)
   {
-    //
+    $recommendation = Recommendation::whereId($id)->firstOrFail();
+    // @TODO: find the right scholarship
+    $scholarship = Scholarship::firstOrFail();
+    return View::make('recommendation.edit')->with(compact('recommendation', 'scholarship'));
   }
 
   /**
@@ -69,7 +83,7 @@ class RecommendationController extends \BaseController {
    */
   public function update($id)
   {
-    //
+    return;
   }
 
   /**

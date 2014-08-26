@@ -12,14 +12,14 @@ class CreateRecommendationTable extends Migration {
    */
   public function up()
   {
-    Schema::create('recommendation', function(Blueprint $table)
+    Schema::create('recommendations', function(Blueprint $table)
     {
       $table->increments('id');
       $table->integer('application_id');
       $table->string('first_name');
       $table->string('last_name');
-      $table->string('phone')
-      $table->string('rec_email')->unique;
+      $table->string('phone');
+      $table->string('email')->unique;
       $table->string('rank_character');
       $table->string('rank_addiational');
       $table->longtext('essay1');
@@ -35,7 +35,7 @@ class CreateRecommendationTable extends Migration {
    */
   public function down()
   {
-    Schema::drop('recommendation');
+    Schema::drop('recommendations');
   }
 
 }
