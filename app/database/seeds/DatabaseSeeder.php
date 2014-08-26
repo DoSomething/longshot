@@ -25,6 +25,9 @@ class DatabaseSeeder extends Seeder {
     $this->call('AppearanceTableSeeder');
     $this->command->info('Appearance table seeded!');
 
+    $this->call('ScholarshipTableSeeder');
+    $this->command->info('Scholarship table seeded!');
+
     // Explicitly undo disabling foreign key checks.
     DB::statement('SET FOREIGN_KEY_CHECKS=1;');
   }
