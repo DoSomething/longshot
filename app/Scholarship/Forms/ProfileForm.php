@@ -1,4 +1,6 @@
-<?php namespace Scholarship\Forms;
+<?php
+
+namespace Scholarship\Forms;
 
 use Laracasts\Validation\FormValidator;
 
