@@ -51,3 +51,15 @@ Route::group(['before' => 'role:administrator', 'prefix' => 'admin'], function()
   Route::post('appearance', ['as' => 'appearance.update', 'uses' => 'AppearanceController@update']);
 
 });
+
+
+# Test Email
+Route::get('email/send', function()
+{
+  Mail::send('emails.test', [], function($message)
+  {
+    $message->to('dlorenzo@dosomething.org')->subject('Huzzah! A Sample Mandrill email sent!');
+  });
+
+  return 'Email sent!';
+});
