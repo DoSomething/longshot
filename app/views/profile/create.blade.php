@@ -1,19 +1,18 @@
 @extends('layouts.master')
 
 @section('main_content')
+  <section class="segment">
+    <h1 class="heading -alpha">Complete Your Profile</h1>
 
-  <h1>Complete Your Profile</h1>
+    {{ Form::open(['route' => 'profile.store']) }}
 
-  {{ Form::open(['route' => 'profile.store']) }}
+    @include('profile/partials/_form_profile')
 
-  @include('profile/partials/_form_profile')
+    {{-- Submit Button --}}
+    <div>
+      {{ Form::submit('Save Profile', ['class' => 'btn -default']) }}
+    </div>
 
-  {{-- Submit Button --}}
-  <div>
-    {{ Form::submit('Save Profile') }}
-  </div>
-
-{{ Form::close() }}
-
-
+  {{ Form::close() }}
+  </section>
 @stop
