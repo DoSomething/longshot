@@ -10,7 +10,7 @@ class ScholarshipController extends \BaseController {
    */
   public function index()
   {
-    //
+    return View::make('admin.scholarship.index');
   }
 
   /**
@@ -21,7 +21,7 @@ class ScholarshipController extends \BaseController {
    */
   public function create()
   {
-    return View::make('scholarship.create');
+    return View::make('admin.scholarship.create');
   }
 
   /**
@@ -67,7 +67,7 @@ class ScholarshipController extends \BaseController {
   public function edit($id)
   {
     $scholarship = Scholarship::whereId($id)->firstOrFail();
-    return View::make('scholarship.edit')->with(compact('scholarship'));
+    return View::make('admin.scholarship.edit')->with(compact('scholarship'));
   }
 
   /**

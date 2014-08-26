@@ -15,10 +15,9 @@
   </head>
 
   <body>
-    @include('layouts.partials.admin-navigation')
+    @include('admin.layouts.partials.navigation')
 
     @yield('jumbotron')
-
 
     @if (Session::has('flash_message'))
       <div class="flash">
