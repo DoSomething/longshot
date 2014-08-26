@@ -1,19 +1,18 @@
 @extends('layouts.master')
 
 @section('main_content')
+  <section class="segment">
+    <h1 class="heading -alpha">Complete Your Application</h1>
 
-  <h1>Complete Your Application</h1>
+    {{ Form::open(['route' => 'application.store']) }}
 
-  {{ Form::open(['route' => 'application.store']) }}
+    @include('application/partials/_form_application')
 
-  @include('application/partials/_form_application')
+    {{-- Submit Button --}}
+    <div>
+      {{ Form::submit('Save application', ['class' => 'btn -default']) }}
+    </div>
 
-  {{-- Submit Button --}}
-  <div>
-    {{ Form::submit('Save application') }}
-  </div>
-
-{{ Form::close() }}
-
-
+    {{ Form::close() }}
+  </section>
 @stop
