@@ -8,7 +8,6 @@
 @section('main_content')
   <div class="container-fluid">
     <div class="row">
-{{$scholarships}}
 
       {{-- @TODO: likely a better way to split this out in Blade! --}}
       @include('admin.layouts.partials.subnav-settings')

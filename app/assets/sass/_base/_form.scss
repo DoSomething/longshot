@@ -6,7 +6,11 @@
 
 p + form { margin-top: 2em; }
 
-.field-group { margin-bottom: 1em; }
+.field-group { margin-bottom: 1em;
+
+  // @TODO: temp style
+  textarea { display: block; }
+}
 
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
