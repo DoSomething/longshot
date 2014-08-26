@@ -80,6 +80,13 @@ class ProfilesController extends \BaseController {
       return Redirect::home()->with('flash_message', 'This user does\'t exist!');
     }
 
+    if (! $user->profile)
+    {
+      // @TODO: Probably change states into a public static function of Controller.
+      $states = Profile::getStates();
+      return View::make('profile.create')->with('states', $states);
+    }
+
     return View::make('profile.show')->withUser($user);
 	}
 
