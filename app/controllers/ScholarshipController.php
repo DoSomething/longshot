@@ -10,7 +10,8 @@ class ScholarshipController extends \BaseController {
    */
   public function index()
   {
-    return View::make('admin.scholarship.index');
+    $scholarships = Scholarship::get(['id', 'title', 'description', 'amount_scholarship']);
+    return View::make('admin.scholarship.index')->with(compact('scholarships'));
   }
 
   /**

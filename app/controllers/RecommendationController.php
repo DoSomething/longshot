@@ -45,6 +45,8 @@ class RecommendationController extends \BaseController {
     }
     // @TODO: also make sure to send an email.
     $recommendation->save();
+
+    return Redirect::route('status')->with('flash_message', 'Application information has been saved!');
   }
 
   /**
