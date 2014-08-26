@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('admin.layouts.master')
 
 @section('jumbotron')
 
@@ -34,7 +34,7 @@
       </div>
     </div>
 
-    @include('layouts.partials.admin-footer')
+    @include('admin.layouts.partials.footer')
   </div>
 
 @stop
