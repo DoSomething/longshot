@@ -2,7 +2,9 @@
 
 @section('main_content')
   <div class="banner -hero">
-    <h2 class="__tagline">We're giving away 20 $10,000 Scholarships to people just like you</h2>
+    <div class="wrapper">
+      <h2 class="__tagline">We're giving away 20 $10,000 Scholarships to people just like you</h2>
+    </div>
   </div>
 
   <section class="segment segment--apply">
@@ -12,7 +14,7 @@
 
     @if (Auth::guest())
       <ul class="media-list">
-        <li>{{ link_to_route('registration.create', 'Start Application', null, ['class' => 'btn -default']) }}</a></li>
+        <li>{{ link_to_route('registration.create', 'Start Application', null, ['class' => 'button -default']) }}</a></li>
         <li>{{ link_to_route('login', 'Continue your application') }}</a></li>
       </ul>
     @endif
@@ -81,7 +83,7 @@
           </div>
         </div>
 
-          {{ Form::submit('Nominate', ['class' => 'btn -default']) }}
+          {{ Form::submit('Nominate', ['class' => 'button -default']) }}
       {{ Form::close() }}
     </div>
   </section>

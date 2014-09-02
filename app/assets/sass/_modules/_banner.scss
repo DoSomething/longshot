@@ -18,4 +18,8 @@
 
 @media only screen and (min-width: $medium) {
 
+  .banner { display: table; height: pxcalc(442); width: 100%;
+    > .wrapper { display: table-cell; vertical-align: bottom; }
+  }
+
 }

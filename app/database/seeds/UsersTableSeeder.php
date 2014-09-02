@@ -71,6 +71,62 @@ class UsersTableSeeder extends Seeder {
         'email'      => 'jh@example.com',
         'password'   => '1234',
       ])->assignRole(2);
+
+     User::create([
+        'first_name' => 'Jean',
+        'last_name'  => 'Gray',
+        'email'      => 'jg@example.com',
+        'password'   => '1234',
+      ])->assignRole(2);
+
+     User::create([
+        'first_name' => 'Remy',
+        'last_name'  => 'LeBeau',
+        'email'      => 'rl@example.com',
+        'password'   => '1234',
+      ])->assignRole(2);
+
+     User::create([
+        'first_name' => 'Bruce',
+        'last_name'  => 'Banner',
+        'email'      => 'bb@example.com',
+        'password'   => '1234',
+      ])->assignRole(2);
+
+     User::create([
+        'first_name' => 'Natasha',
+        'last_name'  => 'Romanova',
+        'email'      => 'nr@example.com',
+        'password'   => '1234',
+      ])->assignRole(2);
+
+     User::create([
+        'first_name' => 'Ororo',
+        'last_name'  => 'Monroe',
+        'email'      => 'om@example.com',
+        'password'   => '1234',
+      ])->assignRole(2);
+
+     User::create([
+        'first_name' => 'Janet',
+        'last_name'  => 'van Dyne',
+        'email'      => 'jvd@example.com',
+        'password'   => '1234',
+      ])->assignRole(2);
+
+     User::create([
+        'first_name' => 'Jubilation',
+        'last_name'  => 'Lee',
+        'email'      => 'jl@example.com',
+        'password'   => '1234',
+      ])->assignRole(2);
+
+     User::create([
+        'first_name' => 'Bobby',
+        'last_name'  => 'Drake',
+        'email'      => 'bd@example.com',
+        'password'   => '1234',
+      ])->assignRole(2);
   }
 
 }

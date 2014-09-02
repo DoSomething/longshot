@@ -1,10 +1,5 @@
 @extends('admin.layouts.master')
 
-@section('styles')
-  @parent
-  <link rel="stylesheet" href="/dist/css/admin-dashboard.css"/>
-@stop
-
 @section('main_content')
   <div class="container-fluid">
     <div class="row">
@@ -13,32 +8,8 @@
       @include('admin.layouts.partials.subnav-applications')
 
       <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-        <h1 class="page-header">Applications</h1>
+        <h1 class="page-header">All Applications</h1>
 
-        <div class="row placeholders">
-          <div class="col-xs-6 col-sm-3 placeholder">
-            <img src="http://placekitten.com/g/200/200" class="img-responsive" alt="Generic placeholder thumbnail">
-            <h4>Data</h4>
-            <span class="text-muted">Chart data here</span>
-          </div>
-          <div class="col-xs-6 col-sm-3 placeholder">
-            <img src="http://placekitten.com/g/200/200" class="img-responsive" alt="Generic placeholder thumbnail">
-            <h4>Data</h4>
-            <span class="text-muted">Chart data here</span>
-          </div>
-          <div class="col-xs-6 col-sm-3 placeholder">
-            <img src="http://placekitten.com/g/200/200" class="img-responsive" alt="Generic placeholder thumbnail">
-            <h4>Data</h4>
-            <span class="text-muted">Chart data here</span>
-          </div>
-          <div class="col-xs-6 col-sm-3 placeholder">
-            <img src="http://placekitten.com/g/200/200" class="img-responsive" alt="Generic placeholder thumbnail">
-            <h4>Data</h4>
-            <span class="text-muted">Chart data here</span>
-          </div>
-        </div>
-
-        <h2 class="sub-header">All Applications</h2>
         <div class="table-responsive">
           <table class="table table-striped">
             <thead>

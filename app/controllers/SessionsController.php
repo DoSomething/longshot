@@ -44,6 +44,11 @@ class SessionsController extends \BaseController {
 
     if (Auth::attempt($input))
     {
+      if (Auth::user()->hasRole('administrator'))
+      {
+        return Redirect::route('admin')->with('flash_message', 'You have been logged in as an administrator!');
+      }
+
       return Redirect::intended('status')->with('flash_message', 'You have been logged in!');
     }
 

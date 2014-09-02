@@ -10,7 +10,7 @@
 
     {{-- Submit Button --}}
     <div>
-      {{ Form::submit('Save application', ['class' => 'btn -default']) }}
+      {{ Form::submit('Save application', ['class' => 'button -default']) }}
     </div>
 
     {{ Form::close() }}

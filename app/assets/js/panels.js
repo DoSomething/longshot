@@ -15,10 +15,10 @@ var Panels = {
    * @param {jQuery} $mainNav  The main menu navigation container.
    */
   init: function($page, $mainNav) {
-    var $btn = $page.find('#btn-main-nav');
+    var $button = $page.find('#button-main-nav');
 
     // Toggle a state class when the main menu navigation button is clicked.
-    $btn.on('click', function(event) {
+    $button.on('click', function(event) {
       event.preventDefault();
 
       classToggle($page, 'is-showing-main-nav');

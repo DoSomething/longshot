@@ -12,14 +12,14 @@ class AppearanceTableSeeder extends Seeder {
      Appearance::truncate();
 
      Appearance::create([
-        'company_name'    => 'TMI',
-        'company_url'     => 'http://tmiagency.org',
-        'primary_color'   => '00d4b5',
-        'secondary_color' => 'ffffff',
-        'button_color'    => '00d4b5',
-        'link_color'      => '00d4b5',
-        'header_logo'     => '',
-        'footer_logo'     => '',
+        'company_name'             => 'TMI',
+        'company_url'              => 'http://tmiagency.org',
+        'primary_color'            => '00d4b5',
+        'primary_color_contrast'   => 'ffffff',
+        'cap_color'                => '404040',
+        'cap_color_contrast'       => '404040',
+        'header_logo'              => '',
+        'footer_logo'              => '',
       ]);
   }
 

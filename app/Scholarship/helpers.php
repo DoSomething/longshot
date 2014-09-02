@@ -31,3 +31,33 @@ function sort_applicants_by($column, $body)
 {
   return link_to_route('applications', $body, ['sort_by' => $column]);
 }
+
+
+/**
+ * Set a class on active menu items.
+ * @TODO: maybe change name to setActiveClass to be more descriptive, and
+ * attempt to streamline the function to work better between main app
+ * styles and admin styles.
+ */
+function setActive($path, $segment = 1, $active = '-active')
+{
+  $pathSegment = Request::segment($segment);
+
+  return $pathSegment === $path ? $active : '';
+}
+
+
+/**
+ * Create custom stylesheet from values entered in Appearance settings.
+ */
+function createCustomStylesheet($styles)
+{
+  $output = ".primary-color { background-color: #$styles->primary_color; }";
+  $output .= ".button.-default { background-color: #$styles->primary_color; color: #$styles->primary_color_contrast; }";
+  $output .= "a { color: #$styles->primary_color; }";
+  $output .= ".segment:first-of-type { border-bottom-color: #$styles->primary_color; }";
+  $destination = app_path() . '/views/layouts/partials/custom-styles.blade.php';
+
+  File::put($destination, $output);
+}
+

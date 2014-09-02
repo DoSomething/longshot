@@ -66,7 +66,7 @@
 
       {{-- Submit Button --}}
       <div class="field-group">
-        {{ Form::submit('Update Profile', ['class' => 'btn -default']) }}
+        {{ Form::submit('Update Profile', ['class' => 'button -default']) }}
       </div>
 
     {{ Form::close() }}

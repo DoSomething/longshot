@@ -1,15 +1,18 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// SEGMENT STYLES
+// CUSTOM STYLES
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+body {
+  padding-top: 50px;
+}
 
-.segment { padding: pxcalc(20) pxcalc(10); }
-
-.segment:first-of-type { border-bottom: 1px solid $app_primary; }
-
-.segment--nominate { background: #aaa url('/dist/images/studying-hard.jpg') center center; background-size: cover; }
+[role="contentinfo"] {
+  border-top: 1px solid #eee;
+  margin-top: 30px;
+  padding: 20px 0;
+}
 
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
