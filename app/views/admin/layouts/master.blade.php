@@ -17,13 +17,13 @@
   <body>
     @include('admin.layouts.partials.navigation')
 
-    @yield('jumbotron')
-
     @if (Session::has('flash_message'))
-      <div class="flash">
+      <div class="flash-message">
         <em>{{ Session::get('flash_message') }}</em>
       </div>
     @endif
+
+    @yield('jumbotron')
 
     @yield('main_content')
 

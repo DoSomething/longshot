@@ -39,7 +39,7 @@
 
       {{-- Submit Button --}}
       <div class="field-group">
-        {{ Form::submit('Send Email!', ['class' => 'btn -default']) }}
+        {{ Form::submit('Send Email!', ['class' => 'button -default']) }}
       </div>
 
     {{ Form::close() }}

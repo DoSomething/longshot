@@ -8,8 +8,15 @@
 
     <title>Scholarship Application</title>
     <link rel="icon" type="image/ico" href="/favicon.ico?v1"/>
-    <link rel="stylesheet" href="/dist/css/main.css"/>
     <script src="/dist/js/modernizr.js"></script>
+    <link rel="stylesheet" href="/dist/css/main.css"/>
+
+    @if (file_exists(app_path() . '/views/layouts/partials/custom-styles.blade.php'))
+      <style>
+        @include('layouts.partials.custom-styles')
+      </style>
+    @endif
+
   </head>
 
   <body>
@@ -35,6 +42,8 @@
       @include('layouts.partials.navigation')
 
     </div>
+
+    @include('layouts.partials.upgrade-message')
 
     <script src="/dist/bower_components/jquery/dist/jquery.min.js"></script>
     <script src="/dist/js/main.js"></script>

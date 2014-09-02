@@ -8,6 +8,6 @@
 
     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut non ratione laborum, nemo voluptates magni ipsum velit ullam hic, fuga!</p>
 
-    <p>{{ link_to_route('profile.create', 'Start Application', null, ['class' => 'btn -default']) }}</p>
+    <p>{{ link_to_route('profile.create', 'Start Application', null, ['class' => 'button -default']) }}</p>
   </section>
 @stop

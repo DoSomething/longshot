@@ -51,7 +51,7 @@
 
       {{-- Submit Button --}}
       <div class="field-group">
-        {{ Form::submit('Create Account', ['class' => 'btn -default']) }}
+        {{ Form::submit('Create Account', ['class' => 'button -default']) }}
       </div>
 
     {{ Form::close() }}

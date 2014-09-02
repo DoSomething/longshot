@@ -17,21 +17,28 @@
 
   <div class="container">
     <div class="row">
-      <div class="col-md-4">
-        <h2>Content</h2>
-        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-        <p><a class="btn btn-default" href="#" role="button">View details »</a></p>
+
+      <div class="col-xs-6 col-sm-3 placeholder">
+        <img src="http://placekitten.com/g/200/200" class="img-responsive" alt="Generic placeholder thumbnail">
+        <h4>Data</h4>
+        <span class="text-muted">Chart data here</span>
       </div>
-      <div class="col-md-4">
-        <h2>Something</h2>
-        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-        <p><a class="btn btn-default" href="#" role="button">View details »</a></p>
-     </div>
-      <div class="col-md-4">
-        <h2>Reports</h2>
-        <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-        <p><a class="btn btn-default" href="#" role="button">View details »</a></p>
+      <div class="col-xs-6 col-sm-3 placeholder">
+        <img src="http://placekitten.com/g/200/200" class="img-responsive" alt="Generic placeholder thumbnail">
+        <h4>Data</h4>
+        <span class="text-muted">Chart data here</span>
       </div>
+      <div class="col-xs-6 col-sm-3 placeholder">
+        <img src="http://placekitten.com/g/200/200" class="img-responsive" alt="Generic placeholder thumbnail">
+        <h4>Data</h4>
+        <span class="text-muted">Chart data here</span>
+      </div>
+      <div class="col-xs-6 col-sm-3 placeholder">
+        <img src="http://placekitten.com/g/200/200" class="img-responsive" alt="Generic placeholder thumbnail">
+        <h4>Data</h4>
+        <span class="text-muted">Chart data here</span>
+      </div>
+
     </div>
 
     @include('admin.layouts.partials.footer')

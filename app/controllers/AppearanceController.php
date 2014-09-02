@@ -48,7 +48,7 @@ class AppearanceController extends \BaseController {
    */
   public function update()
   {
-    $input = Input::only('company_name', 'company_url', 'primary_color', 'secondary_color', 'button_color', 'link_color', 'header_logo', 'footer_logo');
+    $input = Input::only('company_name', 'company_url', 'primary_color', 'primary_color_contrast', 'secondary_color', 'secondary_color_contrast', 'cap_color', 'cap_color_contrast', 'header_logo', 'footer_logo');
     $this->appearanceForm->validate($input);
 
     $appearance = Appearance::first();
@@ -56,7 +56,10 @@ class AppearanceController extends \BaseController {
     // @TODO: handle upload of images by saving image to public_path()/contents/images and storing path in table.
     $appearance->save();
 
-    return Redirect::route('appearance.edit');
+    // Create the custom stylesheet file from values in Appearance settings.
+    createCustomStylesheet($appearance);
+
+    return Redirect::route('appearance.edit')->with('flash_message', 'Appearance settings have been saved!');
   }
 
 }

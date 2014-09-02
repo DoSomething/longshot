@@ -22,7 +22,7 @@
 
       {{-- Submit Button --}}
       <div class="field-group">
-        {{ Form::submit('Login', ['class' => 'btn -default']) }}
+        {{ Form::submit('Login', ['class' => 'button -default']) }}
       </div>
 
     {{ Form::close() }}

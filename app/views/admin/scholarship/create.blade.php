@@ -1,10 +1,5 @@
 @extends('admin.layouts.master')
 
-@section('styles')
-  @parent
-  <link rel="stylesheet" href="/dist/css/admin-dashboard.css"/>
-@stop
-
 @section('main_content')
   <div class="container-fluid">
     <div class="row">

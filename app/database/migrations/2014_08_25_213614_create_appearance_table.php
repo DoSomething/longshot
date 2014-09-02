@@ -18,9 +18,11 @@ class CreateAppearanceTable extends Migration {
       $table->string('company_name')->nullable();
       $table->string('company_url')->nullable();
       $table->string('primary_color')->nullable();
+      $table->string('primary_color_contrast')->nullable();
       $table->string('secondary_color')->nullable();
-      $table->string('button_color')->nullable();
-      $table->string('link_color')->nullable();
+      $table->string('secondary_color_contrast')->nullable();
+      $table->string('cap_color')->nullable();
+      $table->string('cap_color_contrast')->nullable();
       $table->string('header_logo')->nullable();
       $table->string('footer_logo')->nullable();
       $table->timestamps();

@@ -8,12 +8,16 @@
   .__menu { @include list_reset(); }
 }
 
-.main-nav { background-color: $app_primary; text-align: center;
+.main-nav { background-color: $app_background; text-align: center;
   a { color: #fff; display: block; line-height: 1; padding: 1rem; text-decoration: none;
     &:hover { background-color: rgba(#000, 0.2); }
   }
 
-  .__menu { @include list_reset(); }
+  .__menu { @include list_reset();
+    .-active {
+      a { color: #333; }
+    }
+  }
 }
 
 
