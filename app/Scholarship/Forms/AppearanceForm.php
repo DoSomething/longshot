@@ -16,8 +16,8 @@ class AppearanceForm extends FormValidator {
     'secondary_color' => 'alpha_num|size:6',
     'button_color'    => 'alpha_num|size:6',
     'link_color'      => 'alpha_num|size:6',
-    'header_logo'     => 'image',
-    'footer_logo'     => 'image',
+    'header_logo'     => 'image|mimes:png',
+    'footer_logo'     => 'image|mimes:png',
   ];
 
 }

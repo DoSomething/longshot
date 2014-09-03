@@ -18,8 +18,6 @@ class AppearanceTableSeeder extends Seeder {
         'primary_color_contrast'   => 'ffffff',
         'cap_color'                => '404040',
         'cap_color_contrast'       => '404040',
-        'header_logo'              => '',
-        'footer_logo'              => '',
       ]);
   }
 

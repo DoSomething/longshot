@@ -14,6 +14,19 @@ body {
   padding: 20px 0;
 }
 
+.image-holder { padding: 10px 10px 20px;
+  img {
+    background-color: #fafafa;
+    background-image:
+      linear-gradient(45deg, #ccc 25%, transparent 25%, transparent 75%, #ccc 75%, #ccc),
+      linear-gradient(45deg, #ccc 25%, transparent 25%, transparent 75%, #ccc 75%, #ccc);
+    background-size:10px 10px;
+    background-position:0 0, 5px 5px;
+
+    box-shadow: 2px 2px 2px rgba(#000, 0.4);
+  }
+}
+
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // MEDIA QUERIES

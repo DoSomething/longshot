@@ -1,1 +1,0 @@
-.primary-color { background-color: #ff00ff; }.button.-default { background-color: #ff00ff; color: #ffffff; }a { color: #ff00ff; }.segment:first-of-type { border-bottom-color: #ff00ff; }
