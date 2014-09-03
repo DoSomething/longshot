@@ -114,3 +114,16 @@ Route::filter('role', function($route, $request, $role)
     App::abort(403);
   }
 });
+
+/*
+ * This checks to see if the user has started created the process
+ * Example: if the user already has an application don't create a new one, edit the current one.
+ */
+Route::filter('startedProcess', function($route, $request, $value)
+{
+  $user = Auth::user();
+  if ($user->$value)
+  {
+    return Redirect::route($value .'.edit', $user->id);
+  }
+});

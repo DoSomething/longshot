@@ -14,6 +14,7 @@ class ProfilesController extends \BaseController {
   {
     $this->profileForm = $profileForm;
     $this->beforeFilter('currentUser', ['only' => ['edit', 'update']]);
+    $this->beforeFilter('startedProcess:profile', ['only' => ['create']]);
   }
 
 
