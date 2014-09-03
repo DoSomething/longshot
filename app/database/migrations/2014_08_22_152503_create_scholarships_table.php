@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateScholarshipTable extends Migration {
+class CreateScholarshipsTable extends Migration {
 
   /**
    * Run the migrations.
@@ -12,7 +12,7 @@ class CreateScholarshipTable extends Migration {
    */
   public function up()
   {
-    Schema::create('scholarship', function(Blueprint $table)
+    Schema::create('scholarships', function(Blueprint $table)
     {
       $table->increments('id');
       $table->string('title')->index();
@@ -45,7 +45,7 @@ class CreateScholarshipTable extends Migration {
    */
   public function down()
   {
-    Schema::drop('scholarship');
+    Schema::drop('scholarships');
   }
 
 }

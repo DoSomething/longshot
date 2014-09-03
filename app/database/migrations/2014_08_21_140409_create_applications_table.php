@@ -16,7 +16,7 @@ class CreateApplicationsTable extends Migration {
   {
    $table->increments('id');
    $table->integer('user_id')->index();
-   $table->integer('scholarhip_id')->index();
+   $table->integer('scholarship_id')->index();
    $table->longtext('accomplishments');
    $table->longtext('activities');
    $table->longtext('essay1');
