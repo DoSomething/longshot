@@ -80,6 +80,9 @@
 {{-- Header Logo --}}
 <div class="form-group">
   {{ Form::label('header_logo', 'Header Logo: ') }}
+  <div class="image-holder">
+    <img src="/content/images/header-logo.png" alt="uploaded header logo">
+  </div>
   {{ Form::file('header_logo') }}
   {{ errorsFor('header_logo', $errors); }}
 </div>
@@ -87,6 +90,9 @@
 {{-- Footer Logo --}}
 <div class="form-group">
   {{ Form::label('footer_logo', 'Footer Logo: ') }}
+  <div class="image-holder">
+    <img src="/content/images/footer-logo.png" alt="uploaded footer logo">
+  </div>
   {{ Form::file('footer_logo') }}
   {{ errorsFor('footer_logo', $errors); }}
 </div>

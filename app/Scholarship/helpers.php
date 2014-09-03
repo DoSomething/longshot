@@ -61,3 +61,10 @@ function createCustomStylesheet($styles)
   File::put($destination, $output);
 }
 
+
+/**
+ * Return the path to public directory containing uploaded images.
+ */
+function uploadedContentPath($type = '') {
+  return public_path() . '/content/' . $type;
+}

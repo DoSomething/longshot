@@ -48,12 +48,22 @@ class AppearanceController extends \BaseController {
    */
   public function update()
   {
+
     $input = Input::only('company_name', 'company_url', 'primary_color', 'primary_color_contrast', 'secondary_color', 'secondary_color_contrast', 'cap_color', 'cap_color_contrast', 'header_logo', 'footer_logo');
     $this->appearanceForm->validate($input);
 
+    if (Input::hasFile('header_logo'))
+    {
+      Input::file('header_logo')->move(uploadedContentPath('images'), 'header-logo.png');
+    }
+
+    if (Input::hasFile('footer_logo'))
+    {
+      Input::file('footer_logo')->move(uploadedContentPath('images'), 'footer-logo.png');
+    }
+
     $appearance = Appearance::first();
     $appearance->fill($input);
-    // @TODO: handle upload of images by saving image to public_path()/contents/images and storing path in table.
     $appearance->save();
 
     // Create the custom stylesheet file from values in Appearance settings.
