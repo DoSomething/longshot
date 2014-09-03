@@ -15,7 +15,7 @@ class CreateRecommendationTable extends Migration {
     Schema::create('recommendations', function(Blueprint $table)
     {
       $table->increments('id');
-      $table->integer('application_id');
+      $table->integer('application_id')->index();
       $table->string('first_name');
       $table->string('last_name');
       $table->string('phone');
