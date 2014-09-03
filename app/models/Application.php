@@ -15,7 +15,7 @@ class Application extends Eloquent {
    */
   public function scholarship()
   {
-    return $this->belongsToOne('Scholarship');
+    return $this->belongsTo('Scholarship');
   }
 
 

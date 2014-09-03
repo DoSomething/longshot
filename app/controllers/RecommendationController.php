@@ -43,6 +43,8 @@ class RecommendationController extends \BaseController {
         $recommendation->$key = $field;
       }
     }
+    $application = Auth::user()->application;
+    $recommendation->application()->associate($application);
     // @TODO: also make sure to send an email.
     $recommendation->save();
 
