@@ -14,6 +14,9 @@ class ApplicationController extends \BaseController {
   {
     $this->applicationForm = $applicationForm;
     $this->beforeFilter('currentUser', ['only' => ['edit', 'update']]);
+
+    // Check that the current user doesn't create many applications
+    $this->beforeFilter('startedProcess:application', ['only' => ['create']]);
   }
 
   /**
@@ -34,7 +37,7 @@ class ApplicationController extends \BaseController {
    */
   public function create()
   {
-    //@TODO: need to figure out which scholarship is the current run.  // @TODO: do we need only certain fields?
+     //@TODO: need to figure out which scholarship is the current run.  // @TODO: do we need only certain fields?
     $scholarship = Scholarship::firstOrFail(); // ->select(['label_app_accomplishments', 'label_app_activities', 'label_app_essay1', 'label_app_essay2']);
     return View::make('application.create')->with(compact('scholarship'));
   }
