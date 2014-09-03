@@ -63,6 +63,13 @@ class ApplicationController extends \BaseController {
 		$application->essay1 = Input::get('essay1');
 		$application->essay2 = Input::get('essay2');
 
+		/*@TODO: for now this is just finding the first scholarship
+		 * this eventually needs to find the 'active' scholarship
+		 * that is TBD
+		 */
+		$scholarship = Scholarship::firstOrFail();
+		$application->scholarship()->associate($scholarship);
+
 		$user->application()->save($application);
 
 		// @TODO: this should go to the recommendation page.
