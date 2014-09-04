@@ -4,7 +4,7 @@
   <section class="segment">
     <h1 class="heading -alpha">Complete A Static Page</h1>
 
-    {{ Form::open(['route' => 'admin.page.store']) }}
+    {{ Form::open(['route' => 'admin.page.store', 'files' => true]) }}
 
     @include('admin/page/partials/_form_page')
 

@@ -37,10 +37,18 @@ class PageController extends \BaseController {
     $input = Input::all();
 
     $page = new Page;
-
-    foreach ($input as $key => $field) {
-      // skip form token
-      if ($key !== '_token') {
+    foreach ($input as $key => $field)
+    {
+      if ($key == 'hero_image' && Input::hasFile('hero_image'))
+      {
+        $file = Input::file('hero_image');
+        $filename = $file->getClientOriginalName();
+        $file->move(public_path() . '/pages/images/', $filename);
+        $page->$key = $filename;
+      }
+      // skip form token, but handle everything else
+      else if ($key !== '_token')
+      {
         $page->$key = $field;
       }
     }
