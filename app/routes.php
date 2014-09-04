@@ -42,10 +42,16 @@ Route::group(['before' => 'role:administrator', 'prefix' => 'admin'], function()
 {
   Route::get('/', ['as' => 'admin', 'uses' => 'AdminController@index']);
 
+  # Applications management
   Route::get('applications', ['as' => 'applications', 'uses' => 'AdminController@applications']);
 
+  # Scholarship management
   Route::resource('scholarship', 'ScholarshipController');
 
+  # Static Content Pages
+  Route::resource('page', 'PageController');
+
+  # Settings
   Route::get('settings', ['as' => 'settings', 'uses' => 'AdminController@settings']);
   Route::get('appearance', ['as' => 'appearance.edit', 'uses' => 'AppearanceController@edit']);
   Route::post('appearance', ['as' => 'appearance.update', 'uses' => 'AppearanceController@update']);
