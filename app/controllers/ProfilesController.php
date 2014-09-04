@@ -15,10 +15,7 @@ class ProfilesController extends \BaseController {
     $this->profileForm = $profileForm;
     $this->beforeFilter('currentUser', ['only' => ['edit', 'update']]);
     $this->beforeFilter('startedProcess:profile', ['only' => ['create']]);
-  }
-
-
-	/**
+  }  /**
    * Show the form for creating a new resource.
    *
    * @return Response
@@ -65,13 +62,13 @@ class ProfilesController extends \BaseController {
 
 
   /**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
+   * Display the specified resource.
+   *
+   * @param  int  $id
+   * @return Response
+   */
+  public function show($id)
+  {
     try // @TODO: maybe add this to the global exceptions in app/start/global.php
     {
       $user = User::with('profile')->whereId($id)->firstOrFail();
@@ -89,7 +86,7 @@ class ProfilesController extends \BaseController {
     }
 
     return View::make('profile.show')->withUser($user);
-	}
+  }
 
 
   /**
