@@ -5,16 +5,16 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateProfilesTable extends Migration {
 
-	/**
-	 * Run the migrations.
-	 *
-	 * @return void
-	 */
-	public function up()
-	{
-		Schema::create('profiles', function(Blueprint $table)
-		{
-			$table->increments('id');
+  /**
+   * Run the migrations.
+   *
+   * @return void
+   */
+  public function up()
+  {
+    Schema::create('profiles', function(Blueprint $table)
+    {
+      $table->increments('id');
       $table->integer('user_id');
       $table->date('birthdate')->nullable();
       $table->string('phone')->nullable();
@@ -27,18 +27,18 @@ class CreateProfilesTable extends Migration {
       $table->string('race')->nullable();
       $table->string('school')->nullable();
       $table->integer('grade')->nullable();
-			$table->timestamps();
-		});
-	}
+      $table->timestamps();
+    });
+  }
 
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
-	public function down()
-	{
-		Schema::drop('profiles');
-	}
+  /**
+   * Reverse the migrations.
+   *
+   * @return void
+   */
+  public function down()
+  {
+    Schema::drop('profiles');
+  }
 
 }

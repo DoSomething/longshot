@@ -14,6 +14,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>{{ link_to_route('settings', 'Settings') }}</li>
         <li>{{ link_to_route('applications', 'Applications') }}</li>
+        <li>{{ link_to_route('admin.page.index', 'Pages') }}</li>
         <li>{{ link_to_route('logout', 'Logout') }}</li>
       </ul>
 
