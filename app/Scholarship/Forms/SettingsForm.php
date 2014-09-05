@@ -10,7 +10,7 @@ class SettingsForm extends FormValidator {
    * @var array
    */
   protected $rules = [
-    'company_name'             => 'alpha_num',
+    // @TODO: Add regex check for alphanumeric + symbols for company_name & eligibility_text
     'company_url'              => 'url',
     'header_logo'              => 'image|mimes:png',
     'footer_logo'              => 'image|mimes:png',

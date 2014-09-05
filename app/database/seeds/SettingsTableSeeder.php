@@ -26,6 +26,13 @@ class SettingsTableSeeder extends Seeder {
     ]);
 
     Setting::create([
+      'category'  => 'general',
+      'key'       => 'eligibility_text',
+      'value'     => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui aspernatur, sapiente doloribus expedita similique nemo.',
+      'type'      => 'textarea',
+    ]);
+
+    Setting::create([
       'category'    => 'appearance',
       'key'         => 'primary_color',
       'value'       => '00d4b5',
@@ -71,14 +78,14 @@ class SettingsTableSeeder extends Seeder {
     Setting::create([
       'category'  => 'general',
       'key'       => 'header_logo',
-      'value'     => '/content/images/header-logo.png',
+      'value'     => '/dist/images/tmi-logo.png',
       'type'      => 'image',
     ]);
 
     Setting::create([
       'category'  => 'general',
       'key'       => 'footer_logo',
-      'value'     => '/content/images/footer-logo.png',
+      'value'     => '/dist/images/tmi-logo.png',
       'type'      => 'image',
     ]);
 
