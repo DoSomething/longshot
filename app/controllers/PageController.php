@@ -46,11 +46,15 @@ class PageController extends \BaseController {
         $file->move(public_path() . '/pages/images/', $filename);
         $page->$key = $filename;
       }
-      // skip form token, but handle everything else
-      else if ($key !== '_token')
-      {
-        $page->$key = $field;
-      }
+      $page->title = Input::get('title');
+      $page->description = Input::get('description');
+
+      // foreach($things as $thing)
+      // {
+      //   $block = new Block;
+
+      //   //save the thing.
+      // }
     }
     $page->save();
 
