@@ -52,6 +52,8 @@ function setActive($path, $segment = 1, $active = '-active')
  */
 function createCustomStylesheet($styles)
 {
+  $styles = (object) $styles;
+
   $output = ".primary-color { background-color: #$styles->primary_color; }";
   $output .= ".button.-default { background-color: #$styles->primary_color; color: #$styles->primary_color_contrast; }";
   $output .= "a { color: #$styles->primary_color; }";
@@ -67,4 +69,12 @@ function createCustomStylesheet($styles)
  */
 function uploadedContentPath($type = '') {
   return public_path() . '/content/' . $type;
+}
+
+
+/**
+ * Return a string formatted from snake_case to Title Case with spaces.
+ */
+function snakeCaseToTitleCase($text) {
+  return $output = ucwords(str_replace('_', ' ', $text));
 }

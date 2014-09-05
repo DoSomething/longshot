@@ -22,8 +22,8 @@ class DatabaseSeeder extends Seeder {
     $this->call('UsersTableSeeder');
     $this->command->info('Users table seeded!');
 
-    $this->call('AppearanceTableSeeder');
-    $this->command->info('Appearance table seeded!');
+    $this->call('SettingsTableSeeder');
+    $this->command->info('Settings table seeded!');
 
     $this->call('ScholarshipTableSeeder');
     $this->command->info('Scholarship table seeded!');
