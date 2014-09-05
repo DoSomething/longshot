@@ -2,6 +2,6 @@
 
 class Setting extends Eloquent {
 
-  protected $fillable = ['category', 'key', 'value', 'type', 'description'];
+  protected $fillable = ['value', 'description'];
 
 }
