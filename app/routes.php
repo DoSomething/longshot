@@ -53,9 +53,10 @@ Route::group(['before' => 'role:administrator', 'prefix' => 'admin'], function()
 
   # Settings
   Route::get('settings', ['as' => 'settings', 'uses' => 'AdminController@settings']);
-  Route::get('appearance', ['as' => 'appearance.edit', 'uses' => 'AppearanceController@edit']);
-  Route::post('appearance', ['as' => 'appearance.update', 'uses' => 'AppearanceController@update']);
-
+  Route::get('settings/general', ['as' => 'general.edit', 'uses' => 'SettingsController@editGeneral']);
+  Route::post('settings/general', ['as' => 'general.update', 'uses' => 'SettingsController@updateGeneral']);
+  Route::get('settings/appearance', ['as' => 'appearance.edit', 'uses' => 'SettingsController@editAppearance']);
+  Route::post('settings/appearance', ['as' => 'appearance.update', 'uses' => 'SettingsController@updateAppearance']);
 });
 
 
