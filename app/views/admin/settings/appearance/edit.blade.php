@@ -11,7 +11,7 @@
 
         {{ Form::open(['route' => 'appearance.update', 'class' => 'col-md-8']) }}
 
-          @include('admin.appearance.partials._form_appearance')
+          @include('admin.settings.partials._form_settings')
 
           <div>
             {{ Form::submit('Update Appearance Settings', ['class' => 'btn btn-default']) }}

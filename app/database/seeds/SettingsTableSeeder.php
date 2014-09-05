@@ -67,6 +67,27 @@ class SettingsTableSeeder extends Seeder {
       'value'     => '404040',
       'type'      => 'color',
     ]);
+
+    Setting::create([
+      'category'  => 'general',
+      'key'       => 'header_logo',
+      'value'     => '/content/images/header-logo.png',
+      'type'      => 'image',
+    ]);
+
+    Setting::create([
+      'category'  => 'general',
+      'key'       => 'footer_logo',
+      'value'     => '/content/images/footer-logo.png',
+      'type'      => 'image',
+    ]);
+
+    Setting::create([
+      'category'  => 'general',
+      'key'       => 'footer_text',
+      'value'     => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque facilis, explicabo quidem ea dolore fugit.',
+      'type'      => 'textarea',
+    ]);
   }
 
 }

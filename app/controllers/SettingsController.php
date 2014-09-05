@@ -24,7 +24,20 @@ class SettingsController extends \BaseController {
   {
     $settings = Setting::whereCategory('appearance')->get();
 
-    return View::make('admin.appearance.edit', compact('settings'));
+    return View::make('admin.settings.appearance.edit', compact('settings'));
+  }
+
+
+  /**
+   * Show the form for editing the specified resource.
+   *
+   * @return Response
+   */
+  public function editGeneral()
+  {
+    $settings = Setting::whereCategory('general')->get();
+
+    return View::make('admin.settings.general.edit', compact('settings'));
   }
 
 
