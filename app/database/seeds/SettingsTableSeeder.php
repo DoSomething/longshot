@@ -26,6 +26,13 @@ class SettingsTableSeeder extends Seeder {
     ]);
 
     Setting::create([
+      'category'  => 'general',
+      'key'       => 'eligibility_text',
+      'value'     => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui aspernatur, sapiente doloribus expedita similique nemo.',
+      'type'      => 'textarea',
+    ]);
+
+    Setting::create([
       'category'    => 'appearance',
       'key'         => 'primary_color',
       'value'       => '00d4b5',
@@ -66,6 +73,27 @@ class SettingsTableSeeder extends Seeder {
       'key'       => 'cap_color_contrast',
       'value'     => '404040',
       'type'      => 'color',
+    ]);
+
+    Setting::create([
+      'category'  => 'general',
+      'key'       => 'header_logo',
+      'value'     => '/dist/images/tmi-logo.png',
+      'type'      => 'image',
+    ]);
+
+    Setting::create([
+      'category'  => 'general',
+      'key'       => 'footer_logo',
+      'value'     => '/dist/images/tmi-logo.png',
+      'type'      => 'image',
+    ]);
+
+    Setting::create([
+      'category'  => 'general',
+      'key'       => 'footer_text',
+      'value'     => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque facilis, explicabo quidem ea dolore fugit.',
+      'type'      => 'textarea',
     ]);
   }
 

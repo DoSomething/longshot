@@ -24,7 +24,20 @@ class SettingsController extends \BaseController {
   {
     $settings = Setting::whereCategory('appearance')->get();
 
-    return View::make('admin.appearance.edit', compact('settings'));
+    return View::make('admin.settings.appearance.edit', compact('settings'));
+  }
+
+
+  /**
+   * Show the form for editing the specified resource.
+   *
+   * @return Response
+   */
+  public function editGeneral()
+  {
+    $settings = Setting::whereCategory('general')->get();
+
+    return View::make('admin.settings.general.edit', compact('settings'));
   }
 
 
@@ -38,6 +51,7 @@ class SettingsController extends \BaseController {
     $input = Input::only('primary_color', 'primary_color_contrast', 'secondary_color', 'secondary_color_contrast', 'cap_color', 'cap_color_contrast');
     $this->settingsForm->validate($input);
 
+    // @TODO: maybe create this as a method of the Setting model?
     $settings = Setting::whereCategory('appearance')->get();
     $settings->each(function($setting) use($input)
     {
@@ -49,6 +63,49 @@ class SettingsController extends \BaseController {
     createCustomStylesheet($input);
 
     return Redirect::route('appearance.edit')->with('flash_message', 'Appearance settings have been saved!');
+
+  }
+
+
+   /**
+   * Update the specified resource in storage.
+   *
+   * @return Response
+   */
+  public function updateGeneral()
+  {
+    $inputText = Input::only('company_name', 'company_url', 'eligibility_text', 'footer_text');
+    $inputImages = Input::only('header_logo', 'footer_logo');
+
+    $this->settingsForm->validate($inputText);
+    $this->settingsForm->validate($inputImages);
+
+    $defaultLogoPath = '/dist/images/tmi-logo.png';
+
+    // Uploaded Images
+    foreach ($inputImages as $key => $image) {
+      if (Input::hasFile($key))
+      {
+        $inputImages[$key] = '/content/images/' . snakeCaseToKebabCase($key) . '.png';
+        Input::file($key)->move(uploadedContentPath('images'), snakeCaseToKebabCase($key) . '.png');
+      }
+      else
+      {
+         $inputImages[$key] = $defaultLogoPath;
+      }
+    }
+
+    $input = array_merge($inputText, $inputImages);
+
+    // @TODO: maybe create this as a method of the Setting model?
+    $settings = Setting::whereCategory('general')->get();
+    $settings->each(function($setting) use($input)
+    {
+      $setting->value = $input[$setting->key];
+      $setting->save();
+    });
+
+    return Redirect::route('general.edit')->with('flash_message', 'General settings have been saved!');
 
   }
 

@@ -1,1 +1,1 @@
-.primary-color { background-color: #ff00ff; }.button.-default { background-color: #ff00ff; color: #ffffff; }a { color: #ff00ff; }.segment:first-of-type { border-bottom-color: #ff00ff; }
+.primary-color { background-color: #b4d455; }.button.-default { background-color: #b4d455; color: #ffffff; }a { color: #b4d455; }.segment:first-of-type { border-bottom-color: #b4d455; }

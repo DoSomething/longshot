@@ -78,3 +78,11 @@ function uploadedContentPath($type = '') {
 function snakeCaseToTitleCase($text) {
   return $output = ucwords(str_replace('_', ' ', $text));
 }
+
+
+/**
+ * Return a string formatted from snake_case to Title Case with spaces.
+ */
+function snakeCaseToKebabCase($text) {
+  return $output = str_replace('_', '-', $text);
+}
