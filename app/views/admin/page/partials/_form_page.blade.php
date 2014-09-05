@@ -1,27 +1,4 @@
-<script type="text/javascript">
-$("button.clone")
-var regex = /^(.*)(\d)+$/i;
-var cloneIndex = $(".repeatable").length;
-$("button.clone").click(function(e){
-    e.preventDefault();
-    $(this).parents(".repeatable").clone()
-        .appendTo("body")
-        .attr("id", "repeatable" +  cloneIndex)
-        .find("*").each(function() {
-            var id = this.id || "";
-            var match = id.match(regex) || [];
-            if (match.length == 3) {
-                this.id = match[1] + (cloneIndex);
-            }
-    });
-    cloneIndex++;
-});
 
-$("button.remove").click(function(e){
-  e.preventDefault();
-  $(this).parents(".repeatable").remove();
-});
-</script>
 
   {{-- Title --}}
   <div class="field-group">
@@ -46,29 +23,57 @@ $("button.remove").click(function(e){
 
 
   {{-- Block item grouping --}}
-  <div class="repeatable well">
+  <div class="well">
+  <div class="repeatable">
 
   {{-- Block title --}}
     <div class="field-group">
-      {{ Form::label('block_title[0]', 'Block Title: ') }}
-      {{ Form::text('block_title[0]') }}
-      {{ errorsFor('block_title[0]', $errors); }}
+      {{ Form::label('blocks[0]["title"]', 'Block Title: ') }}
+      {{ Form::text('blocks[0]["title"]') }}
+      {{ errorsFor('blocks[0]["title"]', $errors); }}
     </div>
 
     {{-- Block desc --}}
     <div class="field-group">
-      {{ Form::label('block_description[0]', 'Block Description: ') }}
-      {{ Form::textarea('block_description[0]') }}
-      {{ errorsFor('block_description[0]', $errors); }}
+      {{ Form::label('blocks[0]["description"]', 'Block Description: ') }}
+      {{ Form::textarea('blocks[0]["description"]') }}
+      {{ errorsFor('blocks[0]["description"]', $errors); }}
     </div>
 
     {{-- Block body --}}
     <div class="field-group">
-      {{ Form::label('block_body[0]', 'Block Body: ') }}
-      {{ Form::textarea('block_body[0]') }}
-      {{ errorsFor('block_body[0]', $errors); }}
+      {{ Form::label('blocks[0]["body"]', 'Block Body: ') }}
+      {{ Form::textarea('blocks[0]["body"]') }}
+      {{ errorsFor('blocks[0]["body"]', $errors); }}
     </div>
 
-    <button href="#" class ="btn clone"> Add another block</button>
     <button href="#" class ="btn remove"> Remove this block</button>
   </div>
+  {{-- @TODO: this needs to come out of the well, but I got the cloning working so here we are. --}}
+  <button href="#" class ="btn clone"> Add another block</button>
+  </div>
+
+
+
+{{--@TODO: take this outta here. --}}
+<script type="text/javascript">
+  var regex = /^(.*)(\d)+$/i;
+  var cloneIndex = $(".repeatable").length - 1;
+  $("button.clone").on("click", function(e){
+      e.preventDefault();
+      newBlock = $(this).prev().clone()
+                     .appendTo(".well")
+                     .attr("class", "clone repeatable")
+      cloneIndex++;
+      // Replace all instances of [0] with cloneIndex
+      $.each($(".clone .field-group :input"), function() {
+        newId = $(this).attr("id").replace(cloneIndex-1, cloneIndex);
+        $(this).attr( "id", newId)
+               .attr("name", newId);
+      });
+  });
+
+  $("button.remove").on("click", function(e){
+    $(this).parent(".repeatable").remove();
+  });
+</script>

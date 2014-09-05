@@ -37,26 +37,27 @@ class PageController extends \BaseController {
     $input = Input::all();
 
     $page = new Page;
-    foreach ($input as $key => $field)
+    if (Input::hasFile('hero_image'))
     {
-      if ($key == 'hero_image' && Input::hasFile('hero_image'))
-      {
-        $file = Input::file('hero_image');
-        $filename = $file->getClientOriginalName();
-        $file->move(public_path() . '/pages/images/', $filename);
-        $page->$key = $filename;
-      }
-      $page->title = Input::get('title');
-      $page->description = Input::get('description');
-
-      // foreach($things as $thing)
-      // {
-      //   $block = new Block;
-
-      //   //save the thing.
-      // }
+      $file = Input::file('hero_image');
+      $filename = $file->getClientOriginalName();
+      $file->move(public_path() . '/pages/images/', $filename);
+      $page->$key = $filename;
     }
+    $page->title = $input['title'];
+    $page->description = $input['description'];
+
     $page->save();
+
+    $blocks = Input::get('blocks');
+
+    foreach($blocks as $block)
+    {
+      // $block = new Block;
+      // @TODO: why are the keys returning the encoded values
+      //save the thing.
+    }
+
 
     return Redirect::route('admin')->with('flash_message', 'Static page has been saved!');
   }
