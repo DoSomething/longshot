@@ -89,10 +89,6 @@ class SettingsController extends \BaseController {
         $inputImages[$key] = '/content/images/' . snakeCaseToKebabCase($key) . '.png';
         Input::file($key)->move(uploadedContentPath('images'), snakeCaseToKebabCase($key) . '.png');
       }
-      else
-      {
-         $inputImages[$key] = $defaultLogoPath;
-      }
     }
 
     $input = array_merge($inputText, $inputImages);
@@ -101,6 +97,7 @@ class SettingsController extends \BaseController {
     $settings = Setting::whereCategory('general')->get();
     $settings->each(function($setting) use($input)
     {
+      if ($setting->type === 'image' && $input[$setting->key] == null) return;
       $setting->value = $input[$setting->key];
       $setting->save();
     });
