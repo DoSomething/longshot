@@ -51,11 +51,15 @@ class PageController extends \BaseController {
 
     $blocks = Input::get('blocks');
 
-    foreach($blocks as $block)
+    foreach($blocks as $key=>$block)
     {
-      // $block = new Block;
-      // @TODO: why are the keys returning the encoded values
-      //save the thing.
+      $newBlock = new Block;
+      $newBlock->block_title = $block['title'];
+      $newBlock->block_description = $block['description'];
+      $newBlock->block_body = $block['body'];
+      $newBlock->page()->associate($page);
+
+      $newBlock->save();
     }
 
 

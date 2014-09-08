@@ -28,27 +28,28 @@
 
     {{-- Block title --}}
       <div class="field-group">
-        {{ Form::label('blocks[0]["title"]', 'Block Title: ') }}
-        {{ Form::text('blocks[0]["title"]') }}
-        {{ errorsFor('blocks[0]["title"]', $errors); }}
+        {{ Form::label('blocks[0][title]', 'Block Title: ') }}
+        {{ Form::text('blocks[0][title]') }}
+        {{ errorsFor('blocks[0][title]', $errors); }}
       </div>
 
       {{-- Block desc --}}
       <div class="field-group">
-        {{ Form::label('blocks[0]["description"]', 'Block Description: ') }}
-        {{ Form::textarea('blocks[0]["description"]') }}
-        {{ errorsFor('blocks[0]["description"]', $errors); }}
+        {{ Form::label('blocks[0][description]', 'Block Description: ') }}
+        {{ Form::textarea('blocks[0][description]') }}
+        {{ errorsFor('blocks[0][description]', $errors); }}
       </div>
 
       {{-- Block body --}}
       <div class="field-group">
-        {{ Form::label('blocks[0]["body"]', 'Block Body: ') }}
-        {{ Form::textarea('blocks[0]["body"]') }}
-        {{ errorsFor('blocks[0]["body"]', $errors); }}
+        {{ Form::label('blocks[0][body]', 'Block Body: ') }}
+        {{ Form::textarea('blocks[0][body]') }}
+        {{ errorsFor('blocks[0][body]', $errors); }}
       </div>
       <button href="#" class ="btn remove"> Remove this block</button>
     </div>
     <div class="wrapper"></div>
+
 
   <button href="#" class ="btn clone"> Add another block</button>
   </div>
