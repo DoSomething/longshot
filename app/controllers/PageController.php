@@ -100,7 +100,7 @@ class PageController extends \BaseController {
    */
   public function update($id)
   {
-    //
+
   }
 
   /**
