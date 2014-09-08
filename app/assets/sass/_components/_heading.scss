@@ -6,7 +6,7 @@
 
 .heading {
 
-  &.-alpha { text-align: center; text-transform: uppercase; }
+  &.-alpha { font-size: 1.5rem; text-align: center; text-transform: uppercase; }
 
   &.-alt { color: #fff; }
 }
@@ -17,5 +17,11 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 @media only screen and (min-width: $medium) {
+
+  .heading {
+
+    &.-alpha { font-size: 2rem; }
+
+  }
 
 }

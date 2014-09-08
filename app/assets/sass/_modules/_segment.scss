@@ -5,11 +5,14 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-.segment { padding: pxcalc(20) pxcalc(10); }
+.segment { @include container(); padding: pxcalc(20) pxcalc(10); }
 
 .segment:first-of-type { border-bottom: 1px solid $app_primary; }
 
+
+// @TODO: Separate into individual scss files.
 .segment--nominate { background: #aaa url('/dist/images/studying-hard.jpg') center center; background-size: cover; }
+
 
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -17,5 +20,19 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 @media only screen and (min-width: $medium) {
+
+  .segment { @include container($wide); }
+
+  .segment--register,
+  .segment--login {
+    > .wrapper { @include span(8 of 12); @include push(2 of 12); }
+
+    .field-group {
+      &.-dual {
+        &.-alpha { @include span(first 4); }
+        &.-beta { @include span(4); }
+      }
+    }
+  }
 
 }

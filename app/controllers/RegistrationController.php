@@ -23,7 +23,12 @@ class RegistrationController extends \BaseController {
    */
   public function create()
   {
-    return View::make('registration.create');
+    $setting = Setting::whereKey('eligibility_text')->first();
+
+    $data = new stdClass;
+    $data->eligibility_text = $setting->value;
+
+    return View::make('registration.create', compact('data'));
   }
 
 
