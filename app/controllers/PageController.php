@@ -37,22 +37,31 @@ class PageController extends \BaseController {
     $input = Input::all();
 
     $page = new Page;
-    foreach ($input as $key => $field)
+    if (Input::hasFile('hero_image'))
     {
-      if ($key == 'hero_image' && Input::hasFile('hero_image'))
-      {
-        $file = Input::file('hero_image');
-        $filename = $file->getClientOriginalName();
-        $file->move(public_path() . '/pages/images/', $filename);
-        $page->$key = $filename;
-      }
-      // skip form token, but handle everything else
-      else if ($key !== '_token')
-      {
-        $page->$key = $field;
-      }
+      $file = Input::file('hero_image');
+      $filename = $file->getClientOriginalName();
+      $file->move(public_path() . '/pages/images/', $filename);
+      $page->$key = $filename;
     }
+    $page->title = $input['title'];
+    $page->description = $input['description'];
+
     $page->save();
+
+    $blocks = Input::get('blocks');
+
+    foreach($blocks as $key=>$block)
+    {
+      $newBlock = new Block;
+      $newBlock->block_title = $block['title'];
+      $newBlock->block_description = $block['description'];
+      $newBlock->block_body = $block['body'];
+      $newBlock->page()->associate($page);
+
+      $newBlock->save();
+    }
+
 
     return Redirect::route('admin')->with('flash_message', 'Static page has been saved!');
   }
@@ -91,7 +100,7 @@ class PageController extends \BaseController {
    */
   public function update($id)
   {
-    //
+
   }
 
   /**

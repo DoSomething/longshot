@@ -10,7 +10,7 @@
 
     {{-- Submit Button --}}
     <div>
-      {{ Form::submit('Update page', ['class' => 'button -default']) }}
+      {{ Form::submit('Update page', ['class' => 'btn btn-primary btn-large']) }}
     </div>
 
   {{ Form::close() }}
