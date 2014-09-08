@@ -45,6 +45,16 @@
  font-weight: normal;
 }
 
+@font-face {
+ font-family: 'ProximaNovaBold';
+ src: url('/dist/fonts/ProximaNova-Bold.eot');
+ src: url('/dist/fonts/ProximaNova-Bold.eot?#iefix') format('embedded-opentype'),
+      url('/dist/fonts/ProximaNova-Bold.woff') format('woff'),
+      url('/dist/fonts/ProximaNova-Bold.ttf') format('truetype');
+ font-style: normal;
+ font-weight: normal;
+}
+
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // MEDIA QUERIES

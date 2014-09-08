@@ -4,7 +4,7 @@
   <section class="segment segment--login">
     <div class="wrapper">
 
-      <h1 class="heading -alpha">Login</h1>
+      <h1 class="heading -alpha bg-primary-text">Login</h1>
 
       {{ Form::open(['route' => 'sessions.store']) }}
 

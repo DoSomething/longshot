@@ -54,7 +54,8 @@ function createCustomStylesheet($styles)
 {
   $styles = (object) $styles;
 
-  $output = ".primary-color { background-color: #$styles->primary_color; }";
+  $output = ".bg-primary-color { background-color: #$styles->primary_color; }";
+  $output = ".bg-primary-text { color: #$styles->primary_color; }";
   $output .= ".button.-default { background-color: #$styles->primary_color; color: #$styles->primary_color_contrast; }";
   $output .= "a { color: #$styles->primary_color; }";
   $output .= ".segment:first-of-type { border-bottom-color: #$styles->primary_color; }";

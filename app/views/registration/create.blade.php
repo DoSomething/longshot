@@ -4,7 +4,7 @@
   <section class="segment segment--register">
     <div class="wrapper">
 
-      <h1 class="heading -alpha">Create an Account</h1>
+      <h1 class="heading -alpha bg-primary-text">Create an Account</h1>
 
       <p>Have an account? {{ link_to_route('login', 'Login') }}</p>
 
