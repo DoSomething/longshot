@@ -11,3 +11,4 @@ Thumbs.db
 public/dist/
 public/pages/
 public/content/images/*
+app/views/layouts/partials/custom-styles.blade.php
