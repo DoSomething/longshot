@@ -108,26 +108,23 @@ class PageController extends \BaseController {
     $blocks = Input::get("blocks");
     foreach($blocks as $key=>$block)
     {
-      $currentBlock = Block::whereId($block['id'])->firstOrFail();
-
-      if ($currentBlock)
+      if (isset($block['id']))
       {
+        $currentBlock = Block::whereId($block['id'])->firstOrFail();
         $currentBlock->block_title = $block['title'];
         $currentBlock->block_description = $block['description'];
         $currentBlock->block_body = $block['body'];
-        $currentBlock->save();
+      $currentBlock->save();
       }
+      else {
+        $newBlock = new Block;
+        $newBlock->block_title = $block['title'];
+        $newBlock->block_description = $block['description'];
+        $newBlock->block_body = $block['body'];
+        $newBlock->page()->associate($page);
 
-      // else {
-      //   // @TODO: this throws a no access error
-      //   $newBlock = new Block;
-      //   $newBlock->block_title = $block['title'];
-      //   $newBlock->block_description = $block['description'];
-      //   $newBlock->block_body = $block['body'];
-      //   $newBlock->page()->associate($page);
-
-      //   $newBlock->save();
-      // }
+        $newBlock->save();
+      }
 
     }
     return Redirect::route('admin.page.index')->with('flash_message', 'Static page has been updated!');
