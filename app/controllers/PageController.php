@@ -63,7 +63,7 @@ class PageController extends \BaseController {
     }
 
 
-    return Redirect::route('admin')->with('flash_message', 'Static page has been saved!');
+    return Redirect::route('admin.page.index')->with('flash_message', 'Static page has been saved!');
   }
 
   /**
@@ -88,7 +88,8 @@ class PageController extends \BaseController {
   public function edit($id)
   {
     $page = Page::whereId($id)->firstOrFail();
-    return View::make('admin.page.edit')->with(compact('page'));
+    $blocks = Block::where('page_id', $id)->get();
+    return View::make('admin.page.edit')->with(compact('page', 'blocks'));
   }
 
   /**
@@ -100,7 +101,33 @@ class PageController extends \BaseController {
    */
   public function update($id)
   {
+    $input = Input::except("blocks");
+    $page = Page::whereId($id)->firstOrFail();
+    $page->fill($input)->save();
 
+    $blocks = Input::get("blocks");
+    foreach($blocks as $key=>$block)
+    {
+      if (isset($block['id']))
+      {
+        $currentBlock = Block::whereId($block['id'])->firstOrFail();
+        $currentBlock->block_title = $block['title'];
+        $currentBlock->block_description = $block['description'];
+        $currentBlock->block_body = $block['body'];
+      $currentBlock->save();
+      }
+      else {
+        $newBlock = new Block;
+        $newBlock->block_title = $block['title'];
+        $newBlock->block_description = $block['description'];
+        $newBlock->block_body = $block['body'];
+        $newBlock->page()->associate($page);
+
+        $newBlock->save();
+      }
+
+    }
+    return Redirect::route('admin.page.index')->with('flash_message', 'Static page has been updated!');
   }
 
   /**

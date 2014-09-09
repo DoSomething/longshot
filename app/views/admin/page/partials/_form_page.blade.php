@@ -21,33 +21,65 @@
     {{ errorsFor('hero_image', $errors); }}
   </div>
 
-
   {{-- Block item grouping --}}
   <div class="well">
-    <div class="repeatable">
+    @if (count($blocks) > 0)
+      @foreach ($blocks as $key=>$block)
 
-    {{-- Block title --}}
-      <div class="field-group">
-        {{ Form::label('blocks[0][title]', 'Block Title: ') }}
-        {{ Form::text('blocks[0][title]') }}
-        {{ errorsFor('blocks[0][title]', $errors); }}
-      </div>
+        <div class="repeatable">
+        {{Form::hidden('blocks['.$key.'][id]', $blocks[$key]['id'])}}
+        {{-- Block title --}}
+        <div class="field-group">
+          {{ Form::label('blocks['.$key.'][title]', 'Block Title: ') }}
+          {{ Form::text('blocks['.$key.'][title]', $blocks[$key]['block_title']) }}
+          {{ errorsFor('blocks['.$key.'][title]', $errors); }}
+        </div>
 
-      {{-- Block desc --}}
-      <div class="field-group">
-        {{ Form::label('blocks[0][description]', 'Block Description: ') }}
-        {{ Form::textarea('blocks[0][description]') }}
-        {{ errorsFor('blocks[0][description]', $errors); }}
-      </div>
+        {{-- Block desc --}}
+        <div class="field-group">
+          {{ Form::label('blocks['.$key.'][description]', 'Block Description: ') }}
+          {{ Form::textarea('blocks['.$key.'][description]', $blocks[$key]['block_description']) }}
+          {{ errorsFor('blocks['.$key.'][description]', $errors); }}
+        </div>
 
-      {{-- Block body --}}
-      <div class="field-group">
-        {{ Form::label('blocks[0][body]', 'Block Body: ') }}
-        {{ Form::textarea('blocks[0][body]') }}
-        {{ errorsFor('blocks[0][body]', $errors); }}
+        {{-- Block body --}}
+        <div class="field-group">
+          {{ Form::label('blocks['.$key.'][body]', 'Block Body: ') }}
+          {{ Form::textarea('blocks['.$key.'][body]', $blocks[$key]['block_body']) }}
+          {{ errorsFor('blocks['.$key.'][body]', $errors); }}
+        </div>
+        <button href="#" class ="btn remove"> Remove this block</button>
+
       </div>
-      <button href="#" class ="btn remove"> Remove this block</button>
-    </div>
+     @endforeach
+
+      @else
+      <div class="repeatable">
+
+        {{-- Block title --}}
+          <div class="field-group">
+            {{ Form::label('blocks[0][title]', 'Block Title: ') }}
+            {{ Form::text('blocks[0][title]') }}
+            {{ errorsFor('blocks[0][title]', $errors); }}
+          </div>
+
+          {{-- Block desc --}}
+          <div class="field-group">
+            {{ Form::label('blocks[0][description]', 'Block Description: ') }}
+            {{ Form::textarea('blocks[0][description]') }}
+            {{ errorsFor('blocks[0][description]', $errors); }}
+          </div>
+
+          {{-- Block body --}}
+          <div class="field-group">
+            {{ Form::label('blocks[0][body]', 'Block Body: ') }}
+            {{ Form::textarea('blocks[0][body]') }}
+            {{ errorsFor('blocks[0][body]', $errors); }}
+          </div>
+          <button href="#" class ="btn remove"> Remove this block</button>
+        </div>
+
+      @endif
     <div class="wrapper"></div>
 
 
@@ -59,22 +91,26 @@
 {{--@TODO: take this outta here. --}}
 <script type="text/javascript">
   var cloneIndex = $(".repeatable").length - 1;
-  var repeatableForm = $(".repeatable");
+  var repeatableForm = $(".repeatable").first();
   $("button.clone").on("click", function(e){
       e.preventDefault();
       cloneIndex++;
       newClass = "cloned" + cloneIndex;
       newBlock = repeatableForm.clone()
-                     .appendTo(".wrapper")
-                     .attr("class", newClass);
+                     .attr("class", newClass)
+                     .appendTo(".wrapper");
 
-      // Replace all instances of [0] with cloneIndex
+
       $.each($(".wrapper ." + newClass + " .field-group"), function() {
         inputFields = $(this).find(":input");
+        // Replace all instances of [0] with cloneIndex
         newId = inputFields.attr("id").replace(0, cloneIndex);
         inputFields.attr('id', newId).attr('name', newId);
         $(this).find("label").attr("for", newId);
-
+        // Remove the id from the cloned field if there.
+        $(this).parents('.wrapper').find("input[type='hidden']").remove();
+        // Do not copy the value over
+        inputFields.val("");
       });
   });
 
