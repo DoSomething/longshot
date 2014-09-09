@@ -19,6 +19,10 @@ Route::get('logout', ['as' => 'logout', 'uses' => 'SessionsController@destroy'])
 Route::resource('sessions', 'SessionsController', ['only' => ['create', 'store', 'destroy']]);
 
 
+# Password Reminder
+Route::controller('password', 'RemindersController');
+
+
 # Pages
 Route::get('/', ['as' => 'home', 'uses' => 'PagesController@home']);
 Route::get('about', ['as' => 'about', 'uses' => 'PagesController@about']);

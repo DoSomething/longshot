@@ -1,38 +1,40 @@
 @extends('layouts.master')
 
 @section('main_content')
-  <section class="segment segment--login">
+  <section class="segment segment--password">
     <div class="wrapper">
 
-      <h1 class="heading -alpha bg-primary-text">Login</h1>
+      <h1 class="heading -alpha bg-primary-text">Reset Password</h1>
 
-      {{ Form::open(['route' => 'sessions.store']) }}
+      <p>Set a new password for your account.</p>
+
+      {{ Form::open() }}
+        {{ Form::hidden('token', $token) }}
 
         {{-- Email Field --}}
         <div class="field-group">
           {{ Form::label('email', 'Email: ') }}
           {{ Form::email('email') }}
-          {{ errorsFor('email', $errors); }}
         </div>
 
         {{-- Password Field --}}
         <div class="field-group">
           {{ Form::label('password', 'Password: ') }}
           {{ Form::password('password') }}
-          {{ errorsFor('password', $errors); }}
+        </div>
+
+        {{-- Password Confirmation Field --}}
+        <div class="field-group">
+          {{ Form::label('password_confirmation', 'Confirm Password: ') }}
+          {{ Form::password('password_confirmation') }}
         </div>
 
         {{-- Submit Button --}}
         <div class="field-group">
-          {{ Form::submit('Login', ['class' => 'button -default']) }}
+          {{ Form::submit('Submit', ['class' => 'button -default']) }}
         </div>
 
       {{ Form::close() }}
-
-      <ul class="media-list">
-        <li>{{ link_to_route('registration.create', 'Create an account') }}</li>
-        <li><a href="/password/remind">Forgot Password</a></li>
-      </ul>
 
     </div>
   </section>
