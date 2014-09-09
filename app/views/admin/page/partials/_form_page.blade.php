@@ -100,8 +100,6 @@
                      .attr("class", newClass)
                      .appendTo(".wrapper");
 
-      // If set, remove hidden id of the block id
-      $("input[type='hidden']").remove();
 
       $.each($(".wrapper ." + newClass + " .field-group"), function() {
         inputFields = $(this).find(":input");
@@ -109,6 +107,8 @@
         newId = inputFields.attr("id").replace(0, cloneIndex);
         inputFields.attr('id', newId).attr('name', newId);
         $(this).find("label").attr("for", newId);
+        // Remove the id from the cloned field if there.
+        $(this).parents('.wrapper').find("input[type='hidden']").remove();
         // Do not copy the value over
         inputFields.val("");
       });
