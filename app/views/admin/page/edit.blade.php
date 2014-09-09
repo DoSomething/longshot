@@ -4,7 +4,7 @@
 
   <h1>Edit Static Page</h1>
 
-  {{ Form::model($page, ['method' => 'PATCH', 'route' => ['admin.page.update', $page->id], 'files' => true]) }}
+  {{ Form::model($page, ['method' => 'PUT', 'route' => ['admin.page.update', $page->id], 'files' => true]) }}
 
     @include('admin/page/partials/_form_page')
 
