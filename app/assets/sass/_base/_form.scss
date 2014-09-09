@@ -6,10 +6,19 @@
 
 p + form { margin-top: 2em; }
 
-.field-group { margin-bottom: 1em;
+.field-group { clear: both; margin-bottom: 1.5em;
 
-  // @TODO: temp style
+  label { display: block; margin-bottom: 0.5em; }
+
+  input[type="email"],
+  input[type="password"],
+  input[type="text"] { border: 2px solid #d1d1d1; border-radius: 3px; display: block; padding: pxcalc(10) pxcalc(5); width: 100%;
+    &:focus { background-color: lighten($app_highlight, 10%); outline: none; }
+  }
+
   textarea { display: block; }
+
+  input[type="checkbox"] + label { display: inline-block; }
 }
 
 
@@ -17,6 +26,26 @@ p + form { margin-top: 2em; }
 // MEDIA QUERIES
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+@media only screen and (min-width: $small) {
+
+  .field-group {
+
+    &.-dual { clear: none; overflow: hidden; }
+
+  }
+
+}
+
+
+
 @media only screen and (min-width: $medium) {
+
+  .field-group {
+
+    input[type="email"],
+    input[type="password"],
+    input[type="text"] { padding: pxcalc(15) pxcalc(10); }
+
+  }
 
 }

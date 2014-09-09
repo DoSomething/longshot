@@ -1,35 +1,39 @@
 @extends('layouts.master')
 
 @section('main_content')
-  <section class="segment">
-    <h1 class="heading -alpha">Login</h1>
+  <section class="segment segment--login">
+    <div class="wrapper">
 
-    {{ Form::open(['route' => 'sessions.store']) }}
+      <h1 class="heading -alpha bg-primary-text">Login</h1>
 
-      {{-- Email Field --}}
-      <div class="field-group">
-        {{ Form::label('email', 'Email: ') }}
-        {{ Form::email('email') }}
-        {{ errorsFor('email', $errors); }}
-      </div>
+      {{ Form::open(['route' => 'sessions.store']) }}
 
-      {{-- Password Field --}}
-      <div class="field-group">
-        {{ Form::label('password', 'Password: ') }}
-        {{ Form::password('password') }}
-        {{ errorsFor('password', $errors); }}
-      </div>
+        {{-- Email Field --}}
+        <div class="field-group">
+          {{ Form::label('email', 'Email: ') }}
+          {{ Form::email('email') }}
+          {{ errorsFor('email', $errors); }}
+        </div>
 
-      {{-- Submit Button --}}
-      <div class="field-group">
-        {{ Form::submit('Login', ['class' => 'button -default']) }}
-      </div>
+        {{-- Password Field --}}
+        <div class="field-group">
+          {{ Form::label('password', 'Password: ') }}
+          {{ Form::password('password') }}
+          {{ errorsFor('password', $errors); }}
+        </div>
 
-    {{ Form::close() }}
+        {{-- Submit Button --}}
+        <div class="field-group">
+          {{ Form::submit('Login', ['class' => 'button -default']) }}
+        </div>
 
-    <ul class="media-list">
-      <li>{{ link_to_route('registration.create', 'Create an account') }}</li>
-      <li><a href="#">Forgot Password</a></li>
-    </ul>
+      {{ Form::close() }}
+
+      <ul class="media-list">
+        <li>{{ link_to_route('registration.create', 'Create an account') }}</li>
+        <li><a href="#">Forgot Password</a></li>
+      </ul>
+
+    </div>
   </section>
 @stop
