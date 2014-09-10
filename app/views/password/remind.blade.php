@@ -12,10 +12,7 @@
       {{ Form::open() }}
 
         {{-- Email Field --}}
-        <div class="field-group">
-          {{ Form::label('email', 'Email: ') }}
-          {{ Form::email('email', null, ['required' => 'true']) }}
-        </div>
+        @include('layouts/partials/_form-email-field')
 
         {{-- Submit Button --}}
         <div class="field-group">

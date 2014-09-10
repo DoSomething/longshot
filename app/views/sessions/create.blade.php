@@ -9,18 +9,10 @@
       {{ Form::open(['route' => 'sessions.store']) }}
 
         {{-- Email Field --}}
-        <div class="field-group">
-          {{ Form::label('email', 'Email: ') }}
-          {{ Form::email('email') }}
-          {{ errorsFor('email', $errors); }}
-        </div>
+        @include('layouts/partials/_form-email-field')
 
         {{-- Password Field --}}
-        <div class="field-group">
-          {{ Form::label('password', 'Password: ') }}
-          {{ Form::password('password') }}
-          {{ errorsFor('password', $errors); }}
-        </div>
+        @include('layouts/partials/_form-password-field')
 
         {{-- Submit Button --}}
         <div class="field-group">

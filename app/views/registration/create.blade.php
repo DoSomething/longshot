@@ -25,24 +25,13 @@
         </div>
 
         {{-- Email Field --}}
-        <div class="field-group">
-          {{ Form::label('email', 'Email: ') }}
-          {{ Form::email('email') }}
-          {{ errorsFor('email', $errors); }}
-        </div>
+        @include('layouts/partials/_form-email-field')
 
         {{-- Password Field --}}
-        <div class="field-group">
-          {{ Form::label('password', 'Password: ') }}
-          {{ Form::password('password') }}
-          {{ errorsFor('password', $errors); }}
-        </div>
+        @include('layouts/partials/_form-password-field')
 
         {{-- Password Confirmation Field --}}
-        <div class="field-group">
-          {{ Form::label('password_confirmation', 'Confirm Password: ') }}
-          {{ Form::password('password_confirmation') }}
-        </div>
+        @include('layouts/partials/_form-password-confirmation-field')
 
         {{-- Eligibility Check --}}
         <div class="field-group">
