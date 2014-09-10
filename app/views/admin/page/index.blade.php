@@ -5,6 +5,7 @@
     <div class="row">
       <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         <h1 class="page-header">All Static Pages</h1>
+        {{ link_to_route('admin.page.create', 'Create new page »', null, array('class' => 'btn btn-default', 'role'=> 'button')) }}
         <div class="table-responsive">
           <table class="table table-striped">
             <thead>
