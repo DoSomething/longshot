@@ -23,8 +23,10 @@
 
   .segment { @include container($wide); }
 
+  // @TODO: instead of adding more type classes, maybe change this to a modifier class, like -form?
   .segment--register,
-  .segment--login {
+  .segment--login,
+  .segment--password {
     > .wrapper { @include span(8 of 12); @include push(2 of 12); }
 
     .field-group {
