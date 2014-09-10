@@ -1,4 +1,4 @@
-box: wercker/php
+box: blisteringherb/scholarship@0.0.1
 build:
     # The steps that will be executed on build
     steps:
