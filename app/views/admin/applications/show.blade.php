@@ -17,7 +17,7 @@
         --}}
         <h2>Profile Information</h2>
         <div class="well well-lg">
-          <p><strong>Email:</strong> <a href="mailto:{{ $applicant->email }}">{{ $applicant->email }}</a></p>
+          <p><strong>Email:</strong> {{ $applicant->email }}</a></p>
 
           <p><strong>Birtdate:</strong> {{ $applicant->profile->birthdate or '<em>Empty</em>' }}</p>
 
