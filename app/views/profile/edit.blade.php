@@ -1,18 +1,22 @@
 @extends('layouts.master')
 
 @section('main_content')
-  <section class="segment">
-    <h1 class="heading -alpha">Edit Profile</h1>
+  <section class="segment -compact">
+    <div class="wrapper">
 
-    {{ Form::model($user->profile, ['method' => 'PATCH', 'route' => ['profile.update', $user->id]]) }}
+      <h1 class="heading -alpha text-primary-color">Edit Profile</h1>
 
-      @include('profile/partials/_form_profile')
+      {{ Form::model($user->profile, ['method' => 'PATCH', 'route' => ['profile.update', $user->id]]) }}
 
-      {{-- Submit Button --}}
-      <div>
-        {{ Form::submit('Update Profile', ['class' => 'btn -default']) }}
-      </div>
+        @include('profile/partials/_form_profile')
 
-    {{ Form::close() }}
+        {{-- Submit Button --}}
+        <div>
+          {{ Form::submit('Update Profile', ['class' => 'button -default']) }}
+        </div>
+
+      {{ Form::close() }}
+
+    </div>
   </section>
 @stop

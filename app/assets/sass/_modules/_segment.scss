@@ -21,20 +21,21 @@
 
 @media only screen and (min-width: $medium) {
 
-  .segment { @include container($wide); }
+  .segment { @include container($wide);
 
-  // @TODO: instead of adding more type classes, maybe change this to a modifier class, like -form?
-  .segment--register,
-  .segment--login,
-  .segment--password {
-    > .wrapper { @include span(8 of 12); @include push(2 of 12); }
+    &.-compact {
+      > .wrapper { @include push(2 of 12); width: span(8 of 12); }
 
-    .field-group {
-      &.-dual {
-        &.-alpha { @include span(first 4); }
-        &.-beta { @include span(4); }
+      .field-group {
+        &.-mono { width: span(4); }
+
+        &.-dual {
+          &.-alpha { @include span(first 4); }
+          &.-beta { @include span(4); }
+        }
       }
     }
+
   }
 
 }

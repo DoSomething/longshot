@@ -1,10 +1,10 @@
 @extends('layouts.master')
 
 @section('main_content')
-  <section class="segment segment--register">
+  <section class="segment -compact">
     <div class="wrapper">
 
-      <h1 class="heading -alpha bg-primary-text">Create an Account</h1>
+      <h1 class="heading -alpha text-primary-color">Create an Account</h1>
 
       <p>Have an account? {{ link_to_route('login', 'Login') }}</p>
 
