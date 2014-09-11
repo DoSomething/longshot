@@ -1,4 +1,5 @@
 # config/deploy.rb file
+require 'bundler/capistrano'
 
 set :application, "scholarship-application-app"
 set :deploy_to, ENV["DEPLOY_PATH"]
