@@ -22,7 +22,8 @@ class RecommendationController extends \BaseController {
   public function create()
   {
     // This will be seen by applicants only.
-    return View::make('recommendation.create');
+    $num_recs = Scholarship::whereId(1)->firstOrFail()->pluck('num_recommendations_max');
+    return View::make('recommendation.create', compact('num_recs'));
   }
 
   /**
@@ -35,20 +36,22 @@ class RecommendationController extends \BaseController {
   {
     $input = Input::all();
 
-    $recommendation = new Recommendation;
+    foreach($input['rec'] as $input)
+    {
+      $recommendation = new Recommendation;
 
-    foreach ($input as $key => $field) {
-      // skip form token
-      if ($key !== '_token') {
-        $recommendation->$key = $field;
+      foreach ($input as $key => $field) {
+          $recommendation->$key = $field;
       }
-    }
-    $application = Auth::user()->application;
-    $recommendation->application()->associate($application);
-    // @TODO: also make sure to send an email.
-    $recommendation->save();
+      $application = Auth::user()->application;
+      $recommendation->application()->associate($application);
+      $recommendation->save();
 
-    return Redirect::route('status')->with('flash_message', 'Application information has been saved!');
+      $this->prepareEmail($application, $recommendation);
+    }
+
+
+    return Redirect::route('status')->with('flash_message', 'We sent that email off!');
   }
 
   /**
@@ -101,5 +104,26 @@ class RecommendationController extends \BaseController {
   {
     //
   }
+
+  public function prepareEmail($application, $recommendation)
+  {
+    $to = $recommendation->email;
+    $from = Auth::user()->first_name .  " " . Auth::user()->last_name;
+    $scholarship = Scholarship::whereId($application->scholarship_id)->firstOrFail()->pluck('title');
+    $subject = $from . " would like you to to be a recommender for the " . $scholarship . " scholarship";
+
+    $data = array(
+      'to' => $to,
+      'subject' => $subject,
+      'applicant' => $from,
+      'recommendation_id' => $recommendation->id
+    );
+    Mail::send('emails.recommendation.request', $data, function($message) use ($data)
+    {
+      $message->to($data['to'])->subject($data['subject']);
+    });
+  }
+
+
 
 }

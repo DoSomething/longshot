@@ -11,4 +11,5 @@ class Scholarship extends \Eloquent {
     return $this->hasMany('Application');
   }
 
+
 }

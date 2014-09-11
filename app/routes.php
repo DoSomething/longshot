@@ -31,11 +31,11 @@ Route::get('status', ['as' => 'status', 'uses' => 'PagesController@status'])->be
 
 
 # Profile
-Route::resource('profile', 'ProfilesController');
+Route::resource('profile', 'ProfilesController', ['before' => 'auth']);
 
 
 # Application
-Route::resource('application', 'ApplicationController');
+Route::resource('application', 'ApplicationController', ['before' => 'auth']);
 
 # Recomendation
 Route::resource('recommendation', 'RecommendationController');
