@@ -81,7 +81,7 @@ class ScholarshipController extends \BaseController {
   public function update($id)
   {
     $input = Input::all();
-    $scholarship = Scholarship::whereId($id)->firstOrFail();
+    $scholarship = Scholarship::whereId($id)->firstOrFail();;
     $scholarship->fill($input)->save();
     // Maybe this should go to scholarship/show?
     return Redirect::route('admin')->with('flash_message', 'Scholarship information has been saved!');
@@ -97,6 +97,38 @@ class ScholarshipController extends \BaseController {
   public function destroy($id)
   {
     //
+  }
+
+  /**
+   * Return the current scholarship.
+   */
+  public function getActiveScholarship()
+  {
+    // @TODO: there actually needs to be rules to return this correctly.
+    return Scholarship::firstOrFail();
+  }
+
+  /**
+   * Return a specific field about the scholarhisp
+   *
+   *
+   * @param - the field that you are looking for
+   *
+   * @return - the right info!
+   */
+  public function getField($field)
+  {
+    // if there is a special handler get that
+    // if not - grab the field from the database
+    $handler = 'get_' . $field_name;
+    if (function_exists($handler))
+    {
+      return $handler;
+    }
+    else
+    {
+      return 'the field';
+    }
   }
 
 }
