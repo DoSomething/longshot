@@ -5,3 +5,4 @@ source "https://rubygems.org"
 gem 'sass', '>= 3.3'
 gem 'susy'
 gem 'capistrano'
+gem 'capistrano-bundler'
