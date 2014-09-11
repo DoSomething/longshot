@@ -24,8 +24,7 @@
   .segment { @include container($wide);
 
     &.-compact {
-      // @TODO: look into setting column amount without floating and centering via Susy.
-      > .wrapper { @include span(8 of 12); @include push(2 of 12); float: none; }
+      > .wrapper { @include push(2 of 12); width: span(8 of 12); }
 
       .field-group {
         &.-mono { width: span(4); }
