@@ -118,7 +118,7 @@ class RecommendationController extends \BaseController {
       'applicant' => $from,
       'recommendation_id' => $recommendation->id
     );
-    Mail::send('emails.recommendation.recommendation', $data, function($message) use ($data)
+    Mail::send('emails.recommendation.request', $data, function($message) use ($data)
     {
       $message->to($data['to'])->subject($data['subject']);
     });
