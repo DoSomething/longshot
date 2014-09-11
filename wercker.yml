@@ -4,29 +4,18 @@ build:
     steps:
       # A custom script step, name value is used in the UI
       # and the code value contains the command that get executed
-      # - script:
-      #     name: install dependencies
-      #     code: composer install --no-interaction --prefer-source
       - script:
-          name: get user
-          code: whoami
+          name: install dependencies
+          code: composer install --no-interaction --prefer-source
+      - script:
+          name: install npm dependencies
+          code: sudo npm install
       - script:
           name: change permissions
           code: sudo chgrp -R ubuntu ./
       - script:
-          name: list directory
-          code: ls -la
+          name: install bower dependencies
+          code: bower install
       - script:
-          name: install npm dependencies
-          code: npm install
-      # - script:
-      #     name: install bower dependencies
-      #     code: bower install
-      # - script:
-      #     name: build assets
-      #     code: gulp build
-
-      # Add more steps here:
-      #- script:
-      #    name: run unit tests
-      #    code: phpunit
+          name: build assets
+          code: gulp build
