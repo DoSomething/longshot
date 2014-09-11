@@ -25,9 +25,6 @@ Route::controller('password', 'RemindersController');
 
 # Pages
 Route::get('/', ['as' => 'home', 'uses' => 'PagesController@home']);
-Route::get('about', ['as' => 'about', 'uses' => 'PagesController@about']);
-Route::get('faq', ['as' => 'faq', 'uses' => 'PagesController@faq']);
-Route::get('status', ['as' => 'status', 'uses' => 'PagesController@status'])->before('auth');
 
 
 # Profile
