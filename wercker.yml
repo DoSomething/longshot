@@ -13,6 +13,9 @@ build:
       - script:
           name: directory
           code: pwd
+      - script:
+          name: list directory
+          code: ls -la
       # - script:
       #     name: install npm dependencies
       #     code: npm install
