@@ -7,7 +7,7 @@
     <h1>Welcome, {{ $user->first_name }}!</h1>
 
     <p>There are a total of <strong>{{ $userCount }}</strong> users in the system.</p>
-    <p>{{ link_to_route('applications', 'View all Applications', null, ['class' => 'btn btn-primary btn-lg']) }}</p>
+    <p>{{ link_to_route('applications.index', 'View all Applications', null, ['class' => 'btn btn-primary btn-lg']) }}</p>
   </div>
 </div>
 

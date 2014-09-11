@@ -11,7 +11,10 @@
       <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         <h1 class="page-header">{{ "{$applicant->first_name} {$applicant->last_name}" }}'s Application</h1>
 
-        {{-- @TODO: Refactor once validation is added to the application form fields. --}}
+        {{--
+          @TODO: Refactor once validation is added to the application form fields.
+          @TODO: Try and refactor this to use a loop!
+        --}}
         <h2>Profile Information</h2>
         <div class="well well-lg">
           <p><strong>Email:</strong> <a href="mailto:{{ $applicant->email }}">{{ $applicant->email }}</a></p>
@@ -38,6 +41,7 @@
         </div>
 
 
+        {{-- @TODO: Use the application questions for a scholarship for the labels. --}}
         <h2>Application Responses</h2>
         <div class="well well-lg">
 

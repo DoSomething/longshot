@@ -48,7 +48,7 @@ Route::group(['before' => 'role:administrator', 'prefix' => 'admin'], function()
   Route::get('/', ['as' => 'admin', 'uses' => 'AdminController@index']);
 
   # Applications management
-  Route::get('applications', ['as' => 'applications', 'uses' => 'AdminController@applicationsIndex']);
+  Route::get('applications', ['as' => 'applications.index', 'uses' => 'AdminController@applicationsIndex']);
   Route::get('applications/{id}', ['as' => 'applications.show', 'uses' => 'AdminController@applicationsShow']);
 
   # Scholarship management
