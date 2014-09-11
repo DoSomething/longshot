@@ -47,7 +47,7 @@ class RecommendationController extends \BaseController {
       $recommendation->application()->associate($application);
       $recommendation->save();
 
-      $this->prepareEmail($application, $recommendation);
+      $this->prepareRequestEmail($application, $recommendation);
     }
 
 
@@ -90,7 +90,15 @@ class RecommendationController extends \BaseController {
    */
   public function update($id)
   {
-    return;
+    $input = Input::all();
+    $recommendation = Recommendation::whereId($id)->firstOrFail();
+    $recommendation->rank_character = $input['rank_character'];
+    $recommendation->rank_addiational = $input['rank_addiational'];
+    $recommendation->essay1 = $input['essay1'];
+    $recommendation->save();
+    $this->prepareRecReceivedEmail($recommendation);
+
+    return Redirect::route('home')->with('flash_message', 'Thanks, we got your recommendation!');
   }
 
   /**
@@ -105,7 +113,7 @@ class RecommendationController extends \BaseController {
     //
   }
 
-  public function prepareEmail($application, $recommendation)
+  public function prepareRequestEmail($application, $recommendation)
   {
     $to = $recommendation->email;
     $from = Auth::user()->first_name .  " " . Auth::user()->last_name;
@@ -122,6 +130,30 @@ class RecommendationController extends \BaseController {
     {
       $message->to($data['to'])->subject($data['subject']);
     });
+  }
+
+  public function prepareRecReceivedEmail($recommendation)
+  {
+    $user = DB::table('users')
+                ->join('applications', 'applications.user_id', '=', 'users.id')
+                ->where('applications.id', '=', $recommendation->id)
+                ->select('users.id', 'users.email', 'users.first_name')
+                ->first();
+
+    $to = $user->email;
+    $from = $recommendation->first_name . " " . $recommendation->last_name;
+    $subject = $from . " has completed your recommendation.";
+    $data = array(
+      'to' => $to,
+      'from' => $from,
+      'subject' => $subject,
+    );
+
+    Mail::send('emails.recommendation.received', $data, function($message) use ($data)
+    {
+      $message->to($data['to'])->subject($data['subject']);
+    });
+
   }
 
 
