@@ -1,4 +1,4 @@
-box: blisteringherb/scholarship@0.0.3
+box: blisteringherb/scholarship@0.0.4
 build:
     # The steps that will be executed on build
     steps:
@@ -12,7 +12,7 @@ build:
           code: sudo npm install
       - script:
           name: change permissions
-          code: sudo chgrp -R ubuntu ./
+          code: sudo chown -R ubuntu.ubuntu ./
       - script:
           name: install bower dependencies
           code: bower install
