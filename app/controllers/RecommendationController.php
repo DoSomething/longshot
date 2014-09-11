@@ -22,7 +22,8 @@ class RecommendationController extends \BaseController {
   public function create()
   {
     // This will be seen by applicants only.
-    return View::make('recommendation.create');
+    $num_recs = Scholarship::whereId(1)->firstOrFail()->pluck('num_recommendations_max');
+    return View::make('recommendation.create', compact('num_recs'));
   }
 
   /**
@@ -35,19 +36,20 @@ class RecommendationController extends \BaseController {
   {
     $input = Input::all();
 
-    $recommendation = new Recommendation;
+    foreach($input['rec'] as $input)
+    {
+      $recommendation = new Recommendation;
 
-    foreach ($input as $key => $field) {
-      // skip form token
-      if ($key !== '_token') {
-        $recommendation->$key = $field;
+      foreach ($input as $key => $field) {
+          $recommendation->$key = $field;
       }
-    }
-    $application = Auth::user()->application;
-    $recommendation->application()->associate($application);
-    $recommendation->save();
+      $application = Auth::user()->application;
+      $recommendation->application()->associate($application);
+      $recommendation->save();
 
-    $this->prepareEmail($application, $recommendation);
+      $this->prepareEmail($application, $recommendation);
+    }
+
 
     return Redirect::route('status')->with('flash_message', 'We sent that email off!');
   }
