@@ -21,4 +21,7 @@ build:
 deploy:
   steps:
     - bundle-install
+    - script:
+        name: list dir
+        code: ls -la
     - cap
