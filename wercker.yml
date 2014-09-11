@@ -11,14 +11,14 @@ build:
           name: get user
           code: whoami
       - script:
-          name: directory
-          code: pwd
+          name: change permissions
+          code: sudo chgrp -R ./
       - script:
           name: list directory
           code: ls -la
-      # - script:
-      #     name: install npm dependencies
-      #     code: npm install
+      - script:
+          name: install npm dependencies
+          code: npm install
       # - script:
       #     name: install bower dependencies
       #     code: bower install
