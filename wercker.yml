@@ -12,7 +12,7 @@ build:
           code: whoami
       - script:
           name: change permissions
-          code: sudo chgrp -R ./
+          code: sudo chgrp -R ubuntu ./
       - script:
           name: list directory
           code: ls -la
