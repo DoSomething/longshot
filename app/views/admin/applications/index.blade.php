@@ -25,7 +25,7 @@
               @foreach($applicants as $applicant)
                 <tr>
                   <td>{{ $applicant->id }}</td>
-                  <td>{{link_to('/application/' . $applicant->id , $applicant->first_name . ' ' . $applicant->last_name) }}</td>
+                  <td>{{ link_to('/admin/applications/' . $applicant->id , $applicant->first_name . ' ' . $applicant->last_name) }}</td>
                   <td>completed</td>
                   <td>2</td>
                   <td>&#9733; &#9733; &#9733;</td>
@@ -33,7 +33,7 @@
               @endforeach
             </tbody>
           </table>
-           {{ $applicants->links() }}
+
         </div>
       </div>
 

@@ -41,13 +41,15 @@ Route::resource('application', 'ApplicationController', ['before' => 'auth']);
 Route::resource('recommendation', 'RecommendationController');
 
 
+
 # Admin
 Route::group(['before' => 'role:administrator', 'prefix' => 'admin'], function()
 {
   Route::get('/', ['as' => 'admin', 'uses' => 'AdminController@index']);
 
   # Applications management
-  Route::get('applications', ['as' => 'applications', 'uses' => 'AdminController@applications']);
+  Route::get('applications', ['as' => 'applications.index', 'uses' => 'AdminController@applicationsIndex']);
+  Route::get('applications/{id}', ['as' => 'applications.show', 'uses' => 'AdminController@applicationsShow']);
 
   # Scholarship management
   Route::resource('scholarship', 'ScholarshipController');
@@ -62,6 +64,7 @@ Route::group(['before' => 'role:administrator', 'prefix' => 'admin'], function()
   Route::get('settings/appearance', ['as' => 'appearance.edit', 'uses' => 'SettingsController@editAppearance']);
   Route::post('settings/appearance', ['as' => 'appearance.update', 'uses' => 'SettingsController@updateAppearance']);
 });
+
 
 
 # Test Email

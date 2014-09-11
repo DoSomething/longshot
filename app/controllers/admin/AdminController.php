@@ -16,11 +16,10 @@ class AdminController extends \BaseController {
   }
 
 
-
   /**
    *
    */
-  public function applications()
+  public function applicationsIndex()
   {
     $sort_by = Request::get('sort_by');
 
@@ -37,6 +36,16 @@ class AdminController extends \BaseController {
     return View::make('admin.applications.index', compact('applicants'));
   }
 
+
+  /**
+   * Get Application and Profile information for a specified User.
+   */
+  public function applicationsShow($id)
+  {
+    $applicant = User::with('application', 'profile')->whereId($id)->firstOrFail();
+
+    return View::make('admin.applications.show', compact('applicant'));
+  }
 
   /**
    *
