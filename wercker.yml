@@ -20,4 +20,5 @@ build:
           code: gulp build
 deploy:
   steps:
+    - bundle-install
     - cap
