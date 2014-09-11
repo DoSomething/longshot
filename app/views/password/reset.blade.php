@@ -1,10 +1,10 @@
 @extends('layouts.master')
 
 @section('main_content')
-  <section class="segment segment--password">
+  <section class="segment -compact">
     <div class="wrapper">
 
-      <h1 class="heading -alpha bg-primary-text">Reset Password</h1>
+      <h1 class="heading -alpha text-primary-color">Reset Password</h1>
 
       <p>Set a new password for your account.</p>
 

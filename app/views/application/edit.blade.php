@@ -1,18 +1,22 @@
 @extends('layouts.master')
 
 @section('main_content')
+  <section class="segment -compact">
+    <div class="wrapper">
 
-  <h1>Edit Your Application</h1>
+      <h1 class="heading -alpha text-primary-color">Edit Your Application</h1>
 
-  {{ Form::model($user->application, ['method' => 'PATCH', 'route' => ['application.update', $user->id]]) }}
+      {{ Form::model($user->application, ['method' => 'PATCH', 'route' => ['application.update', $user->id]]) }}
 
-    @include('application/partials/_form_application')
+        @include('application/partials/_form_application')
 
-    {{-- Submit Button --}}
-    <div>
-      {{ Form::submit('Update application', ['class' => 'button -default']) }}
+        {{-- Submit Button --}}
+        <div class="field-group">
+          {{ Form::submit('Update application', ['class' => 'button -default']) }}
+        </div>
+
+      {{ Form::close() }}
+
     </div>
-
-  {{ Form::close() }}
-
+  </section>
 @stop

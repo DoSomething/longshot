@@ -5,28 +5,28 @@
     {{ errorsFor('accomplishments', $errors); }}
   </div>
 
+
   {{-- GPA --}}
-  <div class="field-group">
+  <div class="field-group -mono">
     {{ Form::label('gpa', 'GPA: ') }}
     {{ Form::text('gpa') }}
     {{ errorsFor('gpa', $errors); }}
   </div>
 
-
-    {{-- Test Type --}}
-    <div class="field-group">
-      {{ Form::label('test_type', 'Test Type: ') }}
-      {{ Form::select('test_type', array('SAT' => 'SAT', 'ACT' => 'ACT')); }}
-      {{ errorsFor('test_type', $errors); }}
-    </div>
-
+  {{-- Test Type --}}
+  <div class="field-group -dual -alpha">
+    {{ Form::label('test_type', 'Test Type: ') }}
+    {{ Form::select('test_type', array('SAT' => 'SAT', 'ACT' => 'ACT')); }}
+    {{ errorsFor('test_type', $errors); }}
+  </div>
 
   {{-- Test Score --}}
-  <div class="field-group">
+  <div class="field-group -dual -beta">
     {{ Form::label('test_score', 'Test Score: ') }}
     {{ Form::text('test_score') }}
     {{ errorsFor('test_score', $errors); }}
   </div>
+
 
   {{-- Activities --}}
   <div class="field-group">

@@ -1,10 +1,10 @@
 @extends('layouts.master')
 
 @section('main_content')
-  <section class="segment segment--login">
+  <section class="segment -compact">
     <div class="wrapper">
 
-      <h1 class="heading -alpha bg-primary-text">Login</h1>
+      <h1 class="heading -alpha text-primary-color">Login</h1>
 
       {{ Form::open(['route' => 'sessions.store']) }}
 

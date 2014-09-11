@@ -1,20 +1,26 @@
 @extends('layouts.master')
 
 @section('main_content')
-  <section class="segment">
-    <h1 class="heading -alpha">{{ $user->first_name }}'s Profile</h1>
+  <section class="segment -compact">
+    <div class="wrapper">
 
-    <p>{{ $user->profile->birthdate }}</p>
-    <p>{{ $user->profile->phone }}</p>
-    <p>{{ $user->profile->address_street }}, {{ $user->profile->address_premise }}</p>
-    <p>{{ $user->profile->city }}, {{ $user->profile->state }} {{ $user->profile->zip }}</p>
-    <p>{{ $user->profile->gender }}</p>
-    <p>{{ $user->profile->race }}</p>
-    <p>{{ $user->profile->school }}</p>
-    <p>Grade: {{ $user->profile->grade }}</p>
+      <h1 class="heading -alpha text-primary-color">{{ $user->first_name }}'s Profile</h1>
 
-    @if ($user->isCurrent())
-      <p>{{ link_to_route('profile.edit', 'Edit Your Profile', $user->id, ['class' => 'btn -default']) }}</p>
-    @endif
+      <div class="">
+        <p><strong>Birthdate:</strong> {{ $user->profile->birthdate }}</p>
+        <p><strong>Phone Number:</strong>{{ $user->profile->phone }}</p>
+        <p><strong>Street Address:</strong>{{ $user->profile->address_street }}, {{ $user->profile->address_premise }}</p>
+        <p><strong>City, State, Zip:</strong>{{ $user->profile->city }}, {{ $user->profile->state }} {{ $user->profile->zip }}</p>
+        <p><strong>Gender:</strong>{{ $user->profile->gender }}</p>
+        <p><strong>Race:</strong>{{ $user->profile->race }}</p>
+        <p><strong>School:</strong>{{ $user->profile->school }}</p>
+        <p><strong>Grade:</strong> {{ $user->profile->grade }}</p>
+      </div>
+
+      @if ($user->isCurrent())
+        {{ link_to_route('profile.edit', 'Edit Your Profile', $user->id, ['class' => 'button -default']) }}
+      @endif
+
+    </div>
   </section>
 @stop

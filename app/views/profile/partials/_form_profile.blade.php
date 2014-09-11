@@ -1,6 +1,6 @@
 
   {{-- Birthdate --}}
-  <div class="field-group">
+  <div class="field-group -mono">
     {{ Form::label('birthdate', 'Birthdate: ') }}
     {{ Form::input('date', 'birthdate') }}
     {{ errorsFor('birthdate', $errors); }}
@@ -28,14 +28,14 @@
   </div>
 
   {{-- City --}}
-  <div class="field-group">
+  <div class="field-group -dual -alpha">
     {{ Form::label('city', 'City: ') }}
     {{ Form::text('city') }}
     {{ errorsFor('city', $errors); }}
   </div>
 
   {{-- State --}}
-  <div class="field-group">
+  <div class="field-group -dual -beta">
     {{ Form::label('state', 'State: ') }}
     {{ Form::select('state', $states); }}
     {{ errorsFor('state', $errors); }}
@@ -49,7 +49,7 @@
   </div>
 
   {{-- Gender --}}
-  <div class="field-group">
+  <div class="field-group -mono">
     {{ Form::label('gender', 'Gender: ') }}
     {{ Form::select('gender', array('M' => 'Male', 'F' => 'Female')); }}
     {{ errorsFor('gender', $errors); }}
@@ -70,7 +70,7 @@
   </div>
 
   {{-- Grade --}}
-  <div class="field-group">
+  <div class="field-group -mono">
     {{ Form::label('grade', 'Grade: ') }}
     {{ Form::selectRange('grade', 9, 12); }}
     {{ errorsFor('grade', $errors); }}
