@@ -5,7 +5,9 @@ build:
       # A custom script step, name value is used in the UI
       # and the code value contains the command that get executed
       - leipert/composer-install@0.0.1
-      - wercker/npm-install@0.9.3
+      - script:
+          name: npm install
+          code: sudo npm install
       - wercker/bundle-install@1.1.1
       - script:
           name: change permissions
