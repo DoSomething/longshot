@@ -23,7 +23,7 @@
 
   {{-- Block item grouping --}}
   <div class="well">
-    @if (count($blocks) > 0)
+    @if (isset($blocks) && count($blocks) > 0)
       @foreach ($blocks as $key=>$block)
 
         <div class="repeatable">
