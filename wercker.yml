@@ -1,23 +1,32 @@
-box: wercker/php
+box: blisteringherb/scholarship@0.0.5
 build:
     # The steps that will be executed on build
     steps:
       # A custom script step, name value is used in the UI
       # and the code value contains the command that get executed
+      - leipert/composer-install@0.0.1
       - script:
-          name: install dependencies
-          code: composer install --no-interaction --prefer-source
+          name: npm install
+          code: sudo npm install
+      - wercker/bundle-install@1.1.1
       - script:
-          name: install npm dependencies
-          code: npm install
+          name: change permissions
+          code: sudo chown -R ubuntu.ubuntu ./
       - script:
           name: install bower dependencies
           code: bower install
       - script:
           name: build assets
           code: gulp build
-
-      # Add more steps here:
-      #- script:
-      #    name: run unit tests
-      #    code: phpunit
+deploy:
+  steps:
+    - bundle-install
+    - script:
+        name: list dir
+        code: ls -la
+    - script:
+        name: write env var
+        code: |-
+          export CAP_PRIVATE_KEY=`mktemp`
+          echo -e $WERCKER_APP_KEY_PRIVATE > $CAP_PRIVATE_KEY
+    - cap
