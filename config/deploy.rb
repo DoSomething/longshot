@@ -14,4 +14,3 @@ set :scm, :none
 set :deploy_via, :copy
 
 ssh_options[:keys] = [ENV["CAP_PRIVATE_KEY"]]
-ssh_options[:verbose] = :debug
