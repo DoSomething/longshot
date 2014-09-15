@@ -21,7 +21,7 @@ class CreateRecommendationTable extends Migration {
       $table->string('phone');
       $table->string('email')->unique;
       $table->string('rank_character');
-      $table->string('rank_addiational');
+      $table->string('rank_additional');
       $table->longtext('essay1');
       $table->timestamps();
     });

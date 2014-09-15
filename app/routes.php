@@ -34,6 +34,11 @@ Route::resource('profile', 'ProfilesController', ['before' => 'auth']);
 # Application
 Route::resource('application', 'ApplicationController', ['before' => 'auth']);
 
+# Status
+Route::get('status', ['as' => 'status', 'uses' => 'StatusController@status', 'before' => 'auth']);
+# this should be a post.
+Route::get('resend-email', ['as' => 'resend', 'uses' => 'StatusController@resendEmailRequest']);
+
 # Recomendation
 Route::resource('recommendation', 'RecommendationController');
 
