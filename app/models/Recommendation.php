@@ -9,4 +9,9 @@ class Recommendation extends \Eloquent {
   {
     return $this->belongsTo('Application');
   }
+
+  public function recommendation_token()
+  {
+    return $this->hasOne('RecommendationToken');
+  }
 }
