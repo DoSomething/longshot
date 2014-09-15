@@ -114,7 +114,7 @@ class PageController extends \BaseController {
         $currentBlock->block_title = $block['title'];
         $currentBlock->block_description = $block['description'];
         $currentBlock->block_body = $block['body'];
-      $currentBlock->save();
+        $currentBlock->save();
       }
       else {
         $newBlock = new Block;
@@ -140,6 +140,30 @@ class PageController extends \BaseController {
   public function destroy($id)
   {
     //
+  }
+
+
+  /**
+   * Show the requested static page.
+   */
+  public function staticShow($pageRequest)
+  {
+    // @TODO: add slug column for hyphenated version of title that will make DB query possible for longer titles.
+    $pageList = Page::lists('title');
+
+    foreach($pageList as $index => $pageTitle)
+    {
+      $pageList[$index] = stringtoKebabCase($pageTitle);
+    }
+
+    if (! in_array($pageRequest, $pageList))
+    {
+      return App::abort(404);
+    }
+
+    $page = Page::with('blocks')->whereTitle($pageRequest)->firstOrFail();
+
+    return View::make('pages.static', compact('page'));
   }
 
 }

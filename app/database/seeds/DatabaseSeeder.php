@@ -25,7 +25,10 @@ class DatabaseSeeder extends Seeder {
     $this->call('SettingsTableSeeder');
     $this->command->info('Settings table seeded!');
 
-    $this->call('ScholarshipTableSeeder');
+    $this->call('PagesTableSeeder');
+    $this->command->info('Pages table seeded!');
+
+    $this->call('ScholarshipsTableSeeder');
     $this->command->info('Scholarship table seeded!');
 
     // Explicitly undo disabling foreign key checks.

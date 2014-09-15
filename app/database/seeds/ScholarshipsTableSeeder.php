@@ -1,6 +1,6 @@
 <?php
 
-class ScholarshipTableSeeder extends Seeder {
+class ScholarshipsTableSeeder extends Seeder {
 
   public function run()
   {
