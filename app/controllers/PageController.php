@@ -47,7 +47,19 @@ class PageController extends \BaseController {
     $page->title = $input['title'];
     $page->description = $input['description'];
 
+    // Save the page fields
     $page->save();
+
+    // With page saved, now assign the path to it.
+    // If not url entered, then use the title.
+    // @TODO: can likely pull this out and add it to the model after passing through the values?
+    $pathURL = $input['url'] ? $input['url'] : $input['title'];
+
+    $path = new Path;
+    $path->url        = stringtoKebabCase($pathURL);
+    $path->link_title = $input['title'];
+    $page->assignPath($path);
+
 
     $blocks = Input::get('blocks');
 
@@ -87,7 +99,11 @@ class PageController extends \BaseController {
    */
   public function edit($id)
   {
-    $page = Page::whereId($id)->firstOrFail();
+    $page = Page::with('path')->whereId($id)->firstOrFail();
+    $page->path->disabled = 'true';
+
+    // dd($page->toArray());
+
     $blocks = Block::where('page_id', $id)->get();
     return View::make('admin.page.edit')->with(compact('page', 'blocks'));
   }
@@ -148,15 +164,10 @@ class PageController extends \BaseController {
    */
   public function staticShow($pageRequest)
   {
-    // @TODO: add slug column for hyphenated version of title that will make DB query possible for longer titles.
-    $pageList = Page::lists('title');
+    $pathList = Path::lists('url');
+    $pageRequest = stringtoKebabCase($pageRequest);
 
-    foreach($pageList as $index => $pageTitle)
-    {
-      $pageList[$index] = stringtoKebabCase($pageTitle);
-    }
-
-    if (! in_array($pageRequest, $pageList))
+    if (! in_array($pageRequest, $pathList))
     {
       return App::abort(404);
     }
