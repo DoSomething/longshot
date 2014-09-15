@@ -50,11 +50,7 @@ class RecommendationController extends \BaseController {
         $recommendation->application()->associate($application);
         $recommendation->save();
 
-        // Create a token.
-        $token = new RecommendationToken;
-        $token->recommendation()->associate($recommendation);
-        $token->token = Hash::make(str_random(20));
-        $token->save();
+        $token = $recommendation->generateRecToken($recommendation);
 
         $this->prepareRequestEmail($application, $recommendation, $token);
       }
@@ -133,6 +129,8 @@ class RecommendationController extends \BaseController {
     //
   }
 
+
+
   public function prepareRequestEmail($application, $recommendation, $token)
   {
     $to = $recommendation->email;
@@ -145,7 +143,7 @@ class RecommendationController extends \BaseController {
       'subject' => $subject,
       'applicant' => $from,
       'recommendation_id' => $recommendation->id,
-      'token' => $token->token
+      'token' => $token
     );
     Mail::send('emails.recommendation.request', $data, function($message) use ($data)
     {

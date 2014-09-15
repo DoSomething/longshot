@@ -14,4 +14,22 @@ class Recommendation extends \Eloquent {
   {
     return $this->hasOne('RecommendationToken');
   }
+
+  public function generateRecToken($recommendation)
+  {
+    // is there already a token?
+    $token = RecommendationToken::where('recommendation_id', $recommendation->id)->first();
+    if (!isset($token['original']['token']))
+    {
+      // Create a new token.
+      $token = new RecommendationToken;
+      $token->recommendation()->associate($recommendation);
+    }
+
+    $token->token = Hash::make(str_random(20));
+    $token->save();
+
+    return $token->token;
+  }
+
 }
