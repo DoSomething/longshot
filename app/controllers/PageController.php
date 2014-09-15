@@ -101,10 +101,8 @@ class PageController extends \BaseController {
   {
     $page = Page::with('path')->whereId($id)->firstOrFail();
     $page->path->disabled = 'true';
-
-    // dd($page->toArray());
-
     $blocks = Block::where('page_id', $id)->get();
+
     return View::make('admin.page.edit')->with(compact('page', 'blocks'));
   }
 
