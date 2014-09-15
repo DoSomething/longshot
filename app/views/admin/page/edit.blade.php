@@ -1,18 +1,26 @@
 @extends('admin.layouts.master')
 
 @section('main_content')
+  <div class="container-fluid">
+    <div class="row">
 
-  <h1>Edit Static Page</h1>
+      <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <h1 class="page-header">Edit Static Page</h1>
 
-  {{ Form::model($page, ['method' => 'PUT', 'route' => ['admin.page.update', $page->id], 'files' => true]) }}
+        {{ Form::model($page, ['method' => 'PUT', 'route' => ['admin.page.update', $page->id], 'files' => 'true', 'class' => 'col-md-8']) }}
 
-    @include('admin/page/partials/_form_page')
+          @include('admin/page/partials/_form_page')
 
-    {{-- Submit Button --}}
-    <div>
-      {{ Form::submit('Update page', ['class' => 'btn btn-primary btn-large']) }}
+          {{-- Submit Button --}}
+          <div class="col-sm-3 col-md-2 sidebar">
+            {{ Form::submit('Update page', ['class' => 'btn btn-primary btn-large']) }}
+            <a class="btn btn-default" href="{{ URL::route('admin.page.index') }}"><span class="glyphicon glyphicon-arrow-left"></span> Back to page list</a>
+          </div>
+
+        {{ Form::close() }}
+
+      </div>
+
     </div>
-
-  {{ Form::close() }}
-
+  </div>
 @stop

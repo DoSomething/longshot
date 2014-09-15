@@ -1,18 +1,26 @@
 @extends('admin.layouts.master')
 
 @section('main_content')
-  <section class="segment">
-    <h1 class="heading -alpha">Complete A Static Page</h1>
+  <div class="container-fluid">
+    <div class="row">
 
-    {{ Form::open(['route' => 'admin.page.store', 'files' => true]) }}
+      <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <h1 class="page-header">Create A Static Page</h1>
 
-    @include('admin/page/partials/_form_page')
+        {{ Form::open(['route' => 'admin.page.store', 'files' => 'true', 'class' => 'col-md-8']) }}
 
-    {{-- Submit Button --}}
-    <div>
-      {{ Form::submit('Save page', ['class' => 'btn btn-primary btn-large']) }}
+        @include('admin/page/partials/_form_page')
+
+        {{-- Submit Button --}}
+        <div class="col-sm-3 col-md-2 sidebar">
+          {{ Form::submit('Save page', ['class' => 'btn btn-primary btn-large']) }}
+          <a class="btn btn-default" href="{{ URL::route('admin.page.index') }}"><span class="glyphicon glyphicon-arrow-left"></span> Back to page list</a>
+        </div>
+
+        {{ Form::close() }}
+
+      </div>
+
     </div>
-
-    {{ Form::close() }}
-  </section>
+  </div>
 @stop

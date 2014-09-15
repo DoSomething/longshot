@@ -1,10 +1,12 @@
 <?php
 
 class Page extends \Eloquent {
-	protected $fillable = ['title', 'description', 'image'];
+
+  protected $fillable = ['title', 'description', 'image'];
 
   public function blocks()
   {
-    return $this->hasMany('Blocks');
+    return $this->hasMany('Block');
   }
+
 }

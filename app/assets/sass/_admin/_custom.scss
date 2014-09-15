@@ -14,6 +14,17 @@ body {
   padding: 20px 0;
 }
 
+textarea {
+  max-height: 500px;
+  resize: vertical;
+}
+
+.btn + .btn { margin-top: 15px; }
+
+.sidebar {
+  .btn { width: 100%; }
+}
+
 .image-holder { padding: 10px 10px 20px;
   img {
     background-color: #fafafa;
@@ -26,6 +37,7 @@ body {
     box-shadow: 2px 2px 2px rgba(#000, 0.4);
   }
 }
+
 
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

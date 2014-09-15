@@ -87,3 +87,11 @@ function snakeCaseToTitleCase($text) {
 function snakeCaseToKebabCase($text) {
   return $output = str_replace('_', '-', $text);
 }
+
+
+/**
+ * Return a string formatted to Kebab Case.
+ */
+function stringtoKebabCase($text) {
+  return $output = str_replace(' ', '-', strtolower($text));
+}

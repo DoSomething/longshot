@@ -1,51 +1,51 @@
 
 
   {{-- Title --}}
-  <div class="field-group">
+  <div class="form-group">
     {{ Form::label('title', 'Title: ') }}
-    {{ Form::text('title') }}
+    {{ Form::text('title', null, ['class' => 'form-control']) }}
     {{ errorsFor('title', $errors); }}
   </div>
 
     {{-- Description --}}
-  <div class="field-group">
+  <div class="form-group">
     {{ Form::label('description', 'Description: ') }}
-    {{ Form::textarea('description') }}
+    {{ Form::textarea('description', null, ['class' => 'form-control']) }}
     {{ errorsFor('description', $errors); }}
   </div>
 
      {{-- Hero Image --}}
-  <div class="field-group">
+  <div class="form-group">
     {{ Form::label('hero_image', 'Hero Image: ') }}
     {{ Form::file('hero_image') }}
     {{ errorsFor('hero_image', $errors); }}
   </div>
 
   {{-- Block item grouping --}}
-  <div class="well">
+  <div class="">
     @if (isset($blocks) && count($blocks) > 0)
       @foreach ($blocks as $key=>$block)
 
-        <div class="repeatable">
-        {{Form::hidden('blocks['.$key.'][id]', $blocks[$key]['id'])}}
+        <div class="well repeatable">
+        {{ Form::hidden('blocks['.$key.'][id]', $blocks[$key]['id']) }}
         {{-- Block title --}}
-        <div class="field-group">
+        <div class="form-group">
           {{ Form::label('blocks['.$key.'][title]', 'Block Title: ') }}
-          {{ Form::text('blocks['.$key.'][title]', $blocks[$key]['block_title']) }}
+          {{ Form::text('blocks['.$key.'][title]', $blocks[$key]['block_title'], ['class' => 'form-control']) }}
           {{ errorsFor('blocks['.$key.'][title]', $errors); }}
         </div>
 
         {{-- Block desc --}}
-        <div class="field-group">
+        <div class="form-group">
           {{ Form::label('blocks['.$key.'][description]', 'Block Description: ') }}
-          {{ Form::textarea('blocks['.$key.'][description]', $blocks[$key]['block_description']) }}
+          {{ Form::textarea('blocks['.$key.'][description]', $blocks[$key]['block_description'], ['class' => 'form-control']) }}
           {{ errorsFor('blocks['.$key.'][description]', $errors); }}
         </div>
 
         {{-- Block body --}}
-        <div class="field-group">
+        <div class="form-group">
           {{ Form::label('blocks['.$key.'][body]', 'Block Body: ') }}
-          {{ Form::textarea('blocks['.$key.'][body]', $blocks[$key]['block_body']) }}
+          {{ Form::textarea('blocks['.$key.'][body]', $blocks[$key]['block_body'], ['class' => 'form-control']) }}
           {{ errorsFor('blocks['.$key.'][body]', $errors); }}
         </div>
         <button href="#" class ="btn remove"> Remove this block</button>
@@ -54,26 +54,26 @@
      @endforeach
 
       @else
-      <div class="repeatable">
+      <div class="well repeatable">
 
         {{-- Block title --}}
-          <div class="field-group">
+          <div class="form-group">
             {{ Form::label('blocks[0][title]', 'Block Title: ') }}
-            {{ Form::text('blocks[0][title]') }}
+            {{ Form::text('blocks[0][title]', null, ['class' => 'form-control']) }}
             {{ errorsFor('blocks[0][title]', $errors); }}
           </div>
 
           {{-- Block desc --}}
-          <div class="field-group">
+          <div class="form-group">
             {{ Form::label('blocks[0][description]', 'Block Description: ') }}
-            {{ Form::textarea('blocks[0][description]') }}
+            {{ Form::textarea('blocks[0][description]', null, ['class' => 'form-control']) }}
             {{ errorsFor('blocks[0][description]', $errors); }}
           </div>
 
           {{-- Block body --}}
-          <div class="field-group">
+          <div class="form-group">
             {{ Form::label('blocks[0][body]', 'Block Body: ') }}
-            {{ Form::textarea('blocks[0][body]') }}
+            {{ Form::textarea('blocks[0][body]', null, ['class' => 'form-control']) }}
             {{ errorsFor('blocks[0][body]', $errors); }}
           </div>
           <button href="#" class ="btn remove"> Remove this block</button>
@@ -82,8 +82,8 @@
       @endif
     <div class="wrapper"></div>
 
-
-  <button href="#" class ="btn clone"> Add another block</button>
+    <hr>
+    <button href="#" class ="btn clone"> + Add another block</button>
   </div>
 
 
@@ -101,7 +101,7 @@
                      .appendTo(".wrapper");
 
 
-      $.each($(".wrapper ." + newClass + " .field-group"), function() {
+      $.each($(".wrapper ." + newClass + " .form-group"), function() {
         inputFields = $(this).find(":input");
         // Replace all instances of [0] with cloneIndex
         newId = inputFields.attr("id").replace(0, cloneIndex);
