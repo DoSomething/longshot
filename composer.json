@@ -6,7 +6,8 @@
   "require": {
     "laravel/framework": "4.2.*",
     "laracasts/validation": "~1.0",
-    "guzzlehttp/guzzle": "4.*"
+    "guzzlehttp/guzzle": "4.*",
+    "michelf/php-markdown": "1.4.*"
   },
   "require-dev": {
     "way/generators": "~2.0"

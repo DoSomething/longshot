@@ -1,5 +1,7 @@
 <?php
 
+use Michelf\MarkdownExtra;
+
 class PageController extends \BaseController {
 
   /**
@@ -46,6 +48,7 @@ class PageController extends \BaseController {
     }
     $page->title = $input['title'];
     $page->description = $input['description'];
+    $page->description_html = MarkdownExtra::defaultTransform($input['description']);
 
     // Save the page fields
     $page->save();
@@ -115,11 +118,13 @@ class PageController extends \BaseController {
    */
   public function update($id)
   {
-    $input = Input::except("blocks");
+    $input = Input::except('blocks');
     $page = Page::whereId($id)->firstOrFail();
     $path = Path::wherePageId($id)->firstOrFail();
 
+    $input['description_html'] = MarkdownExtra::defaultTransform($input['description']);
     $page->fill($input)->save();
+
     $path->link_text = $input['link_text'];
     $path->save();
 
