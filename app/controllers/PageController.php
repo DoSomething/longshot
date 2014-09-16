@@ -56,7 +56,7 @@ class PageController extends \BaseController {
     $pathURL = $input['url'] ? $input['url'] : $input['title'];
 
     $path = new Path;
-    $path->url        = stringtoKebabCase($pathURL);
+    $path->url = stringtoKebabCase($pathURL);
     $path->link_text  = $input['link_text'] ? $input['link_text'] : $input['title'];
     $page->assignPath($path);
 
