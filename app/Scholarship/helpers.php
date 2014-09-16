@@ -90,7 +90,7 @@ function snakeCaseToKebabCase($text) {
 
 
 /**
- * Return a string formatted to Kebab Case.
+ * Return a string formatted to Kebab Case and all lowercased.
  */
 function stringtoKebabCase($text) {
   return $output = str_replace(' ', '-', strtolower($text));

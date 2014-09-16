@@ -17,10 +17,13 @@ class CreatePagesTable extends Migration {
       $table->increments('id');
       $table->string('title')->index();
       $table->longtext('description');
+      $table->longtext('description_html');
       $table->string('hero_image');
       $table->timestamps();
     });
-  }  /**
+  }
+
+  /**
    * Reverse the migrations.
    *
    * @return void

@@ -1,90 +1,116 @@
+{{-- Title --}}
+<div class="form-group">
+  {{ Form::label('title', 'Page Title: ') }}
+  {{ Form::text('title', null, ['class' => 'form-control']) }}
+  {{ errorsFor('title', $errors); }}
+</div>
 
+{{-- URL --}}
+<div class="form-group">
 
-  {{-- Title --}}
-  <div class="form-group">
-    {{ Form::label('title', 'Title: ') }}
-    {{ Form::text('title', null, ['class' => 'form-control']) }}
-    {{ errorsFor('title', $errors); }}
-  </div>
+  {{ Form::label('url', 'URL: ') }}
+  <div class="input-group">
+      @if (isset($page))
+        <div class="input-group-addon">{{ $page->path->url === '/' ? 'root' : '/' }}</div>
+        {{ Form::text('url', $page->path->url, ['class' => 'form-control', 'disabled' => $page->path->disabled]) }}
+      @else
+        <div class="input-group-addon">/</div>
+        {{ Form::text('url', null, ['class' => 'form-control']) }}
+      @endif
+    </div>
+  {{ errorsFor('url', $errors); }}
+</div>
 
-    {{-- Description --}}
-  <div class="form-group">
-    {{ Form::label('description', 'Description: ') }}
-    {{ Form::textarea('description', null, ['class' => 'form-control']) }}
-    {{ errorsFor('description', $errors); }}
-  </div>
+{{-- Link Title --}}
+<div class="form-group">
 
-     {{-- Hero Image --}}
-  <div class="form-group">
-    {{ Form::label('hero_image', 'Hero Image: ') }}
-    {{ Form::file('hero_image') }}
-    {{ errorsFor('hero_image', $errors); }}
-  </div>
+  {{ Form::label('link_text', 'Nav Link Text: ') }}
+  @if (isset($page))
+    {{ Form::text('link_text', $page->path->link_text, ['class' => 'form-control']) }}
+  @else
+    {{ Form::text('link_text', null, ['class' => 'form-control']) }}
+  @endif
+  {{ errorsFor('link_text', $errors); }}
+</div>
 
-  {{-- Block item grouping --}}
-  <div class="">
-    @if (isset($blocks) && count($blocks) > 0)
-      @foreach ($blocks as $key=>$block)
+  {{-- Description --}}
+<div class="form-group">
+  {{ Form::label('description', 'Description: ') }}
+  {{ Form::textarea('description', null, ['class' => 'form-control']) }}
+  {{ errorsFor('description', $errors); }}
+</div>
 
-        <div class="well repeatable">
-        {{ Form::hidden('blocks['.$key.'][id]', $blocks[$key]['id']) }}
-        {{-- Block title --}}
+   {{-- Hero Image --}}
+<div class="form-group">
+  {{ Form::label('hero_image', 'Hero Image: ') }}
+  {{ Form::file('hero_image') }}
+  {{ errorsFor('hero_image', $errors); }}
+</div>
+
+{{-- Block item grouping --}}
+<div class="">
+  @if (isset($blocks) && count($blocks) > 0)
+    @foreach ($blocks as $key=>$block)
+
+      <div class="well repeatable">
+      {{ Form::hidden('blocks['.$key.'][id]', $blocks[$key]['id']) }}
+      {{-- Block title --}}
+      <div class="form-group">
+        {{ Form::label('blocks['.$key.'][title]', 'Block Title: ') }}
+        {{ Form::text('blocks['.$key.'][title]', $blocks[$key]['block_title'], ['class' => 'form-control']) }}
+        {{ errorsFor('blocks['.$key.'][title]', $errors); }}
+      </div>
+
+      {{-- Block desc --}}
+      <div class="form-group">
+        {{ Form::label('blocks['.$key.'][description]', 'Block Description: ') }}
+        {{ Form::textarea('blocks['.$key.'][description]', $blocks[$key]['block_description'], ['class' => 'form-control']) }}
+        {{ errorsFor('blocks['.$key.'][description]', $errors); }}
+      </div>
+
+      {{-- Block body --}}
+      <div class="form-group">
+        {{ Form::label('blocks['.$key.'][body]', 'Block Body: ') }}
+        {{ Form::textarea('blocks['.$key.'][body]', $blocks[$key]['block_body'], ['class' => 'form-control']) }}
+        {{ errorsFor('blocks['.$key.'][body]', $errors); }}
+      </div>
+      <button href="#" class ="btn remove"> Remove this block</button>
+
+    </div>
+   @endforeach
+
+    @else
+    <div class="well repeatable">
+
+      {{-- Block title --}}
         <div class="form-group">
-          {{ Form::label('blocks['.$key.'][title]', 'Block Title: ') }}
-          {{ Form::text('blocks['.$key.'][title]', $blocks[$key]['block_title'], ['class' => 'form-control']) }}
-          {{ errorsFor('blocks['.$key.'][title]', $errors); }}
+          {{ Form::label('blocks[0][title]', 'Block Title: ') }}
+          {{ Form::text('blocks[0][title]', null, ['class' => 'form-control']) }}
+          {{ errorsFor('blocks[0][title]', $errors); }}
         </div>
 
         {{-- Block desc --}}
         <div class="form-group">
-          {{ Form::label('blocks['.$key.'][description]', 'Block Description: ') }}
-          {{ Form::textarea('blocks['.$key.'][description]', $blocks[$key]['block_description'], ['class' => 'form-control']) }}
-          {{ errorsFor('blocks['.$key.'][description]', $errors); }}
+          {{ Form::label('blocks[0][description]', 'Block Description: ') }}
+          {{ Form::textarea('blocks[0][description]', null, ['class' => 'form-control']) }}
+          {{ errorsFor('blocks[0][description]', $errors); }}
         </div>
 
         {{-- Block body --}}
         <div class="form-group">
-          {{ Form::label('blocks['.$key.'][body]', 'Block Body: ') }}
-          {{ Form::textarea('blocks['.$key.'][body]', $blocks[$key]['block_body'], ['class' => 'form-control']) }}
-          {{ errorsFor('blocks['.$key.'][body]', $errors); }}
+          {{ Form::label('blocks[0][body]', 'Block Body: ') }}
+          {{ Form::textarea('blocks[0][body]', null, ['class' => 'form-control']) }}
+          {{ errorsFor('blocks[0][body]', $errors); }}
         </div>
         <button href="#" class ="btn remove"> Remove this block</button>
-
       </div>
-     @endforeach
 
-      @else
-      <div class="well repeatable">
+    @endif
+  <div class="wrapper"></div>
 
-        {{-- Block title --}}
-          <div class="form-group">
-            {{ Form::label('blocks[0][title]', 'Block Title: ') }}
-            {{ Form::text('blocks[0][title]', null, ['class' => 'form-control']) }}
-            {{ errorsFor('blocks[0][title]', $errors); }}
-          </div>
-
-          {{-- Block desc --}}
-          <div class="form-group">
-            {{ Form::label('blocks[0][description]', 'Block Description: ') }}
-            {{ Form::textarea('blocks[0][description]', null, ['class' => 'form-control']) }}
-            {{ errorsFor('blocks[0][description]', $errors); }}
-          </div>
-
-          {{-- Block body --}}
-          <div class="form-group">
-            {{ Form::label('blocks[0][body]', 'Block Body: ') }}
-            {{ Form::textarea('blocks[0][body]', null, ['class' => 'form-control']) }}
-            {{ errorsFor('blocks[0][body]', $errors); }}
-          </div>
-          <button href="#" class ="btn remove"> Remove this block</button>
-        </div>
-
-      @endif
-    <div class="wrapper"></div>
-
-    <hr>
-    <button href="#" class ="btn clone"> + Add another block</button>
-  </div>
+  <hr>
+  <button href="#" class ="btn clone"> + Add another block</button>
+</div>
 
 
 

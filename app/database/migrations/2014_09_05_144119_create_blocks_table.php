@@ -24,7 +24,6 @@ class CreateBlocksTable extends Migration {
     });
   }
 
-
   /**
    * Reverse the migrations.
    *
