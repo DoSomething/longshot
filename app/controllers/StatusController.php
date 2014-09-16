@@ -6,24 +6,20 @@ class StatusController extends \BaseController {
     $user = Auth::user();
 
     // Get all info about application status.
-    $application = Application::where('user_id', $user->id)->firstOrFail();
-    // Get recs
-    $recommendations = Recommendation::where('application_id', $application->id)->get();
-
-    foreach($recommendations as $rec)
+    $application = Application::where('user_id', $user->id)->first();
+    $profile = Profile::where('user_id', $user->id)->first();
+    if ($application)
     {
-      // Set an attribute of if it's finished or not.
-      if (!empty($rec->rank_character) && !empty($rec->rank_additional) && !empty($rec->essay1))
+      // Get recommendations
+      $recommendations = Recommendation::where('application_id', $application->id)->get();
+
+      foreach($recommendations as $rec)
       {
-        $rec->complete = 'All set!';
-      }
-      else
-      {
-        $rec->complete = 'Still waiting';
+        $rec->isRecommendationComplete($rec);
       }
     }
 
-    return View::make('status.status', compact('recommendations'));
+    return View::make('status.status', compact('profile', 'application', 'recommendations'));
   }
 
   //@TODO refactor, move and combine into one function... etc etc. this code is the worst.

@@ -6,7 +6,21 @@
 
     <h2>{{ Auth::check() ? 'Welcome, ' . Auth::user()->first_name : 'Welcome to the Scholarship App!' }}</h2>
 
+  {{-- TODO: fix this up a bit--}}
+  @if (isset($profile))
+  [X] Profile
+  @else
+  [ ] Profile
+  @endif
 
+  @if (isset($application))
+  [X] Application
+  @else
+  [ ] Application
+  @endif
+
+
+  @if (isset($recommendations))
   <div class="table-responsive">
           <table class="table table-striped">
             <thead>
@@ -28,6 +42,6 @@
               @endforeach
             </tbody>
           </table>
-
+    @endif
   </section>
 @stop
