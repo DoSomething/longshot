@@ -56,9 +56,11 @@ function createCustomStylesheet($styles)
 
   $output = ".bg-primary-color { background-color: #$styles->primary_color; }";
   $output .= ".text-primary-color { color: #$styles->primary_color; }";
+  $output .= ".border-primary-color { border-color: #$styles->primary_color; }";
   $output .= ".button.-default { background-color: #$styles->primary_color; color: #$styles->primary_color_contrast; }";
   $output .= "a { color: #$styles->primary_color; }";
-  $output .= ".segment:first-of-type { border-bottom-color: #$styles->primary_color; }";
+  // @TODO: decide whether still need below rule or can just use the newly added border-primary-color class!
+  // $output .= ".segment:first-of-type { border-bottom-color: #$styles->primary_color; }";
   $destination = app_path() . '/views/layouts/partials/custom-styles.blade.php';
 
   File::put($destination, $output);
