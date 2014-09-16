@@ -6,6 +6,13 @@
 
 p + form { margin-top: 2em; }
 
+// @TODO: decide whether still using fieldset for other forms?
+// fieldset { border: 0 none; margin: 0; padding: 0 0 pxcalc(20);
+//   &:last-of-type { padding-bottom: 0; }
+// }
+
+// fieldset + fieldset { border-top-style: solid; border-top-width: 1px; padding-top: pxcalc(20); }
+
 .field-group { clear: both; margin-bottom: 1.5em;
 
   label { display: block; margin-bottom: 0.5em; }
@@ -32,6 +39,8 @@ p + form { margin-top: 2em; }
     &:focus { background-color: lighten($app_highlight, 10%); outline: none; }
   }
 }
+
+.field-group + .heading { clear: both; padding-top: pxcalc(30); }
 
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

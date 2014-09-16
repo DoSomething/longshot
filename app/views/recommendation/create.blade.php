@@ -1,50 +1,60 @@
 @extends('layouts.master')
 
 @section('main_content')
-
   <section class="segment -compact">
     <div class="wrapper">
+
       <h1 class="heading -alpha text-primary-color">Ask for a Recommendation</h1>
-    {{ Form::open(['route' => 'recommendation.store']) }}
 
       {{-- This will be seen by the applicant --}}
-      <p>Please fill all field with information for the recommender.</p><br>
-      @for($i=0; $i<$num_recs; $i++)
-        {{-- First Name --}}
-        <div class="field-group">
-          {{ Form::label('rec['.$i.'][first_name]', 'First Name: ') }}
-          {{ Form::text('rec['.$i.'][first_name]') }}
-          {{ errorsFor('rec['.$i.'][first_name]', $errors); }}
-        </div>
+      <p>Please fill all fields with information for the recommender.</p>
 
-        {{-- Last Name --}}
-        <div class="field-group">
-          {{ Form::label('rec['.$i.'][last_name]', 'Last Name: ') }}
-          {{ Form::text('rec['.$i.'][last_name]') }}
-          {{ errorsFor('rec['.$i.'][last_name]', $errors); }}
-        </div>
+      {{ Form::open(['route' => 'recommendation.store']) }}
 
-        {{-- Email --}}
-        <div class="field-group">
-          {{ Form::label('rec['.$i.'][email]', 'Email: ') }}
-          {{ Form::email('rec['.$i.'][email]') }}
-          {{ errorsFor('rec['.$i.'][email]', $errors); }}
-        </div>
+        @for($i = 0; $i < $num_recs; $i++)
+          @if($num_recs > 1)
+            <h2 class="heading">Recommendation # {{ $i + 1 }}</h2>
+          @endif
 
+          {{-- First Name --}}
+          <div class="field-group -dual -alpha">
+            {{ Form::label('rec['.$i.'][first_name]', 'First Name: ') }}
+            {{ Form::text('rec['.$i.'][first_name]') }}
+            {{-- @TODO: will need a different method of showing errors, since these fields are dynamic and we can't use the ValidationService --}}
+            {{ errorsFor('rec['.$i.'][first_name]', $errors); }}
+          </div>
 
-        {{-- Phone Number --}}
-        <div class="field-group">
-          {{ Form::label('rec['.$i.'][phone]', 'Phone Number: ') }}
-          {{ Form::text('rec['.$i.'][phone]') }}
-          {{ errorsFor('rec['.$i.'][phone]', $errors); }}
-        </div>
-      @endfor
+          {{-- Last Name --}}
+          <div class="field-group -dual -beta">
+            {{ Form::label('rec['.$i.'][last_name]', 'Last Name: ') }}
+            {{ Form::text('rec['.$i.'][last_name]') }}
+            {{-- @TODO: will need a different method of showing errors, since these fields are dynamic and we can't use the ValidationService --}}
+            {{ errorsFor('rec['.$i.'][last_name]', $errors); }}
+          </div>
 
-      {{-- Submit Button --}}
-        {{ Form::submit('Send Email!', ['class' => 'button -default']) }}
-      </div>
+          {{-- Email --}}
+          <div class="field-group -dual -alpha">
+            {{ Form::label('rec['.$i.'][email]', 'Email: ') }}
+            {{ Form::email('rec['.$i.'][email]') }}
+            {{-- @TODO: will need a different method of showing errors, since these fields are dynamic and we can't use the ValidationService --}}
+            {{ errorsFor('rec['.$i.'][email]', $errors); }}
+          </div>
 
 
-    {{ Form::close() }}
+          {{-- Phone Number --}}
+          <div class="field-group -dual -beta">
+            {{ Form::label('rec['.$i.'][phone]', 'Phone Number: ') }}
+            {{ Form::text('rec['.$i.'][phone]') }}
+            {{-- @TODO: will need a different method of showing errors, since these fields are dynamic and we can't use the ValidationService --}}
+            {{ errorsFor('rec['.$i.'][phone]', $errors); }}
+          </div>
+        @endfor
+
+        {{-- Submit Button --}}
+        {{ Form::submit('Send Request!', ['class' => 'button -default']) }}
+
+      {{ Form::close() }}
+
+    </div>
   </section>
 @stop
