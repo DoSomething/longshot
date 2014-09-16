@@ -170,7 +170,8 @@ class PageController extends \BaseController {
       return App::abort(404);
     }
 
-    $page = Page::with('blocks')->whereTitle($pageRequest)->firstOrFail();
+    $path = Path::with('page')->whereUrl($pageRequest)->firstOrFail();
+    $page = $path->page;
 
     return View::make('pages.static', compact('page'));
   }
