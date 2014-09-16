@@ -51,13 +51,13 @@ class PageController extends \BaseController {
     $page->save();
 
     // With page saved, now assign the path to it.
-    // If not url entered, then use the title.
+    // If no url entered, then use the title.
     // @TODO: can likely pull this out and add it to the model after passing through the values?
     $pathURL = $input['url'] ? $input['url'] : $input['title'];
 
     $path = new Path;
     $path->url        = stringtoKebabCase($pathURL);
-    $path->link_title = $input['title'];
+    $path->link_text  = $input['link_text'] ? $input['link_text'] : $input['title'];
     $page->assignPath($path);
 
 
@@ -117,7 +117,11 @@ class PageController extends \BaseController {
   {
     $input = Input::except("blocks");
     $page = Page::whereId($id)->firstOrFail();
+    $path = Path::wherePageId($id)->firstOrFail();
+
     $page->fill($input)->save();
+    $path->link_text = $input['link_text'];
+    $path->save();
 
     $blocks = Input::get("blocks");
     foreach($blocks as $key=>$block)

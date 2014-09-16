@@ -17,7 +17,7 @@ class CreatePathsTable extends Migration {
       $table->increments('id');
       $table->integer('page_id')->index();
       $table->string('url')->index();
-      $table->string('link_title');
+      $table->string('link_text');
     });
   }
 

@@ -1,6 +1,6 @@
 {{-- Title --}}
 <div class="form-group">
-  {{ Form::label('title', 'Title: ') }}
+  {{ Form::label('title', 'Page Title: ') }}
   {{ Form::text('title', null, ['class' => 'form-control']) }}
   {{ errorsFor('title', $errors); }}
 </div>
@@ -9,12 +9,28 @@
 <div class="form-group">
 
   {{ Form::label('url', 'URL: ') }}
-  @if (isset($page))
-    {{ Form::text('url', $page->path->url, ['class' => 'form-control', 'disabled' => $page->path->disabled]) }}
-  @else
-    {{ Form::text('url', null, ['class' => 'form-control']) }}
-  @endif
+  <div class="input-group">
+      @if (isset($page))
+        <div class="input-group-addon">{{ $page->path->url === '/' ? 'root' : '/' }}</div>
+        {{ Form::text('url', $page->path->url, ['class' => 'form-control', 'disabled' => $page->path->disabled]) }}
+      @else
+        <div class="input-group-addon">/</div>
+        {{ Form::text('url', null, ['class' => 'form-control']) }}
+      @endif
+    </div>
   {{ errorsFor('url', $errors); }}
+</div>
+
+{{-- Link Title --}}
+<div class="form-group">
+
+  {{ Form::label('link_text', 'Nav Link Text: ') }}
+  @if (isset($page))
+    {{ Form::text('link_text', $page->path->link_text, ['class' => 'form-control']) }}
+  @else
+    {{ Form::text('link_text', null, ['class' => 'form-control']) }}
+  @endif
+  {{ errorsFor('link_text', $errors); }}
 </div>
 
   {{-- Description --}}

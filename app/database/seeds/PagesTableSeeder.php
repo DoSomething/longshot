@@ -8,16 +8,16 @@ class PagesTableSeeder extends Seeder {
 
     // @TODO: There's probably a much cleaner way to write this.
     $pathHome = new Path;
-    $pathHome->url        = '/';
-    $pathHome->link_title = 'Home';
+    $pathHome->url       = '/';
+    $pathHome->link_text = 'Home';
 
     $pathAbout = new Path;
-    $pathAbout->url        = 'about';
-    $pathAbout->link_title = 'About';
+    $pathAbout->url       = 'about';
+    $pathAbout->link_text = 'About';
 
     $pathFAQ = new Path;
-    $pathFAQ->url        = 'faq';
-    $pathFAQ->link_title = 'FAQ';
+    $pathFAQ->url       = 'faq';
+    $pathFAQ->link_text = 'FAQ';
 
     Page::create([
       'title'       => 'Home',
