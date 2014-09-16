@@ -11,11 +11,17 @@ class ApplicationForm extends FormValidator {
   */
  protected $rules = [
   'accomplishments' => 'required',
-  'gpa'             => 'required',
+  'gpa'             => 'required|numeric',
   'test_type'       => 'required',
-  'test_score'      => 'required',
+  'test_score'      => 'required|numeric',
   'activities'      => 'required',
   'essay1'          => 'required',
+  'essay2'          => 'required',
+  'documentation'   => 'accepted',
+  'factual'         => 'accepted',
+  'media_release'   => 'accepted',
+  'rules'           => 'accepted',
+
  ];
 
 }
