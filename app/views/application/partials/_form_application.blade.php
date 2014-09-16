@@ -49,3 +49,9 @@
     {{ Form::textarea('essay2') }}
     {{ errorsFor('essay2', $errors); }}
   </div>
+
+  <div class="field-group">
+    {{ Form::checkbox('rules', 1, false, ['id' => 'eligibility']); }}
+    {{ Form::label('rules', 'Link to rules') }}
+    {{ errorsFor('rules', $errors); }}
+  </div>

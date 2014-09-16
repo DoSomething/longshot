@@ -35,8 +35,9 @@
 
         {{-- Eligibility Check --}}
         <div class="field-group">
-          {{ Form::checkbox('eligibility', 'eligible', false, ['id' => 'eligibility']); }}
+          {{ Form::checkbox('eligibility', 1, false, ['id' => 'eligibility']); }}
           {{ Form::label('eligibility', 'Yes, I\'m eligible') }}
+           {{ errorsFor('eligibility', $errors); }}
           <p><small>{{ $data->eligibility_text }}</small></p>
         </div>
 

@@ -40,24 +40,20 @@ class RegistrationController extends \BaseController {
    */
   public function store()
   {
-    if (Input::has('eligibility'))
-    {
-      $input = Input::only('first_name', 'last_name', 'email', 'password', 'password_confirmation');
+    $input = Input::only('first_name', 'last_name', 'email', 'password', 'password_confirmation', 'eligibility');
 
-      // Form errors caught and handled in Application Error Handler in /start/global.php
-      $this->registrationForm->validate($input);
-      $user = User::create($input);
+    // Form errors caught and handled in Application Error Handler in /start/global.php
+    $this->registrationForm->validate($input);
+    // We don't need to save this to the db.
+    unset($input['eligibility']);
+    $user = User::create($input);
 
-      // Assign an initial role of 'applicant'.
-      $user->assignRole(2);
+    // Assign an initial role of 'applicant'.
+    $user->assignRole(2);
 
-      Auth::login($user);
-      return Redirect::route('status');
-    }
-    else
-    {
-      return Redirect::back()->withInput()->with('flash_message', 'No soup (scholarship) for you!');
-    }
+    Auth::login($user);
+    return Redirect::route('profile.create');
+
   }
 
 }
