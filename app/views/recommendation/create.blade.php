@@ -48,6 +48,13 @@
             {{-- @TODO: will need a different method of showing errors, since these fields are dynamic and we can't use the ValidationService --}}
             {{ errorsFor('rec['.$i.'][phone]', $errors); }}
           </div>
+
+           {{-- Relationship --}}
+          <div class="field-group -dual -beta">
+            {{ Form::label('rec['.$i.'][relationship]', 'Relationship to you: ') }}
+            {{ Form::text('rec['.$i.'][relationship]') }}
+            {{ errorsFor('rec['.$i.'][relationship]', $errors); }}
+          </div>
         @endfor
 
         {{-- Submit Button --}}
