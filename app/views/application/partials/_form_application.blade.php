@@ -51,7 +51,20 @@
   </div>
 
   <div class="field-group">
+
+    {{ Form::checkbox('documentation', 1, false, ['id' => 'eligibility']); }}
+    {{ Form::label('documentation', "If you are chosen as a winner, you will submit a copy of your driver's license, birth certificate or passport as proof of age and U.S. citizenship/permanent legal resident status.") }}
+    {{ errorsFor('documentation', $errors); }}
+
+    {{ Form::checkbox('factual', 1, false, ['id' => 'eligibility']); }}
+    {{ Form::label('factual', "You confirm that everything written in the application is true and factual.") }}
+    {{ errorsFor('factual', $errors); }}
+
+    {{ Form::checkbox('media_release', 1, false, ['id' => 'eligibility']); }}
+    {{ Form::label('media_release', "Foot Locker and TMI may use your application in any media or public relations campaigns.") }}
+    {{ errorsFor('media_release', $errors); }}
+
     {{ Form::checkbox('rules', 1, false, ['id' => 'eligibility']); }}
-    {{ Form::label('rules', 'Link to rules') }}
+    {{ Form::label('rules', "Check out the official rules [link]") }}
     {{ errorsFor('rules', $errors); }}
   </div>

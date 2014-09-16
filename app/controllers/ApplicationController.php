@@ -52,7 +52,7 @@ class ApplicationController extends \BaseController {
   {
     $user = User::whereId(Auth::user()->id)->firstOrFail();
 
-    $input = Input::only('accomplishments', 'gpa', 'test_type', 'test_score', 'activities', 'essay1', 'essay2');
+    $input = Input::all();
 
     $this->applicationForm->validate($input);
 
