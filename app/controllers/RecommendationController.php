@@ -35,19 +35,26 @@ class RecommendationController extends \BaseController {
   public function store()
   {
     $input = Input::all();
-
     foreach($input['rec'] as $input)
     {
-      $recommendation = new Recommendation;
+      // If we don't have an email, it's not a valid rec
+      // For cases when there are empty recs in the form.
+      if ($input['email'])
+      {
+        $recommendation = new Recommendation;
 
-      foreach ($input as $key => $field) {
-          $recommendation->$key = $field;
+        foreach ($input as $key => $field) {
+            $recommendation->$key = $field;
+        }
+        $application = Auth::user()->application;
+        $recommendation->application()->associate($application);
+        $recommendation->save();
+
+        $token = $recommendation->generateRecToken($recommendation);
+
+        $this->prepareRequestEmail($application, $recommendation, $token);
       }
-      $application = Auth::user()->application;
-      $recommendation->application()->associate($application);
-      $recommendation->save();
 
-      $this->prepareRequestEmail($application, $recommendation);
     }
 
 
@@ -76,9 +83,18 @@ class RecommendationController extends \BaseController {
   public function edit($id)
   {
     $recommendation = Recommendation::whereId($id)->firstOrFail();
-    // @TODO: find the right scholarship
-    $scholarship = Scholarship::firstOrFail();
-    return View::make('recommendation.edit')->with(compact('recommendation', 'scholarship'));
+    // Make sure this person has the right token in the url.
+    $correct_token = RecommendationToken::where('recommendation_id', $id)->pluck('token');
+    if (isset($_GET['token']) && $_GET['token'] == $correct_token)
+    {
+      // @TODO: find the right scholarship
+      $scholarship = Scholarship::firstOrFail();
+      return View::make('recommendation.edit')->with(compact('recommendation', 'scholarship'));
+    }
+    else
+    {
+      return App::abort(403, 'Access denied');
+    }
   }
 
   /**
@@ -113,7 +129,9 @@ class RecommendationController extends \BaseController {
     //
   }
 
-  public function prepareRequestEmail($application, $recommendation)
+
+
+  public function prepareRequestEmail($application, $recommendation, $token)
   {
     $to = $recommendation->email;
     $from = Auth::user()->first_name .  " " . Auth::user()->last_name;
@@ -124,7 +142,8 @@ class RecommendationController extends \BaseController {
       'to' => $to,
       'subject' => $subject,
       'applicant' => $from,
-      'recommendation_id' => $recommendation->id
+      'recommendation_id' => $recommendation->id,
+      'token' => $token
     );
     Mail::send('emails.recommendation.request', $data, function($message) use ($data)
     {

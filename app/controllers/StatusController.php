@@ -40,7 +40,8 @@ class StatusController extends \BaseController {
       'to' => $to,
       'subject' => $subject,
       'applicant' => $from,
-      'recommendation_id' => $recommendation->id
+      'recommendation_id' => $recommendation->id,
+      'token' => $recommendation->generateRecToken($recommendation)
     );
     Mail::send('emails.recommendation.request', $data, function($message) use ($data)
     {
