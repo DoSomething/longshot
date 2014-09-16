@@ -4,7 +4,7 @@
   <section class="segment -compact">
     <div class="wrapper">
 
-      <h1 class="heading -alpha text-primary-color">Edit Profile</h1>
+      <h1 class="heading -alpha text-primary-color">Recommendation</h1>
 
       {{-- This will be seen by the recomender --}}
       <p>Please fill all fields with information regarding the applicant.</p>
@@ -66,7 +66,7 @@
 
         {{-- Submit Button --}}
         <div class="field-group">
-          {{ Form::submit('Update Profile', ['class' => 'button -default']) }}
+          {{ Form::submit('Submit Recommendation', ['class' => 'button -default']) }}
         </div>
 
       {{ Form::close() }}
