@@ -47,8 +47,11 @@ class PageController extends \BaseController {
       $page->$key = $filename;
     }
     $page->title = $input['title'];
-    $page->description = $input['description'];
-    $page->description_html = MarkdownExtra::defaultTransform($input['description']);
+    if (! empty($input['description']))
+    {
+      $page->description = $input['description'];
+      $page->description_html = MarkdownExtra::defaultTransform($input['description']);
+    }
 
     // Save the page fields
     $page->save();
@@ -66,17 +69,29 @@ class PageController extends \BaseController {
 
     $blocks = Input::get('blocks');
 
-    foreach($blocks as $key=>$block)
+    foreach($blocks as $key => $block)
     {
-      $newBlock = new Block;
-      $newBlock->block_title = $block['title'];
-      $newBlock->block_description = $block['description'];
-      $newBlock->block_body = $block['body'];
-      $newBlock->page()->associate($page);
+      // If none of the block fields are filled out, then don't save the block in the database.
+      // @TODO: Pull this code out to DRY it up and make it a method of the Page class, to pass the block to.
+      if (! empty($block['title']) || ! empty($block['description']) || ! empty($block['body']) )
+      {
+        $newBlock = new Block;
+        $newBlock->block_title = $block['title'];
+        if (! empty($block['description']))
+        {
+          $newBlock->block_description = $block['description'];
+          $newBlock->block_description_html = MarkdownExtra::defaultTransform($block['description']);
+        }
+        if (! empty($block['body']))
+        {
+          $newBlock->block_body = $block['body'];
+          $newBlock->block_body_html = MarkdownExtra::defaultTransform($block['body']);
+        }
+        $newBlock->page()->associate($page);
 
-      $newBlock->save();
+        $newBlock->save();
+      }
     }
-
 
     return Redirect::route('admin.page.index')->with('flash_message', 'Static page has been saved!');
   }
@@ -128,25 +143,48 @@ class PageController extends \BaseController {
     $path->link_text = $input['link_text'];
     $path->save();
 
-    $blocks = Input::get("blocks");
+    $blocks = Input::get('blocks');
+
     foreach($blocks as $key=>$block)
     {
       if (isset($block['id']))
       {
         $currentBlock = Block::whereId($block['id'])->firstOrFail();
         $currentBlock->block_title = $block['title'];
-        $currentBlock->block_description = $block['description'];
-        $currentBlock->block_body = $block['body'];
+        if (! empty($block['description']))
+        {
+          $currentBlock->block_description = $block['description'];
+          $currentBlock->block_description_html = MarkdownExtra::defaultTransform($block['description']);
+        }
+        if (! empty($block['body']))
+        {
+          $currentBlock->block_body = $block['body'];
+          $currentBlock->block_body_html = MarkdownExtra::defaultTransform($block['body']);
+        }
         $currentBlock->save();
       }
-      else {
-        $newBlock = new Block;
-        $newBlock->block_title = $block['title'];
-        $newBlock->block_description = $block['description'];
-        $newBlock->block_body = $block['body'];
-        $newBlock->page()->associate($page);
+      else
+      {
+        // @TODO: Pull this code out to DRY it up and make it a method of the Page class, to pass the block to.
+        if (! empty($block['title']) || ! empty($block['description']) || ! empty($block['body']) )
+        {
+          $newBlock = new Block;
+          $newBlock->block_title = $block['title'];
 
-        $newBlock->save();
+          if (! empty($block['description']))
+          {
+            $newBlock->block_description = $block['description'];
+            $newBlock->block_description_html = MarkdownExtra::defaultTransform($block['description']);
+          }
+          if (! empty($block['body']))
+          {
+            $newBlock->block_body = $block['body'];
+            $newBlock->block_body_html = MarkdownExtra::defaultTransform($block['body']);
+          }
+          $newBlock->page()->associate($page);
+
+          $newBlock->save();
+        }
       }
 
     }

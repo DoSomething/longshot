@@ -29,7 +29,7 @@ class CreateRecommendationTokenTable extends Migration {
    */
   public function down()
   {
-    Schema::drop('recommendation_token');
+    Schema::drop('recommendation_tokens');
   }
 
 }

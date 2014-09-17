@@ -70,7 +70,8 @@ function createCustomStylesheet($styles)
 /**
  * Return the path to public directory containing uploaded images.
  */
-function uploadedContentPath($type = '') {
+function uploadedContentPath($type = '')
+{
   return public_path() . '/content/' . $type;
 }
 
@@ -78,7 +79,8 @@ function uploadedContentPath($type = '') {
 /**
  * Return a string formatted from snake_case to Title Case with spaces.
  */
-function snakeCaseToTitleCase($text) {
+function snakeCaseToTitleCase($text)
+{
   return $output = ucwords(str_replace('_', ' ', $text));
 }
 
@@ -86,7 +88,8 @@ function snakeCaseToTitleCase($text) {
 /**
  * Return a string formatted from snake_case to Title Case with spaces.
  */
-function snakeCaseToKebabCase($text) {
+function snakeCaseToKebabCase($text)
+{
   return $output = str_replace('_', '-', $text);
 }
 
@@ -94,6 +97,7 @@ function snakeCaseToKebabCase($text) {
 /**
  * Return a string formatted to Kebab Case and all lowercased.
  */
-function stringtoKebabCase($text) {
+function stringtoKebabCase($text)
+{
   return $output = str_replace(' ', '-', strtolower($text));
 }
