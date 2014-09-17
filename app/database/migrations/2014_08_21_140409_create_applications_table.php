@@ -22,8 +22,8 @@ class CreateApplicationsTable extends Migration {
    $table->longtext('essay1');
    $table->longtext('essay2');
    $table->string('test_type');
-   $table->integer('test_score');
-   $table->float('gpa');
+   $table->integer('test_score')->nullable;
+   $table->float('gpa')->nullable;
    $table->timestamps();
   });
  }

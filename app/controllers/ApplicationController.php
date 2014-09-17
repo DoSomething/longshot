@@ -54,17 +54,29 @@ class ApplicationController extends \BaseController {
 
     $input = Input::all();
 
-    $this->applicationForm->validate($input);
-
+    // Only run validation on applications that were submitted
+    // (do not run on those 'saved as draft')
+    if (isset($input['complete']))
+    {
+      $this->applicationForm->validate($input);
+    }
+// dd($input);
     // @TODO: there's a better way of doing the following...
     $application = new Application;
-    $application->accomplishments = Input::get('accomplishments');
-    $application->gpa = Input::get('gpa');
-    $application->test_type = Input::get('test_type');
-    $application->test_score = Input::get('test_score');
-    $application->activities = Input::get('activities');
-    $application->essay1 = Input::get('essay1');
-    $application->essay2 = Input::get('essay2');
+    $application->accomplishments = $input['accomplishments'];
+
+    if ($input['gpa'] != '')
+    {
+      $application->gpa = $input['gpa'];
+    }
+    if ($input['test_score'] != '')
+    {
+      $application->test_type = $input['test_type'];
+      $application->test_score = $input['test_score'];
+    }
+    $application->activities = $input['activities'];
+    $application->essay1 = $input['essay1'];
+    $application->essay2 = $input['essay2'];
 
     /*@TODO: for now this is just finding the first scholarship
      * this eventually needs to find the 'active' scholarship
