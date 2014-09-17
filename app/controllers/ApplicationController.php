@@ -54,7 +54,12 @@ class ApplicationController extends \BaseController {
 
     $input = Input::all();
 
-    $this->applicationForm->validate($input);
+    // Only run validation on applications that were submitted
+    // (do not run on those 'saved as draft')
+    if (isset($input['complete']))
+    {
+      $this->applicationForm->validate($input);
+    }
 
     // @TODO: there's a better way of doing the following...
     $application = new Application;
