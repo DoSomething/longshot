@@ -18,6 +18,7 @@ class CreateRecommendationTable extends Migration {
       $table->integer('application_id')->index();
       $table->string('first_name');
       $table->string('last_name');
+      $table->string('relationship');
       $table->string('phone');
       $table->string('email')->unique;
       $table->string('rank_character');

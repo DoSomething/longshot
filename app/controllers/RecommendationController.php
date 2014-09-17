@@ -1,6 +1,17 @@
 <?php
 
+use Scholarship\Forms\RecommendationForm;
+
 class RecommendationController extends \BaseController {
+  /**
+   * @var recommendationForm
+   */
+  protected $recommendationForm;
+
+  function __construct(RecommendationForm $recommendationForm)
+  {
+    $this->recommendationForm = $recommendationForm;
+  }
 
   /**
    * Display a listing of the resource.
