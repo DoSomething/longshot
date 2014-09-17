@@ -27,3 +27,5 @@ namespace :deploy do
   after :symlink, 'deploy:link_settings'
 
 end
+
+after "deploy:update", "deploy:cleanup"
