@@ -4,7 +4,7 @@
   <section class="segment -compact">
     <div class="wrapper">
 
-      <h1 class="heading -alpha">Complete Your Profile</h1>
+      <h1 class="heading -alpha">Basic Info</h1>
 
         {{ Form::open(['route' => 'profile.store']) }}
 
@@ -12,7 +12,7 @@
 
         {{-- Submit Button --}}
         <div class="field-group">
-          {{ Form::submit('Save Profile', ['class' => 'button -default']) }}
+          {{ Form::submit('Save', ['class' => 'button -default']) }}
         </div>
 
       {{ Form::close() }}
