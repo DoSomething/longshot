@@ -33,7 +33,7 @@ class RecommendationController extends \BaseController {
   public function create()
   {
     // This will be seen by applicants only.
-    $num_recs = Scholarship::whereId(1)->firstOrFail()->pluck('num_recommendations_max');
+    $num_recs = Scholarship::whereId(1)->select('num_recommendations_max', 'num_recommendations_min')->firstOrFail()->toArray();
     return View::make('recommendation.create', compact('num_recs'));
   }
 

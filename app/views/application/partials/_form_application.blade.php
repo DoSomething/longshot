@@ -14,15 +14,16 @@
   </div>
 
   {{-- Test Type --}}
+
   <div class="field-group -dual -alpha">
-    {{ Form::label('test_type', 'Test Type: ') }}
+    {{ Form::label('test_type', 'Test Type: (optional) ') }}
     {{ Form::select('test_type', array('SAT' => 'SAT', 'ACT' => 'ACT')); }}
     {{ errorsFor('test_type', $errors); }}
   </div>
 
   {{-- Test Score --}}
   <div class="field-group -dual -beta">
-    {{ Form::label('test_score', 'Test Score: ') }}
+    {{ Form::label('test_score', 'Test Score: (optional)') }}
     {{ Form::text('test_score') }}
     {{ errorsFor('test_score', $errors); }}
   </div>

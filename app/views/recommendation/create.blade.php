@@ -11,9 +11,12 @@
 
       {{ Form::open(['route' => 'recommendation.store']) }}
 
-        @for($i = 0; $i < $num_recs; $i++)
-          @if($num_recs > 1)
+        @for($i = 0; $i < $num_recs['num_recommendations_max']; $i++)
+          @if($num_recs['num_recommendations_max'] > 1)
             <h2 class="heading">Recommendation # {{ $i + 1 }}</h2>
+            @if($num_recs['num_recommendations_min'] <= $i)
+              (Optional)
+            @endif
           @endif
 
           {{-- First Name --}}
