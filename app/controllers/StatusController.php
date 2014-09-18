@@ -19,7 +19,7 @@ class StatusController extends \BaseController {
       }
     }
 
-    return View::make('status.status', compact('profile', 'application', 'recommendations'));
+    return View::make('status.index', compact('profile', 'application', 'recommendations'));
   }
 
   //@TODO refactor, move and combine into one function... etc etc. this code is the worst.

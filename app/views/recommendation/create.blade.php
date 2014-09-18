@@ -13,10 +13,12 @@
 
         @for($i = 0; $i < $num_recs['num_recommendations_max']; $i++)
           @if($num_recs['num_recommendations_max'] > 1)
-            <h2 class="heading">Recommendation # {{ $i + 1 }}</h2>
-            @if($num_recs['num_recommendations_min'] <= $i)
-              (Optional)
-            @endif
+            <h2 class="heading">
+              Recommendation # {{ $i + 1 }}
+              @if($num_recs['num_recommendations_min'] <= $i)
+                <em>(Optional)</em>
+              @endif
+            </h2>
           @endif
 
           {{-- First Name --}}
@@ -53,7 +55,7 @@
           </div>
 
            {{-- Relationship --}}
-          <div class="field-group -dual -beta">
+          <div class="field-group -mono">
             {{ Form::label('rec['.$i.'][relationship]', 'Relationship to you: ') }}
             {{ Form::text('rec['.$i.'][relationship]') }}
             {{ errorsFor('rec['.$i.'][relationship]', $errors); }}

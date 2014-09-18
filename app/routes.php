@@ -74,16 +74,3 @@ Route::group(['before' => 'role:administrator', 'prefix' => 'admin'], function()
 // because the wildcard catches anything after the root and routes
 // to the Pages controller for static pages.
 Route::get('{page}', 'PageController@staticShow');
-
-
-
-# Test Email
-Route::get('email/send', function()
-{
-  Mail::send('emails.test', [], function($message)
-  {
-    $message->to('dlorenzo@dosomething.org')->subject('Huzzah! A Sample Mandrill email sent!');
-  });
-
-  return 'Email sent!';
-});
