@@ -13,7 +13,7 @@ class RegistrationForm extends FormValidator {
     'first_name' => 'required',
     'last_name'  => 'required',
     'email'      => 'required|email|unique:users',
-    'password'   => 'required|confirmed',
+    'password'   => 'required|confirmed|min:6',
     'eligibility'=> 'required|accepted',
   ];
 
