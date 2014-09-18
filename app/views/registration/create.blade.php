@@ -11,14 +11,14 @@
       {{ Form::open(['route' => 'registration.store']) }}
 
         {{-- First Name Field --}}
-        <div class="field-group -dual -alpha">
+        <div class="field-group -dual -alpha {{ setInvalidClass('first_name', $errors) }}">
           {{ Form::label('first_name', 'First Name: ') }}
           {{ Form::text('first_name') }}
           {{ errorsFor('first_name', $errors); }}
         </div>
 
         {{-- Last Name Field --}}
-        <div class="field-group -dual -beta">
+        <div class="field-group -dual -beta {{ setInvalidClass('last_name', $errors) }}">
           {{ Form::label('last_name', 'Last Name: ') }}
           {{ Form::text('last_name') }}
           {{ errorsFor('last_name', $errors); }}
@@ -34,10 +34,10 @@
         @include('layouts/partials/_form-password-confirmation-field')
 
         {{-- Eligibility Check --}}
-        <div class="field-group">
+        <div class="field-group {{ setInvalidClass('eligibility', $errors) }}">
           {{ Form::checkbox('eligibility', 1, false, ['id' => 'eligibility']); }}
           {{ Form::label('eligibility', 'Yes, I\'m eligible') }}
-           {{ errorsFor('eligibility', $errors); }}
+          {{ errorsFor('eligibility', $errors); }}
           <p><small>{{ $data->eligibility_text }}</small></p>
         </div>
 
