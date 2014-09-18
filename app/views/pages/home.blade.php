@@ -45,23 +45,22 @@
     <div class="wrapper">
       <h1 class="heading -alpha -alt">Nominate A Star</h1>
 
-      {{ Form::open() }}
+      {{ Form::open(['route' => 'nomination.create']) }}
 
         <div>
           <h2>Your Info</h2>
-
           {{-- Nominator Name --}}
           <div class="field-group">
-            {{ Form::label('nominator_name', 'Your Name: ') }}
-            {{ Form::text('nominator_name') }}
-            {{ errorsFor('nominator_name', $errors); }}
+            {{ Form::label('rec_name', 'Your Name: ') }}
+            {{ Form::text('rec_name') }}
+            {{ errorsFor('rec_name', $errors); }}
           </div>
 
           {{-- Nominator Email --}}
           <div class="field-group">
-            {{ Form::label('nominator_email', 'Your Email: ') }}
-            {{ Form::text('nominator_email') }}
-            {{ errorsFor('nominator_email', $errors); }}
+            {{ Form::label('rec_email', 'Your Email: ') }}
+            {{ Form::email('rec_email') }}
+            {{ errorsFor('rec_email', $errors); }}
           </div>
         </div>
 
@@ -70,16 +69,16 @@
 
           {{-- Nominatee Name --}}
           <div class="field-group">
-            {{ Form::label('nominatee_name', 'Their Name: ') }}
-            {{ Form::text('nominatee_name') }}
-            {{ errorsFor('nominatee_name', $errors); }}
+            {{ Form::label('nom_name', 'Their Name: ') }}
+            {{ Form::text('nom_name') }}
+            {{ errorsFor('nom_name', $errors); }}
           </div>
 
           {{-- Nominatee Email --}}
           <div class="field-group">
-            {{ Form::label('nominatee_email', 'Their Email: ') }}
-            {{ Form::text('nominatee_email') }}
-            {{ errorsFor('nominatee_email', $errors); }}
+            {{ Form::label('nom_email', 'Their Email: ') }}
+            {{ Form::email('nom_email') }}
+            {{ errorsFor('nom_email', $errors); }}
           </div>
         </div>
 
