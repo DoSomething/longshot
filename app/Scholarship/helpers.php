@@ -14,6 +14,22 @@ function errorsFor($attribute, $errors) {
 
 
 /**
+ * Add a class to the field group to indicate it is invalid due to errors.
+ * @param  string $attribute Type Attribute specifying field name.
+ * @param  object $errors    Validation errors object.
+ * @return string            Class to add if field group is invalid.
+ */
+function setInvalidClass($attribute, $errors) {
+  if ($errors->has($attribute))
+  {
+    return '-invalid';
+  }
+
+  return null;
+}
+
+
+/**
  * Output a link to a User's profile page.
  * @param  string $text Text to output for link.
  * @return string       Output of markup for profile link.

@@ -38,6 +38,12 @@ p + form { margin-top: 2em; }
 
     &:focus { background-color: lighten($app_highlight, 10%); outline: none; }
   }
+
+  &.-invalid {
+    input { border-color: $app_error; }
+  }
+
+  .error { color: $app_error; display: block; padding: pxcalc(5) pxcalc(10); }
 }
 
 .field-group + .heading { clear: both; padding-top: pxcalc(30); }
