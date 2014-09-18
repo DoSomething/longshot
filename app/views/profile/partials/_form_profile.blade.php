@@ -59,10 +59,10 @@
  @foreach($races as $key => $race)
  {{-- is this really how you make a new php variable? --}}
  {{-- */$matched = FALSE/* --}}
- @foreach($user->race as $fuckoff=>$whatev)
+ @foreach($user->race as $key2=>$raceString)
  <div class="field-group">
    {{ Form::label('race['. $key . ']', ' ') }}
-   @if (isset($user->race[$fuckoff]) && $user->race[$fuckoff]->race == $race)
+   @if (isset($user->race[$key2]) && $user->race[$key2]->race == $race)
      {{ Form::checkbox('race['. $key . ']', $race, true) }}
        {{ $race }}
        {{-- */$matched = TRUE/* --}}
