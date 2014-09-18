@@ -1,4 +1,4 @@
-box: blisteringherb/scholarship@0.0.5
+box: blisteringherb/scholarship@0.0.6
 build:
     # The steps that will be executed on build
     steps:
