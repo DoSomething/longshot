@@ -54,7 +54,7 @@ return array(
   |
   */
 
-  'from' => array('address' => 'dlorenzo@dosomething.org', 'name' => 'Diego Lorenzo'),
+  'from' => array('address' => 'gthomas@tmiagency.org', 'name' => 'Greg Thomas'),
 
   /*
   |--------------------------------------------------------------------------
