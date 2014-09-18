@@ -55,12 +55,25 @@
     {{ errorsFor('gender', $errors); }}
   </div>
 
-  {{-- Race --}}
-  <div class="field-group">
-    {{ Form::label('race', 'Race: ') }}
-    {{ Form::text('race') }}
-    {{ errorsFor('race', $errors); }}
-  </div>
+ Of the following options, which best describes your race? (Check all that apply) (optional)
+ @foreach($races as $key => $race)
+ {{-- is this really how you make a new php variable? --}}
+ {{-- */$matched = FALSE/* --}}
+ @foreach($user->race as $fuckoff=>$whatev)
+ <div class="field-group">
+   {{ Form::label('race['. $key . ']', ' ') }}
+   @if (isset($user->race[$fuckoff]) && $user->race[$fuckoff]->race == $race)
+     {{ Form::checkbox('race['. $key . ']', $race, true) }}
+       {{ $race }}
+       {{-- */$matched = TRUE/* --}}
+   @endif
+ @endforeach
+ @if(!$matched)
+     {{ Form::checkbox('race['. $key . ']', $race) }}
+   {{ $race }}
+   @endif
+ </div>
+ @endforeach
 
   {{-- School --}}
   <div class="field-group">

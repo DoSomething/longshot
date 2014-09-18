@@ -23,7 +23,8 @@ class ProfilesController extends \BaseController {
   public function create()
   {
     $states = Profile::getStates();
-    return View::make('profile.create')->with('states', $states);
+    $races = Profile::getRaces();
+    return View::make('profile.create')->with(compact('states', 'races'));
   }
 
 
@@ -37,25 +38,31 @@ class ProfilesController extends \BaseController {
   {
     $user = User::whereId(Auth::user()->id)->firstOrFail();
 
-    $input = Input::only('birthdate', 'phone', 'address_street', 'address_premise', 'city', 'state', 'zip', 'gender', 'race', 'school', 'grade');
+    $input = Input::all();
 
     $this->profileForm->validate($input);
 
     // @TODO: there's a better way of doing the following...
     $profile = new Profile;
-    $profile->birthdate = Input::get('birthdate');
-    $profile->phone = Input::get('phone');
-    $profile->address_street = Input::get('address_street');
-    $profile->address_premise = Input::get('address_premise');
-    $profile->city = Input::get('city');
-    $profile->state = Input::get('state');
-    $profile->zip = Input::get('zip');
-    $profile->gender = Input::get('gender');
-    $profile->race = Input::get('race');
-    $profile->school = Input::get('school');
-    $profile->grade = Input::get('grade');
+    $profile->birthdate = $input['birthdate'];
+    $profile->phone = $input['phone'];
+    $profile->address_street = $input['address_street'];
+    $profile->address_premise = $input['address_premise'];
+    $profile->city = $input['city'];
+    $profile->state = $input['state'];
+    $profile->zip = $input['zip'];
+    $profile->gender = $input['gender'];
+    $profile->school = $input['school'];
+    $profile->grade = $input['grade'];
 
     $user->profile()->save($profile);
+
+    foreach($input['race'] as $inputRace) {
+      $race = new Race;
+      $race->race = $inputRace;
+      $race->profile()->associate($profile);
+      $race->save();
+    }
 
     return Redirect::route('application.create')->with('flash_message', 'Profile information has been saved!');
   }
@@ -97,9 +104,10 @@ class ProfilesController extends \BaseController {
    */
   public function edit($id)
   {
-    $user = User::whereId($id)->firstOrFail();
+    $profile = Profile::with('race')->whereUserId($id)->firstOrFail();
     $states = Profile::getStates();
-    return View::make('profile.edit')->withUser($user)->with('states', $states);
+    $races = Profile::getRaces();
+    return View::make('profile.edit')->withUser($profile)->with(compact('states', 'races'));
   }
 
 
@@ -111,12 +119,34 @@ class ProfilesController extends \BaseController {
    */
   public function update($id)
   {
-    $user = User::whereId($id)->firstOrFail();
-    $input = Input::only('birthdate', 'phone', 'address_street', 'address_premise', 'city', 'state', 'zip', 'gender', 'race', 'school', 'grade');
+    $user = User::with('profile')->whereId($id)->firstOrFail();
+    $input = Input::only('birthdate', 'phone', 'address_street', 'address_premise', 'city', 'state', 'zip', 'gender', 'school', 'grade');
+    $currentRaces = Race::where('profile_id', $user->profile->id)->select('race')->get()->toArray();
+
+    // Let's make the arrays match
+    foreach($currentRaces as $currentRace) {
+      $newArray[] = $currentRace['race'];
+    }
+    $inputRaces = Input::only('race');
+    $toAdd = array_diff($inputRaces['race'], $newArray);
+    foreach ($toAdd as $diff)
+    {
+      $race = new Race;
+      $race->race = $diff;
+      $race->profile()->associate($user->profile);
+      $race->save();
+    }
+
+    // Remove unchecked races
+    $toRemove = array_diff($newArray, $inputRaces['race']);
+    foreach($toRemove as $remove)
+    {
+      Race::where('profile_id', '=', $user->profile->id)->where('race', '=', $remove)->delete();
+    }
+
     $this->profileForm->validate($input);
     $user->profile->fill($input)->save();
+
     return Redirect::route('profile.edit', $user->id)->with('flash_message', 'Your profile has been updated!');
   }
-
-
 }

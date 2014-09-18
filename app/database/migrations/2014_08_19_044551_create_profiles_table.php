@@ -24,7 +24,6 @@ class CreateProfilesTable extends Migration {
       $table->string('state')->nullable();
       $table->integer('zip')->nullable();
       $table->string('gender')->nullable();
-      $table->string('race')->nullable();
       $table->string('school')->nullable();
       $table->integer('grade')->nullable();
       $table->timestamps();

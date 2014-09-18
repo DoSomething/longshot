@@ -5,8 +5,7 @@
     <div class="wrapper">
 
       <h1 class="heading -alpha text-primary-color">Edit Profile</h1>
-
-      {{ Form::model($user->profile, ['method' => 'PATCH', 'route' => ['profile.update', $user->id]]) }}
+      {{ Form::model($user, ['method' => 'PATCH', 'route' => ['profile.update', $user->user_id]]) }}
 
         @include('profile/partials/_form_profile')
 
