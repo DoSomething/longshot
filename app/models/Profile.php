@@ -8,6 +8,10 @@ class Profile extends Eloquent {
   {
     return $this->belongsTo('User');
   }
+  public function race()
+  {
+   return $this->hasMany('Race');
+  }
 
   /*
    * List of all US states
@@ -70,4 +74,18 @@ class Profile extends Eloquent {
             );
     return $states;
   }
+
+ public static function getRaces()
+ {
+   $races = array(
+          'White',
+          'Black/African American',
+          'Hispanic/Latino/Spanish',
+          'Asian',
+          'American Indian or Alaska Native',
+          'Pacific Islander/Native Hawaiian',
+          'Other',
+          );
+   return $races;
+ }
 }
