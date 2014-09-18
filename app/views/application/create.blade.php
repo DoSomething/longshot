@@ -4,7 +4,7 @@
   <section class="segment -compact">
     <div class="wrapper">
 
-      <h1 class="heading -alpha text-primary-color">Complete Your Application</h1>
+      <h1 class="heading -alpha text-primary-color">Your Application</h1>
 
         {{ Form::open(['route' => 'application.store']) }}
 
