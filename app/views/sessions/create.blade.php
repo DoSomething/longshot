@@ -9,7 +9,7 @@
       {{ Form::open(['route' => 'sessions.store']) }}
 
         {{-- Email Field --}}
-        @include('layouts.partials._form-email-field', ['some' => 'data'])
+        @include('layouts.partials._form-email-field')
 
         {{-- Password Field --}}
         @include('layouts.partials._form-password-field')
