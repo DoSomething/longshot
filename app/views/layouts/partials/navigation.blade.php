@@ -10,7 +10,6 @@
         <li class="{{ setActive('login') }}"><a href="/login"><span>Login</span></a></li>
       @else
         <li class="{{ setActive('status') }}"><a href="/status"><span>Status</span></a></li>
-        <li class="{{ setActive('profile') }}">{{ link_to_profile() }}</li>
         <li><a href="/logout"><span>Logout</span></a></li>
       @endif
   </ul>

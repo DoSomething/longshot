@@ -1,18 +1,31 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// HEADING STYLES
+// MEDIA LIST: STATUS STYLES
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.heading {
 
-  &.-alt { color: #fff; }
+.media-list--status {
 
-  &.-alpha { font-family: 'ProximaNovaBold'; font-size: 1.5rem; text-align: center; text-transform: uppercase; }
+  li { @include rem(20); margin-bottom: 0.5em; position: relative; }
 
-  &.-beta { font-family: 'ProximaNovaRegular'; font-size: 1.3rem; }
+  // @TODO: Vertically align to center.
+  .icon { border-radius: 3px; border-style: solid; border-width: 2px; margin-right: 0.3rem; display: inline-block;
+    &:before { display: block; padding: 0.1em; }
+  }
+
+  .complete {
+    .icon { border-color: $app_green; color: $app_green; }
+  }
+
+  .-incomplete {
+    .icon { border-color: $app_light_gray; color: $app_light_gray;
+      &:before { visibility: hidden; }
+    }
+  }
 
 }
+
 
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -20,13 +33,5 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 @media only screen and (min-width: $medium) {
-
-  .heading {
-
-    &.-alpha { font-size: 2rem; }
-
-    &.-beta { font-size: 1.5rem; }
-
-  }
 
 }
