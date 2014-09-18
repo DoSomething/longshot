@@ -19,7 +19,7 @@ ssh_options[:keys] = [ENV["CAP_PRIVATE_KEY"]]
 namespace :deploy do
 
   task :link_settings do
-      run "ln -nfs #{shared_path}/shared/.env.php #{release_path}/"
+      run "ln -nfs #{shared_path}/.env.php #{release_path}/"
   end
 
 end
