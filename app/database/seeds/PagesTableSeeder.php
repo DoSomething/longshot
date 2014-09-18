@@ -20,18 +20,21 @@ class PagesTableSeeder extends Seeder {
     $pathFAQ->link_text = 'FAQ';
 
     Page::create([
-      'title'       => 'Home',
-      'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum, sequi.',
+      'title'            => 'Home',
+      'description'      => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum, sequi.',
+      'description_html' => '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum, sequi.</p>',
     ])->assignPath($pathHome);
 
     Page::create([
-      'title'       => 'About',
-      'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum, sequi.',
+      'title'            => 'About',
+      'description'      => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum, sequi.',
+      'description_html' => '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum, sequi.</p>',
     ])->assignPath($pathAbout);
 
     Page::create([
-      'title'       => 'FAQ',
-      'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum, sequi.',
+      'title'            => 'FAQ',
+      'description'      => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum, sequi.',
+      'description_html' => '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum, sequi.</p>',
     ])->assignPath($pathFAQ);
   }
 }

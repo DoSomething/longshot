@@ -18,8 +18,10 @@ class CreateBlocksTable extends Migration {
       $table->integer('page_id')->index();
       $table->string('block_title')->index();
       $table->longtext('block_description');
+      $table->longtext('block_description_html');
       $table->longtext('block_body');
-      // @TODO: add a class
+      $table->longtext('block_body_html');
+      $table->text('block_classes');
       $table->timestamps();
     });
   }
