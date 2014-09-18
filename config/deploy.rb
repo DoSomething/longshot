@@ -19,13 +19,10 @@ ssh_options[:keys] = [ENV["CAP_PRIVATE_KEY"]]
 namespace :deploy do
 
   task :link_settings do
-    on roles(:app) do |host|
-      execute "ln -nfs #{shared_path}/shared/.env.php #{release_path}/"
-    end
+      run "ln -nfs #{shared_path}/.env.php #{release_path}/"
   end
-
-  after :symlink, 'deploy:link_settings'
 
 end
 
 after "deploy:update", "deploy:cleanup"
+after "deploy:symlink", "deploy:link_settings"
