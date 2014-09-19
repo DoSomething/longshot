@@ -40,10 +40,11 @@ p + form { margin-top: 2em; }
   }
 
   &.-invalid {
-    input { border-color: $app_error; }
+    input,
+    textarea { border-color: $app_error; }
   }
 
-  .error { color: $app_error; display: block; padding: pxcalc(5) pxcalc(10); }
+  .error { color: $app_error; display: block; padding: pxcalc(5); }
 }
 
 .field-group + .heading { clear: both; padding-top: pxcalc(30); }
@@ -76,6 +77,7 @@ p + form { margin-top: 2em; }
 
     select { padding: pxcalc(15) pxcalc(10); }
 
+    .error { padding-left: pxcalc(10); padding-right: pxcalc(10); }
   }
 
 }

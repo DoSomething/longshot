@@ -12,8 +12,8 @@
 
         {{-- Submit Button --}}
         <div class="field-group">
-        <input type="submit" name="draft" value="Save as Draft" class='button -default'>
-        <input type="submit" name="complete" value="Submit" class='button -default'>
+          {{ Form::submit('Save as Draft', ['class' => 'button -default', 'name' => 'draft']) }}
+          {{ Form::submit('Submit', ['class' => 'button -default', 'name' => 'complete']) }}
         </div>
 
       {{ Form::close() }}
