@@ -126,6 +126,7 @@ class ProfilesController extends \BaseController {
     $currentRaces = Race::where('profile_id', $user->profile->id)->select('race')->get()->toArray();
 
     // Let's make the arrays match
+    $newArray = array();
     foreach($currentRaces as $currentRace) {
       $newArray[] = $currentRace['race'];
     }
