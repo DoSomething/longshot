@@ -52,8 +52,21 @@ class RegistrationController extends \BaseController {
     $user->assignRole(2);
 
     Auth::login($user);
+
+    $this->sendRegistrationEmail($user);
+
     return Redirect::route('profile.create');
 
+  }
+
+  public function sendRegistrationEmail($user)
+  {
+    $email = new Email;
+    $data = array(
+      'first_name' => $user->first_name,
+      'last_name' => $user->last_name,
+    );
+    $email->sendEmail('welcome', 'applicant', $user->email, $data);
   }
 
 }

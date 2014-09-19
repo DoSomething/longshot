@@ -22,6 +22,13 @@ class NominationController extends \BaseController {
     $nom = new Nomination;
     $nom->fill($input)->save();
 
+    $this->sendNomEmail($nom);
+
+    return Redirect::route('home')->with('flash_message', 'Thanks for taking the time to nominate someone for the Foot Locker Scholar Athletes program! If you know other outstanding individuals for the program, we’d love to hear about them.');
+  }
+
+  public function sendNomEmail($nom)
+  {
     $email = new Email;
     $data = array(
       'nom_name' => $nom->nom_name,
@@ -29,7 +36,5 @@ class NominationController extends \BaseController {
     );
     $email->sendEmail('nomination', 'applicant', $nom->nom_email, $data);
 
-    //@TODO: send emails
-    return Redirect::route('home')->with('flash_message', 'Thanks for taking the time to nominate someone for the Foot Locker Scholar Athletes program! If you know other outstanding individuals for the program, we’d love to hear about them.');
   }
 }

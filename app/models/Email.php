@@ -15,16 +15,14 @@ class Email extends Eloquent {
   public static function sendEmail($key, $recipient, $to, $data)
   {
     // Find the correct email.
-    $email = Email::where('key', '=', $key)->where('recipient', '=' ,$recipient)->firstOrFail();
+    $email = Email::where('key', '=', $key)->where('recipient', '=' , $recipient)->firstOrFail();
     $subject = $email->subject;
     $body = $email->body;
-
     // Replace all values in the body copy.
     foreach ($data as $find => $replace)
     {
       $body = str_replace('[' . $find . ']', $replace, $body);
     }
-
     $email_data = array(
       'to' => $to,
       'body' => $body,
