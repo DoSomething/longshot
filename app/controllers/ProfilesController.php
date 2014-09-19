@@ -56,12 +56,14 @@ class ProfilesController extends \BaseController {
     $profile->grade = $input['grade'];
 
     $user->profile()->save($profile);
-
-    foreach($input['race'] as $inputRace) {
-      $race = new Race;
-      $race->race = $inputRace;
-      $race->profile()->associate($profile);
-      $race->save();
+    if (isset($input['race']))
+    {
+      foreach($input['race'] as $inputRace) {
+        $race = new Race;
+        $race->race = $inputRace;
+        $race->profile()->associate($profile);
+        $race->save();
+      }
     }
 
     return Redirect::route('application.create')->with('flash_message', 'Profile information has been saved!');
