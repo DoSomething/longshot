@@ -10,19 +10,22 @@ class Email extends Eloquent {
    * @param $key - the key of which email to look for
    * @param $recipient - who is this email going to
    * @param $to - the email address to send the email to
-   * @param $data - array of things to search and replace in the body of email.
+   * @param $data - (optional) array of things to search and replace in the body of email.
    */
-  public static function sendEmail($key, $recipient, $to, $data)
+  public static function sendEmail($key, $recipient, $to, $data = NULL)
   {
     // Find the correct email.
     $email = Email::where('key', '=', $key)->where('recipient', '=' , $recipient)->firstOrFail();
     $subject = $email->subject;
     $body = $email->body;
-    // Replace all values in the body copy.
-    foreach ($data as $find => $replace)
-    {
-      $body = str_replace('[' . $find . ']', $replace, $body);
+    if (isset($data)) {
+       // Replace all values in the body copy.
+      foreach ($data as $find => $replace)
+      {
+        $body = str_replace('[' . $find . ']', $replace, $body);
+      }
     }
+
     $email_data = array(
       'to' => $to,
       'body' => $body,

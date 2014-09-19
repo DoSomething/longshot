@@ -51,9 +51,9 @@
 
         {{-- Rank Additional --}}
         <div class="field-group">
-          {{ Form::label('rank_addiational', $scholarship->label_rec_rank_additional) }}
-          {{ Form::text('rank_addiational') }}
-          {{ errorsFor('rank_addiational', $errors); }}
+          {{ Form::label('rank_additional', $scholarship->label_rec_rank_additional) }}
+          {{ Form::text('rank_additional') }}
+          {{ errorsFor('rank_additional', $errors); }}
         </div>
 
 

@@ -62,10 +62,9 @@ class RecommendationController extends \BaseController {
         $recommendation->save();
 
         $token = $recommendation->generateRecToken($recommendation);
-
-        $this->prepareRequestEmail($application, $recommendation, $token);
+        $this->prepareRecRequestConfirmationEmail();
+        $this->prepareRecRequestEmail($recommendation, $token);
       }
-
     }
 
 
@@ -120,7 +119,7 @@ class RecommendationController extends \BaseController {
     $input = Input::all();
     $recommendation = Recommendation::whereId($id)->firstOrFail();
     $recommendation->rank_character = $input['rank_character'];
-    $recommendation->rank_addiational = $input['rank_addiational'];
+    $recommendation->rank_additional = $input['rank_additional'];
     $recommendation->essay1 = $input['essay1'];
     $recommendation->save();
     $this->prepareRecReceivedEmail($recommendation);
@@ -140,50 +139,52 @@ class RecommendationController extends \BaseController {
     //
   }
 
-
-
-  public function prepareRequestEmail($application, $recommendation, $token)
+  /**
+   * Sends email to applicant saying the rec request has been sent.
+   */
+  public function prepareRecRequestConfirmationEmail()
   {
-    $to = $recommendation->email;
-    $from = Auth::user()->first_name .  " " . Auth::user()->last_name;
-    $scholarship = Scholarship::whereId($application->scholarship_id)->firstOrFail()->pluck('title');
-    $subject = $from . " would like you to to be a recommender for the " . $scholarship . " scholarship";
-
+    $email = new Email;
+    $email->sendEmail('request', 'applicant', Auth::user()->email);
+  }
+  /**
+   * Sends email to recommender upon request.
+   */
+  public function prepareRecRequestEmail($recommendation, $token)
+  {
+    $link = link_to_route('recommendation.edit', "Please provide a recommendation", array($recommendation->id,'token' => $token));
+    $email = new Email;
     $data = array(
-      'to' => $to,
-      'subject' => $subject,
-      'applicant' => $from,
-      'recommendation_id' => $recommendation->id,
-      'token' => $token
-    );
-    Mail::send('emails.recommendation.request', $data, function($message) use ($data)
-    {
-      $message->to($data['to'])->subject($data['subject']);
-    });
+      'link' => $link,
+      'applicant_name' => Auth::user()->first_name .  " " . Auth::user()->last_name,
+      );
+    $email->sendEmail('request', 'recommender', $recommendation->email, $data);
+
   }
 
+  /**
+   * Sends email to applicant and recommender after the rec was completed.
+   */
   public function prepareRecReceivedEmail($recommendation)
   {
     $user = DB::table('users')
                 ->join('applications', 'applications.user_id', '=', 'users.id')
-                ->where('applications.id', '=', $recommendation->id)
+                ->where('applications.id', '=', $recommendation->application_id)
                 ->select('users.id', 'users.email', 'users.first_name')
                 ->first();
 
-    $to = $user->email;
-    $from = $recommendation->first_name . " " . $recommendation->last_name;
-    $subject = $from . " has completed your recommendation.";
+    $email = new Email;
     $data = array(
-      'to' => $to,
-      'from' => $from,
-      'subject' => $subject,
-    );
+      'link' => link_to_route('status'),
+      );
+    $email->sendEmail('received', 'applicant', $user->email, $data);
 
-    Mail::send('emails.recommendation.received', $data, function($message) use ($data)
-    {
-      $message->to($data['to'])->subject($data['subject']);
-    });
-
+    $email2 = new Email;
+    $data2 = array(
+      'completed_form' => '@TODO',
+      'link' => link_to_route('home'),
+      );
+    $email->sendEmail('received', 'recommender', $recommendation->email, $data);
   }
 
 
