@@ -13,7 +13,6 @@
         {{-- Submit Button --}}
         <div class="field-group">
           {{ Form::submit('Update Draft', ['class' => 'button -default', 'name' => 'draft']) }}
-          {{ Form::submit('Submit', ['class' => 'button -default', 'name' => 'complete']) }}
         </div>
 
       {{ Form::close() }}
