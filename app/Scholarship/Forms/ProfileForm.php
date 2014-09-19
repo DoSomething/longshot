@@ -16,6 +16,7 @@ class ProfileForm extends FormValidator {
     'city'            => 'required',
     'state'           => 'required',
     'zip'             => 'required',
+    'school'          => 'required',
   ];
 
 }
