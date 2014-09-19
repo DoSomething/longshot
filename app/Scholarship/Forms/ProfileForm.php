@@ -11,7 +11,7 @@ class ProfileForm extends FormValidator {
    */
   protected $rules = [
     'birthdate'       => 'required',
-    'phone'           => 'required',
+    'phone'           => 'required|numeric',
     'address_street'  => 'required',
     'city'            => 'required',
     'state'           => 'required',
