@@ -34,7 +34,7 @@
         @include('layouts/partials/_form-password-confirmation-field')
 
         {{-- Eligibility Check --}}
-        <div class="field-group {{ setInvalidClass('eligibility', $errors) }}">
+        <div class="field-group">
           {{ Form::checkbox('eligibility', 1, false, ['id' => 'eligibility']); }}
           {{ Form::label('eligibility', 'Yes, I\'m eligible') }}
           {{ errorsFor('eligibility', $errors); }}

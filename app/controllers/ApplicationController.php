@@ -13,6 +13,7 @@ class ApplicationController extends \BaseController {
   function __construct(ApplicationForm $applicationForm)
   {
     $this->applicationForm = $applicationForm;
+
     $this->beforeFilter('currentUser', ['only' => ['edit', 'update']]);
 
     // Check that the current user doesn't create many applications
@@ -60,7 +61,7 @@ class ApplicationController extends \BaseController {
     {
       $this->applicationForm->validate($input);
     }
-// dd($input);
+
     // @TODO: there's a better way of doing the following...
     $application = new Application;
     $application->accomplishments = $input['accomplishments'];

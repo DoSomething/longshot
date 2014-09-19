@@ -12,8 +12,7 @@ class ApplicationForm extends FormValidator {
  protected $rules = [
   'accomplishments' => 'required',
   'gpa'             => 'required|numeric',
-  'test_type'       => 'required',
-  'test_score'      => 'required|numeric',
+  'test_score'      => 'numeric',
   'activities'      => 'required',
   'essay1'          => 'required',
   'essay2'          => 'required',

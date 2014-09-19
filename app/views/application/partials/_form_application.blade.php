@@ -1,5 +1,5 @@
   {{-- Accomplishments --}}
-  <div class="field-group">
+  <div class="field-group {{ setInvalidClass('accomplishments', $errors) }}">
     {{ Form::label('accomplishments', $scholarship->label_app_accomplishments) }}
     {{ Form::textarea('accomplishments') }}
     {{ errorsFor('accomplishments', $errors); }}
@@ -7,7 +7,7 @@
 
 
   {{-- GPA --}}
-  <div class="field-group -mono">
+  <div class="field-group -mono {{ setInvalidClass('gpa', $errors) }}">
     {{ Form::label('gpa', 'GPA: ') }}
     {{ Form::text('gpa') }}
     {{ errorsFor('gpa', $errors); }}
@@ -15,14 +15,14 @@
 
   {{-- Test Type --}}
 
-  <div class="field-group -dual -alpha">
+  <div class="field-group -dual -alpha {{ setInvalidClass('test_type', $errors) }}">
     {{ Form::label('test_type', 'Test Type: (optional) ') }}
     {{ Form::select('test_type', array('SAT' => 'SAT', 'ACT' => 'ACT')); }}
     {{ errorsFor('test_type', $errors); }}
   </div>
 
   {{-- Test Score --}}
-  <div class="field-group -dual -beta">
+  <div class="field-group -dual -beta {{ setInvalidClass('test_score', $errors) }}">
     {{ Form::label('test_score', 'Test Score: (optional)') }}
     {{ Form::text('test_score') }}
     {{ errorsFor('test_score', $errors); }}
@@ -30,14 +30,14 @@
 
 
   {{-- Activities --}}
-  <div class="field-group">
+  <div class="field-group {{ setInvalidClass('activities', $errors) }}">
     {{ Form::label('activities', $scholarship->label_app_activities) }}
     {{ Form::textarea('activities') }}
     {{ errorsFor('activities', $errors); }}
   </div>
 
   {{-- Essay 1 --}}
-  <div class="field-group">
+  <div class="field-group {{ setInvalidClass('essay1', $errors) }}">
     {{ Form::label('essay1', $scholarship->label_app_essay1) }}
     {{ Form::textarea('essay1') }}
     {{ errorsFor('essay1', $errors); }}
@@ -45,14 +45,13 @@
 
 
   {{-- Essay 2 --}}
-  <div class="field-group">
+  <div class="field-group {{ setInvalidClass('essay2', $errors) }}">
     {{ Form::label('essay2', $scholarship->label_app_essay2) }}
     {{ Form::textarea('essay2') }}
     {{ errorsFor('essay2', $errors); }}
   </div>
 
   <div class="field-group">
-
     {{ Form::checkbox('documentation', 1, false, ['id' => 'eligibility']); }}
     {{ Form::label('documentation', "If you are chosen as a winner, you will submit a copy of your driver's license, birth certificate or passport as proof of age and U.S. citizenship/permanent legal resident status.") }}
     {{ errorsFor('documentation', $errors); }}
