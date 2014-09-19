@@ -8,7 +8,7 @@
 
   {{-- Phone Number --}}
   <div class="field-group">
-    {{ Form::label('phone', 'Phone Number: ') }}
+    {{ Form::label('phone', 'Phone Number: ') }} <em> no dashes </em>
     {{ Form::text('phone') }}
     {{ errorsFor('phone', $errors); }}
   </div>
@@ -55,7 +55,7 @@
     {{ errorsFor('gender', $errors); }}
   </div>
 
- Of the following options, which best describes your race? (Check all that apply) (optional)
+ Of the following options, which best describes your race? (Check all that apply) (<em>optional</em>)
  @foreach($races as $key => $race)
  {{-- is this really how you make a new php variable? --}}
  {{-- */$matched = FALSE/* --}}
