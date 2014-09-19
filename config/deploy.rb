@@ -23,8 +23,7 @@ namespace :deploy do
   end
 
   task :artisan_migrate do
-    run "cd #{release_path}"
-    run "php artisan migrate --force"
+    run "cd #{release_path} && php artisan migrate --force"
   end
 
 end
