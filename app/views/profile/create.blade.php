@@ -15,10 +15,12 @@
 
           @include('profile/partials/_form_profile')
 
-          {{-- Submit Button --}}
-          <div class="field-group">
-            {{ Form::submit('Save', ['class' => 'button -default']) }}
-          </div>
+
+        {{-- Submit Button --}}
+        <div class="field-group">
+           {{ Form::submit('Save as Draft', ['class' => 'button -default', 'name' => 'draft']) }}
+           {{ Form::submit('Save and Continue', ['class' => 'button -default', 'name' => 'complete']) }}
+        </div>
 
         {{ Form::close() }}
 
