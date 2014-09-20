@@ -20,11 +20,10 @@
   </head>
 
   <body>
-    <div id="page" class="page">
+    <div id="container" class="container">
 
-      <div class="container">
+      <div class="panel panel--main">
         @include('layouts.partials.header')
-
 
         @if (Session::has('flash_message'))
           <div class="flash-message">
@@ -32,9 +31,13 @@
           </div>
         @endif
 
-        <main role="main">
-          @yield('main_content')
-        </main>
+        <div id="content" class="content">
+          <main role="main">
+            @yield('main_content')
+          </main>
+
+          @yield('complementary_content')
+        </div>
 
         @include('layouts.partials.footer')
       </div>

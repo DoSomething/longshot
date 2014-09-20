@@ -2,10 +2,10 @@ var $      = require('jquery');
 var Panels = require('./panels');
 
 
-var $body    = $('body');
-var $page    = $('#page');
-var $main    = $('main');
-var $mainNav = $('#main-nav');
+var $body      = $('body');
+var $container = $('#container');
+var $content   = $('#content');
+var $mainNav   = $('#main-nav');
 
 
-Panels.init($page, $mainNav);
+Panels.init($container, $mainNav);
