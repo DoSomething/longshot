@@ -13,10 +13,11 @@
 
           @include('application/partials/_form_application')
 
-          {{-- Submit Button --}}
-          <div class="field-group">
-            {{ Form::submit('Update Draft', ['class' => 'button -default', 'name' => 'draft']) }}
-          </div>
+        {{-- Submit Button --}}
+        <div class="field-group">
+            {{ Form::submit('Save as Draft', ['class' => 'button -default', 'name' => 'draft']) }}
+           {{ Form::submit('Save and Continue', ['class' => 'button -default', 'name' => 'complete']) }}
+        </div>
 
         {{ Form::close() }}
 
