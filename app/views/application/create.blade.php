@@ -9,6 +9,9 @@
     <div class="segment -compact">
       <div class="wrapper">
 
+      <h1 class="heading -alpha text-primary-color">Your Application</h1>
+        {{ $help_text }}
+
         {{ Form::open(['route' => 'application.store']) }}
 
           <div class="progress"><strong>Step 2 of 3</strong></div>

@@ -9,7 +9,8 @@
     <div class="segment -compact">
       <div class="wrapper">
 
-        {{ Form::model($user->application, ['method' => 'PATCH', 'route' => ['application.update', $user->id]]) }}
+      {{ $help_text }}
+      {{ Form::model($user->application, ['method' => 'PATCH', 'route' => ['application.update', $user->id]]) }}
 
           @include('application/partials/_form_application')
 
