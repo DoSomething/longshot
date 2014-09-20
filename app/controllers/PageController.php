@@ -105,7 +105,26 @@ class PageController extends \BaseController {
    */
   public function show($id)
   {
-    //
+    $pathList = Path::lists('url');
+    $pageRequest = stringtoKebabCase($id);
+
+    $customViews = ['/', 'about', 'faq'];
+
+    if (! in_array($pageRequest, $pathList))
+    {
+      return App::abort(404);
+    }
+
+    $path = Path::with('page', 'page.blocks')->whereUrl($pageRequest)->firstOrFail();
+
+    $page = $path->page;
+    if (View::exists('pages.' . $pageRequest))
+    {
+      return View::make('pages.' . $pageRequest, compact('page'));
+    }
+
+    // Otherwise, return the default static view template.
+    return View::make('pages.static', compact('page'));
   }
 
   /**
@@ -202,47 +221,17 @@ class PageController extends \BaseController {
   {
     //
   }
-
-
-  /**
-   * Show the requested static page.
+    /**
+   * Display the Home page.
+   *
+   * @return Response
    */
-  public function staticShow($pageRequest = '/')
+
+
+  public function home()
   {
-    $pathList = Path::lists('url');
-    $pageRequest = stringtoKebabCase($pageRequest);
-
-    $customViews = ['/', 'about', 'faq'];
-
-    if (! in_array($pageRequest, $pathList))
-    {
-      return App::abort(404);
-    }
-
-    $path = Path::with('page', 'page.blocks')->whereUrl($pageRequest)->firstOrFail();
-
-    $page = $path->page;
-
-    // If the requested page has a custom view, use it.
-    if (in_array($pageRequest, $customViews))
-    {
-      switch ($pageRequest) {
-        case '/':
-            return View::make('pages.home', compact('page'));
-            break;
-
-        case 'about':
-            return View::make('pages.about', compact('page'));
-            break;
-
-        case 'faq':
-            return View::make('pages.faq', compact('page'));
-            break;
-      }
-    }
-
-    // Otherwise, return the default static view template.
-    return View::make('pages.static', compact('page'));
+    return View::make('pages.home');
   }
+
 
 }
