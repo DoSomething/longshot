@@ -6,9 +6,7 @@
   <article class="page">
     <h1 class="__title heading -beta text-primary-color">Basic Info</h1>
 
-    <div class="segment -compact">
-      <div class="wrapper">
-
+      {{ $help_text }}
         {{ Form::open(['route' => 'profile.store']) }}
 
           <div class="progress"><strong>Step 1 of 3</strong></div>

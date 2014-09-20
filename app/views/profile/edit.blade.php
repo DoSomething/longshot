@@ -9,7 +9,9 @@
     <div class="segment -compact">
       <div class="wrapper">
 
-        {{ Form::model($user, ['method' => 'PATCH', 'route' => ['profile.update', $user->user_id]]) }}
+
+      {{ $help_text }}
+      {{ Form::model($user, ['method' => 'PATCH', 'route' => ['profile.update', $user->user_id]]) }}
 
           @include('profile/partials/_form_profile')
 
