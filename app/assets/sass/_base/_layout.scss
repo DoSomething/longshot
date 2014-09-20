@@ -2,8 +2,8 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // LAYOUT STYLES
 //
-// Contains styles for layout of main page components, such as page, header,
-// nav, main, primary, secondary, footer, etc.
+// Contains styles for layout of main page components, such as container,
+// header, nav, main, primary, secondary, footer, etc.
 //
 // Style declarations should really only contain layout related definitions,
 // such as width, height, positioning, float, margins and padding for these
@@ -12,11 +12,16 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
+// LOCAL VARIABLES
+$nav_width : 260px;
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
 html, body { height: 100%; }
 
-.page {  min-height: 100%; height: auto !important; height: 100%; overflow: hidden; position: relative; }
+.container {  min-height: 100%; height: auto !important; height: 100%; overflow: hidden; position: relative; }
 
-.container,
+.panel--main,
 .main-nav { transition: transform 0.3s ease-out; }
 
 [role="banner"],
@@ -29,13 +34,19 @@ html, body { height: 100%; }
 
 .js {
 
-  .main-nav { height: 100%; left: 0; position: fixed; top: 0; width: calc(100% - 60px); transform: translateX(calc(100% + 60px)); }
+  // @TODO: Safari Bug which causes browser to immediately quit out, due to use of transition and calc()... @_@
+  // .main-nav { height: 100%; left: 0; position: fixed; top: 0; width: calc(100% - 60px); transform: translateX(calc(100% + 60px)); }
+  .main-nav { height: 100%; right: 0; position: fixed; top: 0; transform: translateX($nav_width); width: $nav_width; }
 
   .is-showing-main-nav {
 
-    .container { transform: translateX(calc(-100% + 60px)); }
+    // @TODO: Safari Bug
+    // .panel--main { transform: translateX(calc(-100% + 60px)); }
+    .panel--main { transform: translateX(-($nav_width)); }
 
-    .main-nav { transform: translateX(calc(0% + 60px)); }
+    // @TODO: Safari Bug
+    // .main-nav { transform: translateX(calc(0% + 60px)); }
+    .main-nav { transform: translateX(0); }
 
   }
 

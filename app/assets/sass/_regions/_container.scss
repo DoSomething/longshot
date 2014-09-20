@@ -1,11 +1,11 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// PAGE STYLES
+// CONTAINER STYLES
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-.page { background-color: $app_background; }
+.container { background-color: $app_background; }
 
 
 
@@ -15,6 +15,6 @@
 
 @media only screen and (min-width: $extra_large) {
 
-  .page { @include container($wide); box-shadow: 0 0 5px rgba(#000, 0.3); }
+  .container { @include container($wide); box-shadow: 0 0 5px rgba(#000, 0.3); }
 
 }

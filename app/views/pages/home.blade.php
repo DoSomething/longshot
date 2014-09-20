@@ -1,89 +1,96 @@
 @extends('layouts.master')
 
 @section('main_content')
-  <div class="banner -hero">
-    <div class="wrapper">
-      <h2 class="__tagline">We're giving away 20 $10,000 Scholarships to people just like you</h2>
-    </div>
-  </div>
+  <article class="page">
 
-  <section class="segment segment--apply">
-    <h1 class="heading -alpha">Apply Today</h1>
+    <header class="banner -hero">
+      <div class="wrapper">
+        <h1 class="__title visually-hidden">Welcome</h1>
+        <h2 class="__tagline">We're giving away 20 $10,000 Scholarships to people just like you</h2>
+      </div>
+    </header>
 
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio doloribus, cumque voluptatem, dolor velit eveniet quidem. Dolore incidunt a asperiores vero natus est quibusdam suscipit quos magnam iste dignissimos, modi pariatur consequuntur soluta, architecto commodi!</p>
+    <section class="segment segment--apply">
+      <h1 class="heading -alpha">Apply Today</h1>
 
-    @if (Auth::guest())
-      <ul class="media-list">
-        <li>{{ link_to_route('registration.create', 'Start Application', null, ['class' => 'button -default']) }}</a></li>
-        <li>{{ link_to_route('login', 'Continue your application') }}</a></li>
-      </ul>
-    @endif
-  </section>
+      <p>Front-end styles are being updated significantly so some things may be visually broken temporarily!</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam, ad.</p>
 
-  <section class="segment segment--steps">
-    <h1 class="heading -alpha">How To Enter</h1>
+      @if (Auth::guest())
+        <ul class="media-list">
+          <li>{{ link_to_route('registration.create', 'Start Application', null, ['class' => 'button -default']) }}</a></li>
+          <li>{{ link_to_route('login', 'Continue your application') }}</a></li>
+        </ul>
+      @endif
+    </section>
 
-    <div><span>$10K</span> Scholarship</div>
+    <section class="segment segment--steps">
+      <h1 class="heading -alpha">How To Enter</h1>
 
-    <ol>
-      <li>
-        <h2>Get the details</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur, sit.</p>
-      </li>
-      <li>
-        <h2>Start your app</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur, sit.</p>
-      </li>
-      <li>
-        <h2>Check out the FAQ</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur, sit.</p>
-      </li>
-    </ol>
-  </section>
+      <div><span>$10K</span> Scholarship</div>
 
-  <section class="segment segment--nominate">
-    <div class="wrapper">
-      <h1 class="heading -alpha -alt">Nominate A Star</h1>
+      <ol>
+        <li>
+          <h2>Get the details</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur, sit.</p>
+        </li>
+        <li>
+          <h2>Start your app</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur, sit.</p>
+        </li>
+        <li>
+          <h2>Check out the FAQ</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur, sit.</p>
+        </li>
+      </ol>
+    </section>
 
-      {{ Form::open(['route' => 'nomination.create']) }}
+    <section class="segment segment--nominate">
+      <div class="wrapper">
+        <h1 class="heading -alpha -alt">Nominate A Star</h1>
 
-        <div>
-          <h2>Your Info</h2>
-          {{-- Nominator Name --}}
-          <div class="field-group">
-            {{ Form::label('rec_name', 'Your Name: ') }}
-            {{ Form::text('rec_name') }}
-            {{ errorsFor('rec_name', $errors); }}
+        {{ Form::open(['route' => 'nomination.create']) }}
+
+          <div>
+            <h2>Your Info</h2>
+
+            {{-- Nominator Name --}}
+            <div class="field-group">
+              {{ Form::label('rec_name', 'Your Name: ') }}
+              {{ Form::text('rec_name') }}
+              {{ errorsFor('rec_name', $errors); }}
+            </div>
+
+            {{-- Nominator Email --}}
+            <div class="field-group">
+              {{ Form::label('rec_email', 'Your Email: ') }}
+              {{ Form::email('rec_email') }}
+              {{ errorsFor('rec_email', $errors); }}
+            </div>
           </div>
 
-          {{-- Nominator Email --}}
-          <div class="field-group">
-            {{ Form::label('rec_email', 'Your Email: ') }}
-            {{ Form::email('rec_email') }}
-            {{ errorsFor('rec_email', $errors); }}
+          <div>
+            <h2>Their Info</h2>
+
+            {{-- Nominatee Name --}}
+            <div class="field-group">
+              {{ Form::label('nom_name', 'Their Name: ') }}
+              {{ Form::text('nom_name') }}
+              {{ errorsFor('nom_name', $errors); }}
+            </div>
+
+            {{-- Nominatee Email --}}
+            <div class="field-group">
+              {{ Form::label('nom_email', 'Their Email: ') }}
+              {{ Form::email('nom_email') }}
+              {{ errorsFor('nom_email', $errors); }}
+            </div>
           </div>
-        </div>
 
-        <div>
-          <h2>Their Info</h2>
+            {{ Form::submit('Nominate', ['class' => 'button -default']) }}
+        {{ Form::close() }}
+      </div>
+    </section>
 
-          {{-- Nominatee Name --}}
-          <div class="field-group">
-            {{ Form::label('nom_name', 'Their Name: ') }}
-            {{ Form::text('nom_name') }}
-            {{ errorsFor('nom_name', $errors); }}
-          </div>
-
-          {{-- Nominatee Email --}}
-          <div class="field-group">
-            {{ Form::label('nom_email', 'Their Email: ') }}
-            {{ Form::email('nom_email') }}
-            {{ errorsFor('nom_email', $errors); }}
-          </div>
-        </div>
-
-          {{ Form::submit('Nominate', ['class' => 'button -default']) }}
-      {{ Form::close() }}
-    </div>
-  </section>
+  </article>
 @stop

@@ -1,4 +1,4 @@
-<nav id="main-nav" class="main-nav" role="navigation">
+<nav id="main-nav" class="main-nav panel panel--nav" role="navigation">
   <h1 class="visually-hidden">Main Navigation</h1>
   <ul class="__menu -level-1">
       <li class="{{ setActive('/') }}"><a href="/"><span>Home</span></a></li>
