@@ -34,7 +34,8 @@ class RecommendationController extends \BaseController {
   {
     // This will be seen by applicants only.
     $num_recs = Scholarship::whereId(1)->select('num_recommendations_max', 'num_recommendations_min')->firstOrFail()->toArray();
-    return View::make('recommendation.create', compact('num_recs'));
+    $help_text = Setting::where('key', '=', 'recommendation_create_help_text')->pluck('value');
+    return View::make('recommendation.create', compact('num_recs', 'help_text'));
   }
 
   /**
@@ -99,7 +100,8 @@ class RecommendationController extends \BaseController {
     {
       // @TODO: find the right scholarship
       $scholarship = Scholarship::firstOrFail();
-      return View::make('recommendation.edit')->with(compact('recommendation', 'scholarship'));
+      $help_text = Setting::where('key', '=', 'recommendation_update_help_text')->pluck('value');
+      return View::make('recommendation.edit')->with(compact('recommendation', 'scholarship', 'help_text'));
     }
     else
     {
