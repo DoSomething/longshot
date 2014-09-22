@@ -1,3 +1,6 @@
+{{-- Profile Basic Info: Show --}}
+{{-- @TODO: Do we need this view? --}}
+
 @extends('layouts.master')
 
 @section('main_content')

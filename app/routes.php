@@ -21,7 +21,7 @@ Route::resource('sessions', 'SessionsController', ['only' => ['create', 'store',
 Route::controller('password', 'RemindersController');
 
 # Pages
-Route::get('/', ['as' => 'home', 'uses' => 'PagesController@home']);
+Route::get('/', ['as' => 'home', 'uses' => 'PageController@staticShow']);
 
 # Profile
 Route::resource('profile', 'ProfilesController', ['before' => 'auth']);

@@ -1,4 +1,4 @@
-{{-- Static Page Template --}}
+{{-- FAQ Page Template --}}
 
 @extends('layouts.master')
 

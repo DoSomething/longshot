@@ -1,15 +1,15 @@
 
   {{-- Birthdate --}}
-  <div class="field-group -mono  {{ setInvalidClass('birthdate', $errors) }}">
+  <div class="field-group -dual -alpha {{ setInvalidClass('birthdate', $errors) }}">
     {{ Form::label('birthdate', 'Birthdate: ') }}
-    {{ Form::input('date', 'birthdate') }}
+    {{ Form::input('date', 'birthdate', null, ['placeholder' => 'MM/DD/YYYY']) }}
     {{ errorsFor('birthdate', $errors); }}
   </div>
 
   {{-- Phone Number --}}
-  <div class="field-group {{ setInvalidClass('phone', $errors) }}">
-    {{ Form::label('phone', 'Phone Number: ') }} <em> no dashes </em>
-    {{ Form::text('phone') }}
+  <div class="field-group -dual -beta {{ setInvalidClass('phone', $errors) }}">
+    {{ Form::label('phone', 'Phone Number (no dashes): ') }}
+    {{ Form::text('phone', null, ['placeholder' => '3215551234']) }}
     {{ errorsFor('phone', $errors); }}
   </div>
 

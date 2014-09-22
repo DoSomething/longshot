@@ -24,3 +24,7 @@ img { display: block; height: auto; max-width: 100%; width: auto; }
 p { margin: 0; }
 
 p + p { margin-top: 1em; }
+
+a { color: $app_primary; }
+
+strong { font-family: 'ProximaNovaBold'; }

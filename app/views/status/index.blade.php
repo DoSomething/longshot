@@ -1,15 +1,18 @@
+{{-- Status --}}
+
 @extends('layouts.master')
 
 @section('main_content')
-  <section class="segment">
+  <article class="page">
+    <h1 class="__title heading -beta text-primary-color">Application Status</h1>
 
-    <h1 class="heading -alpha text-primary-color">Application Status</h1>
+    <div>
+      <h2 class="heading -gamma">Status: <em>In Progress</em></h2>
+      <p>Some message regarding what's going on w/ your application.</p>
+    </div>
 
-    <h2>Status: <em>app status here</em></h2>
-    <p>Some message regarding what's going on w/ your application.</p>
-
-    <section>
-      <h1 class="heading -beta">What's up</h1>
+    <section class="segment segment--checklist">
+      <h1 class="heading -delta">What's up</h1>
 
       <ul class="media-list media-list--status">
         <li class="{{ isset($profile) ? 'complete' : '-incomplete' }}">
@@ -51,10 +54,14 @@
       @endif
     </section>
 
-    <section>
-      <h1 class="heading -beta">Important Dates</h1>
+    <section class="segment">
+      <h1 class="heading -delta">Important Dates</h1>
       <p><em>Dates to come...</em></p>
     </section>
 
-  </section>
+    <div class="contact">
+      <p>Need help? <a href="mailto:gthomas@tmiagency.org">Contact Us</a></p>
+    </div>
+
+  </article>
 @stop

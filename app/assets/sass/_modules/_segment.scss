@@ -7,11 +7,13 @@
 
 .segment { @include container(); padding: pxcalc(20) pxcalc(10); }
 
-.segment:first-of-type { border-bottom: 1px solid $app_primary; }
+.banner + .segment { border-bottom: 1px solid $app_primary; }
 
 
 // @TODO: Separate into individual scss files.
 .segment--nominate { background: #aaa url('/dist/images/studying-hard.jpg') center center; background-size: cover; }
+
+.segment--checklist { background-color: $app_lightest_gray; }
 
 
 
@@ -21,7 +23,7 @@
 
 @media only screen and (min-width: $medium) {
 
-  .segment { @include container($wide);
+  .segment { @include container($wide); padding: pxcalc(30) pxcalc(10);
 
     &.-compact {
       > .wrapper { @include push(2 of 12); width: span(8 of 12); }

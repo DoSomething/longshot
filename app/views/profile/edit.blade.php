@@ -1,21 +1,27 @@
+{{-- Profile Basic Info: Edit --}}
+
 @extends('layouts.master')
 
 @section('main_content')
-  <section class="segment -compact">
-    <div class="wrapper">
+  <article class="page">
+    <h1 class="__title heading -beta text-primary-color">Edit Basic Info</h1>
 
-      <h1 class="heading -alpha text-primary-color">Edit Basic Info</h1>
-      {{ Form::model($user, ['method' => 'PATCH', 'route' => ['profile.update', $user->user_id]]) }}
+    <div class="segment -compact">
+      <div class="wrapper">
 
-        @include('profile/partials/_form_profile')
+        {{ Form::model($user, ['method' => 'PATCH', 'route' => ['profile.update', $user->user_id]]) }}
 
-        {{-- Submit Button --}}
-        <div>
-          {{ Form::submit('Update', ['class' => 'button -default']) }}
-        </div>
+          @include('profile/partials/_form_profile')
 
-      {{ Form::close() }}
+          {{-- Submit Button --}}
+          <div>
+            {{ Form::submit('Update', ['class' => 'button -default']) }}
+          </div>
 
+        {{ Form::close() }}
+
+      </div>
     </div>
-  </section>
+
+  </article>
 @stop
