@@ -39,9 +39,10 @@ class ApplicationController extends \BaseController {
   public function create()
   {
     //@TODO: need to figure out which scholarship is the current run.
-    $scholarship = Scholarship::getCurrentScholarship()->select(['label_app_accomplishments', 'label_app_activities', 'label_app_essay1', 'label_app_essay2'])->first();
+    $scholarship = Scholarship::getCurrentScholarship()->select(['label_app_accomplishments', 'label_app_activities', 'label_app_essay1', 'label_app_essay2', 'hear_about_options'])->first();
+    $choices = Application::formatChoices($scholarship->hear_about_options);
     $help_text = Setting::where('key', '=', 'application_create_help_text')->pluck('value');
-    return View::make('application.create')->with(compact('scholarship', 'help_text'));
+    return View::make('application.create')->with(compact('scholarship', 'help_text', 'choices'));
   }
 
 
@@ -117,9 +118,10 @@ class ApplicationController extends \BaseController {
   public function edit($id)
   {
     $user = User::whereId($id)->firstOrFail();
-    $scholarship = Scholarship::getCurrentScholarship()->select(['label_app_accomplishments', 'label_app_activities', 'label_app_essay1', 'label_app_essay2'])->first();
+    $scholarship = Scholarship::getCurrentScholarship()->select(['label_app_accomplishments', 'label_app_activities', 'label_app_essay1', 'label_app_essay2', 'hear_about_options'])->first();
+    $choices = Application::formatChoices($scholarship->hear_about_options);
     $help_text = Setting::where('key', '=', 'application_create_help_text')->pluck('value');
-    return View::make('application.edit')->with(compact('user', 'scholarship', 'help_text'));
+    return View::make('application.edit')->with(compact('user', 'scholarship', 'help_text', 'choices'));
   }
 
 
@@ -142,13 +144,7 @@ class ApplicationController extends \BaseController {
       // @TODO: once we have validated, are we setting a 'complete' flag on the app to disable edits?
     }
     $application = Application::where('user_id', $id)->firstOrFail();;
-    $application->fill($input);
-    // @TODO: why is this user_uid_only_optional_to_arg(arg) saving when explicitly called
-    if (isset($input['link']))
-      {
-        $application->link = $input['link'];
-      }
-    $application->save();
+    $application->fill($input)->save();
     return Redirect::route('status')->with('flash_message', 'Application information has been saved!');
 
   }

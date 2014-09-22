@@ -126,3 +126,10 @@
   {{ Form::text('label_rec_essay1', null, ['class' => 'form-control']) }}
   {{ errorsFor('label_rec_essay1', $errors); }}
 </div>
+
+{{-- How did you hear options? --}}
+<div class="form-group">
+  {{ Form::label('hear_about_options', 'Hear about this options (comma seperated list) ') }}
+  {{ Form::text('hear_about_options', null, ['class' => 'form-control']) }}
+  {{ errorsFor('hear_about_options', $errors); }}
+</div>

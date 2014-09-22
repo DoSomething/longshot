@@ -14,8 +14,12 @@ class AddHearField extends Migration {
   {
     Schema::table('applications', function($table)
     {
-        $table->string('hear_about')->nullable();
-        $table->string('link')->nullable();
+        $table->string('hear_about')->nullable()->after('essay2');
+        $table->string('link')->nullable()->after('hear_about');
+    });
+    Schema::table('scholarships', function($table)
+    {
+        $table->text('hear_about_options')->after('label_rec_essay1');
     });
   }
 

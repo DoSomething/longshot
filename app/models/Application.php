@@ -2,7 +2,7 @@
 
 class Application extends Eloquent {
 
-  protected $fillable = ['accomplishments', 'gpa', 'test_type', 'test_score', 'activities', 'essay1', 'essay2' ];
+  protected $fillable = ['accomplishments', 'gpa', 'test_type', 'test_score', 'activities', 'essay1', 'essay2', 'link', 'hear_about'];
 
   public function user()
   {
@@ -22,6 +22,17 @@ class Application extends Eloquent {
   public function recommendation()
   {
       return $this->hasMany('Recommendation');
+  }
+
+  public static function formatChoices($choices)
+  {
+    $return = array();
+    $choices = explode(',', $choices);
+    foreach ($choices as $choice)
+    {
+      $return[$choice] = $choice;
+    }
+    return $return;
   }
 
 
