@@ -24,7 +24,8 @@ class ProfilesController extends \BaseController {
   {
     $states = Profile::getStates();
     $races = Profile::getRaces();
-    return View::make('profile.create')->with(compact('states', 'races'));
+    $help_text = Setting::where('key', '=', 'basic_info_help_text')->pluck('value');
+    return View::make('profile.create')->with(compact('states', 'races', 'help_text'));
   }
 
 
@@ -113,7 +114,8 @@ class ProfilesController extends \BaseController {
     $profile = Profile::with('race')->whereUserId($id)->firstOrFail();
     $states = Profile::getStates();
     $races = Profile::getRaces();
-    return View::make('profile.edit')->withUser($profile)->with(compact('states', 'races'));
+    $help_text = Setting::where('key', '=', 'basic_info_help_text')->pluck('value');
+    return View::make('profile.edit')->withUser($profile)->with(compact('states', 'races', 'help_text'));
   }
 
 

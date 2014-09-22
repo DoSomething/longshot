@@ -38,9 +38,10 @@ class ApplicationController extends \BaseController {
    */
   public function create()
   {
-     //@TODO: need to figure out which scholarship is the current run.  // @TODO: do we need only certain fields?
-    $scholarship = Scholarship::firstOrFail(); // ->select(['label_app_accomplishments', 'label_app_activities', 'label_app_essay1', 'label_app_essay2']);
-    return View::make('application.create')->with(compact('scholarship'));
+    //@TODO: need to figure out which scholarship is the current run.
+    $scholarship = Scholarship::select(['label_app_accomplishments', 'label_app_activities', 'label_app_essay1', 'label_app_essay2'])->firstOrFail();
+    $help_text = Setting::where('key', '=', 'application_create_help_text')->pluck('value');
+    return View::make('application.create')->with(compact('scholarship', 'help_text'));
   }
 
 
@@ -115,8 +116,9 @@ class ApplicationController extends \BaseController {
   public function edit($id)
   {
     $user = User::whereId($id)->firstOrFail();
-    $scholarship = Scholarship::firstOrFail();
-    return View::make('application.edit')->with(compact('user', 'scholarship'));
+    $scholarship = Scholarship::select(['label_app_accomplishments', 'label_app_activities', 'label_app_essay1', 'label_app_essay2'])->firstOrFail();
+    $help_text = Setting::where('key', '=', 'application_create_help_text')->pluck('value');
+    return View::make('application.edit')->with(compact('user', 'scholarship', 'help_text'));
   }
 
 

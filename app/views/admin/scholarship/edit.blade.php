@@ -9,7 +9,6 @@
 
       <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         <h1 class="page-header">Edit Scholarship</h1>
-
         {{ Form::model($scholarship, ['method' => 'PATCH', 'route' => ['admin.scholarship.update', $scholarship->id]]) }}
 
           @include('admin.scholarship.partials._form_scholarship')

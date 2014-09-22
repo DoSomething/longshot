@@ -9,6 +9,8 @@
     <div class="segment -compact">
       <div class="wrapper">
 
+        <p>{{ $help_text }}</p>
+
         {{ Form::open(['route' => 'application.store']) }}
 
           <div class="progress"><strong>Step 2 of 3</strong></div>

@@ -27,8 +27,9 @@ class RegistrationController extends \BaseController {
 
     $data = new stdClass;
     $data->eligibility_text = $setting->value;
+    $help_text = Setting::where('key', '=', 'create_account_help_text')->pluck('value');
 
-    return View::make('registration.create', compact('data'));
+    return View::make('registration.create', compact('data', 'help_text'));
   }
 
 

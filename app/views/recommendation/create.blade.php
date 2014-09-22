@@ -12,6 +12,8 @@
         {{-- This will be seen by the applicant --}}
         <p>Please fill all fields with information for the recommender.</p>
 
+        <p>{{$help_text}}</p>
+
         {{ Form::open(['route' => 'recommendation.store']) }}
 
           @for($i = 0; $i < $num_recs['num_recommendations_max']; $i++)
@@ -48,7 +50,6 @@
               {{ errorsFor('rec['.$i.'][email]', $errors); }}
             </div>
 
-
             {{-- Phone Number --}}
             <div class="field-group -dual -beta">
               {{ Form::label('rec['.$i.'][phone]', 'Phone Number: ') }}
@@ -66,7 +67,9 @@
           @endfor
 
           {{-- Submit Button --}}
-          {{ Form::submit('Send Request!', ['class' => 'button -default']) }}
+          <div class="field-group">
+            {{ Form::submit('Send Request!', ['class' => 'button -default']) }}
+          </div>
 
         {{ Form::close() }}
 

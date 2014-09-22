@@ -9,9 +9,11 @@
     <div class="segment -compact">
       <div class="wrapper">
 
-        <p>Have an account? {{ link_to_route('login', 'Login') }}</p>
+      <p>Have an account? {{ link_to_route('login', 'Login') }}</p>
 
-        {{ Form::open(['route' => 'registration.store']) }}
+      <p>{{ $help_text }}</p>
+
+      {{ Form::open(['route' => 'registration.store']) }}
 
           {{-- First Name Field --}}
           <div class="field-group -dual -alpha {{ setInvalidClass('first_name', $errors) }}">
