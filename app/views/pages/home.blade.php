@@ -5,47 +5,20 @@
 
     <header class="banner -hero">
       <div class="wrapper">
-        <h1 class="__title heading -alpha">Welcome</h1>
-        <h2 class="__tagline heading -gamma">We're giving away 20 $10,000<br> Scholarships to people just like you</h2>
+        <h1 class="__title heading -alpha">{{ $page->title }}</h1>
+        <h2 class="__tagline heading -gamma">{{ $page->description }}</h2>
       </div>
     </header>
 
-    <section class="segment segment--apply">
-      <h1 class="heading -alpha">Apply Today</h1>
+    @foreach($page->blocks as $block)
+      <section class="segment">
+        <h1 class="heading -alpha">{{ $block->block_title }}</h1>
+        {{ $block->block_description_html }}
+        {{ $block->block_body_html }}
+      </section>
+    @endforeach
 
-      <p>Front-end styles are being updated significantly so some things may be visually broken temporarily!</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam, ad.</p>
-
-      @if (Auth::guest())
-        <ul class="media-list">
-          <li>{{ link_to_route('registration.create', 'Start Application', null, ['class' => 'button -default']) }}</a></li>
-          <li>{{ link_to_route('login', 'Continue your application') }}</a></li>
-        </ul>
-      @endif
-    </section>
-
-    <section class="segment segment--steps">
-      <h1 class="__title heading -alpha">How To Enter</h1>
-
-      <div><span>$10K</span> Scholarship</div>
-
-      <ol>
-        <li>
-          <h2>Get the details</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur, sit.</p>
-        </li>
-        <li>
-          <h2>Start your app</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur, sit.</p>
-        </li>
-        <li>
-          <h2>Check out the FAQ</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur, sit.</p>
-        </li>
-      </ol>
-    </section>
-
-    <section class="segment segment--nominate">
+    <section class="segment segment--nominate -compact">
       <div class="wrapper">
         <h1 class="__title heading -alpha -alt">Nominate A Star</h1>
 
