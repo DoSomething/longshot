@@ -50,6 +50,13 @@
     {{ errorsFor('essay2', $errors); }}
   </div>
 
+    {{-- Link --}}
+  <div class="field-group {{ setInvalidClass('link', $errors) }}">
+    {{ Form::label('link', 'Link (youtube or vimeo)') }}
+    {{ Form::text('link',  NULL, ['placeholder' => 'http://youtube.com']) }}
+    {{ errorsFor('link', $errors); }}
+  </div>
++
   {{-- Checklist --}}
   <div class="field-group -checkbox">
     {{ Form::checkbox('documentation', 1, false, ['id' => 'eligibility']); }}

@@ -79,6 +79,10 @@ class ApplicationController extends \BaseController {
     $application->activities = $input['activities'];
     $application->essay1 = $input['essay1'];
     $application->essay2 = $input['essay2'];
+    if (isset($input['link']))
+    {
+      $application->link = $input['link'];
+    }
 
 
     $scholarship = Scholarship::getCurrentScholarship();
@@ -127,8 +131,8 @@ class ApplicationController extends \BaseController {
    */
   public function update($id)
   {
-
     $input = Input::except('documentation', 'factual', 'media_release', 'rules');
+
     // Only run validation on applications that were submitted
     // (do not run on those 'saved as draft')
     if (isset($input['complete']))
@@ -138,7 +142,13 @@ class ApplicationController extends \BaseController {
       // @TODO: once we have validated, are we setting a 'complete' flag on the app to disable edits?
     }
     $application = Application::where('user_id', $id)->firstOrFail();;
-    $application->fill($input)->save();
+    $application->fill($input);
+    // @TODO: why is this user_uid_only_optional_to_arg(arg) saving when explicitly called
+    if (isset($input['link']))
+      {
+        $application->link = $input['link'];
+      }
+    $application->save();
     return Redirect::route('status')->with('flash_message', 'Application information has been saved!');
 
   }

@@ -16,11 +16,11 @@ class ApplicationForm extends FormValidator {
   'activities'      => 'required',
   'essay1'          => 'required',
   'essay2'          => 'required',
+  'link'            => 'url',
   'documentation'   => 'accepted',
   'factual'         => 'accepted',
   'media_release'   => 'accepted',
   'rules'           => 'accepted',
-
  ];
 
 }
