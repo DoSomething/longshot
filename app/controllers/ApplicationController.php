@@ -39,7 +39,7 @@ class ApplicationController extends \BaseController {
   public function create()
   {
     //@TODO: need to figure out which scholarship is the current run.
-    $scholarship = Scholarship::select(['label_app_accomplishments', 'label_app_activities', 'label_app_essay1', 'label_app_essay2'])->firstOrFail();
+    $scholarship = Scholarship::getCurrentScholarship()->select(['label_app_accomplishments', 'label_app_activities', 'label_app_essay1', 'label_app_essay2'])->first();
     $help_text = Setting::where('key', '=', 'application_create_help_text')->pluck('value');
     return View::make('application.create')->with(compact('scholarship', 'help_text'));
   }
@@ -80,11 +80,8 @@ class ApplicationController extends \BaseController {
     $application->essay1 = $input['essay1'];
     $application->essay2 = $input['essay2'];
 
-    /*@TODO: for now this is just finding the first scholarship
-     * this eventually needs to find the 'active' scholarship
-     * that is TBD
-     */
-    $scholarship = Scholarship::firstOrFail();
+
+    $scholarship = Scholarship::getCurrentScholarship();
     $application->scholarship()->associate($scholarship);
 
     $user->application()->save($application);
@@ -116,7 +113,7 @@ class ApplicationController extends \BaseController {
   public function edit($id)
   {
     $user = User::whereId($id)->firstOrFail();
-    $scholarship = Scholarship::select(['label_app_accomplishments', 'label_app_activities', 'label_app_essay1', 'label_app_essay2'])->firstOrFail();
+    $scholarship = Scholarship::getCurrentScholarship()->select(['label_app_accomplishments', 'label_app_activities', 'label_app_essay1', 'label_app_essay2'])->first();
     $help_text = Setting::where('key', '=', 'application_create_help_text')->pluck('value');
     return View::make('application.edit')->with(compact('user', 'scholarship', 'help_text'));
   }

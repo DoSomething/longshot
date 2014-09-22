@@ -11,5 +11,11 @@ class Scholarship extends \Eloquent {
     return $this->hasMany('Application');
   }
 
+  public static function getCurrentScholarship()
+  {
+    // @TODO: this needs to be updated.
+    return Scholarship::firstOrFail();
+  }
+
 
 }
