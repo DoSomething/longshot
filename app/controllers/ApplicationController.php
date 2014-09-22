@@ -128,7 +128,20 @@ class ApplicationController extends \BaseController {
    */
   public function update($id)
   {
-    // do the things. win the points.
+
+    $input = Input::except('documentation', 'factual', 'media_release', 'rules');
+    // Only run validation on applications that were submitted
+    // (do not run on those 'saved as draft')
+    if (isset($input['complete']))
+    {
+      $input = Input::all();
+      $this->applicationForm->validate($input);
+      // @TODO: once we have validated, are we setting a 'complete' flag on the app to disable edits?
+    }
+    $application = Application::where('user_id', $id)->firstOrFail();;
+    $application->fill($input)->save();
+    return Redirect::route('status')->with('flash_message', 'Application information has been saved!');
+
   }
 
 
