@@ -13,7 +13,6 @@
     @foreach($page->blocks as $block)
       <section class="segment">
         <h1 class="heading -alpha">{{ $block->block_title }}</h1>
-        {{ $block->block_description_html }}
         {{ $block->block_body_html }}
       </section>
     @endforeach
