@@ -1,22 +1,29 @@
+{{-- Profile Basic Info: Create --}}
+
 @extends('layouts.master')
 
 @section('main_content')
-  <section class="segment -compact">
-    <div class="wrapper">
+  <article class="page">
+    <h1 class="__title heading -beta text-primary-color">Basic Info</h1>
 
-      <h1 class="heading -alpha">Basic Info</h1>
+    <div class="segment -compact">
+      <div class="wrapper">
 
         {{ Form::open(['route' => 'profile.store']) }}
 
-        @include('profile/partials/_form_profile')
+          <div class="progress"><strong>Step 1 of 3</strong></div>
 
-        {{-- Submit Button --}}
-        <div class="field-group">
-          {{ Form::submit('Save', ['class' => 'button -default']) }}
-        </div>
+          @include('profile/partials/_form_profile')
 
-      {{ Form::close() }}
+          {{-- Submit Button --}}
+          <div class="field-group">
+            {{ Form::submit('Save', ['class' => 'button -default']) }}
+          </div>
 
+        {{ Form::close() }}
+
+      </div>
     </div>
-  </section>
+
+  </article>
 @stop

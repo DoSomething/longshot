@@ -7,7 +7,13 @@
 
 .banner { background-color: #aaa; color: #fff; padding: pxcalc(20) pxcalc(10); text-align: center;
 
-  &.-hero { text-transform: uppercase; }
+  .__title { @include visually_hidden(); }
+
+  .__tagline { margin-bottom: 0; }
+
+  &.-hero { background-color: #aaa; background-position: center center; background-size: cover; text-shadow: 0 0 4px rgba(0,0,0,0.3); text-transform: uppercase;
+    background-image: url('/dist/images/studying-hard.jpg'); // @TODO: Remove! Only temporary!
+  }
 }
 
 

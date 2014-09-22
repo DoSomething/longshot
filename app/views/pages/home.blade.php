@@ -5,8 +5,8 @@
 
     <header class="banner -hero">
       <div class="wrapper">
-        <h1 class="__title visually-hidden">Welcome</h1>
-        <h2 class="__tagline">We're giving away 20 $10,000 Scholarships to people just like you</h2>
+        <h1 class="__title heading -alpha">Welcome</h1>
+        <h2 class="__tagline heading -gamma">We're giving away 20 $10,000<br> Scholarships to people just like you</h2>
       </div>
     </header>
 
@@ -25,7 +25,7 @@
     </section>
 
     <section class="segment segment--steps">
-      <h1 class="heading -alpha">How To Enter</h1>
+      <h1 class="__title heading -alpha">How To Enter</h1>
 
       <div><span>$10K</span> Scholarship</div>
 
@@ -47,7 +47,7 @@
 
     <section class="segment segment--nominate">
       <div class="wrapper">
-        <h1 class="heading -alpha -alt">Nominate A Star</h1>
+        <h1 class="__title heading -alpha -alt">Nominate A Star</h1>
 
         {{ Form::open(['route' => 'nomination.create']) }}
 

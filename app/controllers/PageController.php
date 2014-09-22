@@ -207,19 +207,41 @@ class PageController extends \BaseController {
   /**
    * Show the requested static page.
    */
-  public function staticShow($pageRequest)
+  public function staticShow($pageRequest = '/')
   {
     $pathList = Path::lists('url');
     $pageRequest = stringtoKebabCase($pageRequest);
+
+    $customViews = ['/', 'about', 'faq'];
 
     if (! in_array($pageRequest, $pathList))
     {
       return App::abort(404);
     }
 
-    $path = Path::with('page')->whereUrl($pageRequest)->firstOrFail();
+    $path = Path::with('page', 'page.blocks')->whereUrl($pageRequest)->firstOrFail();
+
     $page = $path->page;
 
+    // If the requested page has a custom view, use it.
+    if (in_array($pageRequest, $customViews))
+    {
+      switch ($pageRequest) {
+        case '/':
+            return View::make('pages.home', compact('page'));
+            break;
+
+        case 'about':
+            return View::make('pages.about', compact('page'));
+            break;
+
+        case 'faq':
+            return View::make('pages.faq', compact('page'));
+            break;
+      }
+    }
+
+    // Otherwise, return the default static view template.
     return View::make('pages.static', compact('page'));
   }
 

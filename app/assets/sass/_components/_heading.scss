@@ -8,9 +8,17 @@
 
   &.-alt { color: #fff; }
 
-  &.-alpha { font-family: 'ProximaNovaBold'; font-size: 1.5rem; text-align: center; text-transform: uppercase; }
+  // @TODO: confirm all font sizes via design file!
 
-  &.-beta { font-family: 'ProximaNovaRegular'; font-size: 1.3rem; }
+  &.-alpha { font-family: 'ProximaNovaBold'; font-size: 2rem; font-weight: normal; text-align: center; text-transform: uppercase; }
+
+  &.-beta { font-family: 'ProximaNovaBold'; font-size: 1.5rem; font-weight: normal; line-height: 1; text-align: center; text-transform: uppercase; }
+
+  &.-gamma { font-family: 'ProximaNovaBold'; font-size: 1.2rem; font-weight: normal; line-height: 1.1; }
+
+  &.-delta {  }
+
+  &.-epsilon {  }
 
 }
 
@@ -23,9 +31,11 @@
 
   .heading {
 
-    &.-alpha { font-size: 2rem; }
+    &.-alpha { font-size: 4rem; }
 
-    &.-beta { font-size: 1.5rem; }
+    &.-beta { font-size: 3.3rem; }
+
+    &.-gamma { font-size: 3rem; }
 
   }
 
