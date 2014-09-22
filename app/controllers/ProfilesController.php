@@ -39,8 +39,12 @@ class ProfilesController extends \BaseController {
     $user = User::whereId(Auth::user()->id)->firstOrFail();
 
     $input = Input::all();
-
-    $this->profileForm->validate($input);
+    // Only run validation on applications that were submitted
+    // (do not run on those 'saved as draft')
+    if (isset($input['complete']))
+    {
+      $this->profileForm->validate($input);
+    }
 
     // @TODO: there's a better way of doing the following...
     $profile = new Profile;
@@ -131,20 +135,23 @@ class ProfilesController extends \BaseController {
       $newArray[] = $currentRace['race'];
     }
     $inputRaces = Input::only('race');
-    $toAdd = array_diff($inputRaces['race'], $newArray);
-    foreach ($toAdd as $diff)
+    if (isset($inputRaces['race']))
     {
-      $race = new Race;
-      $race->race = $diff;
-      $race->profile()->associate($user->profile);
-      $race->save();
-    }
+      $toAdd = array_diff($inputRaces['race'], $newArray);
+      foreach ($toAdd as $diff)
+      {
+        $race = new Race;
+        $race->race = $diff;
+        $race->profile()->associate($user->profile);
+        $race->save();
+      }
 
-    // Remove unchecked races
-    $toRemove = array_diff($newArray, $inputRaces['race']);
-    foreach($toRemove as $remove)
-    {
-      Race::where('profile_id', '=', $user->profile->id)->where('race', '=', $remove)->delete();
+      // Remove unchecked races
+      $toRemove = array_diff($newArray, $inputRaces['race']);
+      foreach($toRemove as $remove)
+      {
+        Race::where('profile_id', '=', $user->profile->id)->where('race', '=', $remove)->delete();
+      }
     }
 
     $this->profileForm->validate($input);

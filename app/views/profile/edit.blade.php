@@ -13,10 +13,12 @@
 
           @include('profile/partials/_form_profile')
 
-          {{-- Submit Button --}}
-          <div>
-            {{ Form::submit('Update', ['class' => 'button -default']) }}
-          </div>
+
+        {{-- Submit Button --}}
+        <div>
+          {{ Form::submit('Save as Draft', ['class' => 'button -default', 'name' => 'draft']) }}
+           {{ Form::submit('Save and Continue', ['class' => 'button -default', 'name' => 'complete']) }}
+        </div>
 
         {{ Form::close() }}
 
