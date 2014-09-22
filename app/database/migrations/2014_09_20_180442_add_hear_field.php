@@ -23,4 +23,17 @@ class AddHearField extends Migration {
     });
   }
 
+  public function down()
+  {
+    Schema::table('applications', function($table)
+    {
+        $table->dropColumn('hear_about');
+        $table->dropColumn('link');
+    });
+    Schema::table('scholarships', function($table)
+    {
+        $table->dropColumn('hear_about_options');
+    });
+  }
+
 }
