@@ -11,7 +11,9 @@
 
         {{-- This will be seen by the recommender --}}
         <p>Please fill all fields with information regarding the applicant.</p>
-        {$help_text}}
+
+        <p>{{$help_text}}</p>
+
         {{ Form::model($recommendation, ['method' => 'PATCH', 'route' => ['recommendation.update', $recommendation->id]]) }}
 
           {{-- First Name --}}

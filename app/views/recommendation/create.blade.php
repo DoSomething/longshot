@@ -11,7 +11,9 @@
 
         {{-- This will be seen by the applicant --}}
         <p>Please fill all fields with information for the recommender.</p>
-        {{$help_text}}
+
+        <p>{{$help_text}}</p>
+
         {{ Form::open(['route' => 'recommendation.store']) }}
 
           @for($i = 0; $i < $num_recs['num_recommendations_max']; $i++)
@@ -40,7 +42,6 @@
               {{ errorsFor('rec['.$i.'][last_name]', $errors); }}
             </div>
 
-
             {{-- Email --}}
             <div class="field-group -dual -alpha">
               {{ Form::label('rec['.$i.'][email]', 'Email: ') }}
@@ -48,7 +49,6 @@
               {{-- @TODO: will need a different method of showing errors, since these fields are dynamic and we can't use the ValidationService --}}
               {{ errorsFor('rec['.$i.'][email]', $errors); }}
             </div>
-
 
             {{-- Phone Number --}}
             <div class="field-group -dual -beta">
@@ -67,7 +67,9 @@
           @endfor
 
           {{-- Submit Button --}}
-          {{ Form::submit('Send Request!', ['class' => 'button -default']) }}
+          <div class="field-group">
+            {{ Form::submit('Send Request!', ['class' => 'button -default']) }}
+          </div>
 
         {{ Form::close() }}
 

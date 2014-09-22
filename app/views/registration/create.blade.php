@@ -10,7 +10,9 @@
       <div class="wrapper">
 
       <p>Have an account? {{ link_to_route('login', 'Login') }}</p>
-      {{ $help_text }}
+
+      <p>{{ $help_text }}</p>
+
       {{ Form::open(['route' => 'registration.store']) }}
 
           {{-- First Name Field --}}

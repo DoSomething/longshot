@@ -9,8 +9,7 @@
     <div class="segment -compact">
       <div class="wrapper">
 
-      <h1 class="heading -alpha text-primary-color">Your Application</h1>
-        {{ $help_text }}
+        <p>{{ $help_text }}</p>
 
         {{ Form::open(['route' => 'application.store']) }}
 

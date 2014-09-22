@@ -9,14 +9,13 @@
     <div class="segment -compact">
       <div class="wrapper">
 
+        <p>{{ $help_text }}</p>
 
-      {{ $help_text }}
-      {{ Form::model($user, ['method' => 'PATCH', 'route' => ['profile.update', $user->user_id]]) }}
+        {{ Form::model($user, ['method' => 'PATCH', 'route' => ['profile.update', $user->user_id]]) }}
 
           @include('profile/partials/_form_profile')
 
-
-        {{-- Submit Button --}}
+       {{-- Submit Button --}}
         <div>
           {{ Form::submit('Save as Draft', ['class' => 'button -default', 'name' => 'draft']) }}
            {{ Form::submit('Save and Continue', ['class' => 'button -default', 'name' => 'complete']) }}
