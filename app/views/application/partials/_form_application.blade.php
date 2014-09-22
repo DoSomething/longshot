@@ -14,10 +14,9 @@
   </div>
 
   {{-- Test Type --}}
-
   <div class="field-group -dual -alpha {{ setInvalidClass('test_type', $errors) }}">
     {{ Form::label('test_type', 'Test Type: (optional) ') }}
-    {{ Form::select('test_type', array('SAT' => 'SAT', 'ACT' => 'ACT')); }}
+    {{ Form::select('test_type', array('PSAT' => 'PSAT', 'SAT' => 'SAT', 'PLAN' => 'PLAN', 'ACT' => 'ACT')); }}
     {{ errorsFor('test_type', $errors); }}
   </div>
 
