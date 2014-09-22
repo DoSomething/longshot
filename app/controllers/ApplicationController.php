@@ -39,9 +39,10 @@ class ApplicationController extends \BaseController {
   public function create()
   {
     //@TODO: need to figure out which scholarship is the current run.
-    $scholarship = Scholarship::getCurrentScholarship()->select(['label_app_accomplishments', 'label_app_activities', 'label_app_essay1', 'label_app_essay2'])->first();
+    $scholarship = Scholarship::getCurrentScholarship()->select(['label_app_accomplishments', 'label_app_activities', 'label_app_essay1', 'label_app_essay2', 'hear_about_options'])->first();
+    $choices = Application::formatChoices($scholarship->hear_about_options);
     $help_text = Setting::where('key', '=', 'application_create_help_text')->pluck('value');
-    return View::make('application.create')->with(compact('scholarship', 'help_text'));
+    return View::make('application.create')->with(compact('scholarship', 'help_text', 'choices'));
   }
 
 
@@ -79,6 +80,10 @@ class ApplicationController extends \BaseController {
     $application->activities = $input['activities'];
     $application->essay1 = $input['essay1'];
     $application->essay2 = $input['essay2'];
+    if (isset($input['link']))
+    {
+      $application->link = $input['link'];
+    }
 
 
     $scholarship = Scholarship::getCurrentScholarship();
@@ -113,9 +118,10 @@ class ApplicationController extends \BaseController {
   public function edit($id)
   {
     $user = User::whereId($id)->firstOrFail();
-    $scholarship = Scholarship::getCurrentScholarship()->select(['label_app_accomplishments', 'label_app_activities', 'label_app_essay1', 'label_app_essay2'])->first();
+    $scholarship = Scholarship::getCurrentScholarship()->select(['label_app_accomplishments', 'label_app_activities', 'label_app_essay1', 'label_app_essay2', 'hear_about_options'])->first();
+    $choices = Application::formatChoices($scholarship->hear_about_options);
     $help_text = Setting::where('key', '=', 'application_create_help_text')->pluck('value');
-    return View::make('application.edit')->with(compact('user', 'scholarship', 'help_text'));
+    return View::make('application.edit')->with(compact('user', 'scholarship', 'help_text', 'choices'));
   }
 
 
@@ -127,8 +133,8 @@ class ApplicationController extends \BaseController {
    */
   public function update($id)
   {
-
     $input = Input::except('documentation', 'factual', 'media_release', 'rules');
+
     // Only run validation on applications that were submitted
     // (do not run on those 'saved as draft')
     if (isset($input['complete']))

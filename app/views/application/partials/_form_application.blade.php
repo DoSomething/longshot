@@ -50,6 +50,20 @@
     {{ errorsFor('essay2', $errors); }}
   </div>
 
+    {{-- Link --}}
+  <div class="field-group {{ setInvalidClass('link', $errors) }}">
+    {{ Form::label('link', 'Link (youtube or vimeo)') }}
+    {{ Form::text('link',  NULL, ['placeholder' => 'http://youtube.com']) }}
+    {{ errorsFor('link', $errors); }}
+  </div>
+
+    {{-- Hear About --}}
+  <div class="field-group -dual -alpha {{ setInvalidClass('hear_about', $errors) }}">
+    {{ Form::label('hear_about', 'How did you hear about this scholarship? (optional) ') }}
+    {{ Form::select('hear_about',  $choices); }}
+    {{ errorsFor('test_hear_abouttype', $errors); }}
+  </div>
+
   {{-- Checklist --}}
   <div class="field-group -checkbox">
     {{ Form::checkbox('documentation', 1, false, ['id' => 'eligibility']); }}
@@ -74,3 +88,6 @@
     {{ Form::label('rules', "Check out the official rules [link]") }}
     {{ errorsFor('rules', $errors); }}
   </div>
+
+
+

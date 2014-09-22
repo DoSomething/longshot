@@ -99,36 +99,4 @@ class ScholarshipController extends \BaseController {
     //
   }
 
-  /**
-   * Return the current scholarship.
-   */
-  public function getActiveScholarship()
-  {
-    // @TODO: there actually needs to be rules to return this correctly.
-    return Scholarship::firstOrFail();
-  }
-
-  /**
-   * Return a specific field about the scholarhisp
-   *
-   *
-   * @param - the field that you are looking for
-   *
-   * @return - the right info!
-   */
-  public function getField($field)
-  {
-    // if there is a special handler get that
-    // if not - grab the field from the database
-    $handler = 'get_' . $field_name;
-    if (function_exists($handler))
-    {
-      return $handler;
-    }
-    else
-    {
-      return 'the field';
-    }
-  }
-
 }
