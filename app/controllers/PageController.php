@@ -98,19 +98,17 @@ class PageController extends \BaseController {
 
   /**
    * Display the specified resource.
-   * GET /page/{id}
+   * GET /{path}
    *
-   * @param  int  $id
+   * @param  string  $path
    * @return Response
    */
-  public function show($id)
+  public function show($path)
   {
     $pathList = Path::lists('url');
-    $pageRequest = stringtoKebabCase($id);
+    $pageRequest = stringtoKebabCase($path);
 
-    $customViews = ['/', 'about', 'faq'];
-
-    if (! in_array($pageRequest, $pathList))
+    if (!in_array($pageRequest, $pathList))
     {
       return App::abort(404);
     }
