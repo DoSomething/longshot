@@ -61,13 +61,6 @@
         {{ errorsFor('blocks['.$key.'][title]', $errors); }}
       </div>
 
-      {{-- Block desc --}}
-      <div class="form-group">
-        {{ Form::label('blocks['.$key.'][description]', 'Block Description: ') }}
-        {{ Form::textarea('blocks['.$key.'][description]', $blocks[$key]['block_description'], ['class' => 'form-control']) }}
-        {{ errorsFor('blocks['.$key.'][description]', $errors); }}
-      </div>
-
       {{-- Block body --}}
       <div class="form-group">
         {{ Form::label('blocks['.$key.'][body]', 'Block Body: ') }}
@@ -87,13 +80,6 @@
           {{ Form::label('blocks[0][title]', 'Block Title: ') }}
           {{ Form::text('blocks[0][title]', null, ['class' => 'form-control']) }}
           {{ errorsFor('blocks[0][title]', $errors); }}
-        </div>
-
-        {{-- Block desc --}}
-        <div class="form-group">
-          {{ Form::label('blocks[0][description]', 'Block Description: ') }}
-          {{ Form::textarea('blocks[0][description]', null, ['class' => 'form-control']) }}
-          {{ errorsFor('blocks[0][description]', $errors); }}
         </div>
 
         {{-- Block body --}}

@@ -77,11 +77,6 @@ class PageController extends \BaseController {
       {
         $newBlock = new Block;
         $newBlock->block_title = $block['title'];
-        if (! empty($block['description']))
-        {
-          $newBlock->block_description = $block['description'];
-          $newBlock->block_description_html = MarkdownExtra::defaultTransform($block['description']);
-        }
         if (! empty($block['body']))
         {
           $newBlock->block_body = $block['body'];
@@ -184,11 +179,6 @@ class PageController extends \BaseController {
       {
         $currentBlock = Block::whereId($block['id'])->firstOrFail();
         $currentBlock->block_title = $block['title'];
-        if (! empty($block['description']))
-        {
-          $currentBlock->block_description = $block['description'];
-          $currentBlock->block_description_html = MarkdownExtra::defaultTransform($block['description']);
-        }
         if (! empty($block['body']))
         {
           $currentBlock->block_body = $block['body'];
@@ -203,12 +193,6 @@ class PageController extends \BaseController {
         {
           $newBlock = new Block;
           $newBlock->block_title = $block['title'];
-
-          if (! empty($block['description']))
-          {
-            $newBlock->block_description = $block['description'];
-            $newBlock->block_description_html = MarkdownExtra::defaultTransform($block['description']);
-          }
           if (! empty($block['body']))
           {
             $newBlock->block_body = $block['body'];
