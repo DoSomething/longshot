@@ -77,11 +77,6 @@ class PageController extends \BaseController {
       {
         $newBlock = new Block;
         $newBlock->block_title = $block['title'];
-        if (! empty($block['description']))
-        {
-          $newBlock->block_description = $block['description'];
-          $newBlock->block_description_html = MarkdownExtra::defaultTransform($block['description']);
-        }
         if (! empty($block['body']))
         {
           $newBlock->block_body = $block['body'];
@@ -95,6 +90,7 @@ class PageController extends \BaseController {
 
     return Redirect::route('admin.page.index')->with('flash_message', 'Static page has been saved!');
   }
+
 
   /**
    * Display the specified resource.
@@ -113,9 +109,8 @@ class PageController extends \BaseController {
       return App::abort(404);
     }
 
-    $path = Path::with('page', 'page.blocks')->whereUrl($pageRequest)->firstOrFail();
+    $page = Path::getPageContent($pageRequest);
 
-    $page = $path->page;
     if (View::exists('pages.' . $pageRequest))
     {
       return View::make('pages.' . $pageRequest, compact('page'));
@@ -124,6 +119,22 @@ class PageController extends \BaseController {
     // Otherwise, return the default static view template.
     return View::make('pages.static', compact('page'));
   }
+
+
+  /**
+   * Display the home page.
+   * GET /
+   *
+   * @param  string patg
+   * @return Response
+   */
+  public function home()
+  {
+    $page = Path::getPageContent('/');
+
+    return View::make('pages.home', compact('page'));
+  }
+
 
   /**
    * Show the form for editing the specified resource.
@@ -168,11 +179,6 @@ class PageController extends \BaseController {
       {
         $currentBlock = Block::whereId($block['id'])->firstOrFail();
         $currentBlock->block_title = $block['title'];
-        if (! empty($block['description']))
-        {
-          $currentBlock->block_description = $block['description'];
-          $currentBlock->block_description_html = MarkdownExtra::defaultTransform($block['description']);
-        }
         if (! empty($block['body']))
         {
           $currentBlock->block_body = $block['body'];
@@ -187,12 +193,6 @@ class PageController extends \BaseController {
         {
           $newBlock = new Block;
           $newBlock->block_title = $block['title'];
-
-          if (! empty($block['description']))
-          {
-            $newBlock->block_description = $block['description'];
-            $newBlock->block_description_html = MarkdownExtra::defaultTransform($block['description']);
-          }
           if (! empty($block['body']))
           {
             $newBlock->block_body = $block['body'];
@@ -219,17 +219,5 @@ class PageController extends \BaseController {
   {
     //
   }
-    /**
-   * Display the Home page.
-   *
-   * @return Response
-   */
-
-
-  public function home()
-  {
-    return View::make('pages.home');
-  }
-
 
 }
