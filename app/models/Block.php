@@ -2,8 +2,7 @@
 
 class Block extends Eloquent {
 
-  protected $fillable = ['block_type',
-  'block_title', 'block_body'];
+  protected $fillable = ['block_type', 'block_title', 'block_body'];
 
   public function page()
   {

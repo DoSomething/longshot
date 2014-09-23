@@ -70,8 +70,6 @@ class PageController extends \BaseController {
 
     $blocks = Input::get('blocks');
 
-    // dd($blocks);
-
     foreach($blocks as $key => $block)
     {
       // If none of the block fields are filled out, then don't save the block in the database.
@@ -185,7 +183,6 @@ class PageController extends \BaseController {
         $currentBlock = Block::whereId($block['id'])->firstOrFail();
         $currentBlock->block_type = $block['type'];
         $currentBlock->block_title = $block['title'];
-
         if (! empty($block['body']))
         {
           $currentBlock->block_body = $block['body'];
