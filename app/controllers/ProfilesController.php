@@ -71,7 +71,7 @@ class ProfilesController extends \BaseController {
       }
     }
 
-    return Redirect::route('application.create')->with('flash_message', 'Profile information has been saved!');
+    return $this->redirectAfterSave($input, $user->id);
   }
 
 
@@ -128,7 +128,7 @@ class ProfilesController extends \BaseController {
   public function update($id)
   {
     $user = User::with('profile')->whereId($id)->firstOrFail();
-    $input = Input::only('birthdate', 'phone', 'address_street', 'address_premise', 'city', 'state', 'zip', 'gender', 'school', 'grade');
+    $input = Input::only('birthdate', 'phone', 'address_street', 'address_premise', 'city', 'state', 'zip', 'gender', 'school', 'grade', 'complete');
     $currentRaces = Race::where('profile_id', $user->profile->id)->select('race')->get()->toArray();
 
     // Let's make the arrays match
@@ -159,6 +159,19 @@ class ProfilesController extends \BaseController {
     $this->profileForm->validate($input);
     $user->profile->fill($input)->save();
 
-    return Redirect::route('profile.edit', $user->id)->with('flash_message', 'Your profile has been updated!');
+    return $this->redirectAfterSave($input, $user->id);
+  }
+
+  public function redirectAfterSave($input, $id)
+  {
+    if (isset($input['complete']))
+    {
+      return Redirect::route('application.create')->with('flash_message', 'Application information has been saved!');
+    }
+    else
+    {
+    return Redirect::route('profile.edit', $id)->with('flash_message', 'Your profile has been updated!');
+    }
+
   }
 }

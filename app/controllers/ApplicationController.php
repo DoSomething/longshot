@@ -91,8 +91,7 @@ class ApplicationController extends \BaseController {
 
     $user->application()->save($application);
 
-    // @TODO: this should go to the recommendation page.
-    return Redirect::route('recommendation.create')->with('flash_message', 'Application information has been saved!');
+    return $this->redirectAfterSave($input, $id);
   }
 
 
@@ -145,8 +144,8 @@ class ApplicationController extends \BaseController {
     }
     $application = Application::where('user_id', $id)->firstOrFail();;
     $application->fill($input)->save();
-    return Redirect::route('status')->with('flash_message', 'Application information has been saved!');
 
+    return $this->redirectAfterSave($input, $id);
   }
 
 
@@ -159,6 +158,20 @@ class ApplicationController extends \BaseController {
   public function destroy($id)
   {
     //
+  }
+
+  public function redirectAfterSave($input, $id)
+  {
+    if (isset($input['complete']))
+    {
+      // @TODO: this should go to the review page when it's built.
+      return Redirect::route('recommendation.create')->with('flash_message', 'Application information has been saved!');
+    }
+    else
+    {
+      return Redirect::route('application.edit', $id)->with('flash_message', 'Application information has been saved!');
+    }
+
   }
 
 
