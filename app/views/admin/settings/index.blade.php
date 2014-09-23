@@ -14,7 +14,7 @@
 
           {{ link_to_route('admin.scholarship.create', 'Create new scholarship »', null, ['class' => 'btn btn-default', 'role'=> 'button']) }}
 
-          {{ link_to_route('admin.scholarship.edit', 'Edit current scholarship »', '@TODO:NeedID!', ['class' => 'btn btn-default', 'role'=> 'button']) }}
+          {{ link_to_route('admin.scholarship.edit', 'Edit current scholarship »', $scholarship_id, ['class' => 'btn btn-default', 'role'=> 'button']) }}
         </div>
 
     </div>
