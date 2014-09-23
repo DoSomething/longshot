@@ -25,7 +25,8 @@ class PageController extends \BaseController {
    */
   public function create()
   {
-    return View::make('admin.page.create');
+    $types = Block::getTypes();
+    return View::make('admin.page.create', compact('types'));
   }
 
   /**
@@ -73,9 +74,10 @@ class PageController extends \BaseController {
     {
       // If none of the block fields are filled out, then don't save the block in the database.
       // @TODO: Pull this code out to DRY it up and make it a method of the Page class, to pass the block to.
-      if (! empty($block['title']) || ! empty($block['description']) || ! empty($block['body']) )
+      if (! empty($block['title']) || ! empty($block['body']) )
       {
         $newBlock = new Block;
+        $newBlock->block_type = $block['type'];
         $newBlock->block_title = $block['title'];
         if (! empty($block['body']))
         {
@@ -148,8 +150,9 @@ class PageController extends \BaseController {
     $page = Page::with('path')->whereId($id)->firstOrFail();
     $page->path->disabled = 'true';
     $blocks = Block::where('page_id', $id)->get();
+    $types = Block::getTypes();
 
-    return View::make('admin.page.edit')->with(compact('page', 'blocks'));
+    return View::make('admin.page.edit')->with(compact('page', 'blocks', 'types'));
   }
 
   /**
@@ -173,11 +176,12 @@ class PageController extends \BaseController {
 
     $blocks = Input::get('blocks');
 
-    foreach($blocks as $key=>$block)
+    foreach($blocks as $key => $block)
     {
       if (isset($block['id']))
       {
         $currentBlock = Block::whereId($block['id'])->firstOrFail();
+        $currentBlock->block_type = $block['type'];
         $currentBlock->block_title = $block['title'];
         if (! empty($block['body']))
         {
@@ -189,9 +193,10 @@ class PageController extends \BaseController {
       else
       {
         // @TODO: Pull this code out to DRY it up and make it a method of the Page class, to pass the block to.
-        if (! empty($block['title']) || ! empty($block['description']) || ! empty($block['body']) )
+        if (! empty($block['title']) || ! empty($block['body']) )
         {
           $newBlock = new Block;
+          $newBlock->block_type = $block['type'];
           $newBlock->block_title = $block['title'];
           if (! empty($block['body']))
           {

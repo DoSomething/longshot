@@ -5,7 +5,6 @@
     <div class="row">
 
       <div class="col-sm-3 col-md-2 sidebar">
-
         <a class="btn btn-default" href="{{ URL::route('admin.page.create') }}"><span class="glyphicon glyphicon-plus"></span> Add new page</a>
       </div>
 
