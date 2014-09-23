@@ -7,7 +7,6 @@
 
 {{-- URL --}}
 <div class="form-group">
-
   {{ Form::label('url', 'URL: ') }}
   <div class="input-group">
       @if (isset($page))
@@ -23,7 +22,6 @@
 
 {{-- Link Title --}}
 <div class="form-group">
-
   {{ Form::label('link_text', 'Nav Link Text: ') }}
   @if (isset($page))
     {{ Form::text('link_text', $page->path->link_text, ['class' => 'form-control']) }}
@@ -33,35 +31,43 @@
   {{ errorsFor('link_text', $errors); }}
 </div>
 
-  {{-- Description --}}
+{{-- Description --}}
 <div class="form-group">
   {{ Form::label('description', 'Description: ') }}
   {{ Form::textarea('description', null, ['class' => 'form-control']) }}
   {{ errorsFor('description', $errors); }}
 </div>
 
-   {{-- Hero Image --}}
+{{-- Hero Image --}}
 <div class="form-group">
   {{ Form::label('hero_image', 'Hero Image: ') }}
   {{ Form::file('hero_image') }}
   {{ errorsFor('hero_image', $errors); }}
 </div>
 
-{{-- Block item grouping --}}
+{{-- Block Item Grouping --}}
 <div class="">
   @if (isset($blocks) && count($blocks) > 0)
     @foreach ($blocks as $key=>$block)
 
       <div class="well repeatable">
       {{ Form::hidden('blocks['.$key.'][id]', $blocks[$key]['id']) }}
-      {{-- Block title --}}
+
+      {{-- Block Type --}}
+      <div class="form-group">
+        {{ Form::label('blocks['.$key.'][type]', 'Block Type: ') }}
+        {{ Form::select('blocks['.$key.'][type]', $types, $blocks[$key]['block_type']) }}
+        {{ errorsFor('blocks['.$key.'][type]', $errors); }}
+      </div>
+
+      {{-- Block Title --}}
       <div class="form-group">
         {{ Form::label('blocks['.$key.'][title]', 'Block Title: ') }}
         {{ Form::text('blocks['.$key.'][title]', $blocks[$key]['block_title'], ['class' => 'form-control']) }}
         {{ errorsFor('blocks['.$key.'][title]', $errors); }}
       </div>
 
-      {{-- Block body --}}
+      {{-- Block Body --}}
       <div class="form-group">
         {{ Form::label('blocks['.$key.'][body]', 'Block Body: ') }}
         {{ Form::textarea('blocks['.$key.'][body]', $blocks[$key]['block_body'], ['class' => 'form-control']) }}
@@ -74,15 +80,21 @@
 
     @else
     <div class="well repeatable">
+      {{-- Block Type --}}
+      <div class="form-group">
+        {{ Form::label('blocks[0][type]', 'Block Type: ') }}
+        {{ Form::select('blocks[0][type]', $types, 'default') }}
+        {{ errorsFor('blocks[0][type]', $errors); }}
+      </div>
 
-      {{-- Block title --}}
+      {{-- Block Title --}}
         <div class="form-group">
           {{ Form::label('blocks[0][title]', 'Block Title: ') }}
           {{ Form::text('blocks[0][title]', null, ['class' => 'form-control']) }}
           {{ errorsFor('blocks[0][title]', $errors); }}
         </div>
 
-        {{-- Block body --}}
+        {{-- Block Body --}}
         <div class="form-group">
           {{ Form::label('blocks[0][body]', 'Block Body: ') }}
           {{ Form::textarea('blocks[0][body]', null, ['class' => 'form-control']) }}
