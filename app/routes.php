@@ -34,6 +34,9 @@ Route::get('status', ['as' => 'status', 'uses' => 'StatusController@status', 'be
 # this should be a post.
 Route::get('resend-email', ['as' => 'resend', 'uses' => 'StatusController@resendEmailRequest']);
 
+# Review
+Route::get('review/{id}', ['as' => 'review', 'uses' => 'StatusController@review', 'before' => 'auth']);
+
 # Recomendation
 Route::resource('recommendation', 'RecommendationController');
 

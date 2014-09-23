@@ -11,18 +11,27 @@ class StatusController extends \BaseController {
 
     $profile = Profile::where('user_id', $user->id)->first();
     $prof_complete = Profile::isComplete($user->id);
-    if ($application)
-    {
+    if ($application) {
       // Get recommendations
       $recommendations = Recommendation::where('application_id', $application->id)->get();
 
-      foreach($recommendations as $rec)
-      {
+      foreach($recommendations as $rec) {
         $rec->isRecommendationComplete($rec);
       }
+      $recommendations = $recommendations->toArray();
+    }
+    if ($app_complete && $prof_complete) {
+      // Submit that application!
+      // make a submit button
     }
 
     return View::make('status.index', compact('profile', 'application', 'recommendations', 'app_complete', 'prof_complete'));
+  }
+
+  public function review($id)
+  {
+    // Get all the things.
+    // return View::make('review');
   }
 
   //@TODO refactor, move and combine into one function... etc etc. this code is the worst.
