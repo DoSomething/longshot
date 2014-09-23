@@ -155,8 +155,10 @@ class ProfilesController extends \BaseController {
         Race::where('profile_id', '=', $user->profile->id)->where('race', '=', $remove)->delete();
       }
     }
+    // only validate if not saved as a draft
+    if (isset($input['complete']))
+      $this->profileForm->validate($input);
 
-    $this->profileForm->validate($input);
     $user->profile->fill($input)->save();
 
     return $this->redirectAfterSave($input, $user->id);

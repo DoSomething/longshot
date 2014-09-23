@@ -7,7 +7,10 @@ class StatusController extends \BaseController {
 
     // Get all info about application status.
     $application = Application::where('user_id', $user->id)->first();
+    $app_complete = Application::isComplete($user->id);
+
     $profile = Profile::where('user_id', $user->id)->first();
+    $prof_complete = Profile::isComplete($user->id);
     if ($application)
     {
       // Get recommendations
@@ -19,7 +22,7 @@ class StatusController extends \BaseController {
       }
     }
 
-    return View::make('status.index', compact('profile', 'application', 'recommendations'));
+    return View::make('status.index', compact('profile', 'application', 'recommendations', 'app_complete', 'prof_complete'));
   }
 
   //@TODO refactor, move and combine into one function... etc etc. this code is the worst.

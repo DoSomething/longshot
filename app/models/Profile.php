@@ -88,4 +88,14 @@ class Profile extends Eloquent {
           );
    return $races;
  }
+
+ // Given a user id, returns bool if all required fields are set.
+  public static function isComplete($id)
+  {
+    $optional = ['address_premise'];
+    $fields = Profile::where('user_id', $id)->firstOrFail()->toArray();
+
+    return fieldsAreComplete($fields, $optional);
+
+  }
 }
