@@ -51,7 +51,8 @@ class AdminController extends \BaseController {
    *
    */
   public function settings() {
-    return View::make('admin.settings.index');
+    $scholarship_id = Scholarship::getCurrentScholarship()->pluck('id');
+    return View::make('admin.settings.index', with(compact('scholarship_id')));
   }
 
 }
