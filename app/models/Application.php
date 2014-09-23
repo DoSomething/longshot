@@ -39,21 +39,9 @@ class Application extends Eloquent {
   public static function isComplete($id)
   {
     $optional = ['test_type', 'test_score', 'link', 'hear_about'];
-
     $fields = Application::where('user_id', $id)->firstOrFail()->toArray();
 
-    // Are all fields filled out?
-    $empty_fields = array();
-    foreach ($fields as $key => $field)
-    {
-      if (empty($field) && !in_array($key, $optional)) {
-         $empty_fields[$key] = $field;
-      }
-    }
-    if (!is_null($empty_fields)) {
-      return FALSE;
-    }
-    return TRUE;
+    return fieldsAreComplete($fields, $optional);
   }
 
 

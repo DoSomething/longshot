@@ -117,3 +117,20 @@ function stringtoKebabCase($text)
 {
   return $output = str_replace(' ', '-', strtolower($text));
 }
+
+function fieldsAreComplete($fields, $optional = array())
+{
+  // Are all fields filled out?
+    $empty_fields = array();
+    foreach ($fields as $key => $field)
+    {
+      if (empty($field) && !in_array($key, $optional)) {
+         $empty_fields[$key] = $field;
+      }
+    }
+    // If we have no empty fields, the app is complete
+    if (empty($empty_fields)) {
+      return TRUE;
+    }
+    return FALSE;
+}
