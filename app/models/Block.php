@@ -20,8 +20,8 @@ class Block extends Eloquent {
       'default' => 'Default',
       'introduction' => 'Introduction',
       'timeline' => 'Timeline',
-      'step-vertical' => 'Step (vertical)',
-      'step-horizontal' => 'Step (horizontal)',
+      'steps-vertical' => 'Numbered Steps (vertical)',
+      'steps-horizontal' => 'Numbered Steps (horizontal)',
       'cta' => 'Call to Action'
     ];
 

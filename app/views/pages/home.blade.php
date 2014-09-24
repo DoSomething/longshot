@@ -6,24 +6,22 @@
     <header class="banner -hero">
       <div class="wrapper">
         <h1 class="__title heading -alpha">{{ $page->title }}</h1>
-        <h2 class="__tagline heading -gamma">{{ $page->description }}</h2>
+        <h2 class="__tagline heading -beta">{{ $page->description }}</h2>
       </div>
     </header>
 
+    {{-- Output Blocks --}}
     @foreach($page->blocks as $block)
-      <section class="segment">
-        <h1 class="heading -alpha">{{ $block->block_title }}</h1>
-        {{ $block->block_body_html }}
-      </section>
+      @include('pages.partials._block_' . outputBlock($block))
     @endforeach
 
-    <section class="segment segment--nominate -compact">
+    <section class="segment segment--nominate">
       <div class="wrapper">
         <h1 class="__title heading -alpha -alt">Nominate A Star</h1>
 
         {{ Form::open(['route' => 'nomination.create']) }}
 
-          <div>
+          <div class="-alpha">
             <h2>Your Info</h2>
 
             {{-- Nominator Name --}}
@@ -41,7 +39,7 @@
             </div>
           </div>
 
-          <div>
+          <div class="-beta">
             <h2>Their Info</h2>
 
             {{-- Nominatee Name --}}
@@ -61,6 +59,12 @@
 
             {{ Form::submit('Nominate', ['class' => 'button -default']) }}
         {{ Form::close() }}
+      </div>
+    </section>
+
+    <section class="segment gallery">
+      <div class="wrapper">
+        <h1 class="__title heading -alpha">2013-2014 Class</h1>
       </div>
     </section>
 

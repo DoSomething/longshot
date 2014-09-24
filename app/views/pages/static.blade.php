@@ -10,11 +10,9 @@
       {{ $page->description_html }}
     </div>
 
+    {{-- Output Blocks --}}
     @foreach($page->blocks as $block)
-      <section class="segment">
-        <h1 class="heading -gamma">{{ $block->block_title }}</h1>
-        {{ $block->block_body_html }}
-      </section>
+      @include('pages.partials._block_' . outputBlock($block))
     @endforeach
 
   </article>

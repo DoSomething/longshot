@@ -8,15 +8,13 @@
     <header class="banner -hero">
       <div class="wrapper">
         <h1 class="__title heading -alpha">{{ $page->title }}</h1>
-        <h2 class="__tagline heading -gamma">{{ $page->description }}</h2>
+        <h2 class="__tagline heading -beta">{{ $page->description }}</h2>
       </div>
     </header>
 
+    {{-- Output Blocks --}}
     @foreach($page->blocks as $block)
-      <section class="segment">
-        <h1 class="heading -alpha">{{ $block->block_title }}</h1>
-        {{ $block->block_body_html }}
-      </section>
+      @include('pages.partials._block_' . outputBlock($block))
     @endforeach
 
   </article>

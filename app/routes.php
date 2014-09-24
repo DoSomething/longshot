@@ -21,7 +21,7 @@ Route::resource('sessions', 'SessionsController', ['only' => ['create', 'store',
 Route::controller('password', 'RemindersController');
 
 # Pages
-Route::get('/', ['as' => 'home', 'uses' => 'PageController@home']);
+Route::get('/', ['as' => 'home', 'uses' => 'PagesController@home']);
 
 # Profile
 Route::resource('profile', 'ProfilesController', ['before' => 'auth']);
@@ -57,7 +57,7 @@ Route::group(['before' => 'role:administrator', 'prefix' => 'admin'], function()
   Route::resource('scholarship', 'ScholarshipController');
 
   # Static Content Pages
-  Route::resource('page', 'PageController');
+  Route::resource('page', 'PagesController');
 
   # Settings
   Route::get('settings', ['as' => 'settings', 'uses' => 'AdminController@settings']);
@@ -77,4 +77,4 @@ Route::group(['before' => 'role:administrator', 'prefix' => 'admin'], function()
 // This route needs to be the last route in the list that is hit
 // because the wildcard catches anything after the root and routes
 // to the Pages controller for static pages.
-Route::get('{page}', 'PageController@show');
+Route::get('{page}', 'PagesController@show');

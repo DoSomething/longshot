@@ -107,7 +107,7 @@
   <div class="wrapper"></div>
 
   <hr>
-  <button href="#" class ="btn clone"> + Add another block</button>
+  <button href="#" class ="btn clone"><span class="glyphicon glyphicon-plus"></span> Add another block</button>
 </div>
 
 
@@ -121,20 +121,27 @@
       cloneIndex++;
       newClass = "cloned" + cloneIndex;
       newBlock = repeatableForm.clone()
-                     .attr("class", newClass)
+                     .attr("class", newClass + ' ' + 'well')
                      .appendTo(".wrapper");
 
 
       $.each($(".wrapper ." + newClass + " .form-group"), function() {
-        inputFields = $(this).find(":input");
+        $this = $(this);
+        inputFields = $this.find(":input");
         // Replace all instances of [0] with cloneIndex
         newId = inputFields.attr("id").replace(0, cloneIndex);
         inputFields.attr('id', newId).attr('name', newId);
-        $(this).find("label").attr("for", newId);
+        $this.find("label").attr("for", newId);
         // Remove the id from the cloned field if there.
-        $(this).parents('.wrapper').find("input[type='hidden']").remove();
+        $this.parents('.wrapper').find("input[type='hidden']").remove();
         // Do not copy the value over
         inputFields.val("");
+
+        // @TODO: The following is awful code and should be refactored
+        // when this script is moved into the assets directory!
+        //
+        // Make the block type = 'default'
+        $this.find('select > option:first').attr('selected', 'selected');
       });
   });
 

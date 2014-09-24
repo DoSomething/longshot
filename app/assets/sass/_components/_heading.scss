@@ -10,11 +10,11 @@
 
   // @TODO: confirm all font sizes via design file!
 
-  &.-alpha { font-family: 'ProximaNovaBold'; font-size: 2rem; font-weight: normal; text-align: center; text-transform: uppercase; }
+  &.-alpha { font-family: 'ProximaNovaBold'; font-size: 2rem; font-weight: normal; line-height: 1; text-align: center; text-transform: uppercase; }
 
   &.-beta { font-family: 'ProximaNovaBold'; font-size: 1.5rem; font-weight: normal; line-height: 1; text-align: center; text-transform: uppercase; }
 
-  &.-gamma { font-family: 'ProximaNovaBold'; font-size: 1.2rem; font-weight: normal; line-height: 1.1; }
+  &.-gamma { font-family: 'ProximaNovaBold'; font-size: 1.2rem; font-weight: normal; line-height: 1.1; text-transform: uppercase; }
 
   &.-delta {  }
 
@@ -31,11 +31,13 @@
 
   .heading {
 
-    &.-alpha { font-size: 4rem; }
+    &.-alpha { @include rem(72); }
 
-    &.-beta { font-size: 3.3rem; }
+    &.-beta { @include rem(48); }
 
-    &.-gamma { font-size: 3rem; }
+    &.-gamma { @include rem(32); }
+
+    &.-delta { @include rem(23); }
 
   }
 

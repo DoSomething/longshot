@@ -118,6 +118,10 @@ function stringtoKebabCase($text)
   return $output = str_replace(' ', '-', strtolower($text));
 }
 
+
+/**
+ *
+ */
 function fieldsAreComplete($fields, $optional = array())
 {
   // Are all fields filled out?
@@ -133,4 +137,17 @@ function fieldsAreComplete($fields, $optional = array())
     return TRUE;
   }
   return FALSE;
+}
+
+
+/**
+ * Return name of block type and consider specific conditions.
+ */
+function outputBlock($block)
+{
+  if ($block->block_type === 'steps-vertical' || $block->block_type === 'steps-horizontal') {
+    return 'steps';
+  }
+
+  return $block->block_type;
 }

@@ -2,7 +2,7 @@
 
 use Michelf\MarkdownExtra;
 
-class PageController extends \BaseController {
+class PagesController extends \BaseController {
 
   /**
    * Display a listing of the resource.
@@ -105,6 +105,7 @@ class PageController extends \BaseController {
   {
     $pathList = Path::lists('url');
     $pageRequest = stringtoKebabCase($path);
+    $url = $pageRequest;
 
     if (!in_array($pageRequest, $pathList))
     {
@@ -115,11 +116,11 @@ class PageController extends \BaseController {
 
     if (View::exists('pages.' . $pageRequest))
     {
-      return View::make('pages.' . $pageRequest, compact('page'));
+      return View::make('pages.' . $pageRequest, compact('page', 'url'));
     }
 
     // Otherwise, return the default static view template.
-    return View::make('pages.static', compact('page'));
+    return View::make('pages.static', compact('page', 'url'));
   }
 
 
@@ -132,9 +133,11 @@ class PageController extends \BaseController {
    */
   public function home()
   {
+    $scholarshipAmount = Scholarship::getCurrentScholarship()->pluck('amount_scholarship');
     $page = Path::getPageContent('/');
+    $url = 'home';
 
-    return View::make('pages.home', compact('page'));
+    return View::make('pages.home', compact('page', 'url', 'scholarshipAmount'));
   }
 
 
