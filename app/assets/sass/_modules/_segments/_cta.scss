@@ -5,7 +5,14 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-.segment--cta { }
+.segment--cta {
+
+  .fragment + .fragment { margin-top: pxcalc(20); }
+
+  .fragment {
+    a { display: block; }
+  }
+}
 
 
 
@@ -14,5 +21,14 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 @media only screen and (min-width: $medium) {
+
+  .segment--cta { @include container($test show);
+    > .wrapper { @include push(2 of 16); width: span(12 of 16); }
+
+    .fragment:first-of-type { @include rem(24); @include span(first 6 of 12); }
+    .fragment:last-of-type { @include span(last 5 of 12); text-align: center; }
+
+    .fragment + .fragment { margin-top: 0; }
+  }
 
 }
