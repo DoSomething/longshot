@@ -21,7 +21,11 @@
         </li>
         <li class="{{ isset($app_complete) ? 'complete' : '-incomplete' }}">
           <span class="icon" data-icon="&#x2713"></span>Application
-          {{ isset($application) ? link_to_route('application.edit', 'edit', Auth::user()->id) : link_to_route('application.create', 'start') }}
+          @if (isset($application) && !($application->complete)))
+            {{ link_to_route('application.edit', 'edit', Auth::user()->id) }}
+          @elseif (is_null($application))
+          {{ link_to_route('application.create', 'start') }}
+          @endif
         </li>
       </ul>
 
