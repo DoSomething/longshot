@@ -20,18 +20,23 @@ class StatusController extends \BaseController {
       }
       $recommendations = $recommendations->toArray();
     }
+
+    // If both app & profile are complete add a link to review & submit.
     if ($app_complete && $prof_complete) {
-      // Submit that application!
-      // make a submit button
+      $submit = link_to_route('review', 'Review & Submit Application', array($user->id));
     }
 
-    return View::make('status.index', compact('profile', 'application', 'recommendations', 'app_complete', 'prof_complete'));
+    return View::make('status.index', compact('profile', 'application', 'recommendations', 'app_complete', 'prof_complete', 'submit'));
   }
 
   public function review($id)
   {
     // Get all the things.
-    // return View::make('review');
+    $application = Application::where('user_id', $id)->select('accomplishments', 'activities', 'essay1', 'essay2', 'hear_about', 'link', 'test_type', 'test_score', 'gpa')->first()->toArray();
+    $profile = Profile::where('user_id', $id)->select('birthdate', 'phone', 'address_street', 'address_premise', 'city', 'state', 'zip', 'gender', 'grade', 'school')->first()->toArray();
+    $scholarship = Scholarship::getCurrentScholarship()->select(array('label_app_accomplishments as accomplishments', 'label_app_activities as activities', 'label_app_essay1 as essay1', 'label_app_essay2 as essay2'))->first()->toArray();
+
+    return View::make('status.review', compact('application', 'profile', 'scholarship'));
   }
 
   //@TODO refactor, move and combine into one function... etc etc. this code is the worst.

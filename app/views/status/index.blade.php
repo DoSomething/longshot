@@ -25,6 +25,10 @@
         </li>
       </ul>
 
+      @if (isset($submit))
+        {{ $submit }}
+      @endif
+
       @if (!empty($recommendations))
         <div class="table-responsive">
           <table class="table table-striped">
