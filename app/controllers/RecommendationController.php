@@ -185,7 +185,7 @@ class RecommendationController extends \BaseController {
       'completed_form' => '@TODO',
       'link' => link_to_route('home'),
       );
-    $email->sendEmail('received', 'recommender', $recommendation->email, $data);
+    $email->sendEmail('received', 'recommender', $recommendation->email, $data2);
   }
 
 
