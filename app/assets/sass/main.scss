@@ -62,15 +62,16 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 @import "_modules/_media-list";
-@import "_modules/_media-list/_status";
+@import "_modules/_media-lists/_status";
 @import "_modules/_progress";
 @import "_modules/_flash-message";
 @import "_modules/_page";
 @import "_modules/_banner";
 @import "_modules/_segment";
-@import "_modules/_cta";
-@import "_modules/_steps";
-@import "_modules/_timeline";
+@import "_modules/_segments/_introduction";
+@import "_modules/_segments/_cta";
+@import "_modules/_segments/_steps";
+@import "_modules/_segments/_timeline";
 
 
 

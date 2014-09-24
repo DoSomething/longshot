@@ -1,6 +1,6 @@
 {{-- Block Type: Steps --}}
 
-<section class="segment steps {{ $block->block_type === 'steps-vertical' ? '-vertical' : '-horizontal' }}">
+<section class="segment segment--steps {{ $block->block_type === 'steps-vertical' ? '-vertical' : '-horizontal' }}">
   <h1 class="heading {{ $block->block_type === 'steps-vertical' ? '-alpha' : '-gamma' }}">
     {{ $block->block_title }}
   </h1>
