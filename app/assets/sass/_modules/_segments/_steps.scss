@@ -1,11 +1,19 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// TIMELINE STYLES
+// STEPS STYLES
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.timeline {
-  ul { @include list_reset(); }
+
+.segment--steps { counter-reset: step-counter;
+
+  ol { @include list_reset();
+    li { counter-increment: step-counter; padding-left: pxcalc(60); position: relative;
+      &:before { @include rem(32); background-color: #000; color: #fff; content: counter(step-counter); display: inline-block; height: pxcalc(50,32); left: 0; line-height: pxcalc(50,32); position: absolute; text-align: center; width: pxcalc(50,32); }
+    }
+  }
+
+  .heading { margin-bottom: 0; }
 
 }
 
@@ -17,10 +25,8 @@
 
 @media only screen and (min-width: $medium) {
 
-  .timeline {
-    ul { background-color: $app_primary; border-radius: 5px; height: 10px; position: relative;
-      li { position: absolute; width: 20%; }
-    }
+  .segment--steps {
+
   }
 
 }
