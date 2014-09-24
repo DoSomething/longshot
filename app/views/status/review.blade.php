@@ -52,7 +52,7 @@
 
   <div class="field-group -checkbox">
     {{ Form::checkbox('rules', 1, false, ['id' => 'eligibility']); }}
-    {{ Form::label('rules', "Check out the official rules [link]") }}
+    {{ Form::label('rules', "You agree to the Official Rules [link]") }}
     {{ errorsFor('rules', $errors); }}
   </div>
 

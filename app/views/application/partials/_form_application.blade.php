@@ -8,7 +8,7 @@
 
   {{-- GPA --}}
   <div class="field-group -mono {{ setInvalidClass('gpa', $errors) }}">
-    {{ Form::label('gpa', 'GPA: ') }}
+    {{ Form::label('gpa', 'Unweighted GPA: ') }}
     {{ Form::text('gpa') }}
     {{ errorsFor('gpa', $errors); }}
   </div>
@@ -52,7 +52,7 @@
 
     {{-- Link --}}
   <div class="field-group {{ setInvalidClass('link', $errors) }}">
-    {{ Form::label('link', 'Link (youtube or vimeo)') }}
+    {{ Form::label('link', 'Links to photo or video albums (optional)') }}
     {{ Form::text('link',  NULL, ['placeholder' => 'http://youtube.com']) }}
     {{ errorsFor('link', $errors); }}
   </div>
