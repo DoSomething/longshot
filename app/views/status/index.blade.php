@@ -25,7 +25,11 @@
         </li>
       </ul>
 
-      @if (isset($recommendations))
+      @if (isset($submit))
+        {{ $submit }}
+      @endif
+
+      @if (!empty($recommendations))
         <div class="table-responsive">
           <table class="table table-striped">
 
@@ -41,16 +45,18 @@
             <tbody>
               @foreach($recommendations as $rec)
                 <tr>
-                  <td>{{ $rec->first_name . ' ' . $rec->last_name}}</td>
-                  <td>{{ $rec->email }}</td>
-                  <td> {{$rec->complete}}</td>
-                  <td> {{link_to_route('resend', 'Resend Request', array('id' => $rec->id))}}</td>
+                  <td>{{ $rec['first_name'] . ' ' . $rec['last_name']}}</td>
+                  <td>{{ $rec['email'] }}</td>
+                  <td> {{$rec['complete']}}</td>
+                  <td> {{link_to_route('resend', 'Resend Request', array('id' => $rec['id']))}}</td>
                 </tr>
               @endforeach
             </tbody>
 
           </table>
         </div>
+      @else
+        {{link_to_route('recommendation.create', 'Get Recommendations');}}
       @endif
     </section>
 

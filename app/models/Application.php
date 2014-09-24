@@ -38,7 +38,7 @@ class Application extends Eloquent {
   // Given a user id, returns bool if all required fields are
   public static function isComplete($id)
   {
-    $optional = ['test_type', 'test_score', 'link', 'hear_about'];
+    $optional = ['test_type', 'test_score', 'link', 'hear_about', 'complete'];
     $fields = Application::where('user_id', $id)->firstOrFail()->toArray();
 
     return fieldsAreComplete($fields, $optional);
