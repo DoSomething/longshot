@@ -40,7 +40,7 @@ class StatusController extends \BaseController {
     }
 
     // If both app & profile are complete add a link to review & submit.
-    if (isset($app_complete) && isset($prof_complete)) {
+    if (isset($app_complete) && isset($prof_complete) && !($application->complete)) {
       $submit = link_to_route('review', 'Review & Submit Application', array($user->id));
     }
 
@@ -75,7 +75,7 @@ class StatusController extends \BaseController {
     $application->save();
     $this->confirmationEmail();
 
-    return Redirect::route('status')->with('flash_message', 'Sweet, you submitted your app');
+    return Redirect::route('recommendation.create')->with('flash_message', 'Sweet, you submitted your app');
   }
 
   //@TODO refactor, move and combine into one function... etc etc. this code is the worst.

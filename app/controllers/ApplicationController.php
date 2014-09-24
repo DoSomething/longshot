@@ -116,6 +116,7 @@ class ApplicationController extends \BaseController {
    */
   public function edit($id)
   {
+    // @TODO: add a filter here to check for app complete.
     $user = User::whereId($id)->firstOrFail();
     $scholarship = Scholarship::getCurrentScholarship()->select(['label_app_accomplishments', 'label_app_activities', 'label_app_essay1', 'label_app_essay2', 'hear_about_options'])->first();
     $choices = Application::formatChoices($scholarship->hear_about_options);
@@ -164,8 +165,7 @@ class ApplicationController extends \BaseController {
   {
     if (isset($input['complete']))
     {
-      // @TODO: this should go to the review page when it's built.
-      return Redirect::route('recommendation.create')->with('flash_message', 'Application information has been saved!');
+      return Redirect::route('review', $id)->with('flash_message', 'Application information has been saved!');
     }
     else
     {
