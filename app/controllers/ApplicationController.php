@@ -164,8 +164,7 @@ class ApplicationController extends \BaseController {
   {
     if (isset($input['complete']))
     {
-      // @TODO: this should go to the review page when it's built.
-      return Redirect::route('recommendation.create')->with('flash_message', 'Application information has been saved!');
+      return Redirect::route('review', $id)->with('flash_message', 'Application information has been saved!');
     }
     else
     {

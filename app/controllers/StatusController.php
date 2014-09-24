@@ -75,7 +75,7 @@ class StatusController extends \BaseController {
     $application->save();
     $this->confirmationEmail();
 
-    return Redirect::route('status')->with('flash_message', 'Sweet, you submitted your app');
+    return Redirect::route('recommendation.create')->with('flash_message', 'Sweet, you submitted your app');
   }
 
   //@TODO refactor, move and combine into one function... etc etc. this code is the worst.
