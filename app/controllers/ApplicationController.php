@@ -91,7 +91,7 @@ class ApplicationController extends \BaseController {
 
     $user->application()->save($application);
 
-    return $this->redirectAfterSave($input, $id);
+    return $this->redirectAfterSave($input, $user->id);
   }
 
 

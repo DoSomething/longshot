@@ -16,7 +16,7 @@ class StatusController extends \BaseController {
   /**
    * User status page.
    * This page shows an overall glance of the status of the application.
-   * Displays App, profile completness as well as recs, if any.
+   * Displays App, profile completeness as well as recs, if any.
    */
   public function status() {
     $user = Auth::user();
@@ -24,7 +24,8 @@ class StatusController extends \BaseController {
     // @TODO: are these queries too heavy?
     // Get all info about application status.
     $application = Application::where('user_id', $user->id)->first();
-    $app_complete = Application::isComplete($user->id);
+    if ($application)
+      $app_complete = Application::isComplete($user->id);
 
     $profile = Profile::where('user_id', $user->id)->first();
     $prof_complete = Profile::isComplete($user->id);
@@ -39,7 +40,7 @@ class StatusController extends \BaseController {
     }
 
     // If both app & profile are complete add a link to review & submit.
-    if ($app_complete && $prof_complete) {
+    if (isset($app_complete) && isset($prof_complete)) {
       $submit = link_to_route('review', 'Review & Submit Application', array($user->id));
     }
 

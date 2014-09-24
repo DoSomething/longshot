@@ -15,11 +15,11 @@
       <h1 class="heading -delta">What's up</h1>
 
       <ul class="media-list media-list--status">
-        <li class="{{ ($prof_complete) ? 'complete' : '-incomplete' }}">
+        <li class="{{ isset($prof_complete) ? 'complete' : '-incomplete' }}">
           <span class="icon" data-icon="&#x2713"></span>Basic Information
           {{ isset($profile) ? link_to_route('profile.edit', 'edit', Auth::user()->id) : link_to_route('profile.create', 'start') }}
         </li>
-        <li class="{{ ($app_complete) ? 'complete' : '-incomplete' }}">
+        <li class="{{ isset($app_complete) ? 'complete' : '-incomplete' }}">
           <span class="icon" data-icon="&#x2713"></span>Application
           {{ isset($application) ? link_to_route('application.edit', 'edit', Auth::user()->id) : link_to_route('application.create', 'start') }}
         </li>
