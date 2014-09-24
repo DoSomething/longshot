@@ -48,7 +48,9 @@
                   <td>{{ $rec['first_name'] . ' ' . $rec['last_name']}}</td>
                   <td>{{ $rec['email'] }}</td>
                   <td> {{$rec['complete']}}</td>
-                  <td> {{link_to_route('resend', 'Resend Request', array('id' => $rec['id']))}}</td>
+                  @if ($rec['complete'] != 'All set!')
+                    <td> {{link_to_route('resend', 'Resend Request', array('id' => $rec['id']))}}</td>
+                  @endif
                 </tr>
               @endforeach
             </tbody>
