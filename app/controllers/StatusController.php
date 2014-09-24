@@ -72,6 +72,7 @@ class StatusController extends \BaseController {
     $application = Application::where('user_id', Auth::user()->id)->firstorFail();
     $application->complete = 1;
     $application->save();
+    $this->confirmationEmail();
 
     return Redirect::route('status')->with('flash_message', 'Sweet, you submitted your app');
   }
@@ -79,7 +80,6 @@ class StatusController extends \BaseController {
   //@TODO refactor, move and combine into one function... etc etc. this code is the worst.
   public function resendEmailRequest()
   {
-    // @TODO: redo this depending to user the first email.
     $rec_id = Input::get('id');
     $recommendation = Recommendation::whereId($rec_id)->firstOrFail();
     $token = $recommendation->generateRecToken($recommendation);
@@ -93,6 +93,15 @@ class StatusController extends \BaseController {
     $email->sendEmail('request', 'recommender', $recommendation->email, $data);
 
     return Redirect::route('status')->with('flash_message', 'We sent another email!');
+  }
+
+  /**
+   * Sends email to applicant saying the rec request has been sent.
+   */
+  public function confirmationEmail()
+  {
+    $email = new Email;
+    $email->sendEmail('received', 'applicant', Auth::user()->email);
   }
 
 }
