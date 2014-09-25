@@ -183,7 +183,7 @@ class RecommendationController extends \BaseController {
     $email2 = new Email;
     $data2 = array(
       'completed_form' => '@TODO',
-      'link' => link_to_route('home'),
+      'nominate_them' => link_to_route('home', 'Nominate them'),
       );
     $email->sendEmail('received', 'recommender', $recommendation->email, $data2);
   }
