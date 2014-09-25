@@ -20,12 +20,20 @@ class StatusController extends \BaseController {
    */
   public function status() {
     $user = Auth::user();
-
     // @TODO: are these queries too heavy?
     // Get all info about application status.
     $application = Application::where('user_id', $user->id)->first();
-    if ($application)
+    if ($application) {
       $app_complete = Application::isComplete($user->id);
+    }
+    // Is the app complete & been submitted?
+    if (isset($app_complete) && $application->complete) {
+      $status = 'Submitted!';
+      $helper = 'We have your application!';
+    } else {
+      $status = 'In progress';
+      $helper = 'Make sure to fill out all fields and submit the application!';
+    }
 
     $profile = Profile::where('user_id', $user->id)->first();
     $prof_complete = Profile::isComplete($user->id);
@@ -44,7 +52,7 @@ class StatusController extends \BaseController {
       $submit = link_to_route('review', 'Review & Submit Application', array($user->id));
     }
 
-    return View::make('status.index', compact('profile', 'application', 'recommendations', 'app_complete', 'prof_complete', 'submit'));
+    return View::make('status.index', compact('profile', 'application', 'recommendations', 'app_complete', 'prof_complete', 'submit', 'status', 'helper'));
   }
 
   /**

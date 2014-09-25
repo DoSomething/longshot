@@ -7,8 +7,8 @@
     <h1 class="__title heading -beta text-primary-color">Application Status</h1>
 
     <div>
-      <h2 class="heading -gamma">Status: <em>In Progress</em></h2>
-      <p>Some message regarding what's going on w/ your application.</p>
+      <h2 class="heading -gamma">Status: <em> {{ $status }} </em></h2>
+      <p>{{ $helper }}</p>
     </div>
 
     <section class="segment segment--checklist">
