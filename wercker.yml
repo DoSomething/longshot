@@ -28,6 +28,15 @@ deploy:
         name: belt and suspenders 2
         code: find . -type d -exec chmod 755 {} \;
     - script:
+        name: belt and suspenders 3
+        code: find . -type d -exec chmod 755 {} \;
+    - script:
+        name: what is the deal 1
+        code: ls -l ./node_modules/gulp-imagemin/node_modules/imagemin/node_modules/imagemin-jpegtran/node_modules/jpegtran-bin/
+    - script:
+        name: what is the deal 2
+        code: ls -l ./node_modules/gulp-imagemin/node_modules/imagemin/node_modules/imagemin-jpegtran/node_modules/jpegtran-bin/vendor/
+    - script:
         name: list dir
         code: ls -la
     - script:
