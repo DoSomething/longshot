@@ -54,7 +54,7 @@ return array(
   |
   */
 
-  'from' => array('address' => 'gthomas@tmiagency.org', 'name' => 'Greg Thomas'),
+  'from' => array('address' => 'footlocker@tmiagency.org', 'name' => 'Lizzy'),
 
   /*
   |--------------------------------------------------------------------------
