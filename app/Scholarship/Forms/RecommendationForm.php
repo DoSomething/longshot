@@ -10,10 +10,9 @@ class RecommendationForm extends FormValidator {
    * @var array
    */
   protected $rules = [
-    'first_name'      => 'required',
-    'last_name'       => 'required',
-    'email'           => 'required|email',
-    'relationship'    => 'required',
+    'rank_character'  => 'required',
+    'rank_additional' => 'required',
+    'essay1'          => 'required',
   ];
 
 }

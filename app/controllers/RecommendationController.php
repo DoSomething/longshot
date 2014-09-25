@@ -118,6 +118,7 @@ class RecommendationController extends \BaseController {
   public function update($id)
   {
     $input = Input::all();
+    $this->recommendationForm->validate($input);
     $recommendation = Recommendation::whereId($id)->firstOrFail();
     $recommendation->rank_character = $input['rank_character'];
     $recommendation->rank_additional = $input['rank_additional'];
