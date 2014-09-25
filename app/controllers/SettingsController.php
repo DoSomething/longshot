@@ -74,7 +74,7 @@ class SettingsController extends \BaseController {
    */
   public function updateGeneral()
   {
-    $inputText = Input::only('company_name', 'company_url', 'eligibility_text', 'footer_text');
+    $inputText = Input::only('company_name', 'company_url', 'eligibility_text', 'footer_text', 'basic_info_help_text', 'create_account_help_text', 'profile_create_help_text', 'application_create_help_text', 'recommendation_create_help_text', 'recommendation_update_help_text');
     $inputImages = Input::only('header_logo', 'footer_logo');
 
     $this->settingsForm->validate($inputText);
