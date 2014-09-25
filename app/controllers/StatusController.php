@@ -112,7 +112,7 @@ class StatusController extends \BaseController {
   public function confirmationEmail()
   {
     $email = new Email;
-    $email->sendEmail('received', 'applicant', Auth::user()->email);
+    $email->sendEmail('submitted', 'applicant', Auth::user()->email);
   }
 
 }
