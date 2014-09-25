@@ -18,6 +18,15 @@ class Email extends Eloquent {
     $email = Email::where('key', '=', $key)->where('recipient', '=' , $recipient)->firstOrFail();
     $subject = $email->subject;
     $body = $email->body;
+
+    // add another array of vars used in many emails.
+    $default_data = array(
+      'status_page' => link_to_route('status', 'status page'),
+      'faq_page'    => link_to('faq', 'FAQ page'),
+      'home_page'   => link_to_route('home', 'Foot Locker Scholar Athletes'),
+      'email'       => link_to('mailto:footlocker@tmiagency.org', 'footlocker@tmiagency.org'),
+      );
+    $data = array_merge($data, $default_data);
     if (isset($data)) {
        // Replace all values in the body copy.
       foreach ($data as $find => $replace)

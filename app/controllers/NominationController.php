@@ -33,6 +33,7 @@ class NominationController extends \BaseController {
     $data = array(
       'nom_name' => $nom->nom_name,
       'rec_name' => $nom->rec_name,
+      'application' => link_to_route('home', 'Application'),
     );
     $email->sendEmail('nomination', 'applicant', $nom->nom_email, $data);
 
