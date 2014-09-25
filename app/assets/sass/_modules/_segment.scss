@@ -5,7 +5,7 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-.segment { @include container(); padding: pxcalc(20) pxcalc(10); }
+.segment { @include container(95%); padding: pxcalc(20) 0; }
 
 .banner + .segment { border-bottom: 1px solid $app_primary; }
 
