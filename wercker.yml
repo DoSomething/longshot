@@ -11,7 +11,7 @@ build:
       - wercker/bundle-install@1.1.1
       - script:
           name: change permissions
-          code: sudo chown -R ubuntu.ubuntu ./
+          code: sudo chown -R ubuntu:ubuntu ./
       - script:
           name: install bower dependencies
           code: bower install
@@ -22,8 +22,11 @@ deploy:
   steps:
     - bundle-install
     - script:
-        name: list dir
-        code: ls -la
+        name: Change owner and group
+        code: chown -R ubuntu:ubuntu ./node_modules
+    - script:
+        name: Make all files readable
+        code: find . -type f -exec chmod 644 {} \;
     - script:
         name: write env var
         code: |-
