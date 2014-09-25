@@ -127,3 +127,17 @@ Route::filter('startedProcess', function($route, $request, $value)
     return Redirect::route($value .'.edit', $user->id);
   }
 });
+
+/*
+ * This checks to see if the user has started created the process
+ * Example: if the user already has an application don't create a new one, edit the current one.
+ */
+Route::filter('submittedApp', function($route, $request)
+{
+  $user = Auth::user();
+  $complete = Application::isSubmitted($user->id);
+  if ($complete)
+  {
+    return Redirect::route('status')->with('flash_message', 'You have already submitted your application, you can no longer edit');
+  }
+});

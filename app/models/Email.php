@@ -12,7 +12,7 @@ class Email extends Eloquent {
    * @param $to - the email address to send the email to
    * @param $data - (optional) array of things to search and replace in the body of email.
    */
-  public static function sendEmail($key, $recipient, $to, $data = NULL)
+  public static function sendEmail($key, $recipient, $to, $data = array())
   {
     // Find the correct email.
     $email = Email::where('key', '=', $key)->where('recipient', '=' , $recipient)->firstOrFail();

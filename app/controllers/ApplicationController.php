@@ -18,6 +18,9 @@ class ApplicationController extends \BaseController {
 
     // Check that the current user doesn't create many applications
     $this->beforeFilter('startedProcess:application', ['only' => ['create']]);
+
+    // Users can only update their app if it hasn't been submitted.
+    $this->beforeFilter('submittedApp', ['only' => ['create', 'edit']]);
   }
 
   /**

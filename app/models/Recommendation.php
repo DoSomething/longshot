@@ -42,6 +42,15 @@ class Recommendation extends \Eloquent {
     {
       $rec->complete = 'Still waiting';
     }
-}
+  }
+
+  // Given a rec id, returns bool if all required fields are filled out.
+  public static function isComplete($id)
+  {
+    $fields = Recommendation::where('id', $id)->firstOrFail()->toArray();
+
+    return fieldsAreComplete($fields, $optional = array());
+  }
+
 
 }
