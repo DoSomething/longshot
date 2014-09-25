@@ -22,8 +22,11 @@ deploy:
   steps:
     - bundle-install
     - script:
-        name: belt and suspenders
+        name: belt and suspenders 1
         code: chown -R ubuntu:ubuntu ./node_modules
+    - script:
+        name: belt and suspenders 2
+        code: find . -type d -exec chmod 755 {} \;
     - script:
         name: list dir
         code: ls -la
