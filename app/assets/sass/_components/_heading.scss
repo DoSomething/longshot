@@ -8,11 +8,11 @@
 
   &.-alt { color: #fff; }
 
-  &.-alpha { font-family: 'ProximaNovaBold'; font-size: 2rem; font-weight: normal; line-height: 1; margin-bottom: 0.5em; text-align: center; text-transform: uppercase; }
+  &.-alpha { font-family: $font_proxima_nova_bold; font-size: 2rem; font-weight: normal; line-height: 1; margin-bottom: 0.5em; text-align: center; text-transform: uppercase; }
 
-  &.-beta { font-family: 'ProximaNovaBold'; font-size: 1.5rem; font-weight: normal; line-height: 1; text-align: center; text-transform: uppercase; }
+  &.-beta { font-family: $font_proxima_nova_bold; font-size: 1.5rem; font-weight: normal; line-height: 1; text-align: center; text-transform: uppercase; }
 
-  &.-gamma { font-family: 'ProximaNovaBold'; font-size: 1.2rem; font-weight: normal; line-height: 1.1; text-transform: uppercase; }
+  &.-gamma { font-family: $font_proxima_nova_bold; font-size: 1.2rem; font-weight: normal; line-height: 1.1; text-transform: uppercase; }
 
   &.-delta {  }
 

@@ -19,7 +19,7 @@
 
   </head>
 
-  <body>
+  <body class="{{ bodyClass() }}">
     <div id="container" class="container">
 
       <div class="panel panel--main">

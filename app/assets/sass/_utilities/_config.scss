@@ -26,4 +26,10 @@ $susy: (
 );
 
 
-$wide: layout(1080px 16);
+$wide: layout(1080px 24);
+$triad: layout(1080px 18 1.6);
+
+// Examples
+// $gallery_layout: layout( 12 .125 fluid float after);
+// $nav_layout: layout( 12 0 fluid float inside);
+// $golden_layout: layout( (1 1.618 2.618) .1 fluid float split);

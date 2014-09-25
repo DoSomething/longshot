@@ -27,7 +27,13 @@ $app_error: $app_red;
 
 
 
-$font_proxima_nova: 'ProximaNovaRegular', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// TYPOGRAPHY VARIABLES
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+$font_proxima_nova_regular: 'ProximaNovaRegular', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$font_proxima_nova_bold: 'ProximaNovaBold', 'ProximaNovaRegular', Helvetica, Arial, sans-serif;
+
 
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -45,7 +51,6 @@ $base_font_color:   #000;
 
 $site_global_accent: white;
 $site_global_link_color: $site_global_accent;
-
 
 
 

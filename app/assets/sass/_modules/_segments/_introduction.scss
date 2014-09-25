@@ -18,7 +18,7 @@
 @media only screen and (min-width: $medium) {
 
   .segment--introduction {
-    > .wrapper { @include rem(24); @include push(1 of 12); padding-left: gutter(12); width: span(10 of 12); }
+    > .wrapper { @include rem(24); @include push(2 of 24); padding-left: gutter(24); width: span(20 of 24); }
   }
 
 }
