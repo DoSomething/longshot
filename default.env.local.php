@@ -6,4 +6,7 @@ return [
   'DB_USERNAME' => 'username',
   'DB_PASSWORD' => 'password',
   'DB_NAME' => 'db_name'
+
+  'REDIS_QUEUE' => 'default',
+
    ];
