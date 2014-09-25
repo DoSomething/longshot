@@ -36,7 +36,9 @@ class StatusController extends \BaseController {
     }
 
     $profile = Profile::where('user_id', $user->id)->first();
-    $prof_complete = Profile::isComplete($user->id);
+    if ($profile) {
+      $prof_complete = Profile::isComplete($user->id);
+    }
     if ($application) {
       // Get recommendations
       $recommendations = Recommendation::where('application_id', $application->id)->get();
