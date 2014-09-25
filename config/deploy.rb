@@ -7,7 +7,7 @@ server  ENV["SERVER_NAME"], :app, :web
 
 set :user, "ubuntu"
 set :group, "ubuntu"
-set :use_sudo, false
+set :use_sudo, true
 
 set :repository, "."
 set :scm, :none
@@ -29,5 +29,5 @@ namespace :deploy do
 end
 
 after "deploy:update", "deploy:cleanup"
-after "deploy:symlink", "deploy:link_settings"
+after "deploy:create_symlink", "deploy:link_settings"
 after "deploy:link_settings", "deploy:artisan_migrate"
