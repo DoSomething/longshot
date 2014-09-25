@@ -7,11 +7,16 @@
 
 .segment--cta {
 
-  .fragment + .fragment { margin-top: pxcalc(20); }
+  .fragment + .fragment { padding-top: 1.5em; }
 
-  .fragment {
-    a { display: block; }
+  .fragment { text-align: center;
+    a { display: block; max-width: 330px; margin: 0 auto; }
+
+    a + a { margin-top: gutter(); }
   }
+
+  .fragment:last-of-type { display: table; margin: 0 auto; }
+
 }
 
 
@@ -20,15 +25,44 @@
 // MEDIA QUERIES
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+@media only screen and (min-width: $small) {
+
+  .segment--cta {
+
+    .fragment:first-of-type { @include rem(20); }
+
+  }
+
+}
+
+
+
 @media only screen and (min-width: $medium) {
 
-  .segment--cta { @include container($test show);
-    > .wrapper { @include push(2 of 16); width: span(12 of 16); }
+  .segment--cta {
 
-    .fragment:first-of-type { @include rem(24); @include span(first 6 of 12); }
-    .fragment:last-of-type { @include span(last 5 of 12); text-align: center; }
+    > .wrapper { @include push(2 of 16); display: table; width: span(12 of 16);
+    }
 
-    .fragment + .fragment { margin-top: 0; }
+    .fragment { text-align: left; }
+
+    .fragment:first-of-type { display: table-cell; vertical-align: top; width: span(6 of 12); }
+    .fragment:last-of-type { display: table-cell; padding-left: span(1 of 12); text-align: center; vertical-align: middle; width: span(6 of 12); }
+
+    .fragment + .fragment { padding-top: 0; }
+
+  }
+
+}
+
+
+
+@media only screen and (min-width: $large) {
+
+  .segment--cta {
+
+    .fragment:first-of-type { @include rem(24); }
+
   }
 
 }

@@ -19,6 +19,12 @@
 // MEDIA QUERIES
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-@media only screen and (min-width: $medium) {
+@media only screen and (min-width: $large) {
+
+  .button {
+
+    &.-default { @include rem(32); padding: 0.3em 1em; }
+
+  }
 
 }
