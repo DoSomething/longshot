@@ -44,7 +44,7 @@ class Recommendation extends \Eloquent {
     }
   }
 
-  // Given a user id, returns bool if all required fields are
+  // Given a rec id, returns bool if all required fields are filled out.
   public static function isComplete($id)
   {
     $fields = Recommendation::where('id', $id)->firstOrFail()->toArray();
