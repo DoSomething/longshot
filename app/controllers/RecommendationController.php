@@ -96,14 +96,23 @@ class RecommendationController extends \BaseController {
     $recommendation = Recommendation::whereId($id)->firstOrFail();
     // Make sure this person has the right token in the url.
     $correct_token = RecommendationToken::where('recommendation_id', $id)->pluck('token');
-    if (isset($_GET['token']) && $_GET['token'] == $correct_token)
-    {
+    if (isset($_GET['token']) && $_GET['token'] == $correct_token) {
+      if (Recommendation::isComplete($id)) {
+
+        $applicant_name = DB::table('users')
+                              ->join('applications', 'users.id', '=', 'applications.user_id')
+                              ->join('recommendations', 'applications.id', '=', 'recommendations.application_id')
+                              ->where('recommendations.application_id', '=', $recommendation->application_id)
+                              ->select('users.first_name', 'users.last_name')
+                              ->first();
+
+        $name = $applicant_name->first_name . ' ' . $applicant_name->last_name;
+        return Redirect::route('home')->with('flash_message', 'You already submitted your recommendation for ' . $name . '. Thanks again for your recommendation!');
+      }
       $scholarship = Scholarship::getCurrentScholarship();
       $help_text = Setting::where('key', '=', 'recommendation_update_help_text')->pluck('value');
       return View::make('recommendation.edit')->with(compact('recommendation', 'scholarship', 'help_text'));
-    }
-    else
-    {
+    } else {
       return App::abort(403, 'Access denied');
     }
   }
