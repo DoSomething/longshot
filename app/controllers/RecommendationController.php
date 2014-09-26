@@ -111,7 +111,8 @@ class RecommendationController extends \BaseController {
       }
       $scholarship = Scholarship::getCurrentScholarship();
       $help_text = Setting::where('key', '=', 'recommendation_update_help_text')->pluck('value');
-      return View::make('recommendation.edit')->with(compact('recommendation', 'scholarship', 'help_text'));
+      $rank_values = Recommendation::getRankValues();
+      return View::make('recommendation.edit')->with(compact('recommendation', 'scholarship', 'help_text', 'rank_values'));
     } else {
       return App::abort(403, 'Access denied');
     }
