@@ -167,3 +167,12 @@ function bodyClass()
 
   return 'section--' . $segmentOne;
 }
+
+
+/**
+ * Add a metric prefix to unit of measure.
+ */
+function useMetricPrefix($unit)
+{
+  return $unit / 1000 . 'k';
+}

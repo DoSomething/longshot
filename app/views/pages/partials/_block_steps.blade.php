@@ -10,7 +10,9 @@
       {{ $block->block_body_html }}
 
       <aside class="callout callout--scholarship">
-        ${{ $scholarshipAmount }}
+        <div class="wrapper">
+          <strong><span class="__amount">${{ useMetricPrefix($scholarshipAmount) }}</span> Scholarship</strong>
+        </div>
       </aside>
     </div>
 
