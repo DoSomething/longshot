@@ -135,9 +135,12 @@ Route::filter('startedProcess', function($route, $request, $value)
 Route::filter('submittedApp', function($route, $request)
 {
   $user = Auth::user();
-  $complete = Application::isSubmitted($user->id);
-  if ($complete)
-  {
-    return Redirect::route('status')->with('flash_message', 'You have already submitted your application, you can no longer edit');
+  $application = User::with('application')->whereId($user->id)->first();
+  if (!is_null($user->application)) {
+    $complete = Application::isSubmitted($user->id);
+    if (isset($complete))
+    {
+      return Redirect::route('status')->with('flash_message', 'You have already submitted your application, you can no longer edit');
+    }
   }
 });
