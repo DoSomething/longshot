@@ -52,5 +52,15 @@ class Recommendation extends \Eloquent {
     return fieldsAreComplete($fields, $optional = array());
   }
 
+  public static function getRankValues()
+  {
+    return array(
+      10   => 'Top 10%',
+      25   => 'Top 25%',
+      -10  => 'Bottom 10%',
+      -25  => 'Bottom 25%',
+    );
+  }
+
 
 }
