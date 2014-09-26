@@ -5,6 +5,7 @@
 @section('main_content')
   <article class="page">
     <h1 class="__title heading -beta text-primary-color">Review & Submit</h1>
+    <p> {{ $help_text }} </p>
     {{ Form::open(['route' => 'review.store']) }}
 
     <h3> Basic Info </h3>
