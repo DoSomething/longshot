@@ -14,14 +14,14 @@
   </div>
 
   {{-- Test Type --}}
-  <div class="field-group -dual -alpha {{ setInvalidClass('test_type', $errors) }}">
+  <div class="field-group -mono {{ setInvalidClass('test_type', $errors) }}">
     {{ Form::label('test_type', 'Test Type: (optional) ') }}
     {{ Form::select('test_type', array('PSAT' => 'PSAT', 'SAT' => 'SAT', 'PLAN' => 'PLAN', 'ACT' => 'ACT')); }}
     {{ errorsFor('test_type', $errors); }}
   </div>
 
   {{-- Test Score --}}
-  <div class="field-group -dual -beta {{ setInvalidClass('test_score', $errors) }}">
+  <div class="field-group -mono {{ setInvalidClass('test_score', $errors) }}">
     {{ Form::label('test_score', 'Test Score: (optional)') }}
     {{ Form::text('test_score') }}
     {{ errorsFor('test_score', $errors); }}
@@ -58,7 +58,7 @@
   </div>
 
     {{-- Hear About --}}
-  <div class="field-group -dual -alpha {{ setInvalidClass('hear_about', $errors) }}">
+  <div class="field-group -mono {{ setInvalidClass('hear_about', $errors) }}">
     {{ Form::label('hear_about', 'How did you hear about this scholarship? (optional) ') }}
     {{ Form::select('hear_about',  $choices); }}
     {{ errorsFor('test_hear_abouttype', $errors); }}

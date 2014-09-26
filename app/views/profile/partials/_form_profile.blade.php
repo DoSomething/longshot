@@ -55,27 +55,38 @@
     {{ errorsFor('gender', $errors); }}
   </div>
 
- Of the following options, which best describes your race? (Check all that apply) (<em>optional</em>)
- @foreach($races as $key => $race)
- {{-- is this really how you make a new php variable? --}}
- {{-- */$matched = FALSE/* --}}
- <div class="field-group">
- @if (isset($user))
-  @foreach($user->race as $key2=>$raceString)
-     {{ Form::label('race['. $key . ']', ' ') }}
-     @if (isset($user->race[$key2]) && $user->race[$key2]->race == $race)
-       {{ Form::checkbox('race['. $key . ']', $race, true) }}
-         {{ $race }}
-         {{-- */$matched = TRUE/* --}}
-     @endif
-  @endforeach
- @endif
- @if(!$matched)
-     {{ Form::checkbox('race['. $key . ']', $race) }}
-   {{ $race }}
-   @endif
- </div>
- @endforeach
+
+  <div>
+    <!-- @TODO: Need to come back and do a fender pass on below output! -->
+    <p>Of the following options, which best describes your race? (Check all that apply) <em>(optional)</em></p>
+
+    @foreach($races as $key => $race)
+    {{-- is this really how you make a new php variable? --}}
+    {{-- */$matched = FALSE/* --}}
+
+      <div class="field-group">
+
+        @if (isset($user))
+          @foreach($user->race as $key2=>$raceString)
+            {{ Form::label('race['. $key . ']', ' ') }}
+            @if (isset($user->race[$key2]) && $user->race[$key2]->race == $race)
+              {{ Form::checkbox('race['. $key . ']', $race, true) }}
+              {{ $race }}
+              {{-- */$matched = TRUE/* --}}
+            @endif
+          @endforeach
+        @endif
+
+        @if(!$matched)
+          {{ Form::checkbox('race['. $key . ']', $race) }}
+          {{ $race }}
+        @endif
+
+      </div>
+
+    @endforeach
+
+  </div>
 
   {{-- School --}}
   <div class="field-group {{ setInvalidClass('school', $errors) }}">

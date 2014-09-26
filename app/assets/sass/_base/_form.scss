@@ -4,7 +4,6 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-form { padding-bottom: 0.5em; }
 
 p + form { margin-top: 2em; }
 
@@ -13,9 +12,8 @@ p + form { margin-top: 2em; }
 //   &:last-of-type { padding-bottom: 0; }
 // }
 
-// fieldset + fieldset { border-top-style: solid; border-top-width: 1px; padding-top: pxcalc(20); }
 
-.field-group { clear: both;
+.field-group { clear: both; padding-bottom: 1.5em;
 
   label { display: block; margin-bottom: 0.5em; }
 
@@ -31,6 +29,10 @@ p + form { margin-top: 2em; }
   textarea { border: 2px solid $app_light_gray; border-radius: 3px; display: block; padding: pxcalc(15) pxcalc(10); resize: vertical; max-height: 300px; width: 100%; }
 
   input[type="checkbox"] + label { display: inline; margin-bottom: 0; }
+
+  &.-action {
+    .button + .button { margin-top: 0.5em; }
+  }
 
   select { background-color: #fff; border: 2px solid $app_light_gray; width: 100%;
 
@@ -49,11 +51,11 @@ p + form { margin-top: 2em; }
   }
 
   .error { color: $app_error; display: block; padding: pxcalc(5); }
+
 }
 
 .field-group + .heading { clear: both; padding-top: pxcalc(30); }
 
-.field-group + .field-group { margin-top: 1.5em; }
 
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -84,6 +86,16 @@ p + form { margin-top: 2em; }
     select { padding: pxcalc(15) pxcalc(10); }
 
     .error { padding-left: pxcalc(10); padding-right: pxcalc(10); }
+
+    &.-dual { margin-top: 0; }
+
+    &.-action { @include clearfix();
+      .button + .button { margin-top: 0; }
+
+      .-alpha { float: left; }
+
+      .-beta { float: right; }
+    }
   }
 
 }

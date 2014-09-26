@@ -4,13 +4,13 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.segment--nominate { @include container(100%); color: #fff; padding-left: 2.5%; padding-right: 2.5%;
+.segment--nominate { @include container(100%); color: #fff; padding: pxcalc(30) 2.5%;
   background: rgba(#aaa,0.3) url('/dist/images/studying-hard.jpg') center center; background-size: cover;
 
   .heading,
   label { text-shadow: 0 0 4px rgba(0,0,0,0.3); }
 
-  .fragment + .fragment { margin-top: pxcalc(40); }
+  .fragment + .fragment { margin-top: pxcalc(20); }
 
   .field-group {
     input[type="text"],
@@ -44,7 +44,7 @@
     }
 
     .field-group {
-      &.-action { padding-top: 3em;
+      &.-action { padding-top: 2em;
         input[type="submit"] { min-width: 320px; }
       }
     }
