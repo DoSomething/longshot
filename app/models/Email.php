@@ -42,7 +42,7 @@ class Email extends Eloquent {
       );
 
     // Send off the message.
-    Mail::send('emails.email', $email_data, function($message) use ($email_data)
+    Mail::queue('emails.email', $email_data, function($message) use ($email_data)
     {
       $message->to($email_data['to'])->subject($email_data['subject']);
     });
