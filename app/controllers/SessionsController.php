@@ -51,8 +51,8 @@ class SessionsController extends \BaseController {
 
       return Redirect::intended('status')->with('flash_message', 'You have been logged in!');
     }
-
-    return Redirect::back()->withInput()->with('flash_message', 'Invalid credentials!');
+    $password_forgot = link_to('password/remind', 'forgotten your password');
+    return Redirect::back()->withInput()->with('flash_message', 'Sorry, unrecognized username or password. Have you '. $password_forgot . '?');
   }
 
 
