@@ -19,9 +19,9 @@
 
 
         {{-- Submit Button --}}
-        <div class="field-group">
-           {{ Form::submit('Save as Draft', ['class' => 'button -default', 'name' => 'draft']) }}
-           {{ Form::submit('Save and Continue', ['class' => 'button -default', 'name' => 'complete']) }}
+        <div class="field-group -action">
+           {{ Form::submit('Save as Draft', ['class' => 'button -default -alpha', 'name' => 'draft']) }}
+           {{ Form::submit('Save and Continue', ['class' => 'button -default -beta', 'name' => 'complete']) }}
         </div>
 
         {{ Form::close() }}
