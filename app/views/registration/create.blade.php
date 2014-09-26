@@ -11,7 +11,9 @@
 
       <p>Have an account? {{ link_to_route('login', 'Login') }}</p>
 
-      <p>{{ $help_text }}</p>
+      @if(isset($help_text))
+        <p>{{ $help_text }}</p>
+      @endif
 
       {{ Form::open(['route' => 'registration.store']) }}
 
