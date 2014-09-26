@@ -31,7 +31,7 @@ class StatusController extends \BaseController {
       $status = 'Submitted!';
       $helper = 'We have your application!';
     } else {
-      $status = 'In progress';
+      $status = 'Incomplete';
       $helper = 'Make sure to fill out all fields and submit the application!';
     }
 
