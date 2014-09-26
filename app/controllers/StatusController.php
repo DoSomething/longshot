@@ -67,8 +67,9 @@ class StatusController extends \BaseController {
     $application = Application::where('user_id', $id)->select('accomplishments', 'activities', 'essay1', 'essay2', 'hear_about', 'link', 'test_type', 'test_score', 'gpa')->first()->toArray();
     $profile = Profile::where('user_id', $id)->select('birthdate', 'phone', 'address_street', 'address_premise', 'city', 'state', 'zip', 'gender', 'grade', 'school')->first()->toArray();
     $scholarship = Scholarship::getCurrentScholarship()->select(array('label_app_accomplishments as accomplishments', 'label_app_activities as activities', 'label_app_essay1 as essay1', 'label_app_essay2 as essay2'))->first()->toArray();
+    $help_text = Setting::where('key', '=', 'application_submit_help_text')->pluck('value');
 
-    return View::make('status.review', compact('application', 'profile', 'scholarship'));
+    return View::make('status.review', compact('application', 'profile', 'scholarship', 'help_text'));
   }
 
   /**
