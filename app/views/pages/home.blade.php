@@ -21,8 +21,8 @@
 
         {{ Form::open(['route' => 'nomination.create']) }}
 
-          <div class="-alpha">
-            <h2>Your Info</h2>
+          <div class="fragment -alpha">
+            <h2 class="heading -delta">Your Info</h2>
 
             {{-- Nominator Name --}}
             <div class="field-group">
@@ -39,8 +39,8 @@
             </div>
           </div>
 
-          <div class="-beta">
-            <h2>Their Info</h2>
+          <div class="fragment -beta">
+            <h2 class="heading -delta">Their Info</h2>
 
             {{-- Nominatee Name --}}
             <div class="field-group">
@@ -57,7 +57,10 @@
             </div>
           </div>
 
+          <div class="field-group -action">
             {{ Form::submit('Nominate', ['class' => 'button -default']) }}
+          </div>
+
         {{ Form::close() }}
       </div>
     </section>

@@ -4,6 +4,7 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+form { padding-bottom: 0.5em; }
 
 p + form { margin-top: 2em; }
 
@@ -14,7 +15,7 @@ p + form { margin-top: 2em; }
 
 // fieldset + fieldset { border-top-style: solid; border-top-width: 1px; padding-top: pxcalc(20); }
 
-.field-group { clear: both; margin-bottom: 1.5em;
+.field-group { clear: both;
 
   label { display: block; margin-bottom: 0.5em; }
 
@@ -51,6 +52,8 @@ p + form { margin-top: 2em; }
 }
 
 .field-group + .heading { clear: both; padding-top: pxcalc(30); }
+
+.field-group + .field-group { margin-top: 1.5em; }
 
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

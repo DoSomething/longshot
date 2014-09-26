@@ -8,7 +8,7 @@
 .button { border: 0 none; text-decoration: none;
 
   // @TODO: decide on min-width approach for buttons...
-  &.-default { @include rem(22); background-color: $app_primary; border-radius: 3px; color: #fff; display: inline-block; padding: 0.5em 1em; }
+  &.-default { @include rem(22); background-color: $app_primary; border-radius: 3px; color: #fff; display: inline-block; min-width: 200px; padding: 0.5em 1em; }
 
   &.icon { @include rem(30); }
 }
