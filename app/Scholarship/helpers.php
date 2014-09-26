@@ -151,3 +151,19 @@ function outputBlock($block)
 
   return $block->block_type;
 }
+
+
+/**
+ * Add a class to the body to indicate current section of app.
+ */
+function bodyClass()
+{
+  $segmentOne = Request::segment(1);
+  $path = Request::path();
+
+  if ($path === '/') {
+    return 'section--home';
+  }
+
+  return 'section--' . $segmentOne;
+}
