@@ -8,7 +8,9 @@
 
     <div>
       <h2 class="heading -gamma">Status: <em> {{ $status }} </em></h2>
-      <p>{{ $helper }}</p>
+      @if(! empty($help_text))
+        <p>{{ $help_text }}</p>
+      @endif
     </div>
 
     <section class="segment segment--checklist">
