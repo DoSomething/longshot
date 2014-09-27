@@ -2,7 +2,7 @@
 
 class Application extends Eloquent {
 
-  protected $fillable = ['accomplishments', 'gpa', 'test_type', 'test_score', 'activities', 'essay1', 'essay2', 'link', 'hear_about'];
+  protected $fillable = ['accomplishments', 'gpa', 'test_type', 'test_score', 'activities', 'participation', 'essay1', 'essay2', 'link', 'hear_about'];
 
   public function user()
   {
