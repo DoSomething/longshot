@@ -18,12 +18,6 @@ class HelperTextTableSeeder extends Seeder {
     ]);
     Setting::insert([
       'category'  => 'general',
-      'key'       => 'profile_create_help_text',
-      'value'     => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque facilis, explicabo quidem ea dolore fugit.',
-      'type'      => 'textarea',
-    ]);
-    Setting::insert([
-      'category'  => 'general',
       'key'       => 'application_create_help_text',
       'value'     => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque facilis, explicabo quidem ea dolore fugit.',
       'type'      => 'textarea',
