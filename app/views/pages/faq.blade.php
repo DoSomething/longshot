@@ -7,13 +7,17 @@
     <h1 class="__title heading -beta text-primary-color">{{ $page->title }}</h1>
 
     <div class="segment">
-      {{ $page->description_html }}
+      <div class="wrapper">
+        {{ $page->description_html }}
+      </div>
     </div>
 
     @foreach($page->blocks as $block)
       <section class="segment">
-        <h1 class="heading -gamma">{{ $block->block_title }}</h1>
-        {{ $block->block_body_html }}
+        <div class="wrapper">
+          <h1 class="heading -gamma">{{ $block->block_title }}</h1>
+          {{ $block->block_body_html }}
+        </div>
       </section>
     @endforeach
 

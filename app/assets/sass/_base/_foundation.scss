@@ -25,6 +25,15 @@ p { margin: 0; }
 
 p + p { margin-top: 1em; }
 
+dl { margin: 0; }
+
+dt,
+dd { margin: 0; }
+
+dd { margin-top: 0.5em; }
+
+dd + dt { margin-top: 2em; }
+
 a { color: $app_primary; }
 
 strong { font-family: 'ProximaNovaBold'; }

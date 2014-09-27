@@ -1,6 +1,6 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// STEPS STYLES
+// SEGMENT: STEPS STYLES
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -52,7 +52,7 @@
     &.-horizontal {
 
       ol { @include clearfix(); padding: pxcalc(20) 0; }
-      
+
       @include with-layout($triad) {
         li { @include span(6);
           &:first-child { @include span(first 6); }
@@ -98,8 +98,8 @@
       // @TODO: .__titles bust out of container on size increase for -horizontal if long enough.
       > .__title { @include rem(32); font-family: $font_proxima_nova_bold; margin-bottom: pxcalc(10,32); }
     }
-    
-    
+
+
     // Vertical Format
     &.-vertical {
 

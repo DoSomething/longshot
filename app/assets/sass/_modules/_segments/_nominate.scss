@@ -10,8 +10,6 @@
   .heading,
   label { text-shadow: 0 0 4px rgba(0,0,0,0.3); }
 
-  .fragment + .fragment { margin-top: pxcalc(20); }
-
   .field-group {
     input[type="text"],
     input[type="email"] { border: 0 none; color: #000; }
@@ -36,7 +34,7 @@
     > .wrapper { @include push(1 of 24); width: span(22 of 24);
     }
 
-    .fragment + .fragment { margin-top: 0; }
+    .fragment + .fragment { padding-top: 0; }
 
     .fragment {
       &.-alpha { @include span(first 10 of 22); }

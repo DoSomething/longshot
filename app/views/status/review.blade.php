@@ -4,65 +4,85 @@
 
 @section('main_content')
   <article class="page">
-    <h1 class="__title heading -beta text-primary-color">Review & Submit</h1>
-    <p> {{ $help_text }} </p>
-    {{ Form::open(['route' => 'review.store']) }}
+    <h1 class="__title heading -beta text-primary-color">Review &amp; Submit</h1>
 
-    <h3> Basic Info </h3>
-    @foreach ($profile as $key => $field)
-      @if (!empty($field))
-       <h4> {{ $key }} : </h4>
-       {{ $field }}
-      @endif
-    @endforeach
+    <section class="segment segment--review -compact">
+      <div class="wrapper">
 
-    <h3> Application </h3>
-    @foreach ($application as $key => $field)
-     {{-- did the have a value in the field --}}
-      @if (!empty($field))
-      {{-- does the field have a better title in the scholarship? --}}
-      @if (isset($scholarship[$key]))
-       <h4> {{ $scholarship[$key] }} : </h4>
-       @else
-        <h4> {{ $key }} </h4>
-       @endif
+        @if(! empty($help_text))
+          <p>{{ $help_text }}</p>
+        @endif
 
-       {{ $field }}
-      @endif
-    @endforeach
+        <div class="fragment">
+          <h2 class="heading -gamma">Basic Info</h2>
+          <dl>
+            @foreach ($profile as $key => $field)
+                @if (!empty($field))
+                 <dt><strong>{{ snakeCaseToTitleCase($key) }}</strong></dt>
+                 <dd>{{ $field }}</dd>
+                @endif
+            @endforeach
+          </dl>
+        </div>
+
+        <div class="fragment">
+          <h2 class="heading -gamma">Application</h2>
+          <dl>
+            @foreach ($application as $key => $field)
+              {{-- did the have a value in the field --}}
+              @if (!empty($field))
+                {{-- does the field have a better title in the scholarship? --}}
+                @if (isset($scholarship[$key]))
+                  <dt><strong>{{ snakeCaseToTitleCase($scholarship[$key]) }} </strong></dt>
+                @else
+                  <dt><strong>{{ snakeCaseToTitleCase($key) }}</strong></dt>
+                @endif
+                <dd>{{ $field }}</dd>
+              @endif
+            @endforeach
+          </dl>
+        </div>
 
 
-  {{-- Checklist --}}
-  <div class="field-group -checkbox">
-    {{ Form::checkbox('documentation', 1, false, ['id' => 'eligibility']); }}
-    {{ Form::label('documentation', "If you are chosen as a winner, you will submit a copy of your driver's license, birth certificate or passport as proof of age and U.S. citizenship/permanent legal resident status.") }}
-    {{ errorsFor('documentation', $errors); }}
-  </div>
+      {{ Form::open(['route' => 'review.store', 'class' => 'fragment']) }}
 
-  <div class="field-group -checkbox">
-    {{ Form::checkbox('factual', 1, false, ['id' => 'eligibility']); }}
-    {{ Form::label('factual', "You confirm that everything written in the application is true and factual.") }}
-    {{ errorsFor('factual', $errors); }}
-  </div>
+        {{-- Checklist --}}
+        <div class="field-group -checkbox">
+          {{ Form::checkbox('documentation', 1, false, ['id' => 'eligibility']); }}
+          {{ Form::label('documentation', "If you are chosen as a winner, you will submit a copy of your driver's license, birth certificate or passport as proof of age and U.S. citizenship/permanent legal resident status.") }}
+          {{ errorsFor('documentation', $errors); }}
+        </div>
 
-  <div class="field-group -checkbox">
-    {{ Form::checkbox('media_release', 1, false, ['id' => 'eligibility']); }}
-    {{ Form::label('media_release', "Foot Locker and TMI may use your application in any media or public relations campaigns.") }}
-    {{ errorsFor('media_release', $errors); }}
-  </div>
+        <div class="field-group -checkbox">
+          {{ Form::checkbox('factual', 1, false, ['id' => 'eligibility']); }}
+          {{ Form::label('factual', "You confirm that everything written in the application is true and factual.") }}
+          {{ errorsFor('factual', $errors); }}
+        </div>
 
-  <div class="field-group -checkbox">
-    {{ Form::checkbox('rules', 1, false, ['id' => 'eligibility']); }}
-    {{ Form::label('rules', "You agree to the Official Rules [link]") }}
-    {{ errorsFor('rules', $errors); }}
-  </div>
+        <div class="field-group -checkbox">
+          {{ Form::checkbox('media_release', 1, false, ['id' => 'eligibility']); }}
+          {{ Form::label('media_release', "Foot Locker and TMI may use your application in any media or public relations campaigns.") }}
+          {{ errorsFor('media_release', $errors); }}
+        </div>
 
-    {{ Form::submit('Submit application', ['class' => 'button -default', 'name' => 'complete']) }}
-    {{ Form::close() }}
+        <div class="field-group -checkbox">
+          {{ Form::checkbox('rules', 1, false, ['id' => 'eligibility']); }}
+          {{ Form::label('rules', "You agree to the Official Rules [link]") }}
+          {{ errorsFor('rules', $errors); }}
+        </div>
 
-    <div class="contact">
-      <p>Need help? <a href="mailto:gthomas@tmiagency.org">Contact Us</a></p>
-    </div>
+        <div class="field-group -action">
+          {{ Form::submit('Submit application', ['class' => 'button -default', 'name' => 'complete']) }}
+        </div>
+
+      {{ Form::close() }}
+
+      <div class="contact">
+        <p>Need help? <a href="mailto:gthomas@tmiagency.org">Contact Us</a></p>
+      </div>
+
+      </div>
+    </section>
 
   </article>
 @stop
