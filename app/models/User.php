@@ -88,7 +88,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 
   /**
-   *
+   * Assign a specific role to a User.
    */
   public function assignRole($role)
   {
@@ -97,7 +97,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 
   /**
-   *
+   * Remove a specific role from a User.
    */
   public function removeRole($role)
   {
@@ -106,7 +106,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 
   /**
-   * Is the current User object the currently authenticated user.
+   * Check to see if the current User object is the currently authenticated user.
    */
   public function isCurrent()
   {
