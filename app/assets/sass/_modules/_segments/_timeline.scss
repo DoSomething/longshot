@@ -4,8 +4,27 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+
+// LOCAL VARIABLES
+$timeline_thickness: 10;
+$line_thickness: 3;
+$indicator_size: 14;
+$indicator_full_size: $indicator_size + ($line_thickness * 2);
+$peg_length: 30;
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 .segment--timeline {
-  ul { @include list_reset(); }
+
+  ul { @include list_reset();
+    li { padding-left: ($indicator_full_size + $peg_length + 10) + px; position: relative;
+      &:before { @include pseudo_base($indicator_size,$indicator_size); background-color: #fff; border: $line_thickness + px solid $app_primary; border-radius: 100%; margin-top: -($indicator_full_size / 2) + px; left: 0; position: absolute; top: 50%; }
+      &:after { @include pseudo_base($line_thickness,$peg_length); background-color: $app_primary; position: absolute; left: $indicator_full_size + px; margin-top: -($line_thickness / 2) + px; top: 50%; }
+    }
+
+    li + li { margin-top: 1em; }
+  }
+
+  strong { text-transform: uppercase; }
 
 }
 
@@ -15,12 +34,21 @@
 // MEDIA QUERIES
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-@media only screen and (min-width: $medium) {
+@media only screen and (min-width: $large) {
 
   .segment--timeline {
-    ul { background-color: $app_primary; border-radius: 5px; height: 10px; position: relative;
-      li { position: absolute; width: 20%; }
+    ul { position: relative;
+      &:before { background-color: $app_primary; border-radius: 5px; content: ''; display: block; margin: 0 -5px; height: $timeline_thickness + px; width: 100%; }
+
+      li { float: left; padding: (($indicator_size / 2) + $peg_length + 10) + px pxcalc(0) 0 0; text-align: center; width: 25%;
+        &:before { left: 50%; margin-left: -($indicator_full_size / 2) + px; margin-top: 0; top: -(($indicator_full_size / 2) + ($timeline_thickness / 2)) + px; }
+        &:after { @include pseudo_base($peg_length,$line_thickness); left: 50%; margin-left: -($line_thickness / 2) + px; margin-top: 0; top: (($indicator_full_size / 2) - ($timeline_thickness / 2)) + px; }
+      }
+
+      li + li { margin-top: 0; }
     }
+
+    strong { display: block; }
   }
 
 }
