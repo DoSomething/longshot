@@ -17,12 +17,13 @@ class Block extends Eloquent {
   public static function getTypes()
   {
     $types = [
-      'default' => 'Default',
-      'introduction' => 'Introduction',
-      'timeline' => 'Timeline',
-      'steps-vertical' => 'Numbered Steps (vertical)',
+      'default'          => 'Default',
+      'introduction'     => 'Introduction',
+      'cta'              => 'Call to Action',
+      'timeline'         => 'Timeline',
+      'steps-vertical'   => 'Numbered Steps (vertical)',
       'steps-horizontal' => 'Numbered Steps (horizontal)',
-      'cta' => 'Call to Action'
+      'detailed-list'     => 'Detailed List',
     ];
 
     return $types;

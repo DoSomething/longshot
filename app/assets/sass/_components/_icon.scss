@@ -13,3 +13,15 @@
 [data-icon]:before { content: attr(data-icon); }
 
 .icon-text { @include visually_hidden(); }
+
+
+
+// ICON SPECIFIC
+// Using IDs in this specific instance since icons added to titles in Markdown,
+// and this allows easier options for content editors.
+
+#judging:before { content: "\e603"; }
+
+#prizing:before { content: "\e604"; }
+
+#eligibility:before { content: "\e602"; }
