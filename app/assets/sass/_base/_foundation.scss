@@ -15,7 +15,7 @@
 					box-sizing: border-box;
 }
 
-body { @include rem($base_font_size); background-color: #ddd; font-family: $font_proxima_nova_regular; }
+body { @include rem($base_font_size); background-color: #ddd; font-family: $font_proxima_nova_regular; line-height: 1.4; }
 
 h1, h2, h3, h4, h5, h6 { margin-top: 0; }
 
@@ -23,7 +23,8 @@ img { display: block; height: auto; max-width: 100%; width: auto; }
 
 p { margin: 0; }
 
-p + p { margin-top: 1em; }
+p + p,
+p + ul { margin-top: 1em; }
 
 dl { margin: 0; }
 
