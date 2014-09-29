@@ -1,3 +1,7 @@
+<?php
+  // $vars = get_defined_vars();
+  // dd($vars['vars']);
+?>
 <!DOCTYPE html>
 
 <html>

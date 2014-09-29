@@ -40,7 +40,7 @@
 
   // @TODO: clean this up!
   .main-nav { background-color: transparent;
-    a { padding: 1rem 0;
+    a { height: 75px; line-height: 55px; padding: 10px 0;
       > span { padding: 0 0.75rem; }
 
       &:hover { background-color: transparent; text-decoration: underline; }

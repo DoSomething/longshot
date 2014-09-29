@@ -4,12 +4,12 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-[role="banner"] { background-color: $app_background; padding-bottom: pxcalc(10); padding-top: pxcalc(10); position: relative;
-  > .wrapper { overflow: hidden; }
+[role="banner"] { background-color: $app_background; padding-bottom: 10px; padding-top: 10px; position: relative;
+  > .wrapper { min-height: 30px; overflow: hidden; }
 
   .__logo { float: left; margin: 0;
     > a { display: block; }
-    img { max-height: 40px; }
+    img {  max-height: 30px; }
   }
 
   #button-main-nav { color: #fff; display: block; margin-top: -(pxcalc(25, 30)); padding: pxcalc(10,30); position: absolute; right: 0; top: 50%; }
@@ -24,8 +24,15 @@
 
 @media only screen and (min-width: $medium) {
 
-  [role="banner"] {
+  [role="banner"] { height: 75px;
+
     #button-main-nav { display: none; }
+
+    .__logo {
+      > a { display: table-cell; height: 55px; vertical-align: middle; }
+      img { max-height: 55px; }
+    }
+
   }
 
 }

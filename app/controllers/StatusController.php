@@ -54,7 +54,9 @@ class StatusController extends \BaseController {
       $submit = link_to_route('review', 'Review & Submit Application', array($user->id));
     }
 
-    return View::make('status.index', compact('profile', 'application', 'recommendations', 'app_complete', 'prof_complete', 'submit', 'status', 'helper'));
+    $vars = Setting::getContent('general');
+
+    return View::make('status.index', compact('profile', 'application', 'recommendations', 'app_complete', 'prof_complete', 'submit', 'status', 'helper', 'vars'));
   }
 
   /**
@@ -68,8 +70,9 @@ class StatusController extends \BaseController {
     $profile = Profile::where('user_id', $id)->select('birthdate', 'phone', 'address_street', 'address_premise', 'city', 'state', 'zip', 'gender', 'grade', 'school')->first()->toArray();
     $scholarship = Scholarship::getCurrentScholarship()->select(array('label_app_accomplishments as accomplishments', 'label_app_activities as activities', 'label_app_essay1 as essay1', 'label_app_essay2 as essay2'))->first()->toArray();
     $help_text = Setting::where('key', '=', 'application_submit_help_text')->pluck('value');
+    $vars = Setting::getContent('general');
 
-    return View::make('status.review', compact('application', 'profile', 'scholarship', 'help_text'));
+    return View::make('status.review', compact('application', 'profile', 'scholarship', 'help_text', 'vars'));
   }
 
   /**

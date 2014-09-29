@@ -27,7 +27,9 @@ class SessionsController extends \BaseController {
       return Redirect::route('status');
     }
 
-    return View::make('sessions.create');
+    $vars = Setting::getContent('general');
+
+    return View::make('sessions.create', compact('vars'));
   }
 
 

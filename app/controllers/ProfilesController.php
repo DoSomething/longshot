@@ -25,7 +25,9 @@ class ProfilesController extends \BaseController {
     $states = Profile::getStates();
     $races = Profile::getRaces();
     $help_text = Setting::where('key', '=', 'basic_info_help_text')->pluck('value');
-    return View::make('profile.create')->with(compact('states', 'races', 'help_text'));
+    $vars = Setting::getContent('general');
+
+    return View::make('profile.create')->with(compact('states', 'races', 'help_text', 'vars'));
   }
 
 
@@ -92,14 +94,16 @@ class ProfilesController extends \BaseController {
       return Redirect::home()->with('flash_message', 'This user does\'t exist!');
     }
 
+    $vars = Setting::getContent('general');
+
     if (! $user->profile)
     {
       // @TODO: Probably change states into a public static function of Controller.
       $states = Profile::getStates();
-      return View::make('profile.create')->with('states', $states);
+      return View::make('profile.create', compact('states', 'vars'));
     }
 
-    return View::make('profile.show')->withUser($user);
+    return View::make('profile.show', compact('vars'))->withUser($user);
   }
 
 
@@ -115,7 +119,9 @@ class ProfilesController extends \BaseController {
     $states = Profile::getStates();
     $races = Profile::getRaces();
     $help_text = Setting::where('key', '=', 'basic_info_help_text')->pluck('value');
-    return View::make('profile.edit')->withUser($profile)->with(compact('states', 'races', 'help_text'));
+    $vars = Setting::getContent('general');
+
+    return View::make('profile.edit')->withUser($profile)->with(compact('states', 'races', 'help_text', 'vars'));
   }
 
 
