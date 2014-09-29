@@ -10,7 +10,6 @@ class Setting extends Eloquent {
    */
   public static function getContent($category)
   {
-    // @TODO: try using remember() so that it Laravel will cache the query.
-    return (object) Setting::whereCategory($category)->lists('value', 'key');
+    return (object) Setting::rememberForever('query.setting.' . $category)->whereCategory($category)->lists('value', 'key');
   }
 }
