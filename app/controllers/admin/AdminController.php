@@ -10,7 +10,10 @@ class AdminController extends \BaseController {
   public function index()
   {
     $user = Auth::user();
-    $userCount = DB::table('users')->count();
+    $userCount =  $query = DB::table('users')
+                  ->leftJoin('role_user', 'users.id', '=', 'role_user.user_id')
+                  ->where('role_user.role_id', '=', 2)
+                  ->count();
 
     return View::make('admin.index', compact('user', 'userCount'));
   }
