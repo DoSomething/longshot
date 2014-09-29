@@ -169,14 +169,28 @@ class PagesController extends \BaseController {
    */
   public function update($id)
   {
-    $input = Input::except('blocks');
+    $inputText = Input::only('title', 'link_text', 'description');
+    $inputImage = Input::only('hero_image');
+
+    // @TODO: add image validation here.
+
     $page = Page::whereId($id)->firstOrFail();
     $path = Path::wherePageId($id)->firstOrFail();
 
-    $input['description_html'] = MarkdownExtra::defaultTransform($input['description']);
-    $page->fill($input)->save();
+    // @TODO: if image already exists, should we delete old one?
+    if (Input::hasFile('hero_image'))
+    {
+      $file = Input::file('hero_image');
+      $filename = $file->getClientOriginalName();
+      $file->move(public_path() . '/pages/images/', $filename);
+      $inputText['hero_image'] = '/pages/images/' . $filename;
+    }
 
-    $path->link_text = $input['link_text'];
+    $inputText['description_html'] = MarkdownExtra::defaultTransform($inputText['description']);
+
+    $page->fill($inputText)->save();
+
+    $path->link_text = $inputText['link_text'];
     $path->save();
 
     $blocks = Input::get('blocks');

@@ -2,7 +2,7 @@
 
 class Page extends \Eloquent {
 
-  protected $fillable = ['title', 'url', 'description', 'description_html', 'image'];
+  protected $fillable = ['title', 'url', 'description', 'description_html', 'hero_image'];
 
   public function path()
   {
