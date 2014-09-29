@@ -25,7 +25,7 @@ class ProfilesController extends \BaseController {
     $states = Profile::getStates();
     $races = Profile::getRaces();
     $help_text = Setting::where('key', '=', 'basic_info_help_text')->pluck('value');
-    $vars = Setting::getContent('general');
+    $vars = Setting::getSettingsVariables('general');
 
     return View::make('profile.create')->with(compact('states', 'races', 'help_text', 'vars'));
   }
@@ -94,7 +94,7 @@ class ProfilesController extends \BaseController {
       return Redirect::home()->with('flash_message', 'This user does\'t exist!');
     }
 
-    $vars = Setting::getContent('general');
+    $vars = Setting::getSettingsVariables('general');
 
     if (! $user->profile)
     {
@@ -119,7 +119,7 @@ class ProfilesController extends \BaseController {
     $states = Profile::getStates();
     $races = Profile::getRaces();
     $help_text = Setting::where('key', '=', 'basic_info_help_text')->pluck('value');
-    $vars = Setting::getContent('general');
+    $vars = Setting::getSettingsVariables('general');
 
     return View::make('profile.edit')->withUser($profile)->with(compact('states', 'races', 'help_text', 'vars'));
   }

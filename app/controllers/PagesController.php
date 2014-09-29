@@ -106,7 +106,7 @@ class PagesController extends \BaseController {
     $pathList = Path::lists('url');
     $pageRequest = stringtoKebabCase($path);
     $url = $pageRequest;
-    $vars = Setting::getContent('general');
+    $vars = Setting::getSettingsVariables('general');
 
     if (!in_array($pageRequest, $pathList))
     {
@@ -137,7 +137,7 @@ class PagesController extends \BaseController {
     $scholarshipAmount = Scholarship::getCurrentScholarship()->pluck('amount_scholarship');
     $page = Path::getPageContent('/');
     $url = 'home';
-    $vars = Setting::getContent('general');
+    $vars = Setting::getSettingsVariables('general');
 
     return View::make('pages.home', compact('page', 'url', 'scholarshipAmount', 'vars'));
   }

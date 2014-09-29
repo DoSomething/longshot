@@ -1,6 +1,5 @@
 <footer role="contentinfo">
-  @if(isset($vars->footer_logo))
-    <img src="{{ $vars->footer_logo }}" alt="partner">
-  @endif
-  <p>Copyright &copy; {{ date('Y') }} {{ $vars->company_name }}</p>
+  <img src="{{ $vars->footer_logo or '/dist/images/tmi-logo.png' }}" alt="partner">
+
+  <p>Copyright &copy; {{ date('Y') }} {{ $vars->company_name or 'TMI Agency' }}</p>
 </footer>
