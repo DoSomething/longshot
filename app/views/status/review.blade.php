@@ -78,7 +78,7 @@
       {{ Form::close() }}
 
       <div class="contact">
-        <p>Need help? <a href="mailto:gthomas@tmiagency.org">Contact Us</a></p>
+        <p>Need help? <a href="mailto:{{Config::get('mail.from.address')}}">Contact Us</a></p>
       </div>
 
       </div>
