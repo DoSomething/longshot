@@ -35,6 +35,13 @@
     {{ errorsFor('activities', $errors); }}
   </div>
 
+    {{-- Participation --}}
+  <div class="field-group {{ setInvalidClass('activities', $errors) }}">
+    {{ Form::label('participation', $scholarship->label_app_participation) }}
+    {{ Form::textarea('participation') }}
+    {{ errorsFor('participation', $errors); }}
+  </div>
+
   {{-- Essay 1 --}}
   <div class="field-group {{ setInvalidClass('essay1', $errors) }}">
     {{ Form::label('essay1', $scholarship->label_app_essay1) }}

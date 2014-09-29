@@ -92,6 +92,13 @@
   {{ errorsFor('label_app_activities', $errors); }}
 </div>
 
+{{-- Participation Label --}}
+<div class="form-group">
+  {{ Form::label('label_app_participation', 'Participation Label: ') }}
+  {{ Form::text('label_app_participation', null, ['class' => 'form-control']) }}
+  {{ errorsFor('label_app_participation', $errors); }}
+</div>
+
 {{-- Essay 1 Label --}}
 <div class="form-group">
   {{ Form::label('label_app_essay1', 'Essay 1 Label: ') }}
