@@ -45,7 +45,9 @@ class ApplicationController extends \BaseController {
     $scholarship = Scholarship::getCurrentScholarship()->select(['label_app_accomplishments', 'label_app_activities', 'label_app_participation', 'label_app_essay1', 'label_app_essay2', 'hear_about_options'])->first();
     $choices = Application::formatChoices($scholarship->hear_about_options);
     $help_text = Setting::where('key', '=', 'application_create_help_text')->pluck('value');
-    return View::make('application.create')->with(compact('scholarship', 'help_text', 'choices'));
+    $vars = Setting::getSettingsVariables('general');
+
+    return View::make('application.create')->with(compact('scholarship', 'help_text', 'choices', 'vars'));
   }
 
 
@@ -108,7 +110,9 @@ class ApplicationController extends \BaseController {
   public function show($id)
   {
     $user = User::with('application')->whereId($id)->firstOrFail();
-    return View::make('application.show')->withUser($user);
+    $vars = Setting::getSettingsVariables('general');
+
+    return View::make('application.show', compact('vars'))->withUser($user);
   }
 
 
@@ -125,7 +129,9 @@ class ApplicationController extends \BaseController {
     $scholarship = Scholarship::getCurrentScholarship()->select(['label_app_accomplishments', 'label_app_activities', 'label_app_participation', 'label_app_essay1', 'label_app_essay2', 'hear_about_options'])->first();
     $choices = Application::formatChoices($scholarship->hear_about_options);
     $help_text = Setting::where('key', '=', 'application_create_help_text')->pluck('value');
-    return View::make('application.edit')->with(compact('user', 'scholarship', 'help_text', 'choices'));
+    $vars = Setting::getSettingsVariables('general');
+
+    return View::make('application.edit')->with(compact('user', 'scholarship', 'help_text', 'choices', 'vars'));
   }
 
 

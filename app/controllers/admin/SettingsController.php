@@ -51,7 +51,7 @@ class SettingsController extends \BaseController {
     $input = Input::only('primary_color', 'primary_color_contrast', 'secondary_color', 'secondary_color_contrast', 'cap_color', 'cap_color_contrast');
     $this->settingsForm->validate($input);
 
-    // @TODO: maybe create this as a method of the Setting model?
+    // @TODO: use the new method in the Setting model!
     $settings = Setting::whereCategory('appearance')->get();
     $settings->each(function($setting) use($input)
     {
@@ -101,6 +101,8 @@ class SettingsController extends \BaseController {
       $setting->value = $input[$setting->key];
       $setting->save();
     });
+
+    Event::fire('setting.change', ['general']);
 
     return Redirect::route('general.edit')->with('flash_message', 'General settings have been saved!');
 

@@ -1,3 +1,5 @@
 <footer role="contentinfo">
-  <p>Copyright &copy; {{ date('Y') }} Company Name Here</p>
+  <img src="{{ $vars->footer_logo or '/dist/images/tmi-logo.png' }}" alt="partner">
+
+  <p>Copyright &copy; {{ date('Y') }} {{ $vars->company_name or 'TMI Agency' }}</p>
 </footer>

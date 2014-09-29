@@ -17,11 +17,8 @@
 
 
 // ICON SPECIFIC
-// Using IDs in this specific instance since icons added to titles in Markdown,
-// and this allows easier options for content editors.
+.icon-judging:before { content: "\e603"; }
 
-#judging:before { content: "\e603"; }
+.icon-prizing:before { content: "\e604"; }
 
-#prizing:before { content: "\e604"; }
-
-#eligibility:before { content: "\e602"; }
+.icon-eligibility:before { content: "\e602"; }

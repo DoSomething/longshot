@@ -9,7 +9,9 @@ class RemindersController extends Controller {
    */
   public function getRemind()
   {
-    return View::make('password.remind');
+    $vars = Setting::getSettingsVariables('general');
+
+    return View::make('password.remind', compact('vars'));
   }
 
   /**
@@ -42,7 +44,9 @@ class RemindersController extends Controller {
   {
     if (is_null($token)) App::abort(404);
 
-    return View::make('password.reset')->with('token', $token);
+    $vars = Setting::getSettingsVariables('general');
+
+    return View::make('password.reset', compact('token', 'vars'));
   }
 
   /**

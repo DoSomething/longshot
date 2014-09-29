@@ -106,6 +106,7 @@ class PagesController extends \BaseController {
     $pathList = Path::lists('url');
     $pageRequest = stringtoKebabCase($path);
     $url = $pageRequest;
+    $vars = Setting::getSettingsVariables('general');
 
     if (!in_array($pageRequest, $pathList))
     {
@@ -116,11 +117,11 @@ class PagesController extends \BaseController {
 
     if (View::exists('pages.' . $pageRequest))
     {
-      return View::make('pages.' . $pageRequest, compact('page', 'url'));
+      return View::make('pages.' . $pageRequest, compact('page', 'url', 'vars'));
     }
 
     // Otherwise, return the default static view template.
-    return View::make('pages.static', compact('page', 'url'));
+    return View::make('pages.static', compact('page', 'url', 'vars'));
   }
 
 
@@ -136,8 +137,9 @@ class PagesController extends \BaseController {
     $scholarshipAmount = Scholarship::getCurrentScholarship()->pluck('amount_scholarship');
     $page = Path::getPageContent('/');
     $url = 'home';
+    $vars = Setting::getSettingsVariables('general');
 
-    return View::make('pages.home', compact('page', 'url', 'scholarshipAmount'));
+    return View::make('pages.home', compact('page', 'url', 'scholarshipAmount', 'vars'));
   }
 
 

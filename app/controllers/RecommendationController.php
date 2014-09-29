@@ -35,7 +35,9 @@ class RecommendationController extends \BaseController {
     // This will be seen by applicants only.
     $num_recs = Scholarship::getCurrentScholarship()->select('num_recommendations_max', 'num_recommendations_min')->firstOrFail()->toArray();
     $help_text = Setting::where('key', '=', 'recommendation_create_help_text')->pluck('value');
-    return View::make('recommendation.create', compact('num_recs', 'help_text'));
+    $vars = Setting::getSettingsVariables('general');
+
+    return View::make('recommendation.create', compact('num_recs', 'help_text', 'vars'));
   }
 
   /**
@@ -94,8 +96,10 @@ class RecommendationController extends \BaseController {
   public function edit($id)
   {
     $recommendation = Recommendation::whereId($id)->firstOrFail();
+    $vars = Setting::getSettingsVariables('general');
     // Make sure this person has the right token in the url.
     $correct_token = RecommendationToken::where('recommendation_id', $id)->pluck('token');
+
     if (isset($_GET['token']) && $_GET['token'] == $correct_token) {
       if (Recommendation::isComplete($id)) {
 
@@ -112,7 +116,7 @@ class RecommendationController extends \BaseController {
       $scholarship = Scholarship::getCurrentScholarship();
       $help_text = Setting::where('key', '=', 'recommendation_update_help_text')->pluck('value');
       $rank_values = Recommendation::getRankValues();
-      return View::make('recommendation.edit')->with(compact('recommendation', 'scholarship', 'help_text', 'rank_values'));
+      return View::make('recommendation.edit')->with(compact('recommendation', 'scholarship', 'help_text', 'rank_values', 'vars'));
     } else {
       return App::abort(403, 'Access denied');
     }

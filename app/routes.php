@@ -7,7 +7,6 @@
 |
 */
 
-
 # Registration
 Route::get('register', ['as' => 'registration.create', 'uses' => 'RegistrationController@create'])->before('guest');
 Route::post('register', ['as' => 'registration.store', 'uses' => 'RegistrationController@store']);
