@@ -5,7 +5,7 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-.banner { background-color: #404040; color: #fff; display: table; min-height: pxcalc(200); padding: pxcalc(20) pxcalc(10); position: relative; text-align: center; width: 100%;
+.banner { background-color: $app_background; color: #fff; display: table; min-height: pxcalc(200); padding: pxcalc(20) pxcalc(10); position: relative; text-align: center; width: 100%;
   > .wrapper { display: table-cell; position: relative; vertical-align: bottom; z-index: 10; }
 
   &.-hero { text-shadow: 0 0 4px rgba(0,0,0,0.3); text-transform: uppercase;
@@ -28,7 +28,7 @@
 
 @media only screen and (min-width: $medium) {
 
-  .banner { height: pxcalc(442);
+  .banner { height: pxcalc(440);
 
     &.-hero {
 
