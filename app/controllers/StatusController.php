@@ -66,8 +66,8 @@ class StatusController extends \BaseController {
   public function review($id)
   {
     // Get all the things.
-    $application = Application::where('user_id', $id)->select('accomplishments', 'activities', 'participation', 'essay1', 'essay2', 'hear_about', 'link', 'test_type', 'test_score', 'gpa')->first()->toArray();
-    $profile = Profile::where('user_id', $id)->select('birthdate', 'phone', 'address_street', 'address_premise', 'city', 'state', 'zip', 'gender', 'grade', 'school')->first()->toArray();
+    $application = Application::where('user_id', $id)->select('accomplishments', 'activities', 'participation', 'essay1', 'essay2', 'hear_about as how_did_you_hear_about_this', 'link', 'test_type', 'test_score', 'gpa')->first()->toArray();
+    $profile = Profile::where('user_id', $id)->select('birthdate', 'phone', 'address_street', 'address_premise', 'city', 'state', 'zip as zip_code', 'gender', 'grade', 'school as current_high_school')->first()->toArray();
     $scholarship = Scholarship::getCurrentScholarship()->select(array('label_app_accomplishments as accomplishments', 'label_app_activities as activities', 'label_app_participation as participation' ,'label_app_essay1 as essay1', 'label_app_essay2 as essay2'))->first()->toArray();
     $help_text = Setting::where('key', '=', 'application_submit_help_text')->pluck('value');
     $vars = Setting::getSettingsVariables('general');
