@@ -113,10 +113,10 @@ class RecommendationController extends \BaseController {
     // Make sure this person has the right token in the url.
     $correct_token = RecommendationToken::where('recommendation_id', $id)->pluck('token');
     $help_text = Setting::where('key', '=', 'recommendation_update_help_text')->pluck('value');
+    $vars = Setting::getSettingsVariables('general');
 
     if (isset($_GET['token']) && $_GET['token'] == $correct_token) {
       $recommendation = Recommendation::whereId($id)->firstOrFail();
-      $vars = Setting::getSettingsVariables('general');
       if (Recommendation::isComplete($id)) {
 
         $applicant_name = DB::table('users')
@@ -138,7 +138,7 @@ class RecommendationController extends \BaseController {
       $num_recs = Scholarship::getCurrentScholarship()->select('num_recommendations_max', 'num_recommendations_min')->firstOrFail()->toArray();
       $recs = Recommendation::where('application_id', $_GET['app_id'])->get()->toArray();
       $user = Auth::user();
-      return View::make('recommendation.applicant_edit')->with(compact('help_text', 'num_recs', 'recs', 'user'));
+      return View::make('recommendation.applicant_edit')->with(compact('help_text', 'num_recs', 'recs', 'user', 'vars'));
 
     } else {
       return App::abort(403, 'Access denied');
