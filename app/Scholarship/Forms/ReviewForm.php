@@ -16,4 +16,11 @@ class ReviewForm extends FormValidator {
   'rules'           => 'accepted',
  ];
 
+protected $messages = [
+  'documentation.accepted'   => 'Please confirm you can provide one of these documents.',
+  'factual.accepted'         => 'Please confirm everything in your application is true and factual.',
+  'media_release.accepted'   => 'This field is required.',
+  'rules.accepted'           => 'Please verify that you accept the Official Rules.',
+ ];
+
 }
