@@ -48,7 +48,7 @@ class StatusController extends \BaseController {
       }
       foreach($recommendations as $rec) {
         $rec->isRecommendationComplete($rec);
-        if ($rec->complete == 'All set!' && isset($app_complete) && $application->complete) {
+        if ($rec->isComplete($rec->id) && isset($app_complete) && $application->complete) {
           $status = 'Completed.';
           $help_text = 'Your application is in review.';
         }
@@ -90,14 +90,22 @@ class StatusController extends \BaseController {
    */
   public function submit()
   {
-
     $input = Input::all();
     $this->reviewForm->validate($input);
     $application = Application::where('user_id', Auth::user()->id)->firstorFail();
     $application->complete = 1;
     $application->save();
     $this->confirmationEmail();
-
+    $recommendations = Recommendation::where('application_id', $application->id)->get();
+    $max_recs = Scholarship::getCurrentScholarship()->pluck('num_recommendations_max');
+    foreach($recommendations as $rec) {
+      if ($rec->isComplete($rec->id)) {
+        return Redirect::route('status')->with('flash_message', 'Sweet, you\'re all set!');
+      }
+    }
+    if ($recommendations->count() == $max_recs) {
+      return Redirect::route('status')->with('flash_message', 'Sweet, just waiting on your recommendations');
+    }
     return Redirect::route('recommendation.create')->with('flash_message', 'Sweet, you submitted your app');
   }
 
