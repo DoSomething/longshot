@@ -6,6 +6,7 @@
   "require": {
     "laravel/framework": "4.2.*",
     "laracasts/validation": "~1.0",
+    "illuminate/validation" : "~4.0",
     "guzzlehttp/guzzle": "4.*",
     "michelf/php-markdown": "1.4.*",
     "schickling/backup": "0.5.*",
@@ -21,7 +22,8 @@
       "app/models",
       "app/database/migrations",
       "app/database/seeds",
-      "app/tests/TestCase.php"
+      "app/tests/TestCase.php",
+      "app/validate"
     ],
     "files": ["app/Scholarship/helpers.php"],
     "psr-4": {
