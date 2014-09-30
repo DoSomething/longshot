@@ -20,6 +20,7 @@ class SettingsForm extends FormValidator {
     'secondary_color_contrast' => 'alpha_num|size:6',
     'cap_color'                => 'alpha_num|size:6',
     'cap_color_contrast'       => 'alpha_num|size:6',
+    'nominate_image'           => 'image|mimes:png,jpeg',
   ];
 
 }
