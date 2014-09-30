@@ -50,5 +50,7 @@
 
     <script src="/dist/bower_components/jquery/dist/jquery.min.js"></script>
     <script src="/dist/js/main.js"></script>
+
+    @include('layouts.partials.google-analytics')
   </body>
 </html>
