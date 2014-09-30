@@ -11,6 +11,9 @@ class RecommendationController extends \BaseController {
   function __construct(RecommendationForm $recommendationForm)
   {
     $this->recommendationForm = $recommendationForm;
+
+    // Check that the current user doesn't create many applications
+    $this->beforeFilter('createdRec', ['only' => ['create']]);
   }
 
   /**
@@ -108,12 +111,13 @@ class RecommendationController extends \BaseController {
    */
   public function edit($id)
   {
-    $recommendation = Recommendation::whereId($id)->firstOrFail();
-    $vars = Setting::getSettingsVariables('general');
     // Make sure this person has the right token in the url.
     $correct_token = RecommendationToken::where('recommendation_id', $id)->pluck('token');
+    $help_text = Setting::where('key', '=', 'recommendation_update_help_text')->pluck('value');
 
     if (isset($_GET['token']) && $_GET['token'] == $correct_token) {
+      $recommendation = Recommendation::whereId($id)->firstOrFail();
+      $vars = Setting::getSettingsVariables('general');
       if (Recommendation::isComplete($id)) {
 
         $applicant_name = DB::table('users')
@@ -127,9 +131,16 @@ class RecommendationController extends \BaseController {
         return Redirect::route('home')->with('flash_message', 'You already submitted your recommendation for ' . $name . '. Thanks again for your recommendation!');
       }
       $scholarship = Scholarship::getCurrentScholarship();
-      $help_text = Setting::where('key', '=', 'recommendation_update_help_text')->pluck('value');
       $rank_values = Recommendation::getRankValues();
       return View::make('recommendation.edit')->with(compact('recommendation', 'scholarship', 'help_text', 'rank_values', 'vars'));
+    }
+    // The user wants to add more recs.
+    elseif (isset($_GET['app_id'])) {
+      $num_recs = Scholarship::getCurrentScholarship()->select('num_recommendations_max', 'num_recommendations_min')->firstOrFail()->toArray();
+      $recs = Recommendation::where('application_id', $_GET['app_id'])->get()->toArray();
+      $user = Auth::user();
+      return View::make('recommendation.applicant_edit')->with(compact('help_text', 'num_recs', 'recs', 'user'));
+
     } else {
       return App::abort(403, 'Access denied');
     }
@@ -155,6 +166,7 @@ class RecommendationController extends \BaseController {
 
     return Redirect::route('home')->with('flash_message', 'Thanks, we got your recommendation!');
   }
+
 
   /**
    * Remove the specified resource from storage.
