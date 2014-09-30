@@ -137,9 +137,9 @@ Route::filter('createdRec', function($route, $request)
 {
   $user = Auth::user();
   $application = Application::where('user_id', $user->id)->first();
-  $recommendations = Recommendation::where('application_id', $application->id)->get();
+  $recommendations = Recommendation::where('application_id', $application->id)->get()->toArray();
 
-  if (!is_null($recommendations))
+  if (!empty($recommendations))
   {
     return Redirect::route('recommendation.edit', array('user' => $user->id, 'app_id' => $application->id));
   }
