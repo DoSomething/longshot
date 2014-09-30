@@ -17,7 +17,7 @@
       </style>
     @endif
 
-    @if (! empty($vars->google_analytics_account))
+    @if (! empty($vars->tracking_code_id))
       @include('layouts.partials.google-analytics')
     @endif
   </head>
