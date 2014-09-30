@@ -23,6 +23,7 @@
                 @endif
             @endforeach
           </dl>
+          {{ link_to_route('profile.edit', 'Something wrong? Update it!', Auth::user()->id) }}
         </div>
 
         <div class="fragment">
@@ -41,6 +42,7 @@
               @endif
             @endforeach
           </dl>
+          {{ link_to_route('application.edit', 'Something wrong? Update it!', Auth::user()->id) }}
         </div>
 
 
