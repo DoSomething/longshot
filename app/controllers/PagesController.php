@@ -45,7 +45,7 @@ class PagesController extends \BaseController {
       $file = Input::file('hero_image');
       $filename = $file->getClientOriginalName();
       $file->move(public_path() . '/pages/images/', $filename);
-      $page->$key = $filename;
+      $page->hero_image = '/pages/images' . $filename;
     }
     $page->title = $input['title'];
     if (! empty($input['description']))
