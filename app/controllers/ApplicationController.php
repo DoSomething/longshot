@@ -158,8 +158,9 @@ class ApplicationController extends \BaseController {
     $application->fill($input);
 
     // Don't save test type without a score.
-    if ($input['test_score'] != '') {
+    if (empty($input['test_score'])) {
       unset($application->test_type);
+      unset($application->test_score);
     }
     $application->save();
 
