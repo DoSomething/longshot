@@ -28,11 +28,11 @@ class StatusController extends \BaseController {
     }
     // Is the app complete & been submitted?
     if (isset($app_complete) && $application->complete) {
-      $status = 'Submitted!';
-      $helper = 'We have your application!';
+      $status = 'Submitted. Waiting for recommendation...';
+      $help_text = 'We have your application!';
     } else {
       $status = 'Incomplete';
-      $helper = 'Make sure to fill out all fields and submit the application!';
+      $help_text = 'Make sure to fill out all fields and submit the application!';
     }
 
     $profile = Profile::where('user_id', $user->id)->first();
@@ -45,6 +45,11 @@ class StatusController extends \BaseController {
 
       foreach($recommendations as $rec) {
         $rec->isRecommendationComplete($rec);
+        if ($rec->complete == 'All set!' && isset($app_complete) && $application->complete) {
+          $status = 'Completed.';
+          $help_text = 'Your application is in review.';
+        }
+
       }
       $recommendations = $recommendations->toArray();
     }
@@ -56,7 +61,7 @@ class StatusController extends \BaseController {
 
     $vars = Setting::getSettingsVariables('general');
 
-    return View::make('status.index', compact('profile', 'application', 'recommendations', 'app_complete', 'prof_complete', 'submit', 'status', 'helper', 'vars'));
+    return View::make('status.index', compact('profile', 'application', 'recommendations', 'app_complete', 'prof_complete', 'submit', 'status', 'help_text', 'vars'));
   }
 
   /**
