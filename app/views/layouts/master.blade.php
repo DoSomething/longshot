@@ -17,6 +17,7 @@
       </style>
     @endif
 
+    @include('layouts.partials.google-analytics')
   </head>
 
   <body class="{{ bodyClass() }}">
@@ -51,6 +52,5 @@
     <script src="/dist/bower_components/jquery/dist/jquery.min.js"></script>
     <script src="/dist/js/main.js"></script>
 
-    @include('layouts.partials.google-analytics')
   </body>
 </html>
