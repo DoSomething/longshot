@@ -1,0 +1,56 @@
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// GALLERY STYLES
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+.gallery { @include list_reset(); margin-bottom: pxcalc(20);
+  
+  li {
+    @include with-layout($gallery_duo) {
+      @include gallery(4 of 8);
+      margin-bottom: gutter();
+    }
+  }
+
+
+
+}
+
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// MEDIA QUERIES
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+@media only screen and (min-width: $small) {
+
+  .gallery { 
+
+    li { 
+      @include with-layout($gallery_trio) {
+        @include gallery(4 of 12);
+        margin-bottom: gutter();
+      }
+    }
+
+  }
+
+}
+
+
+@media only screen and (min-width: $medium) {
+
+  .gallery { 
+
+    li { 
+      @include with-layout($gallery_quintet) {
+        @include gallery(4 of 20);
+        margin-bottom: gutter();
+      }
+    }
+
+  }
+
+}
