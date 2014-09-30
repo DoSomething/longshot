@@ -6,10 +6,10 @@ class GoogleAnalyticsTableSeeder extends Seeder {
   {
     Setting::insert([
       'category'    => 'general',
-      'key'         => 'google_analytics_account',
+      'key'         => 'tracking_code_id',
       'value'       => NULL,
       'type'        => 'text',
-      'description' => 'Please enter your Google Analytics Code as: UA-XXXXXXXX-X'
+      'description' => 'Please enter your analytics tracking code id.'
     ]);
   }
 
