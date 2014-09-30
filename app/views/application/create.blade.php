@@ -11,9 +11,9 @@
 
         <p>{{ $help_text }}</p>
 
-        {{ Form::open(['route' => 'application.store']) }}
+        {{ Form::open(['route' => 'application.store', 'class' => 'form--application']) }}
 
-          <div class="progress"><strong>Step 2 of 3</strong></div>
+          <div class="progress"><strong>Step 2 of 2</strong></div>
 
           @include('application/partials/_form_application')
 

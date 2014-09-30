@@ -13,7 +13,7 @@
 
         {{ Form::open(['route' => 'profile.store']) }}
 
-          <div class="progress"><strong>Step 1 of 3</strong></div>
+          <div class="progress"><strong>Step 1 of 2</strong></div>
 
           @include('profile/partials/_form_profile')
 

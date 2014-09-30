@@ -9,13 +9,13 @@
 }
 
 .main-nav { background-color: $app_background; text-align: center;
-  a { color: #fff; display: block; line-height: 1; padding: 1rem; text-decoration: none;
+  a { color: $app_primary; display: block; line-height: 1; padding: 1rem; text-decoration: none;
     &:hover { background-color: rgba(#000, 0.2); }
   }
 
   .__menu { @include list_reset();
     .-active {
-      a { color: #333; }
+      a { background-color: rgba(#000, 0.4);; color: #fff; }
     }
   }
 }
@@ -48,11 +48,15 @@
 
     .__menu { overflow: hidden;
       li { float: left;
-        span { border-right: 1px solid #fff; }
+        span { border-right: 1px solid $app_primary; }
         &:last-child span { border: 0 none; }
       }
 
       li:first-child { display: none; }
+
+      .-active {
+        a { background-color: transparent; }
+      }
     }
 
   }

@@ -1,17 +1,13 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// SEGMENT: REVIEW STYLES
+// FORM: APPLICATION STYLES
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-.segment--review {
-
-  dt { text-transform: uppercase; }
-  dd { background-color: $app_lightest_gray; border-radius: 3px; max-height: pxcalc(300); overflow-y: auto; padding: pxcalc(10) pxcalc(20); }
-
-  .fragment + .fragment { padding-top: 2.5em; }
-
+.form--application {
+  #essay1,
+  #essay2 { height: 300px; max-height: 600px; }
 }
 
 
