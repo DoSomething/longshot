@@ -25,7 +25,7 @@
           <span class="icon" data-icon="&#x2713"></span>Application
           @if (isset($application) && !($application->complete)))
             {{ link_to_route('application.edit', 'edit', Auth::user()->id) }}
-          @elseif (is_null($application))
+          @elseif (is_null($application) && !is_null($profile))
           {{ link_to_route('application.create', 'start') }}
           @endif
         </li>
@@ -63,7 +63,7 @@
 
           </table>
         </div>
-      @else
+      @elseif (!is_null($application))
         {{link_to_route('recommendation.create', 'Get Recommendations');}}
       @endif
     </section>
