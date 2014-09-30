@@ -21,7 +21,8 @@ class ProfileForm extends FormValidator {
 
   protected $messages = [
     'birthdate.required'       => 'Please enter your birthday in MM/DD/YYYY format.',
-    'phone.required'           => 'Please enter a valid phone number.',
+    'phone.required'           => 'Please enter a phone number.',
+    'phone.numeric'            => 'Please enter a valid phone number.',
     'address_street.required'  => 'Please enter your address.',
     'city.required'            => 'Please enter your city.',
     'zip.required'             => 'Please enter your zip code.',
