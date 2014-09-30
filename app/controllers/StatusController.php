@@ -42,7 +42,10 @@ class StatusController extends \BaseController {
     if ($application) {
       // Get recommendations
       $recommendations = Recommendation::where('application_id', $application->id)->get();
-
+      $max_recs = Scholarship::getCurrentScholarship()->pluck('num_recommendations_max');
+      if ($recommendations->count() < $max_recs) {
+        $add_rec_link = link_to_route('recommendation.create', 'Ask for another recommendation.');
+      }
       foreach($recommendations as $rec) {
         $rec->isRecommendationComplete($rec);
         if ($rec->complete == 'All set!' && isset($app_complete) && $application->complete) {
@@ -61,7 +64,8 @@ class StatusController extends \BaseController {
 
     $vars = Setting::getSettingsVariables('general');
 
-    return View::make('status.index', compact('profile', 'application', 'recommendations', 'app_complete', 'prof_complete', 'submit', 'status', 'help_text', 'vars'));
+    return View::make('status.index', compact('profile', 'application', 'recommendations', 'app_complete', 'prof_complete', 'submit', 'status', 'helper', 'vars', 'add_rec_link'));
+
   }
 
   /**

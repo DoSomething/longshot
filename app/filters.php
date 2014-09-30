@@ -129,6 +129,23 @@ Route::filter('startedProcess', function($route, $request, $value)
 });
 
 /*
+ * This checks to see if the user has already created a rec
+ * If so we want to edit the rec page, not create a new one.
+ * This needs to remain seperate from started process to add a token.
+ */
+Route::filter('createdRec', function($route, $request)
+{
+  $user = Auth::user();
+  $application = Application::where('user_id', $user->id)->first();
+  $recommendations = Recommendation::where('application_id', $application->id)->get();
+
+  if (!is_null($recommendations))
+  {
+    return Redirect::route('recommendation.edit', array('user' => $user->id, 'app_id' => $application->id));
+  }
+});
+
+/*
  * This checks to see if the user has started created the process
  * Example: if the user already has an application don't create a new one, edit the current one.
  */
