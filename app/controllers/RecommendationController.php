@@ -55,7 +55,7 @@ class RecommendationController extends \BaseController {
     // These aren't the real rules, it's just needed to call the array validation class
     $rules = ['first_name' => 'required|TextFieldArray'];
     $data = ['first_name' => $input['rec']];
-    // Here, this calls the class that through and checks the real rules.
+    // Calls the class that goes through and checks the real rules.
     $v = Validator::make($data, $rules);
 
     if ($v->fails()) {
