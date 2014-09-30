@@ -1,6 +1,6 @@
 <?php
 
-class GoogleAnalyticsTableSeeder extends Seeder {
+class TrackingCodeSettingTableSeeder extends Seeder {
 
   public function run()
   {
