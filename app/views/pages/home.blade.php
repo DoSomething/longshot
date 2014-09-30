@@ -8,7 +8,7 @@
         <h1 class="__title heading -alpha">{{ $page->title }}</h1>
         <h2 class="__tagline heading -beta">{{ $page->description }}</h2>
       </div>
-      <div class="__image" style="background-image: url('{{ $page->hero_image or '/dist/images/studying-hard.jpg' }}');"></div>
+      <div class="__image" style="background-image: url('{{ $page->hero_image or '/dist/images/hero-image-placeholder-1.jpg' }}');"></div>
     </header>
 
     {{-- Output Blocks --}}
@@ -64,6 +64,7 @@
 
         {{ Form::close() }}
       </div>
+      <div class="__image" style="background-image: url('{{ $vars->nominate_image or '/dist/images/nominate-image-placeholder.jpg' }}');"></div>
     </section>
 
     <section class="segment gallery">

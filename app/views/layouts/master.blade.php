@@ -17,7 +17,9 @@
       </style>
     @endif
 
-    @include('layouts.partials.google-analytics')
+    @if (! empty($vars->google_analytics_account))
+      @include('layouts.partials.google-analytics')
+    @endif
   </head>
 
   <body class="{{ bodyClass() }}">

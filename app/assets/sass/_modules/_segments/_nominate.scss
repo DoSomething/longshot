@@ -4,8 +4,8 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.segment--nominate { @include container(100%); color: #fff; padding: pxcalc(30) 2.5%;
-  background: rgba(#aaa,0.3) url('/dist/images/studying-hard.jpg') center center; background-size: cover;
+.segment--nominate { @include container(100%); background-color: $app_background; color: #fff; padding: pxcalc(30) 2.5%; position: relative;
+  > .wrapper { position: relative; z-index: 10; }
 
   .heading,
   label { text-shadow: 0 0 4px rgba(0,0,0,0.3); }
@@ -14,10 +14,12 @@
     input[type="text"],
     input[type="email"] { border: 0 none; color: #000; }
 
-    &.-action { clear: both; padding-top: 1.5em;
+    &.-action { clear: both; padding: 1.5em 0 0;
       > input[type="submit"] { display: table; margin: 0 auto; }
     }
   }
+
+  .__image { background-position: center center; background-size: cover; height: 100%; left: 0; opacity: 0.65; position: absolute; top: 0; width: 100%; z-index: 5; }
 
 }
 
@@ -30,7 +32,7 @@
 
 @media only screen and (min-width: $medium) {
 
-  .segment--nominate { padding-left: 0; padding-right: 0;
+  .segment--nominate { padding: pxcalc(50) 0;
     > .wrapper { @include push(1 of 24); width: span(22 of 24);
     }
 
