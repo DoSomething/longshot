@@ -20,6 +20,8 @@ namespace :deploy do
 
   task :link_settings do
     run "ln -nfs #{shared_path}/.env.php #{release_path}/"
+    run "ln -nfs #{shared_path}/content #{release_path}/public/content"
+    run "ln -nfs #{shared_path}/pages #{release_path}/public/pages"
   end
 
   task :artisan_migrate do
