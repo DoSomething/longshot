@@ -20,4 +20,16 @@ class ApplicationForm extends FormValidator {
   'link'            => 'url',
  ];
 
+protected $messages = [
+  'accomplishments.required' => 'This question is required.',
+  'participation.required'   => 'This question is required.',
+  'gpa.required'             => 'GPA is required.',
+  'gpa.numeric'              => 'Please enter your GPA as an integer.',
+  'test_score.numeric'       => 'Please enter your test score as an integer.',
+  'activities.required'      => 'This question is required.',
+  'essay1.required'          => 'This essay is required.',
+  'essay2.required'          => 'This essay is required.',
+  'link.url'                 => 'Please enter a valid link.',
+ ];
+
 }

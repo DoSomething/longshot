@@ -17,4 +17,13 @@ class RegistrationForm extends FormValidator {
     'eligibility'=> 'required|accepted',
   ];
 
+  protected $messages = [
+    'first_name.required'  => 'Please enter your first name.',
+    'last_name.required'   => 'Please enter your last name.',
+    'email.required'       => 'Please enter an email.',
+    'email.unique'         => 'That email is already registered.',
+    'password.required'    => 'Please note: password must be 6+ characters.',
+    'eligibility.required' => 'Only candidates who meet the requirements above are eligible for the scholarship.',
+  ];
+
 }
