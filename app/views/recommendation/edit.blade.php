@@ -47,14 +47,14 @@
           {{-- Rank Character --}}
           <div class="field-group">
             {{ Form::label('rank_character', $scholarship->label_rec_rank_character) }}
-            {{ Form::select('rank_character', array($rank_values)); }}
+            {{ Form::select('rank_character', $rank_values); }}
             {{ errorsFor('rank_character', $errors); }}
           </div>
 
           {{-- Rank Additional --}}
           <div class="field-group">
             {{ Form::label('rank_additional', $scholarship->label_rec_rank_additional) }}
-            {{ Form::select('rank_additional', array($rank_values)); }}
+            {{ Form::select('rank_additional', $rank_values); }}
             {{ errorsFor('rank_additional', $errors); }}
           </div>
 
