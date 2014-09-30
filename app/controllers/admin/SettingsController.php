@@ -96,7 +96,6 @@ class SettingsController extends \BaseController {
     // @TODO: maybe create this as a method of the Setting model?
     $settings = Setting::whereCategory('general')->get();
 
-    // dd($settings->toArray());
     $settings->each(function($setting) use($input)
     {
       if ($setting->type === 'image' && $input[$setting->key] == null) return;
