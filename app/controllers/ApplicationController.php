@@ -77,6 +77,7 @@ class ApplicationController extends \BaseController {
     {
       $application->gpa = $input['gpa'];
     }
+
     if ($input['test_score'] != '')
     {
       $application->test_type = $input['test_type'];
@@ -154,7 +155,14 @@ class ApplicationController extends \BaseController {
       // @TODO: once we have validated, are we setting a 'complete' flag on the app to disable edits?
     }
     $application = Application::where('user_id', $id)->firstOrFail();;
-    $application->fill($input)->save();
+    $application->fill($input);
+
+    // Don't save test type without a score.
+    if (empty($input['test_score'])) {
+      unset($application->test_type);
+      unset($application->test_score);
+    }
+    $application->save();
 
     return $this->redirectAfterSave($input, $id);
   }
