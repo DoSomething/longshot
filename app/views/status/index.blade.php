@@ -62,6 +62,9 @@
             </tbody>
 
           </table>
+          @if (isset($add_rec_link))
+            {{ $add_rec_link }}
+          @endif
         </div>
       @elseif (!is_null($application))
         {{link_to_route('recommendation.create', 'Get Recommendations');}}
