@@ -82,10 +82,11 @@ class RecommendationController extends \BaseController {
           $token = $recommendation->generateRecToken($recommendation);
           $this->prepareRecRequestConfirmationEmail();
           $this->prepareRecRequestEmail($recommendation, $token);
+
+          return Redirect::route('status')->with('flash_message', 'We sent that email off!');
         }
       }
-
-      return Redirect::route('status')->with('flash_message', 'We sent that email off!');
+      return Redirect::route('recommendation.create')->with('flash_message', 'All fields are required.');
     }
   }
 
