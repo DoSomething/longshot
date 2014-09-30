@@ -11,9 +11,12 @@
     > a { display: block; }
     img {  max-height: 30px; }
   }
+  
+}
 
-  #button-main-nav { color: #fff; display: block; margin-top: -(pxcalc(25, 30)); padding: pxcalc(10,30); position: absolute; right: 0; top: 50%; }
-
+#button-main-nav { color: #fff; display: block; margin-top: -(pxcalc(25, 30)); padding: pxcalc(10,30); position: absolute; right: 0; top: 50%; 
+  &:hover,
+  &:focus { color: $app_primary; }
 }
 
 
@@ -26,13 +29,13 @@
 
   [role="banner"] { height: 75px;
 
-    #button-main-nav { display: none; }
-
     .__logo {
       > a { display: table-cell; height: 55px; vertical-align: middle; }
       img { max-height: 55px; }
     }
 
   }
+
+  #button-main-nav { display: none; }
 
 }

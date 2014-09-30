@@ -11,7 +11,7 @@
 
         <p>{{ $help_text }}</p>
 
-        {{ Form::model($user->application, ['method' => 'PATCH', 'route' => ['application.update', $user->id]]) }}
+        {{ Form::model($user->application, ['method' => 'PATCH', 'route' => ['application.update', $user->id], 'class' => 'form--application']) }}
 
           @include('application/partials/_form_application')
 

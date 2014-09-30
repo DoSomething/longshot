@@ -75,8 +75,17 @@ function createCustomStylesheet($styles)
   $output .= ".border-primary-color { border-color: #$styles->primary_color; }";
   $output .= ".button.-default { background-color: #$styles->primary_color; color: #$styles->primary_color_contrast; }";
   $output .= "a { color: #$styles->primary_color; }";
-  // @TODO: decide whether still need below rule or can just use the newly added border-primary-color class!
-  // $output .= ".segment:first-of-type { border-bottom-color: #$styles->primary_color; }";
+  $output .= "#button-main-nav { color: #$styles->primary_color_contrast; }";
+  $output .= "#button-main-nav:hover, #button-main-nav:focus { color: #$styles->primary_color; }";
+  $output .= ".main-nav a { color: #$styles->primary_color; }";
+  $output .= ".main-nav .__menu li span { border-color: #$styles->primary_color; }";
+  $output .= ".banner + .segment { border-color: #$styles->primary_color; }";
+  $output .= ".segment--introduction > .wrapper { border-color: #$styles->primary_color; }";
+  $output .= ".segment--detailed-list .__title:before { background-color: #$styles->primary_color; }";
+  $output .= ".segment--timeline ul:before, .segment--timeline ul li:after { background-color: #$styles->primary_color; }";
+  $output .= ".segment--timeline ul li:before { border-color: #$styles->primary_color; }";
+  $output .= ".callout--scholarship > .wrapper:before, .callout--scholarship > .wrapper:after { border-color: #$styles->primary_color; }";
+  $output .= ".tile figcaption { background-color: #$styles->primary_color; }";
   $destination = app_path() . '/views/layouts/partials/custom-styles.blade.php';
 
   File::put($destination, $output);
