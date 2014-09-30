@@ -5,15 +5,19 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-.banner { background-color: #aaa; color: #fff; padding: pxcalc(20) pxcalc(10); text-align: center;
+.banner { background-color: #404040; color: #fff; display: table; min-height: pxcalc(200); padding: pxcalc(20) pxcalc(10); position: relative; text-align: center; width: 100%;
+  > .wrapper { display: table-cell; position: relative; vertical-align: bottom; z-index: 10; }
 
-  .__title { @include visually_hidden(); }
+  &.-hero { text-shadow: 0 0 4px rgba(0,0,0,0.3); text-transform: uppercase;
 
-  .__tagline { margin-bottom: 0; }
+    .__title { @include visually_hidden(); }
 
-  &.-hero { background-color: #aaa; background-position: center center; background-size: cover; text-shadow: 0 0 4px rgba(0,0,0,0.3); text-transform: uppercase;
-    background-image: url('/dist/images/studying-hard.jpg'); // @TODO: Remove! Only temporary!
+    .__tagline { line-height: 1.2; margin-bottom: 0; }
+
+    .__image { background-position: center center; background-size: cover; height: 100%; left: 0; opacity: 0.65; position: absolute; top: 0; width: 100%; z-index: 5; }
+
   }
+
 }
 
 
@@ -24,8 +28,16 @@
 
 @media only screen and (min-width: $medium) {
 
-  .banner { display: table; height: pxcalc(442); width: 100%;
-    > .wrapper { display: table-cell; vertical-align: bottom; }
+  .banner { height: pxcalc(442);
+
+    &.-hero {
+
+      .__tagline {
+        > span { display: block; }
+      }
+
+    }
+
   }
 
 }

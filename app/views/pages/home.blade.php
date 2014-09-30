@@ -8,6 +8,7 @@
         <h1 class="__title heading -alpha">{{ $page->title }}</h1>
         <h2 class="__tagline heading -beta">{{ $page->description }}</h2>
       </div>
+      <div class="__image" style="background-image: url('{{ $page->hero_image or '/dist/images/studying-hard.jpg' }}');"></div>
     </header>
 
     {{-- Output Blocks --}}
