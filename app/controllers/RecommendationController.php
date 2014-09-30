@@ -32,6 +32,7 @@ class RecommendationController extends \BaseController {
    */
   public function create()
   {
+    // @TODO: DOES THIS USER ALREADY HAVE SOME?
     // This will be seen by applicants only.
     $num_recs = Scholarship::getCurrentScholarship()->select('num_recommendations_max', 'num_recommendations_min')->firstOrFail()->toArray();
     $help_text = Setting::where('key', '=', 'recommendation_create_help_text')->pluck('value');
@@ -48,30 +49,42 @@ class RecommendationController extends \BaseController {
    */
   public function store()
   {
+
     $input = Input::all();
-    foreach($input['rec'] as $input)
-    {
-      // If we don't have an email, it's not a valid rec
-      // For cases when there are empty recs in the form.
-      if ($input['email'])
-      {
-        $recommendation = new Recommendation;
 
-        foreach ($input as $key => $field) {
-            $recommendation->$key = $field;
-        }
-        $application = Auth::user()->application;
-        $recommendation->application()->associate($application);
-        $recommendation->save();
+    // These aren't the real rules, it's just needed to call the array validation class
+    $rules = ['first_name' => 'required|TextFieldArray'];
+    $data = ['first_name' => $input['rec']];
+    // Here, this calls the class that through and checks the real rules.
+    $v = Validator::make($data, $rules);
 
-        $token = $recommendation->generateRecToken($recommendation);
-        $this->prepareRecRequestConfirmationEmail();
-        $this->prepareRecRequestEmail($recommendation, $token);
-      }
+    if ($v->fails()) {
+      return  Redirect::back()->with('flash_message', 'All fields are required')->withInput();
     }
+    else {
+      foreach($input['rec'] as $input)
+      {
+        // If we don't have an email, it's not a valid rec
+        // For cases when there are empty recs in the form.
+        if ($input['email'])
+        {
+          $recommendation = new Recommendation;
 
+          foreach ($input as $key => $field) {
+              $recommendation->$key = $field;
+          }
+          $application = Auth::user()->application;
+          $recommendation->application()->associate($application);
+          $recommendation->save();
 
-    return Redirect::route('status')->with('flash_message', 'We sent that email off!');
+          $token = $recommendation->generateRecToken($recommendation);
+          $this->prepareRecRequestConfirmationEmail();
+          $this->prepareRecRequestEmail($recommendation, $token);
+        }
+      }
+
+      return Redirect::route('status')->with('flash_message', 'We sent that email off!');
+    }
   }
 
   /**

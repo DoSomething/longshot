@@ -17,6 +17,7 @@ ClassLoader::addDirectories(array(
   app_path().'/controllers',
   app_path().'/models',
   app_path().'/database/seeds',
+  app_path().'/validate',
 
 ));
 
@@ -91,3 +92,17 @@ App::down(function()
 
 require app_path().'/filters.php';
 require app_path().'/events/settings.php';
+
+/*
+|--------------------------------------------------------------------------
+| Register custom validation
+|--------------------------------------------------------------------------
+|
+| This class takes care of valdition on the rec/create form
+| where the input is an array of values.
+|
+*/
+Validator::resolver(function($translator, $data, $rules, $messages)
+{
+    return new ArrayValidation($translator, $data, $rules, $messages);
+});
