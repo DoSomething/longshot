@@ -122,7 +122,7 @@ Route::filter('role', function($route, $request, $role)
 Route::filter('startedProcess', function($route, $request, $value)
 {
   $user = Auth::user();
-  if ($user->$value)
+  if (!is_null($user->$value))
   {
     return Redirect::route($value .'.edit', $user->id);
   }
