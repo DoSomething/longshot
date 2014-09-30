@@ -15,7 +15,7 @@ class RecommendationForm extends FormValidator {
     'essay1'          => 'required',
   ];
 
-  protected $messages [
+  protected $messages = [
     'essay1.required'  => 'Please answer this question.',
   ];
 
