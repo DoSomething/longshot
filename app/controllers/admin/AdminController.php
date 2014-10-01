@@ -49,7 +49,9 @@ class AdminController extends \BaseController {
     $profile = Profile::getUserProfile($id);
     $scholarship = Scholarship::getScholarshipLabels();
     $app_id = Application::getUserApplicationId($id);
-    $recomendations = Recommendation::getUserRecs($app_id->id);
+    $recomendations = null;
+    if ($app_id)
+      $recomendations = Recommendation::getUserRecs($app_id->id);
 
     return View::make('admin.applications.show', compact('application', 'profile', 'scholarship', 'recomendations'));
   }

@@ -26,24 +26,26 @@
           </dl>
         </div>
 
-        <h2>Application Responses</h2>
-        <div class="well well-lg">
-          <dl>
-            @foreach ($application as $key => $field)
-            {{-- did the have a value in the field --}}
-            @if (!empty($field))
-              {{-- does the field have a better title in the scholarship? --}}
-              @if (isset($scholarship[$key]))
-                <dt><strong>{{ snakeCaseToTitleCase($scholarship[$key]) }} </strong></dt>
-              @else
-                <dt><strong>{{ snakeCaseToTitleCase($key) }}</strong></dt>
-              @endif
-              <dd>{{ $field }}</dd>
-            @endif
-          @endforeach
-          </dl>
+        @if (!is_null($application))
+          <h2>Application Responses</h2>
+          <div class="well well-lg">
+            <dl>
+                @foreach ($application as $key => $field)
+                {{-- did the have a value in the field --}}
+                @if (!empty($field))
+                  {{-- does the field have a better title in the scholarship? --}}
+                  @if (isset($scholarship[$key]))
+                    <dt><strong>{{ snakeCaseToTitleCase($scholarship[$key]) }} </strong></dt>
+                  @else
+                    <dt><strong>{{ snakeCaseToTitleCase($key) }}</strong></dt>
+                  @endif
+                  <dd>{{ $field }}</dd>
+                @endif
+              @endforeach
+            </dl>
 
-        </div>
+          </div>
+        @endif
 
 
         @if (!is_null($recomendations))
