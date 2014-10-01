@@ -5,7 +5,37 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-[role="contentinfo"] { @include rem(14); color: #eee; padding-bottom: pxcalc(50); padding-top: pxcalc(20); text-align: center; }
+[role="contentinfo"] { @include container(95%); color: #eee; padding: pxcalc(20) 0 pxcalc(50); text-align: center;
+
+  .__partner {
+    span,
+    img { display: inline-block; }
+
+    span { bottom: pxcalc(5); margin-right: pxcalc(5); position: relative; }
+
+    img { max-height: 50px; }
+  }
+
+  .__message { clear: both; display: block; padding-top: 2em; }
+
+  .__copyright { clear: both; padding-top: 1.5em; }
+
+  .alternative-nav { display: table; margin: 1.5em auto 0;
+    a { display: block; text-decoration: none;
+      > span { padding: 0 0.75em; }
+    }
+
+    .__menu { @include list_reset(); overflow: hidden;
+      li { float: left;
+        span { border-right: 1px solid $app_primary; }
+        &:last-child span { border: 0 none; }
+      }
+    }
+
+
+  }
+
+}
 
 
 
@@ -14,5 +44,16 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 @media only screen and (min-width: $medium) {
+
+  [role="contentinfo"] { @include container($wide);
+    > .wrapper { @include push(1 of 24); width: span(22 of 24); }
+
+    .__partner { float: left; text-align: left; }
+
+    .alternative-nav { float: right; display: block; margin: 0;
+      a { height: 50px; line-height: 30px; padding: 10px 0; }
+    }
+
+  }
 
 }
