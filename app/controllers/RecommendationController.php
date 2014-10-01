@@ -192,7 +192,7 @@ class RecommendationController extends \BaseController {
           $token = RecommendationToken::where('recommendation_id', $rec['id'])->pluck('token');
           $this->prepareRecRequestEmail($currentRec, $token);
         } else {
-          if (isset($rec['email'])) {
+          if (!empty($rec['email'])) {
             $newRec = new Recommendation;
             $application = Auth::user()->application;
             $newRec->application()->associate($application);
