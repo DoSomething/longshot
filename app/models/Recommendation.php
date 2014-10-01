@@ -57,6 +57,8 @@ class Recommendation extends \Eloquent {
     return array(
       10   => 'Top 10%',
       25   => 'Top 25%',
+      50   => 'Top 50%',
+      -50  => 'Bottom 50%',
       -10  => 'Bottom 10%',
       -25  => 'Bottom 25%',
     );
