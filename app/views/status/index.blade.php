@@ -12,17 +12,19 @@
         @if(! empty($help_text))
           <p>{{ $help_text }}</p>
         @endif
+
+        <p>Thank you for submitting your application. Come back here to check on your application status. Your application will be complete once we receive the required recommendation(s).</p>
       </div>
     </div>
 
     <section class="segment segment--checklist">
       <div class="wrapper">
-        <h1 class="heading -delta">What's up</h1>
+        <h1 class="heading -gamma">What's up</h1>
 
         <ul class="media-list media-list--status">
           <li class="{{ isset($prof_complete) ? 'complete' : '-incomplete' }}">
             <span class="icon" data-icon="&#x2713"></span>Basic Information
-            {{ isset($profile) ? link_to_route('profile.edit', 'edit', Auth::user()->id) : link_to_route('profile.create', 'start') }}
+            {{ isset($profile) ? link_to_route('profile.edit', 'Edit', Auth::user()->id) : link_to_route('profile.create', 'start') }}
           </li>
           <li class="{{ isset($app_complete) ? 'complete' : '-incomplete' }}">
             <span class="icon" data-icon="&#x2713"></span>Application
@@ -34,6 +36,8 @@
           </li>
         </ul>
 
+
+        {{--
         @if (isset($submit))
           {{ $submit }}
         @endif
@@ -72,22 +76,26 @@
         @elseif (!is_null($application))
           {{link_to_route('recommendation.create', 'Get Recommendations');}}
         @endif
+        --}}
       </div>
     </section>
 
-    <section class="segment">
+    <section class="segment segment--timeline">
       <div class="wrapper">
-        <h1 class="heading -delta">Important Dates</h1>
-        <p><em>Dates to come...</em></p>
-      </div>
+
+        <h2 class="heading -gamma">Key Dates</h1>
+
+        {{ $timeline }}
+
+      </h2>
     </section>
 
 
-    <div class="segment contact">
+    <footer>
       <div class="wrapper">
         <p>Need help? <a href="mailto:{{Config::get('mail.from.address')}}">Contact Us</a></p>
       </div>
-    </div>
+    </footer>
 
   </article>
 @stop

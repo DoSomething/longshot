@@ -66,7 +66,12 @@ class StatusController extends \BaseController {
 
     $vars = Setting::getSettingsVariables('general');
 
-    return View::make('status.index', compact('profile', 'application', 'recommendations', 'app_complete', 'prof_complete', 'submit', 'status', 'helper', 'vars', 'add_rec_link'));
+    // @TODO: find a better way of retrieving the timeline in case there are other blocks to that type.
+    // Query cached for 2 hours.
+    $timeline = Block::remember(120, 'query.block.timeline')->whereBlockType('timeline')->select('block_body_html')->first();
+    $timeline = $timeline->block_body_html;
+
+    return View::make('status.index', compact('profile', 'application', 'recommendations', 'app_complete', 'prof_complete', 'submit', 'status', 'helper', 'vars', 'add_rec_link', 'timeline'));
 
   }
 

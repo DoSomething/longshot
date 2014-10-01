@@ -84,6 +84,7 @@ function createCustomStylesheet($styles)
   $output .= ".segment--detailed-list .__title:before { background-color: #$styles->primary_color; }";
   $output .= ".segment--timeline ul:before, .segment--timeline ul li:after { background-color: #$styles->primary_color; }";
   $output .= ".segment--timeline ul li:before { border-color: #$styles->primary_color; }";
+  $output .= ".segment--checklist { border-color: #$styles->primary_color; }";
   $output .= ".callout--scholarship > .wrapper:before, .callout--scholarship > .wrapper:after { border-color: #$styles->primary_color; }";
   $output .= ".tile figcaption { background-color: #$styles->primary_color; }";
   $destination = app_path() . '/views/layouts/partials/custom-styles.blade.php';
