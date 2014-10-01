@@ -74,6 +74,7 @@ function createCustomStylesheet($styles)
   $output .= ".text-primary-color { color: #$styles->primary_color; }";
   $output .= ".border-primary-color { border-color: #$styles->primary_color; }";
   $output .= ".button.-default { background-color: #$styles->primary_color; color: #$styles->primary_color_contrast; }";
+  $output .= ".button.-small { background-color: #$styles->primary_color; color: #$styles->primary_color_contrast; }";
   $output .= "a { color: #$styles->primary_color; }";
   $output .= "#button-main-nav { color: #$styles->primary_color_contrast; }";
   $output .= "#button-main-nav:hover, #button-main-nav:focus { color: #$styles->primary_color; }";
@@ -84,6 +85,7 @@ function createCustomStylesheet($styles)
   $output .= ".segment--detailed-list .__title:before { background-color: #$styles->primary_color; }";
   $output .= ".segment--timeline ul:before, .segment--timeline ul li:after { background-color: #$styles->primary_color; }";
   $output .= ".segment--timeline ul li:before { border-color: #$styles->primary_color; }";
+  $output .= ".segment--checklist { border-color: #$styles->primary_color; }";
   $output .= ".callout--scholarship > .wrapper:before, .callout--scholarship > .wrapper:after { border-color: #$styles->primary_color; }";
   $output .= ".tile figcaption { background-color: #$styles->primary_color; }";
   $destination = app_path() . '/views/layouts/partials/custom-styles.blade.php';

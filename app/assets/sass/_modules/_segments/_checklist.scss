@@ -1,17 +1,11 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// PAGE STYLES
+// SEGMENT: CHECKLIST STYLES
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-.page {
-
-  // @TODO: color: $app_primary; overrides custom...
-  > .__title { margin: 0; padding-top: 1.5rem; } // @TODO: add left/right padding?
-
-  footer { @include container(95%); padding: pxcalc(20) 0; }
-}
+.segment--checklist { @include container(100%); border-bottom: 1px solid $app_primary; border-top: 1px solid $app_primary; padding: pxcalc(30) 2.5%; }
 
 
 
@@ -21,14 +15,6 @@
 
 @media only screen and (min-width: $medium) {
 
-  .page {
-
-    > .__title { padding-top: 4rem; }
-
-    footer { @include container($wide);
-      > .wrapper { @include push(2 of 24); width: span(20 of 24); }
-    }
-
-  }
+  .segment--checklist { padding: pxcalc(50) 0; }
 
 }

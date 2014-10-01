@@ -46,7 +46,7 @@ class StatusController extends \BaseController {
       $recommendations = Recommendation::where('application_id', $application->id)->get();
       $max_recs = Scholarship::getCurrentScholarship()->pluck('num_recommendations_max');
       if ($recommendations->count() < $max_recs) {
-        $add_rec_link = link_to_route('recommendation.create', 'Ask for another recommendation.');
+        $add_rec_link = link_to_route('recommendation.create', 'Ask for another recommendation', null, ['class' => 'button -small']);
       }
       foreach($recommendations as $rec) {
         $rec->isRecommendationComplete($rec);
@@ -61,12 +61,17 @@ class StatusController extends \BaseController {
 
     // If both app & profile are complete add a link to review & submit.
     if ($app_complete && $prof_complete && !($application->complete)) {
-      $submit = link_to_route('review', 'Review & Submit Application', array($user->id));
+      $submit = link_to_route('review', 'Review & Submit Application', [$user->id], ['class' => 'button -small']);
     }
 
     $vars = Setting::getSettingsVariables('general');
 
-    return View::make('status.index', compact('profile', 'application', 'recommendations', 'app_complete', 'prof_complete', 'submit', 'status', 'helper', 'vars', 'add_rec_link'));
+    // @TODO: find a better way of retrieving the timeline in case there are other blocks to that type.
+    // Query cached for 2 hours.
+    $timeline = Block::remember(120, 'query.block.timeline')->whereBlockType('timeline')->select('block_body_html')->first();
+    $timeline = $timeline->block_body_html;
+
+    return View::make('status.index', compact('profile', 'application', 'recommendations', 'app_complete', 'prof_complete', 'submit', 'status', 'helper', 'vars', 'add_rec_link', 'timeline'));
 
   }
 
