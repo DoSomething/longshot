@@ -34,7 +34,7 @@ class AdminController extends \BaseController {
       $query->orderBy($sort_by, 'asc');
     }
 
-    $applicants = $query->paginate(5);
+    $applicants = $query->paginate(25);
 
     return View::make('admin.applications.index', compact('applicants'));
   }

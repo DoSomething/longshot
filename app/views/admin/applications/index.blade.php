@@ -9,7 +9,7 @@
 
       <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         <h1 class="page-header">All Applications</h1>
-
+        {{$applicants->links()}}
         <div class="table-responsive">
           <table class="table table-striped">
             <thead>
@@ -34,9 +34,9 @@
             </tbody>
           </table>
 
+          {{$applicants->links()}}
         </div>
       </div>
-
     </div>
   </div>
 @stop
