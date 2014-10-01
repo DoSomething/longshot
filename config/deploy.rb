@@ -18,10 +18,11 @@ ssh_options[:keys] = [ENV["CAP_PRIVATE_KEY"]]
 
 namespace :deploy do
 
-  task :link_settings do
+  task :link_folders do
     run "ln -nfs #{shared_path}/.env.php #{release_path}/"
     run "ln -nfs #{shared_path}/content #{release_path}/public"
     run "ln -nfs #{shared_path}/pages #{release_path}/public/pages"
+    run "ln -nfs #{shared_path}/logs #{release_path}/app/storage"
   end
 
   task :artisan_migrate do
@@ -31,5 +32,5 @@ namespace :deploy do
 end
 
 after "deploy:update", "deploy:cleanup"
-after "deploy:symlink", "deploy:link_settings"
-after "deploy:link_settings", "deploy:artisan_migrate"
+after "deploy:symlink", "deploy:link_folders"
+after "deploy:link_folders", "deploy:artisan_migrate"
