@@ -80,6 +80,7 @@ function createCustomStylesheet($styles)
   $output .= "#button-main-nav:hover, #button-main-nav:focus { color: #$styles->primary_color; }";
   $output .= ".main-nav a { color: #$styles->primary_color; }";
   $output .= ".main-nav .__menu li span { border-color: #$styles->primary_color; }";
+  $output .= "[role=\"contentinfo\"] .alternative-nav .__menu li span { border-color: #$styles->primary_color; }";
   $output .= ".banner + .segment { border-color: #$styles->primary_color; }";
   $output .= ".segment--introduction > .wrapper { border-color: #$styles->primary_color; }";
   $output .= ".segment--detailed-list .__title:before { background-color: #$styles->primary_color; }";

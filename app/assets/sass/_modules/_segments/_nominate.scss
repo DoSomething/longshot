@@ -7,6 +7,8 @@
 .segment--nominate { @include container(100%); background-color: $app_background; color: #fff; padding: pxcalc(30) 2.5%; position: relative;
   > .wrapper { position: relative; z-index: 10; }
 
+  .__message { @include rem(20); @include push(1 of 8); text-align: center; width: span(6 of 8); }
+
   .heading,
   label { text-shadow: 0 0 4px rgba(0,0,0,0.3); }
 
@@ -33,14 +35,17 @@
 @media only screen and (min-width: $medium) {
 
   .segment--nominate { padding: pxcalc(50) 0;
-    > .wrapper { @include push(1 of 24); width: span(22 of 24);
-    }
+    > .wrapper { @include push(1 of 24); width: span(22 of 24); }
 
     .fragment + .fragment { padding-top: 0; }
 
     .fragment {
       &.-alpha { @include span(first 10 of 22); }
       &.-beta { @include span(last 10 of 22); }
+    }
+
+    .__message { @include rem(24); @include push(3 of 22); width: span(16 of 22);
+      > span { display: block; }
     }
 
     .field-group {
