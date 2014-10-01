@@ -34,7 +34,7 @@ class AdminController extends \BaseController {
       $query->orderBy($sort_by, 'asc');
     }
 
-    $applicants = $query->paginate(5);
+    $applicants = $query->paginate(25);
 
     return View::make('admin.applications.index', compact('applicants'));
   }
@@ -45,9 +45,15 @@ class AdminController extends \BaseController {
    */
   public function applicationsShow($id)
   {
-    $applicant = User::with('application', 'profile')->whereId($id)->firstOrFail();
+    $application = Application::getUserApplication($id);
+    $profile = Profile::getUserProfile($id);
+    $scholarship = Scholarship::getScholarshipLabels();
+    $app_id = Application::getUserApplicationId($id);
+    $recomendations = null;
+    if ($app_id)
+      $recomendations = Recommendation::getUserRecs($app_id->id);
 
-    return View::make('admin.applications.show', compact('applicant'));
+    return View::make('admin.applications.show', compact('application', 'profile', 'scholarship', 'recomendations'));
   }
 
   /**

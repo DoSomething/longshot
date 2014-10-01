@@ -82,9 +82,9 @@ class StatusController extends \BaseController {
   public function review($id)
   {
     // Get all the things.
-    $application = Application::where('user_id', $id)->select('accomplishments', 'activities', 'participation', 'essay1', 'essay2', 'hear_about as how_did_you_hear_about_this', 'link', 'test_type', 'test_score', 'gpa')->first()->toArray();
-    $profile = Profile::where('user_id', $id)->select('birthdate', 'phone', 'address_street', 'address_premise', 'city', 'state', 'zip as zip_code', 'gender', 'grade', 'school as current_high_school')->first()->toArray();
-    $scholarship = Scholarship::getCurrentScholarship()->select(array('label_app_accomplishments as accomplishments', 'label_app_activities as activities', 'label_app_participation as participation' ,'label_app_essay1 as essay1', 'label_app_essay2 as essay2'))->first()->toArray();
+    $application = Application::getUserApplication($id);
+    $profile = Profile::getUserProfile($id);
+    $scholarship = Scholarship::getScholarshipLabels();
     $help_text = Setting::where('key', '=', 'application_submit_help_text')->pluck('value');
     $vars = Setting::getSettingsVariables('general');
     $prof_complete = Profile::isComplete(Auth::user()->id);
@@ -120,7 +120,6 @@ class StatusController extends \BaseController {
     return Redirect::route('recommendation.create')->with('flash_message', 'Sweet, you submitted your app');
   }
 
-  //@TODO refactor, move and combine into one function... etc etc. this code is the worst.
   public function resendEmailRequest()
   {
     $rec_id = Input::get('id');

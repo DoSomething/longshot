@@ -50,6 +50,20 @@ class Application extends Eloquent {
     return $application->complete;
   }
 
+  public static function getUserApplication($id)
+  {
+    $fields = array('accomplishments', 'activities', 'participation', 'essay1', 'essay2', 'hear_about as how_did_you_hear_about_this', 'link', 'test_type', 'test_score', 'gpa');
+    $application = Application::where('user_id', $id)->select($fields)->first();
+    if ($application)
+      return $application->toArray();
+    return NULL;
+  }
+
+  public static function getUserApplicationId($id)
+  {
+    $fields = array('id');
+    return $application = Application::where('user_id', $id)->select($fields)->first();
+  }
 
 
 }
