@@ -82,6 +82,10 @@ class StatusController extends \BaseController {
     $scholarship = Scholarship::getCurrentScholarship()->select(array('label_app_accomplishments as accomplishments', 'label_app_activities as activities', 'label_app_participation as participation' ,'label_app_essay1 as essay1', 'label_app_essay2 as essay2'))->first()->toArray();
     $help_text = Setting::where('key', '=', 'application_submit_help_text')->pluck('value');
     $vars = Setting::getSettingsVariables('general');
+    $prof_complete = Profile::isComplete(Auth::user()->id);
+    if (!$prof_complete) {
+      return Redirect::route('status')->with('flash_message', 'Please go back and answer all required questions in ' . link_to_route('profile.create', 'basic info.'));
+    }
 
     return View::make('status.review', compact('application', 'profile', 'scholarship', 'help_text', 'vars'));
   }
