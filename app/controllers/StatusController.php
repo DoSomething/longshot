@@ -29,7 +29,7 @@ class StatusController extends \BaseController {
       $app_complete = Application::isComplete($user->id);
     }
     // Is the app complete & been submitted?
-    if (isset($app_complete) && $application->complete) {
+    if ($app_complete && $application->complete) {
       $status = 'Submitted. Waiting for recommendation...';
       $help_text = 'We have your application!';
     } else {
