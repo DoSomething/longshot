@@ -57,7 +57,7 @@ class RegistrationController extends \BaseController {
 
     $this->sendRegistrationEmail($user);
 
-    return Redirect::route('profile.create');
+    return Redirect::route('profile.create')->with('flash_message', 'Thanks for creating your account.');
 
   }
 
