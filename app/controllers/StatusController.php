@@ -20,6 +20,8 @@ class StatusController extends \BaseController {
    */
   public function status() {
     $user = Auth::user();
+    $app_complete = FALSE;
+    $prof_complete = FALSE;
     // @TODO: are these queries too heavy?
     // Get all info about application status.
     $application = Application::where('user_id', $user->id)->first();
@@ -58,7 +60,7 @@ class StatusController extends \BaseController {
     }
 
     // If both app & profile are complete add a link to review & submit.
-    if (isset($app_complete) && isset($prof_complete) && !($application->complete)) {
+    if ($app_complete && $prof_complete && !($application->complete)) {
       $submit = link_to_route('review', 'Review & Submit Application', array($user->id));
     }
 
