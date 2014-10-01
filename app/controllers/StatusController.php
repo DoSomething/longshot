@@ -61,7 +61,7 @@ class StatusController extends \BaseController {
 
     // If both app & profile are complete add a link to review & submit.
     if ($app_complete && $prof_complete && !($application->complete)) {
-      $submit = link_to_route('review', 'Review & Submit Application', array($user->id));
+      $submit = link_to_route('review', 'Review & Submit Application', [$user->id], ['class' => 'button -default']);
     }
 
     $vars = Setting::getSettingsVariables('general');
