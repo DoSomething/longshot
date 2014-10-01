@@ -82,14 +82,10 @@
 
     <section class="segment segment--timeline">
       <div class="wrapper">
-
         <h2 class="heading -gamma">Key Dates</h1>
-
         {{ $timeline }}
-
       </div>
     </section>
-
 
     <footer>
       <div class="wrapper">

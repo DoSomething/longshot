@@ -7,7 +7,7 @@
 
 .media-list--status { margin-bottom: pxcalc(20);
 
-  > li { @include rem(20); margin-bottom: 1em; position: relative; //background-color: rgba(fuchsia,0.1);
+  > li { @include rem(20); margin-bottom: 1em; position: relative;
 
   }
 
@@ -26,7 +26,7 @@
     }
   }
 
-  .__link { @include rem(16); display: block; line-height: 1; padding: pxcalc(6) 0 pxcalc(6) pxcalc(5); position: absolute; right: 0; text-decoration: none; text-transform: uppercase; top: 0; //background-color: rgba(red,0.3);
+  .__link { @include rem(16); display: block; line-height: 1; padding: pxcalc(6) 0 pxcalc(6) pxcalc(5); position: absolute; right: 0; text-decoration: none; text-transform: uppercase; top: 0;
     > .icon { padding-left: pxcalc(5); }
   }
 
