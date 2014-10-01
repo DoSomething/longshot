@@ -22,7 +22,7 @@
 @media only screen and (min-width: $medium) {
 
   .segment { @include container($wide); padding: pxcalc(35) 0;
-    > .wrapper { @include push(2 of 24); width: span(20 of 24) }
+    > .wrapper { @include push(2 of 24); width: span(20 of 24); }
 
     &.-compact {
       > .wrapper { @include push(2 of 12); width: span(8 of 12); }

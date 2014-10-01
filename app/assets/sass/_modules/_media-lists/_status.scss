@@ -5,14 +5,14 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-.media-list--status {
+.media-list--status { margin-bottom: pxcalc(20);
 
-  li { @include rem(20); margin-bottom: 1em; position: relative; background-color: rgba(fuchsia,0.1);
+  > li { @include rem(20); margin-bottom: 1em; position: relative; //background-color: rgba(fuchsia,0.1);
 
   }
 
   // @TODO: Vertically align to center.
-  .icon-status { border-radius: 3px; border-style: solid; border-width: 2px; margin-right: 0.3rem; display: inline-block;
+  .icon-status { border-radius: 3px; border-style: solid; border-width: 2px; margin-right: 0.5rem; display: inline-block;
     &:before { display: block; padding: 0.1em; }
   }
 
@@ -26,17 +26,15 @@
     }
   }
 
-  // .icon {
-  //   &.-action { @include rem(16); margin-top: -9px; position: absolute; right: 0; text-decoration: none; text-transform: uppercase; top: 50%;
-  //     &:after { padding-left: pxcalc(5,16); }
-  //   }
-  // }
-
-  .__link { @include rem(16); display: block; line-height: 1; margin-top: -(pxcalc(14)); padding: pxcalc(5) 0 pxcalc(5) pxcalc(5); position: absolute; right: 0; text-decoration: none; text-transform: uppercase; top: 50%; background-color: rgba(red,0.3);
+  .__link { @include rem(16); display: block; line-height: 1; padding: pxcalc(6) 0 pxcalc(6) pxcalc(5); position: absolute; right: 0; text-decoration: none; text-transform: uppercase; top: 0; //background-color: rgba(red,0.3);
     > .icon { padding-left: pxcalc(5); }
   }
 
+  ul { @include rem(16); padding-left: pxcalc(50); }
+
 }
+
+.button + .media-list--status { margin-top: pxcalc(20); }
 
 
 
@@ -46,10 +44,12 @@
 
 @media only screen and (min-width: $medium) {
 
-  .media-list--status {
+  .media-list--status { margin-bottom: pxcalc(30);
 
-    li { margin-bottom: 1.5em; }
+    > li { margin-bottom: 1.5em; }
 
   }
+
+  .button + .media-list--status { margin-top: pxcalc(30); }
 
 }

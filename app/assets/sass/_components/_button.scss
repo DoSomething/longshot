@@ -10,6 +10,8 @@
   // @TODO: decide on min-width approach for buttons...
   &.-default { @include rem(22); background-color: $app_primary; border-radius: 3px; color: #fff; display: inline-block; min-width: 200px; padding: 0.5em 1em; }
 
+  &.-small { @include rem(16); background-color: $app_primary; border-radius: 3px; color: #fff; display: inline-block; min-width: 150px; padding: 0.5em 1em; }
+
   &.icon { @include rem(30); }
 }
 
@@ -24,6 +26,8 @@
   .button {
 
     &.-default { @include rem(32); padding: 0.3em 1em; }
+
+    &.-small { @include rem(22); padding: 0.3em 1em; }
 
   }
 

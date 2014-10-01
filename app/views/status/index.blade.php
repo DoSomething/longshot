@@ -22,22 +22,19 @@
         <h1 class="heading -gamma">What's up</h1>
 
         <ul class="media-list media-list--status">
-          <li class="{{ isset($prof_complete) ? 'complete' : '-incomplete' }}">
+          <li class="{{ $prof_complete ? 'complete' : '-incomplete' }}">
             <span class="icon icon-status" data-icon="&#x2713"></span>Basic Information
-            {{-- isset($profile) ? iconLinkToRoute('profile.edit', 'Edit', Auth::user()->id, ['class' => 'icon icon-edit']) : iconLinkToRoute('profile.create', 'Start', null, ['class' => 'icon icon-edit']) --}}
             {{ isset($profile) ? '<a class="__link" href="' . URL::route('profile.edit', Auth::user()->id) . '">Edit<span class="icon icon-edit"></span></a>' : '<a class="" href="' . URL::route('profile.create', null) . '">Start<span class="icon icon-start"></span></a>' }}
           </li>
-          <li class="{{ isset($app_complete) ? 'complete' : '-incomplete' }}">
+          <li class="{{ $app_complete ? 'complete' : '-incomplete' }}">
             <span class="icon icon-status" data-icon="&#x2713"></span>Application
             @if (isset($application) && !($application->complete))
               {{ '<a class="__link" href="' . URL::route('application.edit', Auth::user()->id) . '">Edit<span class="icon icon-edit"></span></a>' }}
-
             @elseif (is_null($application) && !is_null($profile))
               {{ '<a class="__link" href="' . URL::route('application.create', Auth::user()->id) . '">Start<span class="icon icon-start"></span></a>' }}
             @endif
           </li>
         </ul>
-
 
         @if (isset($submit))
           {{ $submit }}
@@ -46,29 +43,39 @@
 
         @if (!empty($recommendations))
 
-                @foreach($recommendations as $rec)
+          <ul class="media-list media-list--status">
+            @foreach($recommendations as $index => $rec)
+              @if($rec['complete'] !== 'All set!')
+              <li class="-incomplete">
+              @else
+              <li class="complete">
+              @endif
+                <span class="icon icon-status" data-icon="&#x2713"></span>Recommendation
+                <ul>
+                  <li>Request Status: <em>{{ $rec['complete'] }}</em></li>
+                  <li>Submitted to <strong>{{ $rec['first_name'] . ' ' . $rec['last_name']}}</strong></li>
+                  <li>Email sent to <strong>{{ $rec['email'] }}</strong></li>
+                </ul>
 
-                    {{ $rec['first_name'] . ' ' . $rec['last_name']}}
-                    {{ $rec['email'] }}
-                     {{$rec['complete']}}
-                    @if ($rec['complete'] != 'All set!')
-                       {{link_to_route('resend', 'Resend Request', array('id' => $rec['id']))}}
-                    @endif
+                @if ($rec['complete'] !== 'All set!')
+                  {{ '<a class="__link" href="' . URL::route('resend', array('id' => $rec['id'])) . '">Resend<span class="icon icon-send"></span></a>' }}
+                @endif
+              </li>
+            @endforeach
+          </ul>
 
-                @endforeach
-
-
-
-            @if (isset($add_rec_link))
-              {{ $add_rec_link }}
-            @endif
-
+          @if (isset($add_rec_link))
+            {{ $add_rec_link }}
+          @endif
 
         @elseif (!is_null($application))
-          {{link_to_route('recommendation.create', 'Get Recommendations');}}
+          <ul class="media-list media-list--status">
+            <li class="-incomplete">
+              <span class="icon icon-status" data-icon="&#x2713"></span>Recommendation
+            </li>
+          </ul>
+          {{ link_to_route('recommendation.create', 'Get Recommendations', null, ['class' => 'button -small']); }}
         @endif
-
-
 
       </div>
     </section>
@@ -80,7 +87,7 @@
 
         {{ $timeline }}
 
-      </h2>
+      </div>
     </section>
 
 
