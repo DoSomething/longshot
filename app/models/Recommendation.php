@@ -64,4 +64,11 @@ class Recommendation extends \Eloquent {
     );
   }
 
+  public static function getUserRecs($id)
+  {
+    $fields = array('first_name', 'last_name', 'relationship', 'phone', 'email', 'rank_character', 'rank_additional', 'essay1 as rec_essay1');
+    return $recommendations = Recommendation::where('application_id', $id)->select($fields)->get()->toArray();
+
+  }
+
 }

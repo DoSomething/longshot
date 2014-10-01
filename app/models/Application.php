@@ -56,5 +56,11 @@ class Application extends Eloquent {
     return $application = Application::where('user_id', $id)->select($fields)->first()->toArray();
   }
 
+  public static function getUserApplicationId($id)
+  {
+    $fields = array('id');
+    return $application = Application::where('user_id', $id)->select($fields)->first();
+  }
+
 
 }
