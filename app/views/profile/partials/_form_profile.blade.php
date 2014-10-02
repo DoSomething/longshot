@@ -15,14 +15,14 @@
 
   {{-- Address Street --}}
   <div class="field-group {{ setInvalidClass('address_street', $errors) }}">
-    {{ Form::label('address_street', 'Address Street: ') }}
+    {{ Form::label('address_street', 'Address 1 - street address: ') }}
     {{ Form::text('address_street') }}
     {{ errorsFor('address_street', $errors); }}
   </div>
 
   {{-- Address Premise --}}
   <div class="field-group {{ setInvalidClass('address_premise', $errors) }}">
-    {{ Form::label('address_premise', 'Apt, Suite or Floor: ') }}
+    {{ Form::label('address_premise', 'Address 2 - apt, suite, or floor: ') }}
     {{ Form::text('address_premise') }}
     {{ errorsFor('address_premise', $errors); }}
   </div>
