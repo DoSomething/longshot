@@ -14,7 +14,7 @@ class UpdateStatusOnApp extends Migration {
   {
     Schema::table('applications', function($table)
     {
-      $table->dropIndex('complete');
+      $table->dropIndex('applications_complete_index');
       $table->renameColumn('complete', 'submitted');
     });
     Schema::table('applications', function($table)
