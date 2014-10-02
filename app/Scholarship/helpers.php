@@ -48,6 +48,14 @@ function sort_applicants_by($column, $body)
   return link_to_route('applications.index', $body, ['sort_by' => $column]);
 }
 
+/**
+ * A helper function to sort applicants
+ */
+function filter_applicants_by($status, $body)
+{
+  return link_to_route('applications.index', $body, ['filter_by' => $status]);
+}
+
 
 /**
  * Set a class on active menu items.

@@ -6,6 +6,7 @@
 
       @include('admin.layouts.partials.subnav-applications')
 
+
       <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         <h1 class="page-header">All Applications</h1>
         {{$applicants->links()}}
@@ -15,7 +16,16 @@
               <tr>
                 <th>ID</th>
                 <th> {{ sort_applicants_by('last_name', 'Name') }}</th>
-                <th> {{ sort_applicants_by('status', 'Status') }} </th>
+                <th>
+                  <div class="dropdown">
+                    <a data-toggle="dropdown" href="#">Status <span class='glyphicon glyphicon-chevron-down'/> </a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                       <li> {{filter_applicants_by('completed', 'Completed') }} </li>
+                      <li> {{filter_applicants_by('submitted', 'Submitted') }} </li>
+                      <li> {{filter_applicants_by('incomplete', 'Incomplete') }} </li>
+                    </ul>
+                  </div>
+                </th>
                 <th>Recommendations</th>
               </tr>
             </thead>
@@ -26,7 +36,7 @@
                   <td>{{ link_to('/admin/applications/' . $applicant->id , $applicant->first_name . ' ' . $applicant->last_name) }}</td>
                   <td>
                   @if ($applicant->completed && $applicant->submitted)
-                    Complete
+                    Completed
                   @elseif ($applicant->submitted)
                     Submitted
                   @else

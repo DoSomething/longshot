@@ -25,6 +25,7 @@ class AdminController extends \BaseController {
   public function applicationsIndex()
   {
     $sort_by = Request::get('sort_by');
+    $filter_by = Request::get('filter_by');
 
     $query = DB::table('users')
                   ->select('users.id', 'users.first_name', 'users.last_name', 'users.email', 'applications.submitted', 'applications.completed')
@@ -34,6 +35,22 @@ class AdminController extends \BaseController {
     if ($sort_by) {
       // @TODO: add 'direction' to this, so you can reverse results.
       $query->orderBy($sort_by, 'asc');
+    }
+    if ($filter_by) {
+      switch ($filter_by) {
+        case 'submitted':
+            $query->where('applications.submitted', '=', 1)
+                  ->where('applications.completed', '=', null);
+            break;
+        case 'completed':
+            $query->where('applications.submitted', '=', 1)
+                  ->where('applications.completed', '=', 1);
+            break;
+        case 'incomplete':
+            $query->where('applications.submitted', '=', null)
+                  ->where('applications.completed', '=', null);
+            break;
+        }
     }
 
     $applicants = $query->paginate(25);
