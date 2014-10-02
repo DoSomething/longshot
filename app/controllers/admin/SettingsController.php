@@ -48,7 +48,15 @@ class SettingsController extends \BaseController {
    */
   public function updateAppearance()
   {
-    $input = Input::only('primary_color', 'primary_color_contrast', 'secondary_color', 'secondary_color_contrast', 'cap_color', 'cap_color_contrast');
+    $input = Input::only(
+      'primary_color',
+      'primary_color_contrast',
+      'secondary_color',
+      'secondary_color_contrast',
+      'cap_color',
+      'cap_color_contrast',
+      );
+
     $this->settingsForm->validate($input);
 
     // @TODO: use the new method in the Setting model!
@@ -74,7 +82,25 @@ class SettingsController extends \BaseController {
    */
   public function updateGeneral()
   {
-    $inputText = Input::only('company_name', 'company_url', 'eligibility_text', 'footer_text', 'basic_info_help_text', 'create_account_help_text', 'profile_create_help_text', 'application_create_help_text', 'recommendation_create_help_text', 'recommendation_update_help_text', 'application_submit_help_text', 'nominate_text', 'tracking_code_id', 'status_page_help_text_incomplete', 'status_page_help_text_submitted', 'status_page_help_text_complete');
+    $inputText = Input::only(
+      'company_name',
+      'company_url',
+      'eligibility_text',
+      'footer_text',
+      'basic_info_help_text',
+      'create_account_help_text',
+      'profile_create_help_text',
+      'application_create_help_text',
+      'recommendation_create_help_text',
+      'recommendation_update_help_text',
+      'application_submit_help_text',
+      'nominate_text',
+      'tracking_code_id',
+      'status_page_help_text_incomplete',
+      'status_page_help_text_submitted', '
+      status_page_help_text_complete',
+      );
+
     $inputImages = Input::only('header_logo', 'footer_logo', 'nominate_image');
 
     $this->settingsForm->validate($inputText);
