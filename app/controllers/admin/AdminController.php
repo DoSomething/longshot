@@ -27,7 +27,9 @@ class AdminController extends \BaseController {
     $sort_by = Request::get('sort_by');
 
     $query = DB::table('users')
+                  ->select('users.id', 'users.first_name', 'users.last_name', 'users.email', 'applications.submitted', 'applications.completed')
                   ->leftJoin('role_user', 'users.id', '=', 'role_user.user_id')
+                  ->leftJoin('applications', 'applications.user_id', '=', 'users.id')
                   ->where('role_user.role_id', '=', 2);
     if ($sort_by) {
       // @TODO: add 'direction' to this, so you can reverse results.
@@ -35,7 +37,6 @@ class AdminController extends \BaseController {
     }
 
     $applicants = $query->paginate(25);
-
     return View::make('admin.applications.index', compact('applicants'));
   }
 

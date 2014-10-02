@@ -4,7 +4,6 @@
   <div class="container-fluid">
     <div class="row">
 
-      {{-- @TODO: likely a better way to split this out in Blade! --}}
       @include('admin.layouts.partials.subnav-applications')
 
       <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
@@ -18,17 +17,23 @@
                 <th> {{ sort_applicants_by('last_name', 'Name') }}</th>
                 <th> {{ sort_applicants_by('status', 'Status') }} </th>
                 <th>Recommendations</th>
-                <th>Score</th>
               </tr>
             </thead>
             <tbody>
               @foreach($applicants as $applicant)
                 <tr>
-                  <td>{{ $applicant->id }}</td>
+                  <td>{{ $applicant->id  }}</td>
                   <td>{{ link_to('/admin/applications/' . $applicant->id , $applicant->first_name . ' ' . $applicant->last_name) }}</td>
-                  <td>completed</td>
+                  <td>
+                  @if ($applicant->completed && $applicant->submitted)
+                    Complete
+                  @elseif ($applicant->submitted)
+                    Submitted
+                  @else
+                    Incomplete
+                  @endif
+                  </td>
                   <td>2</td>
-                  <td>&#9733; &#9733; &#9733;</td>
                 </tr>
               @endforeach
             </tbody>
