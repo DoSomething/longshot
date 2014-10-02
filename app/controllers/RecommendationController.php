@@ -167,6 +167,9 @@ class RecommendationController extends \BaseController {
     $recommendation->rank_additional = $input['rank_additional'];
     $recommendation->essay1 = $input['essay1'];
     $recommendation->save();
+    $application = Application::whereId($recommendation->application_id)->firstOrFail();
+    $application->complete = 1;
+    $application->save();
     $this->prepareRecReceivedEmail($recommendation);
 
     return Redirect::route('home')->with('flash_message', 'Thanks, we got your recommendation!');

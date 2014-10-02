@@ -20,16 +20,16 @@ class StatusController extends \BaseController {
    */
   public function status() {
     $user = Auth::user();
-    $app_complete = FALSE;
+    $app_filled_out = FALSE;
     $prof_complete = FALSE;
     // @TODO: are these queries too heavy?
     // Get all info about application status.
     $application = Application::where('user_id', $user->id)->first();
     if ($application) {
-      $app_complete = Application::isComplete($user->id);
+      $app_filled_out = Application::isFilledOut($user->id);
     }
     // Is the app complete & been submitted?
-    if ($app_complete && $application->complete) {
+    if ($app_filled_out && $application->submitted) {
       $status = 'Submitted. Waiting for recommendation...';
       $help_text = 'We have your application!';
     } else {
@@ -50,7 +50,7 @@ class StatusController extends \BaseController {
       }
       foreach($recommendations as $rec) {
         $rec->isRecommendationComplete($rec);
-        if ($rec->isComplete($rec->id) && isset($app_complete) && $application->complete) {
+        if ($rec->isComplete($rec->id) && isset($app_filled_out) && $application->submitted) {
           $status = 'Completed.';
           $help_text = 'Your application is in review.';
         }
@@ -60,7 +60,7 @@ class StatusController extends \BaseController {
     }
 
     // If both app & profile are complete add a link to review & submit.
-    if ($app_complete && $prof_complete && !($application->complete)) {
+    if ($app_filled_out && $prof_complete && !($application->submitted)) {
       $submit = link_to_route('review', 'Review & Submit Application', [$user->id], ['class' => 'button -small']);
     }
 
@@ -71,7 +71,7 @@ class StatusController extends \BaseController {
     $timeline = Block::remember(120, 'query.block.timeline')->whereBlockType('timeline')->select('block_body_html')->first();
     $timeline = $timeline->block_body_html;
 
-    return View::make('status.index', compact('profile', 'application', 'recommendations', 'app_complete', 'prof_complete', 'submit', 'status', 'helper', 'vars', 'add_rec_link', 'timeline'));
+    return View::make('status.index', compact('profile', 'application', 'recommendations', 'app_filled_out', 'prof_complete', 'submit', 'status', 'helper', 'vars', 'add_rec_link', 'timeline'));
 
   }
 
@@ -104,7 +104,7 @@ class StatusController extends \BaseController {
     $input = Input::all();
     $this->reviewForm->validate($input);
     $application = Application::where('user_id', Auth::user()->id)->firstorFail();
-    $application->complete = 1;
+    $application->submitted = 1;
     $application->save();
     $this->confirmationEmail();
     $recommendations = Recommendation::where('application_id', $application->id)->get();
