@@ -6,7 +6,7 @@
   <div class="container">
     <h1>Welcome, {{ $user->first_name }}!</h1>
 
-    <p>There are a total of <strong>{{ $userCount }}</strong> users in the system.</p>
+    <p>There are a total of <strong>{{ $count['users'] }}</strong> users in the system.</p>
     <p>{{ link_to_route('applications.index', 'View all Applications', null, ['class' => 'btn btn-primary btn-lg']) }}</p>
   </div>
 </div>
@@ -18,26 +18,50 @@
   <div class="container">
     <div class="row">
 
-      <div class="col-xs-6 col-sm-3 placeholder">
-        <img src="http://placekitten.com/g/200/200" class="img-responsive" alt="Generic placeholder thumbnail">
-        <h4>Data</h4>
-        <span class="text-muted">Chart data here</span>
-      </div>
-      <div class="col-xs-6 col-sm-3 placeholder">
-        <img src="http://placekitten.com/g/200/200" class="img-responsive" alt="Generic placeholder thumbnail">
-        <h4>Data</h4>
-        <span class="text-muted">Chart data here</span>
-      </div>
-      <div class="col-xs-6 col-sm-3 placeholder">
-        <img src="http://placekitten.com/g/200/200" class="img-responsive" alt="Generic placeholder thumbnail">
-        <h4>Data</h4>
-        <span class="text-muted">Chart data here</span>
-      </div>
-      <div class="col-xs-6 col-sm-3 placeholder">
-        <img src="http://placekitten.com/g/200/200" class="img-responsive" alt="Generic placeholder thumbnail">
-        <h4>Data</h4>
-        <span class="text-muted">Chart data here</span>
-      </div>
+       <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Record</th>
+            <th>Count</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td> Started Applications </td>
+            <td> {{ $count['apps'] }} </td>
+          </tr>
+           <tr>
+            <td> Total Nominations </td>
+            <td> {{ $count['noms'] }} </td>
+          </tr>
+          <tr>
+            <td> Unique Nominations </td>
+            <td> {{ $count['unique_noms'] }} </td>
+          </tr>
+          <tr>
+            <td> Submitted Applications </td>
+            <td> {{ $count['submitted_apps'] }} </td>
+          </tr>
+          <tr>
+            <td> submitted applications with one requested recommendation </td>
+            <td>  </td>
+          </tr>
+           <tr>
+            <td> submitted applications with one completed recommendation </td>
+            <td>  </td>
+          </tr>
+          <tr>
+            <td> submitted applications with two requested recommendations </td>
+            <td>  </td>
+          </tr>
+          <tr>
+            <td> submitted applications with two completed recommendations </td>
+            <td>  </td>
+          </tr>
+
+        </tbody>
+       </table>
+
 
     </div>
 

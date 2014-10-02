@@ -9,13 +9,20 @@ class AdminController extends \BaseController {
    */
   public function index()
   {
+    $count = array();
     $user = Auth::user();
-    $userCount =  $query = DB::table('users')
+    $count['users'] =  $query = DB::table('users')
                   ->leftJoin('role_user', 'users.id', '=', 'role_user.user_id')
                   ->where('role_user.role_id', '=', 2)
                   ->count();
 
-    return View::make('admin.index', compact('user', 'userCount'));
+    $count['apps'] = Application::count();
+    $count['noms'] = Nomination::count();
+    $unique = DB::select("SELECT COUNT(DISTINCT (nom_email)) as count FROM nominations");
+    $count['unique_noms'] = $unique[0]->count;
+    $count['submitted_apps'] = Application::where('submitted', '=', 1)->where('completed', '=', 1)->count();
+
+    return View::make('admin.index', compact('user', 'count'));
   }
 
 
