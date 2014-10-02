@@ -17,12 +17,14 @@ set :keep_releases, 1
 ssh_options[:keys] = [ENV["CAP_PRIVATE_KEY"]]
 
 namespace :deploy do
+  folders = %w{pages logs dumps}
 
   task :link_folders do
     run "ln -nfs #{shared_path}/.env.php #{release_path}/"
     run "ln -nfs #{shared_path}/content #{release_path}/public"
-    run "ln -nfs #{shared_path}/pages #{release_path}/public/pages"
-    run "ln -nfs #{shared_path}/logs #{release_path}/app/storage"
+    folders.each do |site|
+      run "ln -nfs #{shared_path}/#{site} #{release_path}/public/#{site}"
+    end
   end
 
   task :artisan_migrate do
