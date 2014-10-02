@@ -32,10 +32,10 @@ class StatusController extends \BaseController {
     // Is the app complete & been submitted?
     if ($app_filled_out && $application->submitted) {
       $status = 'Submitted. Waiting for recommendation...';
-      $help_text = 'We have your application!';
+      $help_text = Setting::where('key', 'status_page_help_text_submitted')->pluck('value');
     } else {
       $status = 'Incomplete';
-      $help_text = 'Make sure to fill out all fields and submit the application!';
+      $help_text = Setting::where('key', 'status_page_help_text_incomplete')->pluck('value');;
     }
 
     $profile = Profile::where('user_id', $user->id)->first();
@@ -53,7 +53,8 @@ class StatusController extends \BaseController {
         $rec->isRecommendationComplete($rec);
         if ($rec->isComplete($rec->id) && isset($app_filled_out) && $application->submitted) {
           $status = 'Completed.';
-          $help_text = 'Your application is in review.';
+          $help_text = Setting::where('key', 'status_page_help_text_complete')->pluck('value');;
+
         }
 
       }
@@ -72,7 +73,7 @@ class StatusController extends \BaseController {
     $timeline = Block::remember(120, 'query.block.timeline')->whereBlockType('timeline')->select('block_body_html')->first();
     $timeline = $timeline->block_body_html;
 
-    return View::make('status.index', compact('profile', 'application', 'recommendations', 'app_filled_out', 'prof_complete', 'submit', 'status', 'helper', 'vars', 'add_rec_link', 'timeline'));
+    return View::make('status.index', compact('profile', 'application', 'recommendations', 'app_filled_out', 'prof_complete', 'submit', 'status', 'help_text', 'vars', 'add_rec_link', 'timeline'));
 
   }
 
