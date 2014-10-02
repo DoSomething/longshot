@@ -26,7 +26,6 @@
                     </ul>
                   </div>
                 </th>
-                <th>Recommendations</th>
               </tr>
             </thead>
             <tbody>
@@ -43,7 +42,6 @@
                     Incomplete
                   @endif
                   </td>
-                  <td>2</td>
                 </tr>
               @endforeach
             </tbody>
