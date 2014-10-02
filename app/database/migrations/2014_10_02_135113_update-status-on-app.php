@@ -14,11 +14,14 @@ class UpdateStatusOnApp extends Migration {
   {
     Schema::table('applications', function($table)
     {
+      $table->dropIndex('complete');
       $table->renameColumn('complete', 'submitted');
     });
     Schema::table('applications', function($table)
     {
-        $table->tinyInteger('complete')->after('submitted')->index()->nullable();
+        $table->tinyInteger('completed')->after('submitted')->nullable();
+        $table->index('completed');
+        $table->index('submitted');
     });
   }
 
@@ -35,7 +38,7 @@ class UpdateStatusOnApp extends Migration {
     });
     Schema::table('applications', function($table)
     {
-        $table->dropColumn('complete');
+        $table->dropColumn('completed');
     });
   }
 
