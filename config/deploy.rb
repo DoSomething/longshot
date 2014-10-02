@@ -17,13 +17,14 @@ set :keep_releases, 1
 ssh_options[:keys] = [ENV["CAP_PRIVATE_KEY"]]
 
 namespace :deploy do
-  folders = %w{pages logs dumps}
+  folders = %w{logs dumps system}
 
   task :link_folders do
     run "ln -nfs #{shared_path}/.env.php #{release_path}/"
     run "ln -nfs #{shared_path}/content #{release_path}/public"
-    folders.each do |site|
-      run "ln -nfs #{shared_path}/#{site} #{release_path}/public/#{site}"
+    run "ln -nfs #{shared_path}/pages #{release_path}/public/pages"
+    folders.each do |folder|
+      run "ln -nfs #{shared_path}/#{folder} #{release_path}/app/storage/#{folder}"
     end
   end
 
