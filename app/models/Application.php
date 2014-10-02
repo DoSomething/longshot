@@ -36,9 +36,9 @@ class Application extends Eloquent {
   }
 
   // Given a user id, returns bool if all required fields are
-  public static function isComplete($id)
+  public static function isFilledOut($id)
   {
-    $optional = ['test_type', 'test_score', 'link', 'hear_about', 'complete'];
+    $optional = ['test_type', 'test_score', 'link', 'hear_about', 'complete', 'submitted'];
     $fields = Application::where('user_id', $id)->firstOrFail()->toArray();
 
     return fieldsAreComplete($fields, $optional);
@@ -46,8 +46,8 @@ class Application extends Eloquent {
   // Given a user id, returns bool if all required fields are
   public static function isSubmitted($id)
   {
-    $application = Application::where('user_id', $id)->select('complete')->firstOrFail();
-    return $application->complete;
+    $application = Application::where('user_id', $id)->select('submitted')->firstOrFail();
+    return $application->submitted;
   }
 
   public static function getUserApplication($id)

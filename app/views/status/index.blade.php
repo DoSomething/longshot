@@ -26,9 +26,9 @@
             <span class="icon icon-status" data-icon="&#x2713"></span>Basic Information
             {{ isset($profile) ? '<a class="__link" href="' . URL::route('profile.edit', Auth::user()->id) . '">Edit<span class="icon icon-edit"></span></a>' : '<a class="" href="' . URL::route('profile.create', null) . '">Start<span class="icon icon-start"></span></a>' }}
           </li>
-          <li class="{{ $app_complete ? 'complete' : '-incomplete' }}">
+          <li class="{{ $app_filled_out ? 'complete' : '-incomplete' }}">
             <span class="icon icon-status" data-icon="&#x2713"></span>Application
-            @if (isset($application) && !($application->complete))
+            @if (isset($application) && !($application->submitted))
               {{ '<a class="__link" href="' . URL::route('application.edit', Auth::user()->id) . '">Edit<span class="icon icon-edit"></span></a>' }}
             @elseif (is_null($application) && !is_null($profile))
               {{ '<a class="__link" href="' . URL::route('application.create', Auth::user()->id) . '">Start<span class="icon icon-start"></span></a>' }}
