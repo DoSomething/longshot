@@ -28,6 +28,7 @@ class StatusController extends \BaseController {
     if ($application) {
       $app_filled_out = Application::isFilledOut($user->id);
     }
+
     // Is the app complete & been submitted?
     if ($app_filled_out && $application->submitted) {
       $status = 'Submitted. Waiting for recommendation...';

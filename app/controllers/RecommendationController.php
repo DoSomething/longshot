@@ -168,7 +168,7 @@ class RecommendationController extends \BaseController {
     $recommendation->essay1 = $input['essay1'];
     $recommendation->save();
     $application = Application::whereId($recommendation->application_id)->firstOrFail();
-    $application->complete = 1;
+    $application->completed = 1;
     $application->save();
     $this->prepareRecReceivedEmail($recommendation);
 
