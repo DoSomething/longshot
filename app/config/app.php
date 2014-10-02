@@ -123,6 +123,7 @@ return array(
     'Illuminate\Workbench\WorkbenchServiceProvider',
     'Way\Generators\GeneratorsServiceProvider',
     'Laracasts\Validation\ValidationServiceProvider',
+    'Schickling\Backup\BackupServiceProvider',
 
   ),
 
