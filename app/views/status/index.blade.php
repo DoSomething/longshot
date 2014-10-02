@@ -9,11 +9,9 @@
     <div class="segment">
       <div class="wrapper">
         <h2 class="heading -gamma">Status: <em> {{ $status }} </em></h2>
-        @if(! empty($help_text))
-          <p>{{ $help_text }}</p>
-        @endif
 
-        <p>Thank you for submitting your application. Come back here to check on your application status. Your application will be complete once we receive the required recommendation(s).</p>
+          <p>{{ $help_text }}</p>
+
       </div>
     </div>
 
