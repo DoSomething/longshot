@@ -16,7 +16,7 @@
         <li>{{ link_to_route('settings', 'Settings') }}</li>
         <li>{{ link_to_route('applications.index', 'Applications') }}</li>
         <li>{{ link_to_route('admin.page.index', 'Pages') }}</li>
-        <li>{{ link_to_route('logout', 'Logout') }}</li>
+        <li>{{ link_to_route('logout', 'Log out') }}</li>
       </ul>
     </div>
 
