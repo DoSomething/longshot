@@ -54,7 +54,7 @@ class SettingsController extends \BaseController {
       'secondary_color',
       'secondary_color_contrast',
       'cap_color',
-      'cap_color_contrast',
+      'cap_color_contrast'
       );
 
     $this->settingsForm->validate($input);
@@ -98,7 +98,7 @@ class SettingsController extends \BaseController {
       'tracking_code_id',
       'status_page_help_text_incomplete',
       'status_page_help_text_submitted', '
-      status_page_help_text_complete',
+      status_page_help_text_complete'
       );
 
     $inputImages = Input::only('header_logo', 'footer_logo', 'nominate_image');
