@@ -9,7 +9,7 @@
       <ul class="__menu -level-1">
         <li><a href="/about"><span>About</span></a></li>
         <li><a href="/faq"><span>FAQs</span></a></li>
-        <li><a href="{{ URL::to('https://s3.amazonaws.com/uploads.hipchat.com/34218/1222616/k8nqcf4hYad3x6D/Foot%20Locker%20Scholar%20Athletes%20Official%20Rules%202014-2015.pdf') }}" target="_blank"><span>Official Rules</span></a></li>
+        <li><a href="{{ URL::to('https://s3.amazonaws.com/uploads.hipchat.com/34218/1222616/xWTSRkWcE7jrdAD/Foot%20Locker%20Scholar%20Athletes%20Official%20Rules%202014-2015.pdf') }}" target="_blank"><span>Official Rules</span></a></li>
       </ul>
     </nav>
 

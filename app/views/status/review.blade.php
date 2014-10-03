@@ -69,7 +69,7 @@
 
         <div class="field-group -checkbox">
           {{ Form::checkbox('rules', 1, false, ['id' => 'eligibility']); }}
-          {{ Form::label('rules', "You agree to the ") }} {{ link_to('https://s3.amazonaws.com/uploads.hipchat.com/34218/1222616/k8nqcf4hYad3x6D/Foot%20Locker%20Scholar%20Athletes%20Official%20Rules%202014-2015.pdf', "Official Rules", array('target'=>'_blank'))}}
+          {{ Form::label('rules', "You agree to the ") }} {{ link_to('https://s3.amazonaws.com/uploads.hipchat.com/34218/1222616/xWTSRkWcE7jrdAD/Foot%20Locker%20Scholar%20Athletes%20Official%20Rules%202014-2015.pdf', "Official Rules", array('target'=>'_blank'))}}
           {{ errorsFor('rules', $errors); }}
         </div>
 
