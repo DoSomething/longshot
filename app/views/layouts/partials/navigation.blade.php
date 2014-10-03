@@ -7,10 +7,10 @@
 
       @if (Auth::guest())
         <li class="{{ setActive('register') }}"><a href="/register"><span>Apply</span></a></li>
-        <li class="{{ setActive('login') }}"><a href="/login"><span>Login</span></a></li>
+        <li class="{{ setActive('login') }}"><a href="/login"><span>Log in</span></a></li>
       @else
         <li class="{{ setActive('status') }}"><a href="/status"><span>Status</span></a></li>
-        <li><a href="/logout"><span>Logout</span></a></li>
+        <li><a href="/logout"><span>Log out</span></a></li>
       @endif
   </ul>
 </nav>

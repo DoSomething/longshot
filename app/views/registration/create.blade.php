@@ -9,7 +9,7 @@
     <div class="segment -compact">
       <div class="wrapper">
 
-      <p>Have an account? {{ link_to_route('login', 'Login') }}</p>
+      <p>Have an account? {{ link_to_route('login', 'Log in') }}</p>
 
       @if(isset($help_text))
         <p>{{ $help_text }}</p>
