@@ -102,7 +102,7 @@ class Profile extends Eloquent {
 
   public static function getUserProfile($id)
   {
-    $fields = array('birthdate', 'phone', 'address_street', 'address_premise', 'city', 'state', 'zip as zip_code', 'gender', 'grade', 'school as current_high_school');
+    $fields = array('birthdate', 'phone', 'address_street as address_1', 'address_premise as address_2', 'city', 'state', 'zip as zip_code', 'gender', 'grade', 'school as current_high_school');
     return $profile = Profile::where('user_id', $id)->select($fields)->first()->toArray();
 
   }
