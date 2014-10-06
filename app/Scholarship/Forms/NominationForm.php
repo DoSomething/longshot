@@ -17,4 +17,13 @@ class NominationForm extends FormValidator {
 
  ];
 
+ protected $messages = [
+  'rec_name.required'   => 'Please enter your name.',
+  'nom_name.required'   => 'Please enter the nominee\'s name.',
+  'rec_email.required'  => 'Please enter an email.',
+  'nom_email.required'  => 'Please enter an email.',
+  'rec_email.email'     => 'Please enter a valid email address',
+  'nom_email.email'     => 'Please enter a valid email address',
+ ];
+
 }
