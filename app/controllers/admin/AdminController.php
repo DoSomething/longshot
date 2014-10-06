@@ -9,13 +9,48 @@ class AdminController extends \BaseController {
    */
   public function index()
   {
+    $count = array();
     $user = Auth::user();
-    $userCount =  $query = DB::table('users')
+    $count['users'] =  $query = DB::table('users')
                   ->leftJoin('role_user', 'users.id', '=', 'role_user.user_id')
                   ->where('role_user.role_id', '=', 2)
                   ->count();
 
-    return View::make('admin.index', compact('user', 'userCount'));
+    $count['apps'] = Application::count();
+    $count['noms'] = Nomination::count();
+    $unique = DB::select("SELECT COUNT(DISTINCT (nom_email)) as count FROM nominations");
+    $count['unique_noms'] = $unique[0]->count;
+    $count['submitted_apps'] = Application::where('submitted', '=', 1)->where('completed', '=', 1)->count();
+
+    // @TODO: combime these two, the is null and is not null will not bind as a variable. :(
+    $base_rec_null_query = 'SELECT count(*) as total FROM (
+                        SELECT count(*) as c
+                        FROM recommendations
+                        WHERE rank_additional is null
+                        GROUP BY application_id
+                        HAVING c = :count
+                      ) T ;';
+
+    $base_rec_complete_query = 'SELECT count(*) as total FROM (
+                        SELECT count(*) as count
+                        FROM recommendations
+                        WHERE rank_additional is not null
+                        GROUP BY application_id
+                        HAVING count = :count
+                      ) T ;';
+
+    $requested_one = DB::select($base_rec_null_query, array('count' => 1));
+    $requested_two = DB::select($base_rec_null_query, array('count' => 2));
+
+    $submitted_one = DB::select($base_rec_complete_query, array('count' => 1));
+    $submitted_two = DB::select($base_rec_complete_query, array('count' => 2));
+
+    $count['requested_one'] = $requested_one[0]->total;
+    $count['requested_two'] = $requested_two[0]->total;
+    $count['submitted_one'] = $submitted_one[0]->total;
+    $count['submitted_two'] = $submitted_two[0]->total;
+
+    return View::make('admin.index', compact('user', 'count'));
   }
 
 
