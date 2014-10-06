@@ -20,7 +20,10 @@ class AdminController extends \BaseController {
     $count['noms'] = Nomination::count();
     $unique = DB::select("SELECT COUNT(DISTINCT (nom_email)) as count FROM nominations");
     $count['unique_noms'] = $unique[0]->count;
-    $count['submitted_apps'] = Application::where('submitted', '=', 1)->where('completed', '=', 1)->count();
+    $unique = DB::select("SELECT COUNT(DISTINCT (rec_email)) as count FROM nominations");
+    $count['unique_recs'] = $unique[0]->count;
+    $count['submitted_apps'] = Application::where('submitted', '=', 1)->count();
+    $count['completed_apps'] = Application::where('submitted', '=', 1)->where('completed', '=', 1)->count();
 
     // @TODO: combime these two, the is null and is not null will not bind as a variable. :(
     $base_rec_null_query = 'SELECT count(*) as total FROM (
