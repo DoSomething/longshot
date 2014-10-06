@@ -35,27 +35,35 @@
             <td> {{ $count['noms'] }} </td>
           </tr>
           <tr>
-            <td> Unique Nominations </td>
+            <td> Unique Nominees </td>
             <td> {{ $count['unique_noms'] }} </td>
+          </tr>
+          <tr>
+            <td> Unique Nominators </td>
+            <td> {{ $count['unique_recs'] }} </td>
           </tr>
           <tr>
             <td> Submitted Applications </td>
             <td> {{ $count['submitted_apps'] }} </td>
           </tr>
           <tr>
-            <td> submitted applications with one requested recommendation </td>
+            <td> Completed Applications <em> (these are DONE) </em> </td>
+            <td> {{ $count['completed_apps'] }} </td>
+          </tr>
+          <tr>
+            <td> Applications with one requested recommendation </td>
             <td> {{ $count['requested_one'] }} </td>
           </tr>
            <tr>
-            <td> submitted applications with one completed recommendation </td>
+            <td> Applications with one completed recommendation </td>
             <td> {{ $count['requested_two'] }} </td>
           </tr>
           <tr>
-            <td> submitted applications with two requested recommendations </td>
+            <td> Applications with two requested recommendations </td>
             <td> {{ $count['submitted_one'] }} </td>
           </tr>
           <tr>
-            <td> submitted applications with two completed recommendations </td>
+            <td> Applications with two completed recommendations </td>
             <td> {{ $count['submitted_two'] }}  </td>
           </tr>
 
