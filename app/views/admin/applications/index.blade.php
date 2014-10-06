@@ -4,8 +4,8 @@
   <div class="container-fluid">
     <div class="row">
 
-      {{-- @TODO: likely a better way to split this out in Blade! --}}
       @include('admin.layouts.partials.subnav-applications')
+
 
       <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         <h1 class="page-header">All Applications</h1>
@@ -16,19 +16,32 @@
               <tr>
                 <th>ID</th>
                 <th> {{ sort_applicants_by('last_name', 'Name') }}</th>
-                <th> {{ sort_applicants_by('status', 'Status') }} </th>
-                <th>Recommendations</th>
-                <th>Score</th>
+                <th>
+                  <div class="dropdown">
+                    <a data-toggle="dropdown" href="#">Status <span class='glyphicon glyphicon-chevron-down'/> </a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                       <li> {{filter_applicants_by('completed', 'Completed') }} </li>
+                      <li> {{filter_applicants_by('submitted', 'Submitted') }} </li>
+                      <li> {{filter_applicants_by('incomplete', 'Incomplete') }} </li>
+                    </ul>
+                  </div>
+                </th>
               </tr>
             </thead>
             <tbody>
               @foreach($applicants as $applicant)
                 <tr>
-                  <td>{{ $applicant->id }}</td>
+                  <td>{{ $applicant->id  }}</td>
                   <td>{{ link_to('/admin/applications/' . $applicant->id , $applicant->first_name . ' ' . $applicant->last_name) }}</td>
-                  <td>completed</td>
-                  <td>2</td>
-                  <td>&#9733; &#9733; &#9733;</td>
+                  <td>
+                  @if ($applicant->completed && $applicant->submitted)
+                    Completed
+                  @elseif ($applicant->submitted)
+                    Submitted
+                  @else
+                    Incomplete
+                  @endif
+                  </td>
                 </tr>
               @endforeach
             </tbody>
