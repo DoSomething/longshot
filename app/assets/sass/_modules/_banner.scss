@@ -8,7 +8,7 @@
 .banner { background-color: $app_background; color: #fff; display: table; min-height: pxcalc(200); padding: pxcalc(20) pxcalc(10); position: relative; text-align: center; width: 100%;
   > .wrapper { display: table-cell; position: relative; vertical-align: bottom; z-index: 10; }
 
-  &.-hero { text-shadow: 0 0 4px rgba(0,0,0,0.3); text-transform: uppercase;
+  &.-hero { @include text_shadow(); text-transform: uppercase;
 
     .__title { @include visually_hidden(); }
 
