@@ -36,7 +36,7 @@ class Recommendation extends \Eloquent {
     // Set an attribute of if it's finished or not.
     if (!empty($rec->rank_character) && !empty($rec->rank_additional) && !empty($rec->essay1))
     {
-      $rec->complete = 'All set!';
+      $rec->complete = 'Recommendation received!';
     }
     else
     {

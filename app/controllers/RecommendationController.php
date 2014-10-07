@@ -83,7 +83,7 @@ class RecommendationController extends \BaseController {
           $this->prepareRecRequestConfirmationEmail();
           $this->prepareRecRequestEmail($recommendation, $token);
 
-          return Redirect::route('status')->with('flash_message', 'We sent that email off!');
+          return Redirect::route('status')->with('flash_message', 'Your recommendation request has been submitted!');
         }
       }
       return Redirect::route('recommendation.create')->with('flash_message', 'All fields are required.');
