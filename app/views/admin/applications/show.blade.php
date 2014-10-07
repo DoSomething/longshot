@@ -61,15 +61,17 @@
         </div>
         @endif
 
-        <div class='btn-group'>
-        {{ Form::open(['route' => 'applications.rate']) }}
-          {{ Form::hidden('app_id', $app_id->id)}}
-         {{ Form::submit('Yes', ['class' => 'btn btn-primary btn-md', 'name' => 'rating']) }}
-         {{ Form::submit('No', ['class' => 'btn btn-primary btn-md', 'name' => 'rating']) }}
-         {{ Form::submit('Maybe', ['class' => 'btn btn-primary btn-md', 'name' => 'rating']) }}
-         </div>
+        @if ($show_rating)
+          <div class='btn-group'>
+          {{ Form::open(['route' => 'applications.rate']) }}
+            {{ Form::hidden('app_id', $app_id->id)}}
+           {{ Form::submit('Yes', ['class' => 'btn btn-primary btn-md', 'name' => 'rating']) }}
+           {{ Form::submit('No', ['class' => 'btn btn-primary btn-md', 'name' => 'rating']) }}
+           {{ Form::submit('Maybe', ['class' => 'btn btn-primary btn-md', 'name' => 'rating']) }}
+           </div>
 
-        {{ Form::close() }}
+          {{ Form::close() }}
+        @endif
 
       </div>
 

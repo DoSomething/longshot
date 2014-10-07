@@ -110,7 +110,11 @@ class AdminController extends \BaseController {
     if ($app_id)
       $recomendations = Recommendation::getUserRecs($app_id->id);
 
-    return View::make('admin.applications.show', compact('application', 'app_id', 'profile', 'scholarship', 'recomendations'));
+    $show_rating = FALSE;
+    if (Application::isComplete($app_id->id) && !(Rating::applicationHasRating($app_id->id)))
+      $show_rating = TRUE;
+
+    return View::make('admin.applications.show', compact('application', 'app_id', 'profile', 'scholarship', 'recomendations', 'show_rating'));
   }
 
   /**

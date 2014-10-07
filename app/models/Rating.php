@@ -10,6 +10,15 @@ class Rating extends Eloquent {
     return $this->belongsTo('Application');
   }
 
+  // Given an app_id returns bool if application has been rated.
+  public static function applicationHasRating($app_id)
+  {
+    $rating = Rating::where('application_id', $app_id)->first();
+    if ($rating) {
+      return TRUE;
+    }
+    return FALSE;
+  }
 
 
 }
