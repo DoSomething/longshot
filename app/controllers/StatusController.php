@@ -119,7 +119,7 @@ class StatusController extends \BaseController {
     if ($recommendations->count() == $max_recs) {
       return Redirect::route('status')->with('flash_message', 'Sweet, just waiting on your recommendations');
     }
-    return Redirect::route('recommendation.create')->with('flash_message', 'Sweet, you submitted your app');
+    return Redirect::route('recommendation.create')->with('flash_message', 'Your application has been submitted. Submit a recommendation request below.');
   }
 
   public function resendEmailRequest()
