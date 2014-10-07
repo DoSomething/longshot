@@ -9,7 +9,9 @@
     <div class="segment -compact">
       <div class="wrapper">
 
-        <p>{{ $help_text }}</p>
+        @if(! empty($vars->basic_info_help_text))
+          <p>{{ $vars->basic_info_help_text }}</p>
+        @endif
 
         {{ Form::model($user, ['method' => 'PATCH', 'route' => ['profile.update', $user->user_id]]) }}
 

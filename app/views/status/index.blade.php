@@ -10,7 +10,14 @@
       <div class="wrapper">
         <h2 class="heading -gamma">Status: <em> {{ $status }} </em></h2>
 
-          <p>{{ $help_text }}</p>
+        {{-- @TODO: Clean this up a bit. Not ideal. --}}
+        @if(! empty($vars->status_page_help_text_submitted))
+          <p>{{ $vars->status_page_help_text_submitted }}</p>
+        @elseif(! empty($vars->status_page_help_text_incomplete))
+          <p>{{ $vars->status_page_help_text_incomplete }}</p>
+        @elseif(! empty($vars->status_page_help_text_complete))
+          <p>{{ $vars->status_page_help_text_complete }}</p>
+        @endif
 
       </div>
     </div>

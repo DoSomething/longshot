@@ -23,14 +23,14 @@ class RegistrationController extends \BaseController {
    */
   public function create()
   {
-    $setting = Setting::whereKey('eligibility_text')->first();
 
-    $data = new stdClass;
-    $data->eligibility_text = $setting->value;
-    $help_text = Setting::where('key', '=', 'create_account_help_text')->pluck('value');
-    $vars = Setting::getSettingsVariables('general'); // @TODO: mayb consolidate with above?
+    $eligibilityText = Setting::getSpecifiedSettingsVars(['eligibility_text']);
+    $helpText = Setting::getSpecifiedSettingsVars(['create_account_help_text']);
+    $pageVars = Setting::getPageSettingsVars();
 
-    return View::make('registration.create', compact('data', 'help_text', 'vars'));
+    $vars = (object) array_merge($pageVars, $helpText, $eligibilityText);
+
+    return View::make('registration.create', compact('vars'));
   }
 
 

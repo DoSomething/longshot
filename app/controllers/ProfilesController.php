@@ -24,10 +24,13 @@ class ProfilesController extends \BaseController {
   {
     $states = Profile::getStates();
     $races = Profile::getRaces();
-    $help_text = Setting::where('key', '=', 'basic_info_help_text')->pluck('value');
-    $vars = Setting::getSettingsVariables('general');
 
-    return View::make('profile.create')->with(compact('states', 'races', 'help_text', 'vars'));
+    $helpText = Setting::getSpecifiedSettingsVars(['basic_info_help_text']);
+    $pageVars = Setting::getPageSettingsVars();
+
+    $vars = (object) array_merge($pageVars, $helpText);
+
+    return View::make('profile.create')->with(compact('states', 'races', 'vars'));
   }
 
 
@@ -93,7 +96,7 @@ class ProfilesController extends \BaseController {
       return Redirect::home()->with('flash_message', 'This user does\'t exist!');
     }
 
-    $vars = Setting::getSettingsVariables('general');
+    $vars = (object) Setting::getPageSettingsVars();
 
     if (! $user->profile)
     {
@@ -117,10 +120,13 @@ class ProfilesController extends \BaseController {
     $profile = Profile::with('race')->whereUserId($id)->firstOrFail();
     $states = Profile::getStates();
     $races = Profile::getRaces();
-    $help_text = Setting::where('key', '=', 'basic_info_help_text')->pluck('value');
-    $vars = Setting::getSettingsVariables('general');
 
-    return View::make('profile.edit')->withUser($profile)->with(compact('states', 'races', 'help_text', 'vars'));
+    $helpText = Setting::getSpecifiedSettingsVars(['basic_info_help_text']);
+    $pageVars = Setting::getPageSettingsVars();
+
+    $vars = (object) array_merge($pageVars, $helpText);
+
+    return View::make('profile.edit')->withUser($profile)->with(compact('states', 'races', 'vars'));
   }
 
 

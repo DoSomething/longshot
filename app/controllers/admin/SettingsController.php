@@ -82,6 +82,7 @@ class SettingsController extends \BaseController {
    */
   public function updateGeneral()
   {
+    // @TODO: maybe collect the help_text related items via the Setting::$individualQueryItems static property?
     $inputText = Input::only(
       'company_name',
       'company_url',
@@ -97,8 +98,8 @@ class SettingsController extends \BaseController {
       'nominate_text',
       'tracking_code_id',
       'status_page_help_text_incomplete',
-      'status_page_help_text_submitted', '
-      status_page_help_text_complete'
+      'status_page_help_text_submitted',
+      'status_page_help_text_complete'
       );
 
     $inputImages = Input::only('header_logo', 'footer_logo', 'nominate_image');
@@ -122,7 +123,7 @@ class SettingsController extends \BaseController {
     // @TODO: maybe create this as a method of the Setting model?
     $settings = Setting::whereCategory('general')->get();
 
-    $settings->each(function($setting) use($input)
+    $settings->each(function($setting) use ($input)
     {
       if ($setting->type === 'image' && $input[$setting->key] == null) return;
       $setting->value = $input[$setting->key];

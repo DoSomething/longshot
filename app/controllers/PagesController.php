@@ -106,7 +106,7 @@ class PagesController extends \BaseController {
     $pathList = Path::lists('url');
     $pageRequest = stringtoKebabCase($path);
     $url = $pageRequest;
-    $vars = Setting::getSettingsVariables('general');
+    $vars = (object) Setting::getPageSettingsVars();
 
     if (!in_array($pageRequest, $pathList))
     {
@@ -134,10 +134,14 @@ class PagesController extends \BaseController {
    */
   public function home()
   {
+    // @TODO: cache query to retrieve scholarship amount.
     $scholarshipAmount = Scholarship::getCurrentScholarship()->pluck('amount_scholarship');
     $page = Path::getPageContent('/');
     $url = 'home';
-    $vars = Setting::getSettingsVariables('general');
+    $nominateVars = Setting::getSpecifiedSettingsVars(['nominate_text', 'nominate_image']);
+    $pageVars = Setting::getPageSettingsVars();
+
+    $vars = (object) array_merge($pageVars, $nominateVars);
 
     return View::make('pages.home', compact('page', 'url', 'scholarshipAmount', 'vars'));
   }

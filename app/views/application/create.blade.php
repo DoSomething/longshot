@@ -9,7 +9,9 @@
     <div class="segment -compact">
       <div class="wrapper">
 
-        <p>{{ $help_text }}</p>
+        @if(! empty($vars->application_create_help_text))
+          <p>{{ $vars->application_create_help_text }}</p>
+        @endif
 
         {{ Form::open(['route' => 'application.store', 'class' => 'form--application']) }}
 

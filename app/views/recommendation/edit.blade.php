@@ -12,7 +12,9 @@
         {{-- This will be seen by the recommender --}}
         <p>Please fill all fields with information regarding the applicant.</p>
 
-        <p>{{$help_text}}</p>
+        @if(! empty($vars->recommendation_update_help_text))
+          <p>{{ $vars->recommendation_update_help_text }}</p>
+        @endif
 
         {{ Form::model($recommendation, ['method' => 'PATCH', 'route' => ['recommendation.update', $recommendation->id]]) }}
 
