@@ -4,15 +4,12 @@ class Application extends Eloquent {
 
   protected $fillable = ['accomplishments', 'gpa', 'test_type', 'test_score', 'activities', 'participation', 'essay1', 'essay2', 'link', 'hear_about'];
 
+  /** Relationship definitions **/
   public function user()
   {
     return $this->belongsTo('User');
   }
 
-
-  /**
-   * Get the scholarship for an application
-   */
   public function scholarship()
   {
     return $this->belongsTo('Scholarship');
@@ -23,6 +20,13 @@ class Application extends Eloquent {
   {
       return $this->hasMany('Recommendation');
   }
+
+  public function rating()
+  {
+    return $this->hasOne('Rating');
+  }
+
+   /** End Relationships **/
 
   public static function formatChoices($choices)
   {
