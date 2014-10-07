@@ -137,7 +137,7 @@ class AdminController extends \BaseController {
     $rate->application()->associate($application);
     $rate->save();
 
-    return Redirect::back()->with('flash_message', 'Yeah man.');
+    return Redirect::back()->with('flash_message', 'Awesome, we got that rated for you!');
   }
 
 }
