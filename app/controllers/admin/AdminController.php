@@ -97,6 +97,7 @@ class AdminController extends \BaseController {
         case 'no' :
         case 'maybe':
           $query->where('ratings.rating', '=', $filter_by);
+          break;
         case 'm':
         case 'f':
           $query->where('profiles.gender', '=', $filter_by);
