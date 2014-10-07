@@ -3,10 +3,11 @@
 class Rating extends Eloquent {
 
   protected $fillable = ['rating'];
+  public $timestamps = false;
 
   public function application()
   {
-    return $this->hasOne('Application');
+    return $this->belongsTo('Application');
   }
 
 

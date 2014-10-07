@@ -51,6 +51,7 @@ Route::group(['before' => 'role:administrator', 'prefix' => 'admin'], function()
   # Applications management
   Route::get('applications', ['as' => 'applications.index', 'uses' => 'AdminController@applicationsIndex']);
   Route::get('applications/{id}', ['as' => 'applications.show', 'uses' => 'AdminController@applicationsShow']);
+  Route::post('applicaiton/rate', ['as' => 'applications.rate', 'uses' => 'AdminController@rate']);
 
   # Scholarship management
   Route::resource('scholarship', 'ScholarshipController');

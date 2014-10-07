@@ -105,19 +105,35 @@ class AdminController extends \BaseController {
     $profile = Profile::getUserProfile($id);
     $scholarship = Scholarship::getScholarshipLabels();
     $app_id = Application::getUserApplicationId($id);
+
     $recomendations = null;
     if ($app_id)
       $recomendations = Recommendation::getUserRecs($app_id->id);
 
-    return View::make('admin.applications.show', compact('application', 'profile', 'scholarship', 'recomendations'));
+    return View::make('admin.applications.show', compact('application', 'app_id', 'profile', 'scholarship', 'recomendations'));
   }
 
   /**
    *
    */
-  public function settings() {
+  public function settings()
+  {
     $scholarship_id = Scholarship::getCurrentScholarship()->pluck('id');
     return View::make('admin.settings.index', with(compact('scholarship_id')));
+  }
+
+  public function rate()
+  {
+    $rating = strtolower(Input::get('rating'));
+    $app_id = Input::get('app_id');
+    $application = Application::whereId($app_id)->firstOrFail();
+    $rate = new Rating;
+    $rate->rating = $rating;
+
+    $rate->application()->associate($application);
+    $rate->save();
+
+    return Redirect::back()->with('flash_message', 'Yeah man.');
   }
 
 }
