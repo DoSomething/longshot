@@ -77,7 +77,6 @@ class AdminController extends \BaseController {
                   ->leftJoin('ratings', 'application_id', '=', 'applications.id')
                   ->where('role_user.role_id', '=', 2);
     if ($sort_by) {
-      // @TODO: add 'direction' to this, so you can reverse results.
       $query->orderBy($sort_by, $direction);
     }
     if ($filter_by) {
@@ -98,6 +97,9 @@ class AdminController extends \BaseController {
         case 'no' :
         case 'maybe':
           $query->where('ratings.rating', '=', $filter_by);
+        case 'm':
+        case 'f':
+          $query->where('profiles.gender', '=', $filter_by);
           break;
         }
     }
