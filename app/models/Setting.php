@@ -46,8 +46,7 @@ class Setting extends Eloquent {
    */
   public static function getPageSettingsVars()
   {
-    $items = self::$pageQueryItems;
-    return self::getSpecifiedSettingsVars($items);
+    return self::getSpecifiedSettingsVars(self::$pageQueryItems);
   }
 
 }
