@@ -16,6 +16,9 @@
               <tr>
                 <th>ID</th>
                 <th> {{ sort_applicants_by('last_name', 'Name') }}</th>
+                <th> Gender </th>
+                <th> State </th>
+                <th> GPA </th>
                 <th>
                   <div class="dropdown">
                     <a data-toggle="dropdown" href="#">Status <span class='glyphicon glyphicon-chevron-down'/> </a>
@@ -43,6 +46,10 @@
                 <tr>
                   <td>{{ $applicant->id  }}</td>
                   <td>{{ link_to('/admin/applications/' . $applicant->id , $applicant->first_name . ' ' . $applicant->last_name) }}</td>
+
+                  <td> {{{ $applicant->gender or '' }}} </td>
+                  <td> {{{ $applicant->state or '' }}} </td>
+                  <td> {{{ $applicant->gpa or '' }}} </td>
                   <td>
                   @if ($applicant->completed && $applicant->submitted)
                     Completed

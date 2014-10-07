@@ -66,8 +66,12 @@ class AdminController extends \BaseController {
     $filter_by = Request::get('filter_by');
 
     $query = DB::table('users')
-                  ->select('users.id', 'users.first_name', 'users.last_name', 'users.email', 'applications.submitted', 'applications.completed', 'ratings.rating')
+                  ->select('users.id', 'users.first_name', 'users.last_name', 'users.email',
+                           'profiles.state', 'profiles.gender',
+                           'applications.submitted', 'applications.completed', 'applications.gpa',
+                           'ratings.rating')
                   ->leftJoin('role_user', 'users.id', '=', 'role_user.user_id')
+                  ->leftJoin('profiles', 'profiles.user_id', '=', 'users.id')
                   ->leftJoin('applications', 'applications.user_id', '=', 'users.id')
                   ->leftJoin('ratings', 'application_id', '=', 'applications.id')
                   ->where('role_user.role_id', '=', 2);
