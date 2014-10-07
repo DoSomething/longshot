@@ -26,6 +26,16 @@
                     </ul>
                   </div>
                 </th>
+                <th>
+                  <div class="dropdown">
+                    <a data-toggle="dropdown" href="#">Score <span class='glyphicon glyphicon-chevron-down'/> </a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                       <li> {{filter_applicants_by('yes', 'Yes') }} </li>
+                      <li> {{filter_applicants_by('no', 'No') }} </li>
+                      <li> {{filter_applicants_by('maybe', 'Maybe') }} </li>
+                    </ul>
+                  </div>
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -41,6 +51,9 @@
                   @else
                     Incomplete
                   @endif
+                  </td>
+                  <td>
+                    {{{$applicant->rating or ''}}}
                   </td>
                 </tr>
               @endforeach
