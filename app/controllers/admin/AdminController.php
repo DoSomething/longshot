@@ -64,6 +64,7 @@ class AdminController extends \BaseController {
   {
     $sort_by = Request::get('sort_by');
     $filter_by = Request::get('filter_by');
+    $direction = Request::get('direction');
 
     $query = DB::table('users')
                   ->select('users.id', 'users.first_name', 'users.last_name', 'users.email',
@@ -77,7 +78,7 @@ class AdminController extends \BaseController {
                   ->where('role_user.role_id', '=', 2);
     if ($sort_by) {
       // @TODO: add 'direction' to this, so you can reverse results.
-      $query->orderBy($sort_by, 'asc');
+      $query->orderBy($sort_by, $direction);
     }
     if ($filter_by) {
       switch ($filter_by) {

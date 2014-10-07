@@ -18,7 +18,7 @@
                 <th> {{ sort_applicants_by('last_name', 'Name') }}</th>
                 <th> Gender </th>
                 <th> State </th>
-                <th> GPA </th>
+                <th> {{ sort_applicants_by('gpa', 'GPA') }} </th>
                 <th>
                   <div class="dropdown">
                     <a data-toggle="dropdown" href="#">Status <span class='glyphicon glyphicon-chevron-down'/> </a>

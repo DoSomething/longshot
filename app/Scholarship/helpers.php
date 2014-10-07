@@ -45,7 +45,8 @@ function link_to_profile($text = 'Profile')
  */
 function sort_applicants_by($column, $body)
 {
-  return link_to_route('applications.index', $body, ['sort_by' => $column]);
+  $direction = (Request::get('direction') == 'asc') ? 'desc' : 'asc';
+  return link_to_route('applications.index', $body, ['sort_by' => $column, 'direction' => $direction]);
 }
 
 /**
