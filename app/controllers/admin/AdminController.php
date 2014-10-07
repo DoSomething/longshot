@@ -66,9 +66,10 @@ class AdminController extends \BaseController {
     $filter_by = Request::get('filter_by');
 
     $query = DB::table('users')
-                  ->select('users.id', 'users.first_name', 'users.last_name', 'users.email', 'applications.submitted', 'applications.completed')
+                  ->select('users.id', 'users.first_name', 'users.last_name', 'users.email', 'applications.submitted', 'applications.completed', 'ratings.rating')
                   ->leftJoin('role_user', 'users.id', '=', 'role_user.user_id')
                   ->leftJoin('applications', 'applications.user_id', '=', 'users.id')
+                  ->leftJoin('ratings', 'application_id', '=', 'applications.id')
                   ->where('role_user.role_id', '=', 2);
     if ($sort_by) {
       // @TODO: add 'direction' to this, so you can reverse results.
@@ -88,6 +89,11 @@ class AdminController extends \BaseController {
             $query->where('applications.submitted', '=', null)
                   ->where('applications.completed', '=', null);
             break;
+        case 'yes':
+        case 'no' :
+        case 'maybe':
+          $query->where('ratings.rating', '=', $filter_by);
+          break;
         }
     }
 
@@ -105,19 +111,39 @@ class AdminController extends \BaseController {
     $profile = Profile::getUserProfile($id);
     $scholarship = Scholarship::getScholarshipLabels();
     $app_id = Application::getUserApplicationId($id);
+
     $recomendations = null;
     if ($app_id)
       $recomendations = Recommendation::getUserRecs($app_id->id);
 
-    return View::make('admin.applications.show', compact('application', 'profile', 'scholarship', 'recomendations'));
+    $show_rating = FALSE;
+    if (Application::isComplete($app_id->id) && !(Rating::applicationHasRating($app_id->id)))
+      $show_rating = TRUE;
+
+    return View::make('admin.applications.show', compact('application', 'app_id', 'profile', 'scholarship', 'recomendations', 'show_rating'));
   }
 
   /**
    *
    */
-  public function settings() {
+  public function settings()
+  {
     $scholarship_id = Scholarship::getCurrentScholarship()->pluck('id');
     return View::make('admin.settings.index', with(compact('scholarship_id')));
+  }
+
+  public function rate()
+  {
+    $rating = strtolower(Input::get('rating'));
+    $app_id = Input::get('app_id');
+    $application = Application::whereId($app_id)->firstOrFail();
+    $rate = new Rating;
+    $rate->rating = $rating;
+
+    $rate->application()->associate($application);
+    $rate->save();
+
+    return Redirect::to('admin/applications?filter_by=completed')->with('flash_message', 'Awesome, we got that rated for you!');
   }
 
 }

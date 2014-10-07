@@ -4,16 +4,11 @@
   <div class="container-fluid">
     <div class="row">
 
-      {{-- @TODO: likely a better way to split this out in Blade! --}}
       @include('admin.layouts.partials.subnav-applications')
 
-      {{-- @TODO: Maybe use 3 curly braces to escape user entered data? --}}
       <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 
-        {{--
-          @TODO: Refactor once validation is added to the application form fields.
-          @TODO: Try and refactor this to use a loop!
-        --}}
+
         <h2>Profile Information</h2>
         <div class="well well-lg">
           <dl>
@@ -66,7 +61,21 @@
         </div>
         @endif
 
+        @if ($show_rating)
+          <div class='btn-group'>
+          {{ Form::open(['route' => 'applications.rate']) }}
+            {{ Form::hidden('app_id', $app_id->id)}}
+           {{ Form::submit('Yes', ['class' => 'btn btn-primary btn-md', 'name' => 'rating']) }}
+           {{ Form::submit('No', ['class' => 'btn btn-primary btn-md', 'name' => 'rating']) }}
+           {{ Form::submit('Maybe', ['class' => 'btn btn-primary btn-md', 'name' => 'rating']) }}
+           </div>
+
+          {{ Form::close() }}
+        @endif
+
       </div>
+
+
 
     </div>
   </div>
