@@ -9,18 +9,18 @@
     <section class="segment segment--review -compact">
       <div class="wrapper">
 
-        @if(! empty($help_text))
-          <p>{{ $help_text }}</p>
+        @if (!empty($vars->application_submit_help_text))
+          <p>{{ $vars->application_submit_help_text }}</p>
         @endif
 
         <div class="fragment">
           <h2 class="heading -gamma">Basic Info</h2>
           <dl>
             @foreach ($profile as $key => $field)
-                @if (!empty($field))
-                 <dt><strong>{{ snakeCaseToTitleCase($key) }}</strong></dt>
-                 <dd>{{ $field }}</dd>
-                @endif
+              @if (!empty($field))
+               <dt><strong>{{ snakeCaseToTitleCase($key) }}</strong></dt>
+               <dd>{{ $field }}</dd>
+              @endif
             @endforeach
           </dl>
           {{ link_to_route('profile.edit', 'Something wrong? Update it!', Auth::user()->id) }}

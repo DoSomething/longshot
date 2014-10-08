@@ -44,10 +44,13 @@ class ApplicationController extends \BaseController {
     //@TODO: need to figure out which scholarship is the current run.
     $scholarship = Scholarship::getCurrentScholarship()->select(['label_app_accomplishments', 'label_app_activities', 'label_app_participation', 'label_app_essay1', 'label_app_essay2', 'hear_about_options'])->first();
     $choices = Application::formatChoices($scholarship->hear_about_options);
-    $help_text = Setting::where('key', '=', 'application_create_help_text')->pluck('value');
-    $vars = Setting::getSettingsVariables('general');
 
-    return View::make('application.create')->with(compact('scholarship', 'help_text', 'choices', 'vars'));
+    $help_text = Setting::getSpecifiedSettingsVars(['application_create_help_text']);
+    $page_vars = Setting::getPageSettingsVars();
+
+    $vars = (object) array_merge($page_vars, $help_text);
+
+    return View::make('application.create')->with(compact('scholarship', 'choices', 'vars'));
   }
 
 
@@ -111,7 +114,7 @@ class ApplicationController extends \BaseController {
   public function show($id)
   {
     $user = User::with('application')->whereId($id)->firstOrFail();
-    $vars = Setting::getSettingsVariables('general');
+    $vars = (object) Setting::getPageSettingsVars();
 
     return View::make('application.show', compact('vars'))->withUser($user);
   }
@@ -129,10 +132,13 @@ class ApplicationController extends \BaseController {
     $user = User::whereId($id)->firstOrFail();
     $scholarship = Scholarship::getCurrentScholarship()->select(['label_app_accomplishments', 'label_app_activities', 'label_app_participation', 'label_app_essay1', 'label_app_essay2', 'hear_about_options'])->first();
     $choices = Application::formatChoices($scholarship->hear_about_options);
-    $help_text = Setting::where('key', '=', 'application_create_help_text')->pluck('value');
-    $vars = Setting::getSettingsVariables('general');
 
-    return View::make('application.edit')->with(compact('user', 'scholarship', 'help_text', 'choices', 'vars'));
+    $help_text = Setting::getSpecifiedSettingsVars(['application_create_help_text']);
+    $page_vars = Setting::getPageSettingsVars();
+
+    $vars = (object) array_merge($page_vars, $help_text);
+
+    return View::make('application.edit')->with(compact('user', 'scholarship', 'choices', 'vars'));
   }
 
 

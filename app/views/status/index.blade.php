@@ -10,7 +10,10 @@
       <div class="wrapper">
         <h2 class="heading -gamma">Status: <em> {{ $status }} </em></h2>
 
-          <p>{{ $help_text }}</p>
+        <?php $help_text = 'status_page_help_text_' . strtolower($status); ?>
+        @if (!empty($vars->$help_text))
+          <p>{{ $vars->$help_text }}</p>
+        @endif
 
       </div>
     </div>

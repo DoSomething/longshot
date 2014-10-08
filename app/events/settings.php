@@ -7,5 +7,18 @@
  */
 Event::listen('setting.change', function($category)
 {
-  Cache::forget('query.setting.' . $category);
+  if ($category === 'general') {
+    Cache::forget('query.setting.' . implode('.', Setting::$pageQueryItems));
+
+    Cache::forget('query.setting.' . implode('.', Setting::$nominateQueryItems));
+
+    foreach (Setting::$individualQueryItems as $item) {
+      Cache::forget('query.setting.' . $item);
+    }
+
+  } else {
+
+    Cache::forget('query.setting.' . $category);
+
+  }
 });

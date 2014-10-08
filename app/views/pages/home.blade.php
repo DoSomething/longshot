@@ -20,7 +20,7 @@
       <div class="wrapper">
         <h1 class="__title heading -alpha -alt">Nominate A Star</h1>
 
-        @if(! empty($vars->nominate_text))
+        @if (!empty($vars->nominate_text))
           <p class="__message">{{ $vars->nominate_text }}</p>
         @endif
 

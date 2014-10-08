@@ -11,8 +11,8 @@
 
       <p>Have an account? {{ link_to_route('login', 'Log in') }}</p>
 
-      @if(isset($help_text))
-        <p>{{ $help_text }}</p>
+      @if (!empty($vars->create_account_help_text))
+        <p>{{ $vars->create_account_help_text }}</p>
       @endif
 
       {{ Form::open(['route' => 'registration.store']) }}
@@ -42,7 +42,7 @@
 
           {{-- Eligibility Check --}}
           <div class="field-group -checkbox">
-            <p><small>{{ $data->eligibility_text }}</small></p>
+            <p><small>{{ $vars->eligibility_text }}</small></p>
             {{ Form::checkbox('eligibility', 1, false, ['id' => 'eligibility']); }}
             {{ Form::label('eligibility', 'Yes, I\'m eligible') }}
             {{ errorsFor('eligibility', $errors); }}

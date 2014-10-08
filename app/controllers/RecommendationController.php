@@ -37,10 +37,13 @@ class RecommendationController extends \BaseController {
   {
     // This will be seen by applicants only.
     $num_recs = Scholarship::getCurrentScholarship()->select('num_recommendations_max', 'num_recommendations_min')->firstOrFail()->toArray();
-    $help_text = Setting::where('key', '=', 'recommendation_create_help_text')->pluck('value');
-    $vars = Setting::getSettingsVariables('general');
 
-    return View::make('recommendation.create', compact('num_recs', 'help_text', 'vars'));
+    $help_text = Setting::getSpecifiedSettingsVars(['recommendation_create_help_text']);
+    $page_vars = Setting::getPageSettingsVars();
+
+    $vars = (object) array_merge($page_vars, $help_text);
+
+    return View::make('recommendation.create', compact('num_recs', 'vars'));
   }
 
   /**
@@ -113,8 +116,11 @@ class RecommendationController extends \BaseController {
   {
     // Make sure this person has the right token in the url.
     $correct_token = RecommendationToken::where('recommendation_id', $id)->pluck('token');
-    $help_text = Setting::where('key', '=', 'recommendation_update_help_text')->pluck('value');
-    $vars = Setting::getSettingsVariables('general');
+
+    $help_text = Setting::getSpecifiedSettingsVars(['recommendation_update_help_text']);
+    $page_vars = Setting::getPageSettingsVars();
+
+    $vars = (object) array_merge($page_vars, $help_text);
 
     if (isset($_GET['token']) && $_GET['token'] == $correct_token) {
       $recommendation = Recommendation::whereId($id)->firstOrFail();
@@ -132,14 +138,14 @@ class RecommendationController extends \BaseController {
       }
       $scholarship = Scholarship::getCurrentScholarship();
       $rank_values = Recommendation::getRankValues();
-      return View::make('recommendation.edit')->with(compact('recommendation', 'scholarship', 'help_text', 'rank_values', 'vars'));
+      return View::make('recommendation.edit')->with(compact('recommendation', 'scholarship', 'rank_values', 'vars'));
     }
     // The user wants to add more recs.
     elseif (isset($_GET['app_id'])) {
       $num_recs = Scholarship::getCurrentScholarship()->select('num_recommendations_max', 'num_recommendations_min')->firstOrFail()->toArray();
       $recs = Recommendation::where('application_id', $_GET['app_id'])->get()->toArray();
       $user = Auth::user();
-      return View::make('recommendation.applicant_edit')->with(compact('help_text', 'num_recs', 'recs', 'user', 'vars'));
+      return View::make('recommendation.applicant_edit')->with(compact('num_recs', 'recs', 'user', 'vars'));
 
     } else {
       return App::abort(403, 'Access denied');
