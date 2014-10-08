@@ -98,9 +98,8 @@ function createCustomStylesheet($styles)
   $output .= ".segment--checklist { border-color: #$styles->primary_color; }";
   $output .= ".callout--scholarship > .wrapper:before, .callout--scholarship > .wrapper:after { border-color: #$styles->primary_color; }";
   $output .= ".tile figcaption { background-color: #$styles->primary_color; }";
-  $destination = app_path() . '/views/layouts/partials/custom-styles.blade.php';
 
-  File::put($destination, $output);
+  Cache::forever('custom.styles', $output);
 }
 
 

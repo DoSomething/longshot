@@ -16,7 +16,7 @@ class Setting extends Eloquent {
    */
   public static function getCategorySettingsVars($category)
   {
-    return (object) self::rememberForever('query.setting.' . $category)->whereCategory($category)->lists('value', 'key');
+    return DB::table('settings')->rememberForever('setting.' . $category)->where('category', '=', $category)->get();
   }
 
 
@@ -36,7 +36,7 @@ class Setting extends Eloquent {
       $keyname = implode('.', $items);
     }
 
-    return DB::table('settings')->rememberForever('query.setting.' . $keyname)->whereIn('key', $items)->lists('value', 'key');
+    return DB::table('settings')->rememberForever('setting.' . $keyname)->whereIn('key', $items)->lists('value', 'key');
   }
 
 

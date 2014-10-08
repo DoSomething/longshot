@@ -5,20 +5,21 @@
  *
  * @TODO: Eventually turn this into a service provider in the Scholarship directory.
  */
-Event::listen('setting.change', function($category)
+Event::listen('settings.change', function($category)
 {
   if ($category === 'general') {
-    Cache::forget('query.setting.' . implode('.', Setting::$pageQueryItems));
 
-    Cache::forget('query.setting.' . implode('.', Setting::$nominateQueryItems));
+    Cache::forget('setting.' . implode('.', Setting::$pageQueryItems));
+
+    Cache::forget('setting.' . implode('.', Setting::$nominateQueryItems));
 
     foreach (Setting::$individualQueryItems as $item) {
-      Cache::forget('query.setting.' . $item);
+      Cache::forget('setting.' . $item);
     }
 
   } else {
 
-    Cache::forget('query.setting.' . $category);
+    Cache::forget('setting.' . $category);
 
   }
 });
