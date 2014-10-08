@@ -17,7 +17,7 @@
 
     <section class="segment segment--checklist">
       <div class="wrapper">
-        <h1 class="heading -gamma">What's up</h1>
+        <h1 class="heading -gamma">Progress</h1>
 
         <ul class="media-list media-list--status">
           <li class="{{ $prof_complete ? 'complete' : '-incomplete' }}">
