@@ -28,11 +28,11 @@ class Setting extends Eloquent {
    */
   public static function getSpecifiedSettingsVars($items = null, $keyname = null)
   {
-    if (! $items) {
+    if (!$items) {
       return false;
     }
 
-    if (! $keyname) {
+    if (!$keyname) {
       $keyname = implode('.', $items);
     }
 

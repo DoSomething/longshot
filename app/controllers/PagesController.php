@@ -138,10 +138,10 @@ class PagesController extends \BaseController {
     $scholarshipAmount = Scholarship::getCurrentScholarship()->pluck('amount_scholarship');
     $page = Path::getPageContent('/');
     $url = 'home';
-    $nominateVars = Setting::getSpecifiedSettingsVars(['nominate_text', 'nominate_image']);
-    $pageVars = Setting::getPageSettingsVars();
+    $nominate_vars = Setting::getSpecifiedSettingsVars(['nominate_text', 'nominate_image']);
+    $page_vars = Setting::getPageSettingsVars();
 
-    $vars = (object) array_merge($pageVars, $nominateVars);
+    $vars = (object) array_merge($page_vars, $nominate_vars);
 
     return View::make('pages.home', compact('page', 'url', 'scholarshipAmount', 'vars'));
   }

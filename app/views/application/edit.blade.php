@@ -9,7 +9,7 @@
     <div class="segment -compact">
       <div class="wrapper">
 
-        @if(! empty($vars->application_create_help_text))
+        @if (!empty($vars->application_create_help_text))
           <p>{{ $vars->application_create_help_text }}</p>
         @endif
 

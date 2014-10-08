@@ -11,7 +11,7 @@
 
       <p>Have an account? {{ link_to_route('login', 'Log in') }}</p>
 
-      @if(! empty($vars->create_account_help_text))
+      @if (!empty($vars->create_account_help_text))
         <p>{{ $vars->create_account_help_text }}</p>
       @endif
 

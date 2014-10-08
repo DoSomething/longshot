@@ -9,7 +9,7 @@
     <section class="segment segment--review -compact">
       <div class="wrapper">
 
-        @if(! empty($vars->application_submit_help_text))
+        @if (!empty($vars->application_submit_help_text))
           <p>{{ $vars->application_submit_help_text }}</p>
         @endif
 

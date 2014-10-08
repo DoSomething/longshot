@@ -32,10 +32,10 @@ class StatusController extends \BaseController {
     // Is the app complete & been submitted?
     if ($app_filled_out && $application->submitted) {
       $status = 'Submitted. Waiting for recommendation...';
-      $helpText = Setting::getSpecifiedSettingsVars(['status_page_help_text_submitted']);
+      $help_text = Setting::getSpecifiedSettingsVars(['status_page_help_text_submitted']);
     } else {
       $status = 'Incomplete';
-      $helpText = Setting::getSpecifiedSettingsVars(['status_page_help_text_incomplete']);
+      $help_text = Setting::getSpecifiedSettingsVars(['status_page_help_text_incomplete']);
     }
 
     $profile = Profile::where('user_id', $user->id)->first();
@@ -53,7 +53,7 @@ class StatusController extends \BaseController {
         $rec->isRecommendationComplete($rec);
         if ($rec->isComplete($rec->id) && isset($app_filled_out) && $application->submitted) {
           $status = 'Completed.';
-          $helpText = Setting::getSpecifiedSettingsVars(['status_page_help_text_complete']);
+          $help_text = Setting::getSpecifiedSettingsVars(['status_page_help_text_complete']);
         }
 
       }
@@ -65,9 +65,9 @@ class StatusController extends \BaseController {
       $submit = link_to_route('review', 'Review & Submit Application', [$user->id], ['class' => 'button -small']);
     }
 
-    $pageVars = Setting::getPageSettingsVars();
+    $page_vars = Setting::getPageSettingsVars();
 
-    $vars = (object) array_merge($pageVars, $helpText);
+    $vars = (object) array_merge($page_vars, $help_text);
 
     // @TODO: find a better way of retrieving the timeline in case there are other blocks to that type.
     // Query cached for 2 hours.
@@ -89,10 +89,10 @@ class StatusController extends \BaseController {
     $profile = Profile::getUserProfile($id);
     $scholarship = Scholarship::getScholarshipLabels();
 
-    $helpText = Setting::getSpecifiedSettingsVars(['application_submit_help_text']);
-    $pageVars = Setting::getPageSettingsVars();
+    $help_text = Setting::getSpecifiedSettingsVars(['application_submit_help_text']);
+    $page_vars = Setting::getPageSettingsVars();
 
-    $vars = (object) array_merge($pageVars, $helpText);
+    $vars = (object) array_merge($page_vars, $help_text);
 
     $prof_complete = Profile::isComplete(Auth::user()->id);
     if (!$prof_complete) {

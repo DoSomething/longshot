@@ -45,10 +45,10 @@ class ApplicationController extends \BaseController {
     $scholarship = Scholarship::getCurrentScholarship()->select(['label_app_accomplishments', 'label_app_activities', 'label_app_participation', 'label_app_essay1', 'label_app_essay2', 'hear_about_options'])->first();
     $choices = Application::formatChoices($scholarship->hear_about_options);
 
-    $helpText = Setting::getSpecifiedSettingsVars(['application_create_help_text']);
-    $pageVars = Setting::getPageSettingsVars();
+    $help_text = Setting::getSpecifiedSettingsVars(['application_create_help_text']);
+    $page_vars = Setting::getPageSettingsVars();
 
-    $vars = (object) array_merge($pageVars, $helpText);
+    $vars = (object) array_merge($page_vars, $help_text);
 
     return View::make('application.create')->with(compact('scholarship', 'choices', 'vars'));
   }
@@ -133,10 +133,10 @@ class ApplicationController extends \BaseController {
     $scholarship = Scholarship::getCurrentScholarship()->select(['label_app_accomplishments', 'label_app_activities', 'label_app_participation', 'label_app_essay1', 'label_app_essay2', 'hear_about_options'])->first();
     $choices = Application::formatChoices($scholarship->hear_about_options);
 
-    $helpText = Setting::getSpecifiedSettingsVars(['application_create_help_text']);
-    $pageVars = Setting::getPageSettingsVars();
+    $help_text = Setting::getSpecifiedSettingsVars(['application_create_help_text']);
+    $page_vars = Setting::getPageSettingsVars();
 
-    $vars = (object) array_merge($pageVars, $helpText);
+    $vars = (object) array_merge($page_vars, $help_text);
 
     return View::make('application.edit')->with(compact('user', 'scholarship', 'choices', 'vars'));
   }

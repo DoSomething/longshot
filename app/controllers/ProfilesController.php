@@ -25,10 +25,10 @@ class ProfilesController extends \BaseController {
     $states = Profile::getStates();
     $races = Profile::getRaces();
 
-    $helpText = Setting::getSpecifiedSettingsVars(['basic_info_help_text']);
-    $pageVars = Setting::getPageSettingsVars();
+    $help_text = Setting::getSpecifiedSettingsVars(['basic_info_help_text']);
+    $page_vars = Setting::getPageSettingsVars();
 
-    $vars = (object) array_merge($pageVars, $helpText);
+    $vars = (object) array_merge($page_vars, $help_text);
 
     return View::make('profile.create')->with(compact('states', 'races', 'vars'));
   }
@@ -121,10 +121,10 @@ class ProfilesController extends \BaseController {
     $states = Profile::getStates();
     $races = Profile::getRaces();
 
-    $helpText = Setting::getSpecifiedSettingsVars(['basic_info_help_text']);
-    $pageVars = Setting::getPageSettingsVars();
+    $help_text = Setting::getSpecifiedSettingsVars(['basic_info_help_text']);
+    $page_vars = Setting::getPageSettingsVars();
 
-    $vars = (object) array_merge($pageVars, $helpText);
+    $vars = (object) array_merge($page_vars, $help_text);
 
     return View::make('profile.edit')->withUser($profile)->with(compact('states', 'races', 'vars'));
   }

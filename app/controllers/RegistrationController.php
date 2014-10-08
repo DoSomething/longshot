@@ -25,10 +25,10 @@ class RegistrationController extends \BaseController {
   {
 
     $eligibilityText = Setting::getSpecifiedSettingsVars(['eligibility_text']);
-    $helpText = Setting::getSpecifiedSettingsVars(['create_account_help_text']);
-    $pageVars = Setting::getPageSettingsVars();
+    $help_text = Setting::getSpecifiedSettingsVars(['create_account_help_text']);
+    $page_vars = Setting::getPageSettingsVars();
 
-    $vars = (object) array_merge($pageVars, $helpText, $eligibilityText);
+    $vars = (object) array_merge($page_vars, $help_text, $eligibilityText);
 
     return View::make('registration.create', compact('vars'));
   }
