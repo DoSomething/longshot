@@ -23,10 +23,9 @@ class Recommendation extends \Eloquent {
       // Create a new token.
       $token = new RecommendationToken;
       $token->recommendation()->associate($recommendation);
+      $token->token = Hash::make(str_random(20));
+      $token->save();
     }
-
-    $token->token = Hash::make(str_random(20));
-    $token->save();
 
     return $token->token;
   }
