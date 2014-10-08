@@ -54,7 +54,7 @@ return array(
   |
   */
 
-  'from' => array('address' => 'footlocker@tmiagency.org', 'name' => 'Lizzy'),
+  'from' => array('address' => getenv('EMAIL_ADDRESS'), 'name' => getenv('EMAIL_NAME')),
 
   /*
   |--------------------------------------------------------------------------
