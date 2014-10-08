@@ -12,13 +12,11 @@
     <script src="/dist/js/modernizr.js"></script>
     <link rel="stylesheet" href="/dist/css/main.css"/>
 
-    @if (file_exists(app_path() . '/views/layouts/partials/custom-styles.blade.php'))
-      <style>
-        @include('layouts.partials.custom-styles')
-      </style>
+    @if (Cache::has('custom.styles'))
+      {{ '<style>' . Cache::get('custom.styles') . '</style>' }}
     @endif
 
-    @if (! empty($vars->tracking_code_id))
+    @if (!empty($vars->tracking_code_id))
       @include('layouts.partials.google-analytics')
     @endif
   </head>
