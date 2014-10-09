@@ -7,7 +7,8 @@
       @include('admin.layouts.partials.subnav-applications')
 
       <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-
+      <h1> {{ $user['first_name'] . ' ' . $user['last_name'] }} </h1>
+       {{ $user['email'] }}
 
         <h2>Profile Information</h2>
         <div class="well well-lg">
