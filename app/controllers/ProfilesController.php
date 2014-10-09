@@ -173,12 +173,19 @@ class ProfilesController extends \BaseController {
 
     $user->profile->fill($input)->save();
 
-    return $this->redirectAfterSave($input, $user->id);
+    $override = NULL;
+    if (Application::isSubmitted($user->id))
+      $override = 'status';
+
+    return $this->redirectAfterSave($input, $user->id, $override);
   }
 
-  public function redirectAfterSave($input, $id)
+  public function redirectAfterSave($input, $id, $override = NULL)
   {
-    if (isset($input['complete']))
+    if (isset($override)) {
+      return Redirect::route($override)->with('flash_message', 'Your profile has been updated');
+    }
+    elseif (isset($input['complete']))
     {
       return Redirect::route('application.create')->with('flash_message', 'Application information has been saved!');
     }
