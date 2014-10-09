@@ -5,13 +5,24 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-.flash-message { background-color: $app_highlight; color: #555; font-weight: bold; padding: pxcalc(20); }
+.flash-message { @include rem(18); background-color: $app_highlight; color: darken($app_highlight, 55%); padding: pxcalc(20,18);
 
+  &.-info { background-color: $app_info; color: darken($app_info, 55%);
+    a { color: darken($app_info, 40%); }
+  }
 
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// MEDIA QUERIES
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  &.-success { background-color: $app_success; color: darken($app_success, 25%);
+    a { color: lighten($app_success, 50%); }
+  }
 
-@media only screen and (min-width: $medium) {
+  &.-warning { background-color: $app_warning; color: lighten($app_warning, 45%);
+    a { color: darken($app_warning, 30%); }
+  }
+
+  &.-error { background-color: $app_error; color: lighten($app_error, 45%);
+    a { color: darken($app_error, 25%); }
+  }
 
 }
+
+
