@@ -125,10 +125,13 @@ class AdminController extends \BaseController {
       $recomendations = Recommendation::getUserRecs($app_id->id);
 
     $show_rating = FALSE;
-    if (Application::isComplete($app_id->id) && !(Rating::applicationHasRating($app_id->id)))
+    if (Application::isComplete($app_id->id))
       $show_rating = TRUE;
 
-    return View::make('admin.applications.show', compact('application', 'app_id', 'profile', 'scholarship', 'recomendations', 'show_rating'));
+    $app_rating = Rating::getApplicationRating($app_id->id);
+    $possible_ratings = Rating::getPossibleRatings();
+
+    return View::make('admin.applications.show', compact('application', 'app_id', 'profile', 'scholarship', 'recomendations', 'show_rating', 'possible_ratings', 'app_rating'));
   }
 
   /**
@@ -145,7 +148,10 @@ class AdminController extends \BaseController {
     $rating = strtolower(Input::get('rating'));
     $app_id = Input::get('app_id');
     $application = Application::whereId($app_id)->firstOrFail();
-    $rate = new Rating;
+    $rate = Rating::where('application_id', $app_id)->first();
+    if (!$rate)
+      $rate = new Rating;
+
     $rate->rating = $rating;
 
     $rate->application()->associate($application);

@@ -65,9 +65,14 @@
           <div class='btn-group'>
           {{ Form::open(['route' => 'applications.rate']) }}
             {{ Form::hidden('app_id', $app_id->id)}}
-           {{ Form::submit('Yes', ['class' => 'btn btn-primary btn-md', 'name' => 'rating']) }}
-           {{ Form::submit('No', ['class' => 'btn btn-primary btn-md', 'name' => 'rating']) }}
-           {{ Form::submit('Maybe', ['class' => 'btn btn-primary btn-md', 'name' => 'rating']) }}
+            @foreach($possible_ratings as $rating)
+              @if ($app_rating == $rating)
+                {{ Form::submit($rating, ['class' => 'btn btn-info btn-md active', 'name' => 'rating']) }}
+
+              @else
+                {{ Form::submit($rating, ['class' => 'btn btn-info btn-md', 'name' => 'rating']) }}
+              @endif
+            @endforeach
            </div>
 
           {{ Form::close() }}
