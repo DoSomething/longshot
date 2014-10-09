@@ -41,6 +41,8 @@ class CustomStylesCommand extends Command {
     $settings = Setting::getCategorySettingsVars('appearance');
 
     createCustomStylesheet($settings);
+
+    $this->info('Custom settings have been saved to the cache.');
 	}
 
 }
