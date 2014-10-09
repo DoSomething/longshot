@@ -59,7 +59,6 @@ class SettingsController extends \BaseController {
 
     $this->settingsForm->validate($input);
 
-    // @TODO: use the new method in the Setting model!
     $settings = Setting::whereCategory('appearance')->get();
     $settings->each(function($setting) use($input)
     {
@@ -123,7 +122,6 @@ class SettingsController extends \BaseController {
 
     $input = array_merge($inputText, $inputImages);
 
-    // @TODO: maybe create this as a method of the Setting model?
     $settings = Setting::whereCategory('general')->get();
 
     $settings->each(function($setting) use ($input)

@@ -13,10 +13,12 @@ class Setting extends Eloquent {
 
   /**
    * Retrieve specific settings content based on category.
+   * Using this method does not cache the settings.
+   * @return  array List of query results returned from the Settings table based on specified category.
    */
   public static function getCategorySettingsVars($category)
   {
-    return DB::table('settings')->rememberForever('setting.' . $category)->where('category', '=', $category)->get();
+    return DB::table('settings')->where('category', '=', $category)->lists('value', 'key');
   }
 
 
