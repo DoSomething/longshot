@@ -69,27 +69,20 @@ class RecommendationController extends \BaseController {
     else {
       foreach($input['rec'] as $input)
       {
-        // If we don't have an email, it's not a valid rec
-        // For cases when there are empty recs in the form.
-        if ($input['email'])
-        {
-          $recommendation = new Recommendation;
+        $recommendation = new Recommendation;
 
-          foreach ($input as $key => $field) {
-              $recommendation->$key = $field;
-          }
-          $application = Auth::user()->application;
-          $recommendation->application()->associate($application);
-          $recommendation->save();
-
-          $token = $recommendation->generateRecToken($recommendation);
-          $this->prepareRecRequestConfirmationEmail();
-          $this->prepareRecRequestEmail($recommendation, $token);
-
-          return Redirect::route('status')->with('flash_message', 'Your recommendation request has been submitted!');
+        foreach ($input as $key => $field) {
+            $recommendation->$key = $field;
         }
+        $application = Auth::user()->application;
+        $recommendation->application()->associate($application);
+        $recommendation->save();
+
+        $token = $recommendation->generateRecToken($recommendation);
+        $this->prepareRecRequestConfirmationEmail();
+        $this->prepareRecRequestEmail($recommendation, $token);
       }
-      return Redirect::route('recommendation.create')->with('flash_message', 'All fields are required.');
+      return Redirect::route('status')->with('flash_message', 'Your recommendation request has been submitted!');
     }
   }
 
