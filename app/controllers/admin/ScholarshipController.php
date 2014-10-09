@@ -83,8 +83,9 @@ class ScholarshipController extends \BaseController {
     $input = Input::all();
     $scholarship = Scholarship::whereId($id)->firstOrFail();
     $scholarship->fill($input)->save();
+
     // Maybe this should go to scholarship/show?
-    return Redirect::route('admin')->with('flash_message', 'Scholarship information has been saved!');
+    return Redirect::route('admin')->with('flash_message', ['text' => '<strong>Success:</strong> Scholarship information has been saved!', 'class' => 'alert-success']);
   }
 
   /**

@@ -90,7 +90,7 @@ class PagesController extends \BaseController {
       }
     }
 
-    return Redirect::route('admin.page.index')->with('flash_message', 'Static page has been saved!');
+    return Redirect::route('admin.page.index')->with('flash_message', ['text' => '<strong>Success:</strong> <em>Static</em> page has been saved!', 'class' => 'alert-success']);
   }
 
 
@@ -233,7 +233,8 @@ class PagesController extends \BaseController {
       }
 
     }
-    return Redirect::route('admin.page.index')->with('flash_message', 'Static page has been updated!');
+
+    return Redirect::route('admin.page.index')->with('flash_message', ['text' => '<strong>Success:</strong> <em>Static</em> page has been updated!', 'class' => 'alert-success']);
   }
 
   /**

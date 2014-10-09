@@ -48,13 +48,13 @@ class SessionsController extends \BaseController {
     {
       if (Auth::user()->hasRole('administrator'))
       {
-        return Redirect::route('admin')->with('flash_message', 'You have been logged in as an administrator!');
+        return Redirect::route('admin');
       }
 
-      return Redirect::intended('status')->with('flash_message', 'You have been logged in!');
+      return Redirect::intended('status')->with('flash_message', ['text' => 'You have been logged in!', 'class' => '-info']);
     }
     $password_forgot = link_to('password/remind', 'forgotten your password');
-    return Redirect::back()->withInput()->with('flash_message', 'Sorry, unrecognized username or password. Have you '. $password_forgot . '?');
+    return Redirect::back()->withInput()->with('flash_message', ['text' => 'Sorry, unrecognized username or password. Have you '. $password_forgot . '?', 'class' => '-error']);
   }
 
 
@@ -68,7 +68,7 @@ class SessionsController extends \BaseController {
   {
     Auth::logout();
 
-    return Redirect::home()->with('flash_message', 'You have been logged out!');
+    return Redirect::home()->with('flash_message', ['text' => 'You have been logged out!', 'class' => '-info']);
   }
 
 

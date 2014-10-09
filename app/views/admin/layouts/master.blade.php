@@ -15,12 +15,13 @@
     @show
   </head>
 
-  <body>
+  <body class="{{ bodyClass() }}">
     @include('admin.layouts.partials.navigation')
 
     @if (Session::has('flash_message'))
-      <div class="flash-message">
-        <em>{{ Session::get('flash_message') }}</em>
+      <div class="alert {{ Session::get('flash_message')['class'] }} alert-dismissible fade in" role="alert">
+        <em>{{ Session::get('flash_message')['text'] }}</em>
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span>
       </div>
     @endif
 

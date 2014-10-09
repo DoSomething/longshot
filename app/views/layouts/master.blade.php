@@ -28,8 +28,8 @@
         @include('layouts.partials.header')
 
         @if (Session::has('flash_message'))
-          <div class="flash-message">
-            <em>{{ Session::get('flash_message') }}</em>
+          <div class="flash-message {{ Session::get('flash_message')['class'] }}">
+            <em>{{ Session::get('flash_message')['text'] }}</em>
           </div>
         @endif
 

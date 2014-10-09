@@ -96,7 +96,7 @@ class StatusController extends \BaseController {
 
     $prof_complete = Profile::isComplete(Auth::user()->id);
     if (!$prof_complete) {
-      return Redirect::route('status')->with('flash_message', 'Please go back and answer all required questions in ' . link_to_route('profile.create', 'basic info.'));
+      return Redirect::route('status')->with('flash_message', ['text' => 'Please go back and answer all required questions in ' . link_to_route('profile.create', 'basic info.'), 'class' => '-warning']);
     }
 
     return View::make('status.review', compact('application', 'profile', 'scholarship', 'vars'));
@@ -118,13 +118,13 @@ class StatusController extends \BaseController {
     $max_recs = Scholarship::getCurrentScholarship()->pluck('num_recommendations_max');
     foreach($recommendations as $rec) {
       if ($rec->isComplete($rec->id)) {
-        return Redirect::route('status')->with('flash_message', 'Sweet, you\'re all set!');
+        return Redirect::route('status')->with('flash_message', ['text' => 'Sweet, you\'re all set!', 'class' => '-success']);
       }
     }
     if ($recommendations->count() == $max_recs) {
-      return Redirect::route('status')->with('flash_message', 'Sweet, just waiting on your recommendations');
+      return Redirect::route('status')->with('flash_message', ['text' => 'Sweet, just waiting on your recommendations.', 'class' => '-info']);
     }
-    return Redirect::route('recommendation.create')->with('flash_message', 'Your application has been submitted. Submit a recommendation request below.');
+    return Redirect::route('recommendation.create')->with('flash_message', ['text' => 'Your application has been submitted. Submit a recommendation request below.', 'class' => '-success']);
   }
 
   public function resendEmailRequest()
@@ -141,7 +141,7 @@ class StatusController extends \BaseController {
       );
     $email->sendEmail('request', 'recommender', $recommendation->email, $data);
 
-    return Redirect::route('status')->with('flash_message', 'We sent another email!');
+    return Redirect::route('status')->with('flash_message', ['text' => 'We sent another email!', 'class' => '-success']);
   }
 
   /**
