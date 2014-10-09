@@ -105,7 +105,7 @@ class AdminController extends \BaseController {
         }
     }
 
-    $applicants = $query->paginate(25);
+    $applicants = $query->paginate(25)->appends(Input::all());
     return View::make('admin.applications.index', compact('applicants'));
   }
 
