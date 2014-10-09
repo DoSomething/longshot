@@ -19,6 +19,10 @@
                  <dd>{{ $field }}</dd>
                 @endif
             @endforeach
+            <dt><strong> Races </strong> </dt>
+            @foreach($races as $race)
+            <dd> {{ $race['race']}} <dd>
+            @endforeach
           </dl>
         </div>
 
