@@ -117,8 +117,10 @@ class AdminController extends \BaseController {
   {
     $application = Application::getUserApplication($id);
     $profile = Profile::getUserProfile($id);
+    $user = User::getUserInfo($id);
     $scholarship = Scholarship::getScholarshipLabels();
     $app_id = Application::getUserApplicationId($id);
+    $races = Profile::getUserRace($app_id->id);
 
     $recomendations = null;
     if ($app_id)
@@ -131,7 +133,7 @@ class AdminController extends \BaseController {
     $app_rating = Rating::getApplicationRating($app_id->id);
     $possible_ratings = Rating::getPossibleRatings();
 
-    return View::make('admin.applications.show', compact('application', 'app_id', 'profile', 'scholarship', 'recomendations', 'show_rating', 'possible_ratings', 'app_rating'));
+    return View::make('admin.applications.show', compact('application', 'app_id', 'user', 'profile', 'races', 'scholarship', 'recomendations', 'show_rating', 'possible_ratings', 'app_rating'));
   }
 
   /**

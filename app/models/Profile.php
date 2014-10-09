@@ -99,11 +99,22 @@ class Profile extends Eloquent {
 
   }
 
-
+  /**
+   * @param - int - id
+   *  the user ID
+   * @return - array - profile
+   *  the profile for a user formatted as an array with pretty titles.
+   */
   public static function getUserProfile($id)
   {
     $fields = array('birthdate', 'phone', 'address_street as address_1', 'address_premise as address_2', 'city', 'state', 'zip as zip_code', 'gender', 'grade', 'school as current_high_school');
     return $profile = Profile::where('user_id', $id)->select($fields)->first()->toArray();
 
+  }
+
+  public static function getUserRace($id)
+  {
+    $races = Race::where('profile_id', $id)->select('race')->get()->toArray();
+    return $races;
   }
 }
