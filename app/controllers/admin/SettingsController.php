@@ -72,7 +72,7 @@ class SettingsController extends \BaseController {
     // Create the custom stylesheet file from values in Appearance settings.
     createCustomStylesheet($input);
 
-    return Redirect::route('appearance.edit')->with('flash_message', 'Appearance settings have been saved!');
+    return Redirect::route('appearance.edit')->with('flash_message', ['text' => '<strong>Success:</strong> <em>Appearance</em> settings have been saved!', 'class' => 'alert-success']);
 
   }
 
@@ -134,7 +134,7 @@ class SettingsController extends \BaseController {
     // Updated General Settings so clear the cache.
     Event::fire('settings.change', ['general']);
 
-    return Redirect::route('general.edit')->with('flash_message', 'General settings have been saved!');
+    return Redirect::route('general.edit')->with('flash_message', ['text' => '<strong>Success:</strong> <em>General</em> settings have been saved!', 'class' => 'alert-success']);
 
   }
 

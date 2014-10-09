@@ -29,7 +29,7 @@ class EmailController extends \BaseController {
       }
     }
 
-    return Redirect::route('emails')->with('flash_message', 'Email settings have been saved');
+    return Redirect::route('emails')->with('flash_message', ['text' => '<strong>Success:</strong> <em>Email</em> settings have been saved!', 'class' => 'alert-success']);
   }
 
 }

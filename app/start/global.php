@@ -60,7 +60,7 @@ App::error(function(Laracasts\Validation\FormValidationException $exception, $co
 App::error(function(Symfony\Component\HttpKernel\Exception\HttpException $exception, $code)
 {
   //@TODO: Maybe change this to return a 403 View to the user, with links of where to go from there.
-  return Redirect::home()->with('flash_message', 'You are not authorized to access that page!');
+  return Redirect::home()->with('flash_message', ['text' => 'You are not authorized to access that page!', 'class' => '-warning']);
 });
 
 /*

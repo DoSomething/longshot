@@ -159,7 +159,7 @@ class AdminController extends \BaseController {
     $rate->application()->associate($application);
     $rate->save();
 
-    return Redirect::to('admin/applications?filter_by=completed')->with('flash_message', 'Awesome, we got that rated for you!');
+    return Redirect::to('admin/applications?filter_by=completed')->with('flash_message', ['text' => '<strong>Success:</strong> Awesome, we got that rated for you!', 'class' => 'alert-success']);
   }
 
 }

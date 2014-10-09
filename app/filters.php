@@ -157,7 +157,7 @@ Route::filter('submittedApp', function($route, $request)
     $complete = Application::isSubmitted($user->id);
     if (isset($complete))
     {
-      return Redirect::route('status')->with('flash_message', 'You have already submitted your application, you can no longer edit');
+      return Redirect::route('status')->with('flash_message', ['text' => 'You have already submitted your application, you can no longer edit.', 'class' => '-error']);
     }
   }
 });

@@ -189,11 +189,11 @@ class ApplicationController extends \BaseController {
   {
     if (isset($input['complete']))
     {
-      return Redirect::route('review', $id)->with('flash_message', 'Application information has been saved!');
+      return Redirect::route('review', $id)->with('flash_message', ['text' => 'Application information has been saved!', 'class' => '-success']);
     }
     else
     {
-      return Redirect::route('application.edit', $id)->with('flash_message', 'Application information has been saved!');
+      return Redirect::route('application.edit', $id)->with('flash_message', ['text' => 'Application information has been saved!', 'class' => '-success']);
     }
 
   }

@@ -64,7 +64,7 @@ class RecommendationController extends \BaseController {
     $v = Validator::make($data, $rules);
 
     if ($v->fails()) {
-      return  Redirect::back()->with('flash_message', 'All fields are required')->withInput();
+      return  Redirect::back()->with('flash_message', ['text' => 'All fields are required.', 'class' => '-error'])->withInput();
     }
     else {
       foreach($input['rec'] as $input)
@@ -82,7 +82,7 @@ class RecommendationController extends \BaseController {
         $this->prepareRecRequestConfirmationEmail();
         $this->prepareRecRequestEmail($recommendation, $token);
       }
-      return Redirect::route('status')->with('flash_message', 'Your recommendation request has been submitted!');
+      return Redirect::route('status')->with('flash_message', ['text' => 'Your recommendation request has been submitted!', 'class' => '-success']);
     }
   }
 
@@ -127,7 +127,7 @@ class RecommendationController extends \BaseController {
                               ->first();
 
         $name = $applicant_name->first_name . ' ' . $applicant_name->last_name;
-        return Redirect::route('home')->with('flash_message', 'You already submitted your recommendation for ' . $name . '. Thanks again for your recommendation!');
+        return Redirect::route('home')->with('flash_message', ['text' => 'You already submitted your recommendation for ' . $name . '. Thanks again for your recommendation!', 'class' => '-warning']);
       }
       $scholarship = Scholarship::getCurrentScholarship();
       $rank_values = Recommendation::getRankValues();
@@ -171,7 +171,7 @@ class RecommendationController extends \BaseController {
     $application->save();
     $this->prepareRecReceivedEmail($recommendation);
 
-    return Redirect::route('home')->with('flash_message', 'Thanks, we got your recommendation!');
+    return Redirect::route('home')->with('flash_message', ['text' => 'Thanks, we got your recommendation!', 'class' => '-success']);
   }
 
   public function updateUserRec($input)
@@ -183,7 +183,7 @@ class RecommendationController extends \BaseController {
     $v = Validator::make($data, $rules);
 
     if ($v->fails()) {
-      return  Redirect::back()->with('flash_message', 'All fields are required')->withInput();
+      return  Redirect::back()->with('flash_message', ['text' => 'All fields are required.', 'class' => '-error'])->withInput();
     } else {
       $recs = $input['rec'];
       foreach ($recs as $rec) {
@@ -207,7 +207,7 @@ class RecommendationController extends \BaseController {
         $this->prepareRecRequestConfirmationEmail();
 
       }
-      return Redirect::route('status')->with('flash_message', 'We sent that email off!');
+      return Redirect::route('status')->with('flash_message', ['text' => 'We sent that email off!', 'class' => '-success']);
     }
   }
 

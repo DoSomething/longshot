@@ -93,7 +93,7 @@ class ProfilesController extends \BaseController {
     }
     catch(ModelNotFoundException $error)
     {
-      return Redirect::home()->with('flash_message', 'This user does\'t exist!');
+      return Redirect::home()->with('flash_message', ['text' => 'This user does\'t exist!', 'class' => '-warning']);
     }
 
     $vars = (object) Setting::getPageSettingsVars();
@@ -183,15 +183,15 @@ class ProfilesController extends \BaseController {
   public function redirectAfterSave($input, $id, $override = NULL)
   {
     if (isset($override)) {
-      return Redirect::route($override)->with('flash_message', 'Your profile has been updated');
+      return Redirect::route($override)->with('flash_message', ['text' => 'Your profile has been updated', 'class' => '-success']);
     }
     elseif (isset($input['complete']))
     {
-      return Redirect::route('application.create')->with('flash_message', 'Application information has been saved!');
+      return Redirect::route('application.create')->with('flash_message', ['text' => 'Application information has been saved!', 'class' => '-success']);
     }
     else
     {
-    return Redirect::route('profile.edit', $id)->with('flash_message', 'Your profile has been updated!');
+    return Redirect::route('profile.edit', $id)->with('flash_message', ['text' => 'Your profile has been updated!', 'class' => '-success']);
     }
 
   }
