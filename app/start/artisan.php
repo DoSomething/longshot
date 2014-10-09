@@ -11,4 +11,4 @@
 |
 */
 
-Artisan::resolve('CustomStylesCommand');
+Artisan::add(new CustomStylesCommand);
