@@ -9,13 +9,13 @@
     <div class="segment -compact">
       <div class="wrapper">
 
+        <div class="progress"><strong>Step 2 of 2</strong></div>
+
         @if (!empty($vars->application_create_help_text))
           <p>{{ $vars->application_create_help_text }}</p>
         @endif
 
         {{ Form::open(['route' => 'application.store', 'class' => 'form--application']) }}
-
-          <div class="progress"><strong>Step 2 of 2</strong></div>
 
           @include('application/partials/_form_application')
 

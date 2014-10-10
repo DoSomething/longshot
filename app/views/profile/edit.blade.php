@@ -17,11 +17,11 @@
 
           @include('profile/partials/_form_profile')
 
-       {{-- Submit Button --}}
-        <div class="field-group -action">
-          {{ Form::submit('Save as Draft', ['class' => 'button -default -alpha', 'name' => 'draft']) }}
-           {{ Form::submit('Save and Continue', ['class' => 'button -default -beta', 'name' => 'complete']) }}
-        </div>
+          {{-- Submit Button --}}
+          <div class="field-group -action">
+            {{ Form::submit('Save as Draft', ['class' => 'button -default -alpha', 'name' => 'draft']) }}
+             {{ Form::submit('Save and Continue', ['class' => 'button -default -beta', 'name' => 'complete']) }}
+          </div>
 
         {{ Form::close() }}
 

@@ -9,22 +9,21 @@
     <div class="segment -compact">
       <div class="wrapper">
 
+        <div class="progress"><strong>Step 1 of 2</strong></div>
+
         @if (!empty($vars->basic_info_help_text))
           <p>{{ $vars->basic_info_help_text }}</p>
         @endif
 
         {{ Form::open(['route' => 'profile.store']) }}
 
-          <div class="progress"><strong>Step 1 of 2</strong></div>
-
           @include('profile/partials/_form_profile')
 
-
-        {{-- Submit Button --}}
-        <div class="field-group -action">
-           {{ Form::submit('Save as Draft', ['class' => 'button -default -alpha', 'name' => 'draft']) }}
-           {{ Form::submit('Save and Continue', ['class' => 'button -default -beta', 'name' => 'complete']) }}
-        </div>
+          {{-- Submit Button --}}
+          <div class="field-group -action">
+             {{ Form::submit('Save as Draft', ['class' => 'button -default -alpha', 'name' => 'draft']) }}
+             {{ Form::submit('Save and Continue', ['class' => 'button -default -beta', 'name' => 'complete']) }}
+          </div>
 
         {{ Form::close() }}
 
