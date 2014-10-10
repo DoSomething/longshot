@@ -15,34 +15,38 @@
 
         <div class="fragment">
           <h2 class="heading -gamma">Basic Info</h2>
-          <dl>
-            @foreach ($profile as $key => $field)
-              @if (!empty($field))
-               <dt><strong>{{ snakeCaseToTitleCase($key) }}</strong></dt>
-               <dd>{{ $field }}</dd>
-              @endif
-            @endforeach
-          </dl>
-          {{ link_to_route('profile.edit', 'Something wrong? Update it!', Auth::user()->id) }}
+          <div class="wrapper">
+            {{ '<a class="button -link" href="' . URL::route('profile.edit', Auth::user()->id) . '">Something wrong? Edit<span class="icon icon-edit"></span></a>' }}
+            <dl>
+              @foreach ($profile as $key => $field)
+                @if (!empty($field))
+                 <dt><strong>{{ snakeCaseToTitleCase($key) }}</strong></dt>
+                 <dd>{{ $field }}</dd>
+                @endif
+              @endforeach
+            </dl>
+          </div>
         </div>
 
         <div class="fragment">
           <h2 class="heading -gamma">Application</h2>
-          <dl>
-            @foreach ($application as $key => $field)
-              {{-- did the have a value in the field --}}
-              @if (!empty($field))
-                {{-- does the field have a better title in the scholarship? --}}
-                @if (isset($scholarship[$key]))
-                  <dt><strong>{{ snakeCaseToTitleCase($scholarship[$key]) }} </strong></dt>
-                @else
-                  <dt><strong>{{ snakeCaseToTitleCase($key) }}</strong></dt>
+          <div class="wrapper">
+            {{ '<a class="button -link" href="' . URL::route('application.edit', Auth::user()->id) . '">Something wrong? Edit<span class="icon icon-edit"></span></a>' }}
+            <dl>
+              @foreach ($application as $key => $field)
+                {{-- did they have a value in the field --}}
+                @if (!empty($field))
+                  {{-- does the field have a better title in the scholarship? --}}
+                  @if (isset($scholarship[$key]))
+                    <dt><strong>{{ snakeCaseToTitleCase($scholarship[$key]) }} </strong></dt>
+                  @else
+                    <dt><strong>{{ snakeCaseToTitleCase($key) }}</strong></dt>
+                  @endif
+                  <dd>{{ $field }}</dd>
                 @endif
-                <dd>{{ $field }}</dd>
-              @endif
-            @endforeach
-          </dl>
-          {{ link_to_route('application.edit', 'Something wrong? Update it!', Auth::user()->id) }}
+              @endforeach
+            </dl>
+          </div>
         </div>
 
 

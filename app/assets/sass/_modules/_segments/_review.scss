@@ -22,4 +22,10 @@
 
 @media only screen and (min-width: $medium) {
 
+  .segment--review {
+
+    .fragment + .fragment { padding-top: 3em; }
+
+  }
+
 }

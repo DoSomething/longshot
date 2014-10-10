@@ -25,14 +25,14 @@
         <ul class="media-list media-list--status">
           <li class="{{ $prof_complete ? 'complete' : '-incomplete' }}">
             <span class="icon icon-status" data-icon="&#x2713"></span>Basic Information
-            {{ isset($profile) ? '<a class="__link" href="' . URL::route('profile.edit', Auth::user()->id) . '">Edit<span class="icon icon-edit"></span></a>' : '<a class="__link" href="' . URL::route('profile.create', null) . '">Start<span class="icon icon-start"></span></a>' }}
+            {{ isset($profile) ? '<a class="button -link" href="' . URL::route('profile.edit', Auth::user()->id) . '">Edit<span class="icon icon-edit"></span></a>' : '<a class="button -link" href="' . URL::route('profile.create', null) . '">Start<span class="icon icon-start"></span></a>' }}
           </li>
           <li class="{{ $app_filled_out ? 'complete' : '-incomplete' }}">
             <span class="icon icon-status" data-icon="&#x2713"></span>Application
             @if (isset($application) && !($application->submitted))
-              {{ '<a class="__link" href="' . URL::route('application.edit', Auth::user()->id) . '">Edit<span class="icon icon-edit"></span></a>' }}
+              {{ '<a class="button -link" href="' . URL::route('application.edit', Auth::user()->id) . '">Edit<span class="icon icon-edit"></span></a>' }}
             @elseif (is_null($application) && !is_null($profile))
-              {{ '<a class="__link" href="' . URL::route('application.create', Auth::user()->id) . '">Start<span class="icon icon-start"></span></a>' }}
+              {{ '<a class="button -link" href="' . URL::route('application.create', Auth::user()->id) . '">Start<span class="icon icon-start"></span></a>' }}
             @endif
           </li>
         </ul>
@@ -59,7 +59,7 @@
                 </ul>
 
                 @if ($rec['complete'] !== 'All set!')
-                  {{ '<a class="__link" href="' . URL::route('resend', array('id' => $rec['id'])) . '">Resend<span class="icon icon-send"></span></a>' }}
+                  {{ '<a class="button -link" href="' . URL::route('resend', array('id' => $rec['id'])) . '">Resend<span class="icon icon-send"></span></a>' }}
                 @endif
               </li>
             @endforeach

@@ -4,6 +4,14 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+.fragment {
+  > .wrapper { position: relative; }
+
+  .button {
+    &.-link { margin-bottom: 1em; }
+  }
+
+}
 
 p + .fragment { margin-top: 2em; }
 
@@ -14,5 +22,13 @@ p + .fragment { margin-top: 2em; }
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 @media only screen and (min-width: $medium) {
+
+  .fragment {
+
+    .button {
+      &.-link { margin-bottom: 0; position: absolute; right: 0; top: -3em; }
+    }
+
+  }
 
 }
