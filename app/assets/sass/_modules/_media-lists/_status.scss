@@ -26,8 +26,8 @@
     }
   }
 
-  .__link { @include rem(16); display: block; line-height: 1; padding: pxcalc(6) 0 pxcalc(6) pxcalc(5); position: absolute; right: 0; text-decoration: none; text-transform: uppercase; top: 0;
-    > .icon { padding-left: pxcalc(5); }
+  .button {
+    &.-link { padding: pxcalc(6) 0 pxcalc(6) pxcalc(5); position: absolute; right: 0; top: 0; }
   }
 
   ul { @include rem(16); padding-left: pxcalc(50); }
