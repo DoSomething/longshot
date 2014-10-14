@@ -9,10 +9,8 @@
     <div class="segment">
       <div class="wrapper">
         <h2 class="heading -gamma">Status: <em> {{ $status }} </em></h2>
-
-        <?php $help_text = 'status_page_help_text_' . strtolower($status); ?>
-        @if (!empty($vars->$help_text))
-          <p>{{ $vars->$help_text }}</p>
+        @if (!empty($help_text))
+          <p>{{ $help_text }}</p>
         @endif
 
       </div>
@@ -46,7 +44,7 @@
 
           <ul class="media-list media-list--status">
             @foreach($recommendations as $index => $rec)
-              @if($rec['complete'] !== 'All set!')
+              @if($rec['complete'] !== 'Recommendation received!')
               <li class="-incomplete">
               @else
               <li class="complete">

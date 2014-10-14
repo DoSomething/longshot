@@ -32,10 +32,10 @@ class StatusController extends \BaseController {
     // Is the app complete & been submitted?
     if ($app_filled_out && $application->submitted) {
       $status = 'Submitted. Waiting for recommendation...';
-      $help_text = Setting::getSpecifiedSettingsVars(['status_page_help_text_submitted']);
+      $help_text = Setting::getSpecifiedSettingsVars(['status_page_help_text_submitted'])['status_page_help_text_submitted'];
     } else {
       $status = 'Incomplete';
-      $help_text = Setting::getSpecifiedSettingsVars(['status_page_help_text_incomplete']);
+      $help_text = Setting::getSpecifiedSettingsVars(['status_page_help_text_incomplete'])['status_page_help_text_incomplete'];
     }
 
     $profile = Profile::where('user_id', $user->id)->first();
@@ -53,8 +53,8 @@ class StatusController extends \BaseController {
         $rec->isRecommendationComplete($rec);
         if ($rec->isComplete($rec->id) && isset($app_filled_out) && $application->submitted) {
           $status = 'Completed.';
-          $help_text = Setting::getSpecifiedSettingsVars(['status_page_help_text_complete']);
-        }
+          $help_text = Setting::getSpecifiedSettingsVars(['status_page_help_text_complete'])['status_page_help_text_complete'];
+          }
 
       }
       $recommendations = $recommendations->toArray();
@@ -67,14 +67,14 @@ class StatusController extends \BaseController {
 
     $page_vars = Setting::getPageSettingsVars();
 
-    $vars = (object) array_merge($page_vars, $help_text);
+    $vars = (object) ($page_vars);
 
     // @TODO: find a better way of retrieving the timeline in case there are other blocks to that type.
     // Query cached for 2 hours.
     $timeline = Block::remember(120, 'query.block.timeline')->whereBlockType('timeline')->select('block_body_html')->first();
     $timeline = $timeline->block_body_html;
 
-    return View::make('status.index', compact('profile', 'application', 'recommendations', 'app_filled_out', 'prof_complete', 'submit', 'status', 'vars', 'add_rec_link', 'timeline'));
+    return View::make('status.index', compact('profile', 'application', 'recommendations', 'app_filled_out', 'prof_complete', 'submit', 'status', 'vars', 'add_rec_link', 'timeline', 'help_text'));
 
   }
 
