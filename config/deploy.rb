@@ -42,7 +42,7 @@ namespace :deploy do
 
 end
 
-before "deploy:update", "deploy:backup_db"
 after "deploy:update", "deploy:cleanup"
 after "deploy:symlink", "deploy:link_folders"
+before "deploy:artisan_migrate", "deploy:backup_db"
 after "deploy:link_folders", "deploy:artisan_migrate", "deploy:artisan_custom_styles"
