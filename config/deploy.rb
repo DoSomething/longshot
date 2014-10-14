@@ -19,6 +19,10 @@ ssh_options[:keys] = [ENV["CAP_PRIVATE_KEY"]]
 namespace :deploy do
   folders = %w{logs dumps system}
 
+  task :backup_db do
+    run "cd #{release_path} && php artisan db:backup --upload-s3 footlocker-backup"
+  end
+
   task :link_folders do
     run "ln -nfs #{shared_path}/.env.php #{release_path}/"
     run "ln -nfs #{shared_path}/content #{release_path}/public"
@@ -34,6 +38,7 @@ namespace :deploy do
 
 end
 
+before "deploy:update", "deploy:backup_db"
 after "deploy:update", "deploy:cleanup"
 after "deploy:symlink", "deploy:link_folders"
 after "deploy:link_folders", "deploy:artisan_migrate"
