@@ -123,6 +123,8 @@ return array(
     'Illuminate\Workbench\WorkbenchServiceProvider',
     'Way\Generators\GeneratorsServiceProvider',
     'Laracasts\Validation\ValidationServiceProvider',
+    'Schickling\Backup\BackupServiceProvider',
+    'Aws\Laravel\AwsServiceProvider',
 
   ),
 
@@ -155,6 +157,7 @@ return array(
     'App'               => 'Illuminate\Support\Facades\App',
     'Artisan'           => 'Illuminate\Support\Facades\Artisan',
     'Auth'              => 'Illuminate\Support\Facades\Auth',
+    'AWS'               => 'Aws\Laravel\AwsFacade',
     'Blade'             => 'Illuminate\Support\Facades\Blade',
     'Cache'             => 'Illuminate\Support\Facades\Cache',
     'ClassLoader'       => 'Illuminate\Support\ClassLoader',
