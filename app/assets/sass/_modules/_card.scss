@@ -1,19 +1,15 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// TILE STYLES
+// CARD STYLES
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-.tile {
+.card {
 
-  a { display: block; text-decoration: none; }
+  img { display: none; }
 
-  figure { margin: 0;
-    > img { width: 100%; }
-  }
-
-  figcaption { background-color: $app_primary; color: #fff; margin-top: pxcalc(5); padding: pxcalc(5); text-align: center; }
+  .__body { clear: both; background-color: pink; }
 
 }
 
@@ -24,5 +20,13 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 @media only screen and (min-width: $medium) {
+
+  .card {
+
+    img { display: block; float: left; }
+
+    .media-list--key-value { float: left; }
+
+  }
 
 }

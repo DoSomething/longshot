@@ -5,8 +5,8 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-.gallery { @include list_reset(); margin-bottom: pxcalc(20);
-  
+.gallery { @include list_reset(); @include clearfix(); margin-bottom: pxcalc(20);
+
   li {
     @include with-layout($gallery_duo) {
       @include gallery(4 of 8);
@@ -24,9 +24,9 @@
 
 @media only screen and (min-width: $small) {
 
-  .gallery { 
+  .gallery {
 
-    li { 
+    li {
       @include with-layout($gallery_trio) {
         @include gallery(4 of 12);
         margin-bottom: gutter();
@@ -40,9 +40,9 @@
 
 @media only screen and (min-width: $medium) {
 
-  .gallery { 
+  .gallery {
 
-    li { 
+    li {
       @include with-layout($gallery_quintet) {
         @include gallery(4 of 20);
         margin-bottom: gutter();

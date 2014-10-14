@@ -1,6 +1,5 @@
 var $ = require('jquery');
 
-
 /**
  * classToggle simply toggles a specified class on an element back and forth.
  *
