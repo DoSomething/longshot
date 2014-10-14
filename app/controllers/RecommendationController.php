@@ -69,18 +69,20 @@ class RecommendationController extends \BaseController {
     else {
       foreach($input['rec'] as $input)
       {
-        $recommendation = new Recommendation;
+        if (!empty($input['email'])) {
+          $recommendation = new Recommendation;
 
-        foreach ($input as $key => $field) {
-            $recommendation->$key = $field;
+          foreach ($input as $key => $field) {
+              $recommendation->$key = $field;
+          }
+          $application = Auth::user()->application;
+          $recommendation->application()->associate($application);
+          $recommendation->save();
+
+          $token = $recommendation->generateRecToken($recommendation);
+          $this->prepareRecRequestConfirmationEmail();
+          $this->prepareRecRequestEmail($recommendation, $token);
         }
-        $application = Auth::user()->application;
-        $recommendation->application()->associate($application);
-        $recommendation->save();
-
-        $token = $recommendation->generateRecToken($recommendation);
-        $this->prepareRecRequestConfirmationEmail();
-        $this->prepareRecRequestEmail($recommendation, $token);
       }
       return Redirect::route('status')->with('flash_message', ['text' => 'Your recommendation request has been submitted!', 'class' => '-success']);
     }
