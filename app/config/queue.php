@@ -11,4 +11,10 @@ return [
           'queue'  => getenv('REDIS_QUEUE'),
         ),
     ],
+
+    'failed' => array(
+
+      'database' => 'mysql', 'table' => 'failed_jobs',
+
+    ),
 ];
