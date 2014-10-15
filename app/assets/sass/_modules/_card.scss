@@ -6,10 +6,14 @@
 
 
 .card {
-
-  img { display: none; }
-
-  .__body { clear: both; background-color: pink; }
+  
+  figure { clear: both; float: left; margin: 0 1em 0.5em 0; width: 25%;
+    > img { margin: 0 auto; }
+  }
+  figcaption { display: none; }
+  
+  .__title { text-align: center; }
+  .__info { margin-bottom: 1em; }
 
 }
 
@@ -19,14 +23,47 @@
 // MEDIA QUERIES
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+@media only screen and (min-width: $small) {
+
+  .card {
+    > .wrapper { @include span(last 5); }
+
+    figure { @include span(first 3); clear: none; margin: 0;
+      > img { width: 100%; }
+    }
+
+    .__title { text-align: left; }
+    .__body { clear: both; }
+  }
+
+}
+
+
 @media only screen and (min-width: $medium) {
 
   .card {
+  //   figure { @include span(first 3 of 10) }
 
-    img { display: block; float: left; }
-
-    .media-list--key-value { float: left; }
-
+  //   .__title { float: none; margin-left: 0; width: 100%; }
+  
+    // figure { width: 10%; }
   }
+
+}
+
+
+
+@media only screen and (min-width: $large) {
+
+  // .card {
+  //   > .wrapper { @include span(last 5); }
+
+  //   figure { @include span(first 3); clear: none; margin: 0;
+  //     > img { width: 100%; }
+  //   }
+
+  //   .__title { text-align: left; }
+  //   .__body { clear: both; }
+  // }
 
 }

@@ -77,8 +77,6 @@
 
         @include('pages.partials._winners-gallery')
 
-        @include('pages.partials._winners-info')
-
       </div>
     </section>
 

@@ -7,12 +7,14 @@
 
 .gallery { @include list_reset(); @include clearfix(); margin-bottom: pxcalc(20);
 
-  li {
-    @include with-layout($gallery_duo) {
-      @include gallery(4 of 8);
-      margin-bottom: gutter();
-    }
-  }
+//   li {
+//     @include with-layout($gallery_duo) {
+//       @include gallery(4 of 8);
+//       margin-bottom: gutter();
+//     }
+//   }
+
+  > li + li { margin-top: 1.5em; }
 
 }
 
@@ -24,30 +26,41 @@
 
 @media only screen and (min-width: $small) {
 
-  .gallery {
+  // .gallery {
 
-    li {
-      @include with-layout($gallery_trio) {
-        @include gallery(4 of 12);
-        margin-bottom: gutter();
-      }
-    }
+  //   li {
+  //     @include with-layout($gallery_trio) {
+  //       @include gallery(4 of 12);
+  //       margin-bottom: gutter();
+  //     }
+  //   }
 
-  }
+  // }
 
 }
 
 
-@media only screen and (min-width: $medium) {
+@media only screen and (min-width: $large) {
+
+  // .gallery {
+
+  //   li {
+  //     @include with-layout($gallery_quintet) {
+  //       @include gallery(4 of 20);
+  //       margin-bottom: gutter();
+  //     }
+  //   }
+
+  // }
 
   .gallery {
+  
+    // li { background-color: rgba(255,0,255,0.2); }
 
-    li {
-      @include with-layout($gallery_quintet) {
-        @include gallery(4 of 20);
-        margin-bottom: gutter();
-      }
-    }
+    > li:nth-child(2) { margin-top: 0; }
+
+    > li:nth-child(odd) { @include span(first 10 of 20 1.5); clear: left; }
+    > li:nth-child(even) { @include span(10 of 20 1.5); }
 
   }
 

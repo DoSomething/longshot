@@ -5,9 +5,9 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-.media-list--key-value {
+.media-list--key-value { //overflow: hidden;
 
-  .__key { clear: both; float: left; font-weight: bold; margin-top: 0; } // @TODO fix font-weight!
-  .__value { float: left; margin-top: 0; }
+  // .__key { clear: both; float: left; font-family: $font_proxima_nova_bold; margin: 0 pxcalc(5) 0 0; } // @TODO fix font-weight!
+  // .__value { float: left; margin-top: 0; }
 
 }
