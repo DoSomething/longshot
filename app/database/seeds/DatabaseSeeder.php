@@ -23,6 +23,8 @@ class DatabaseSeeder extends Seeder {
     $this->command->info('Users table seeded!');
 
     $this->call('SettingsTableSeeder');
+    $this->call('NominateSettingsTableSeeder');
+    $this->call('TrackingCodeSettingTableSeeder');
     $this->command->info('Settings table seeded!');
 
     $this->call('PagesTableSeeder');
@@ -33,6 +35,12 @@ class DatabaseSeeder extends Seeder {
 
     $this->call('EmailsTableSeeder');
     $this->command->info('Emails table seeded!');
+
+    $this->call('AppSubmitHelpTextTableSeeder');
+    $this->call('HelperTextTableSeeder');
+    $this->call('StatusPageHelpTextSeeder');
+    $this->command->info('Help text table seeded!');
+
 
     // Explicitly undo disabling foreign key checks.
     DB::statement('SET FOREIGN_KEY_CHECKS=1;');
