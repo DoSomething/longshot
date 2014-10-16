@@ -28,17 +28,21 @@ class AdminController extends \BaseController {
     // @TODO: combime these two, the is null and is not null will not bind as a variable. :(
     $base_rec_null_query = 'SELECT count(*) as total FROM (
                         SELECT count(*) as c
-                        FROM recommendations
-                        WHERE rank_additional is null
-                        GROUP BY application_id
+                        FROM recommendations r
+                        INNER JOIN applications a on a.id = r.application_id
+                        WHERE r.rank_additional is null
+                        AND a.submitted = 1
+                        GROUP BY r.application_id
                         HAVING c = :count
                       ) T ;';
 
     $base_rec_complete_query = 'SELECT count(*) as total FROM (
                         SELECT count(*) as count
-                        FROM recommendations
-                        WHERE rank_additional is not null
-                        GROUP BY application_id
+                        FROM recommendations r
+                        INNER JOIN applications a on a.id = r.application_id
+                        WHERE r.rank_additional is not null
+                        AND a.submitted = 1
+                        GROUP BY r.application_id
                         HAVING count = :count
                       ) T ;';
 

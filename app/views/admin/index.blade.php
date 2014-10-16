@@ -56,11 +56,11 @@
           </tr>
            <tr>
             <td> Applications with one completed recommendation </td>
-            <td> {{ $count['requested_two'] }} </td>
+            <td> {{ $count['submitted_one'] }} </td>
           </tr>
           <tr>
             <td> Applications with two requested recommendations </td>
-            <td> {{ $count['submitted_one'] }} </td>
+            <td> {{ $count['requested_two'] }} </td>
           </tr>
           <tr>
             <td> Applications with two completed recommendations </td>
