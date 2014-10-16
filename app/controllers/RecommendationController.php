@@ -80,7 +80,7 @@ class RecommendationController extends \BaseController {
           $recommendation->save();
 
           $token = $recommendation->generateRecToken($recommendation);
-          $this->prepareRecRequestConfirmationEmail();
+          $this->prepareRecRequestConfirmationEmail($recommendation);
           $this->prepareRecRequestEmail($recommendation, $token);
         }
       }
@@ -195,6 +195,7 @@ class RecommendationController extends \BaseController {
           $currentRec->save();
           $token = RecommendationToken::where('recommendation_id', $rec['id'])->pluck('token');
           $this->prepareRecRequestEmail($currentRec, $token);
+          $this->prepareRecRequestConfirmationEmail($currentRec);
         } else {
           if (!empty($rec['email'])) {
             $newRec = new Recommendation;
@@ -203,10 +204,10 @@ class RecommendationController extends \BaseController {
             $newRec->fill($rec);
             $newRec->save();
             $token = $newRec->generateRecToken($newRec);
+            $this->prepareRecRequestConfirmationEmail($newRec);
             $this->prepareRecRequestEmail($newRec, $token);
           }
         }
-        $this->prepareRecRequestConfirmationEmail();
 
       }
       return Redirect::route('status')->with('flash_message', ['text' => 'We sent that email off!', 'class' => '-success']);
@@ -230,10 +231,13 @@ class RecommendationController extends \BaseController {
   /**
    * Sends email to applicant saying the rec request has been sent.
    */
-  public function prepareRecRequestConfirmationEmail()
+  public function prepareRecRequestConfirmationEmail($recommendation)
   {
+    $data = array(
+      'rec_name' => $recommendation->first_name . ' ' . $recommendation->last_name,
+      );
     $email = new Email;
-    $email->sendEmail('request', 'applicant', Auth::user()->email);
+    $email->sendEmail('request', 'applicant', Auth::user()->email, $data);
   }
   /**
    * Sends email to recommender upon request.

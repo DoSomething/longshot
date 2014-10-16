@@ -31,6 +31,7 @@ class Email extends Eloquent {
        // Replace all values in the body copy.
       foreach ($data as $find => $replace)
       {
+        $subject = str_replace('[' . $find . ']', $replace, $subject);
         $body = str_replace('[' . $find . ']', $replace, $body);
       }
     }
