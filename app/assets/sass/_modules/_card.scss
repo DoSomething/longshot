@@ -5,15 +5,37 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-.card {
-  
+.card { background-color: rgba(255,255,255,0.5);
+   
   figure { clear: both; float: left; margin: 0 1em 0.5em 0; width: 25%;
     > img { margin: 0 auto; }
   }
-  figcaption { display: none; }
+  figcaption { background-color: $app_primary; color: #fff; display: none; margin-top: pxcalc(5); padding: pxcalc(5); text-align: center; }
   
   .__title { text-align: center; }
   .__info { margin-bottom: 1em; }
+
+}
+
+
+
+// JS ENABLED
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.js {
+
+  .segment--gallery {
+    .card { cursor: pointer;
+      figure { float: none; margin: 0; width: auto; 
+        > img { width: 100%; }
+      }
+      figcaption { display: block; }
+
+      .__title,
+      .__info,
+      .__body { display: none; }
+    }
+  }
 
 }
 

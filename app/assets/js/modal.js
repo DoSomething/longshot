@@ -1,5 +1,6 @@
-var $           = require('jquery');
-var classToggle = require('./classToggle');
+var $              = require('jquery');
+var classToggle    = require('./classToggle');
+var modalSlideshow = require('./modalSlideshow');
 
 /**
  * Modal
@@ -7,20 +8,48 @@ var classToggle = require('./classToggle');
 var Modal = {
 
   $modal: $('<div class="modal"><div class="wrapper"></div></div>'),
-  $closeButton: $('<button>&#215;</button>'),
+  $closeButton: $('<button class="button button--close">&#215;</button>'),
 
   /**
    * Initailize the Modal.
    */
-  init: function($container) {
-    // console.log(this);
-    // console.log(this.$closeButton);
+  init: function($body, $container) {
 
-    var $modalContent = $container.find()
+    var $modalContent = $container.find('[data-ui="modal"]');
 
-    var $modal = this.$modal;
-    $modal.append(this.$closeButton);
-    $container.append($modal);
+    // console.log($modalContent.length);
+
+    if ($modalContent.length > 0) {
+
+      var $modal = this.$modal;
+      $modal.append(this.$closeButton);
+
+      var modalType = $modalContent.data('modal-type');
+      $modal.addClass('modal--' + modalType);
+
+      var $slideshow = $('<ul class="slideshow">' + $modalContent.html() + '</ul>');
+      var $slides = $slideshow.find('.card').parent();
+      $slides.addClass('__slide');
+
+      $modal.find('.wrapper').append($slideshow);
+
+      // Append modal to the container.
+      $container.append($modal);
+
+
+      $modalContent.on('click', '.card', function() {
+        console.log($(this).parent().data('slide'));
+        $modal.addClass('is-toggled');
+
+        $body.addClass('is-fixed');
+      });
+
+      this.$closeButton.on('click', function() {
+        $modal.removeClass('is-toggled');
+        $body.removeClass('is-fixed');
+      });
+    }
+
   }
 
 };

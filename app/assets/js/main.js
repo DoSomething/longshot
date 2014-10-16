@@ -10,4 +10,4 @@ var $mainNav   = $('#main-nav');
 
 
 Panels.init($container, $mainNav);
-Modal.init($container);
+Modal.init($body, $container);

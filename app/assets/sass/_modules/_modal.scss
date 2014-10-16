@@ -5,6 +5,18 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-.modal { background-color: rgba(0,0,0,0.6); position: fixed; z-index: 1000; }
+.modal { background-color: rgba(0,0,0,0.6); position: fixed; z-index: 1000; 
+  .button--close { position: absolute; right: 0; top: 0; }
+}
 
-.modal--slideshow { height: 100%; left: 0; top: 0; width: 100%; }
+.modal--slideshow { display: none; height: 100%; left: 0; top: 100%; width: 100%; 
+  > .wrapper { background-color: pink; }
+}
+
+body.is-fixed { position: fixed; width: 100%; }
+
+
+
+// JS ENABLED
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.modal--slideshow.is-toggled { display: block; top: 0; }

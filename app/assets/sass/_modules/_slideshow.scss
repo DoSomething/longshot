@@ -1,0 +1,17 @@
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// SLIDESHOW STYLES
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+.slideshow { @include list_reset(); position: relative;
+  .__slide { position: absolute; top: 0; transition: all 0.3s ease-out;
+    
+    &.-pending { transform: translateX(100%); }
+
+    &.-viewing { transform: translateX(0%); }
+
+    &.-completed { transform: translateX(-100%); }
+  }
+}
