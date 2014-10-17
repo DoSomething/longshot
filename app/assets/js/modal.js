@@ -1,6 +1,6 @@
-var $              = require('jquery');
-var classToggle    = require('./classToggle');
-var modalSlideshow = require('./modalSlideshow');
+var $           = require('jquery');
+var classToggle = require('./classToggle');
+var Slideshow   = require('./slideshow');
 
 /**
  * Modal
@@ -15,45 +15,59 @@ var Modal = {
    */
   init: function($body, $container) {
 
-    var $modalContent = $container.find('[data-ui="modal"]');
+    var $modalTrigger = $container.find('[data-ui="modal"]');
 
-    // console.log($modalContent.length);
-
-    if ($modalContent.length > 0) {
+    // If there's a designated content modal, then lets activate it!
+    if ($modalTrigger.length > 0) {
 
       var $modal = this.$modal;
-      $modal.append(this.$closeButton);
 
-      var modalType = $modalContent.data('modal-type');
+      var modalType = $modalTrigger.data('modal-type');
       $modal.addClass('modal--' + modalType);
 
-      var $slideshow = $('<ul class="slideshow">' + $modalContent.html() + '</ul>');
-      var $slides = $slideshow.find('.card').parent();
-      $slides.addClass('__slide');
+      if (modalType === 'slideshow') {
+        // Create a slideshow from the modal content!
+        var slideshow = new Slideshow($modalTrigger);
 
-      $modal.find('.wrapper').append($slideshow);
+        // Append the slideshow to the modal.
+        $modal.find('.wrapper').append(slideshow);
+      }
 
       // Append modal to the container.
       $container.append($modal);
 
 
-      $modalContent.on('click', '.card', function() {
-        console.log($(this).parent().data('slide'));
-        $modal.addClass('is-toggled');
 
-        $body.addClass('is-fixed');
+      $modalTrigger.on('click', '.card', function() {  // @TODO: don't use .card use a more generic trigger name as class or data attr.
+        console.log(slideshow);
+
+        slideshow.activate();
+
+        // Slideshow.activate($(this));
+
+      //   var $selectedItem = $($slides.get(activeIndex));
+      //   classToggle($selectedItem, '-pending');
+      //   classToggle($selectedItem, '-viewing');
+
+
+      //   $modal.addClass('is-toggled');
+      //   $body.addClass('has-modal'); // @TODO: save offset top position to return user to it once modal closed!
       });
 
       this.$closeButton.on('click', function() {
         $modal.removeClass('is-toggled');
-        $body.removeClass('is-fixed');
+        $body.removeClass('has-modal');
+
+      //   var $lastSelectedItem = $($slides.get(activeIndex));
+      //   classToggle($lastSelectedItem, '-viewing');
+      //   classToggle($lastSelectedItem, '-pending');
       });
     }
 
   }
 
+
+
 };
 
 module.exports = Modal;
-
-// $closeLink $("<a href='#' class='js-close-modal js-modal-generated modal-close-button'>&#215;</a>");
