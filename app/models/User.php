@@ -71,6 +71,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     return $this->belongsToMany('Role');
   }
 
+  public function winner()
+  {
+    return $this->hasOne('Winner');
+  }
+
 
   /**
    * Check to see if User has a Role.
