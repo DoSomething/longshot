@@ -133,7 +133,7 @@ class AdminController extends \BaseController {
     $app_rating = Rating::getApplicationRating($app_id->id);
     $possible_ratings = Rating::getPossibleRatings();
 
-    return View::make('admin.applications.show', compact('application', 'app_id', 'user', 'profile', 'races', 'scholarship', 'recomendations', 'show_rating', 'possible_ratings', 'app_rating'));
+    return View::make('admin.applications.show', compact('id', 'application', 'app_id', 'user', 'profile', 'races', 'scholarship', 'recomendations', 'show_rating', 'possible_ratings', 'app_rating'));
   }
 
   /**
@@ -161,5 +161,6 @@ class AdminController extends \BaseController {
 
     return Redirect::to('admin/applications?filter_by=completed')->with('flash_message', ['text' => '<strong>Success:</strong> Awesome, we got that rated for you!', 'class' => 'alert-success']);
   }
+
 
 }

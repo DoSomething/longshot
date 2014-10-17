@@ -83,6 +83,12 @@
           {{ Form::close() }}
         @endif
 
+
+        {{ Form::open(['route' => 'winner.store']) }}
+        {{ Form::hidden('user_id', $id) }}
+        {{ Form::submit('make this a winner', ['class' => 'btn btn-primary btn-lg', 'name' => 'winner']) }}
+        {{ Form::close() }}
+
       </div>
 
 
