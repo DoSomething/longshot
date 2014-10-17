@@ -7,7 +7,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Scholarship Application</title>
+    <title>
+      {{ isset($page) ? $page->title . ' | ' : '' }}{{ $vars->company_name }} Scholarship Application
+    </title>
+
     <link rel="icon" type="image/ico" href="/favicon.ico?v1"/>
     <script src="/dist/js/modernizr.js"></script>
     <link rel="stylesheet" href="/dist/css/main.css"/>
