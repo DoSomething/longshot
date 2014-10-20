@@ -12,6 +12,6 @@ class Winner extends Eloquent {
 
   public function user()
   {
-    return $this->belongsTp('User');
+    return $this->belongsTo('User');
   }
 }
