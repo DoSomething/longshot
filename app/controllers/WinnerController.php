@@ -6,11 +6,18 @@ class WinnerController extends \BaseController {
 
   public function index()
   {
-    // @TODO: get winners from different years.
-    $winners = DB::table('winners')
-                         ->join('users', 'winners.user_id', '=', 'users.id')
-                         ->get();
-    return View::make('admin.winners.index', compact('winners'));
+    $filter_by = Request::get('filter_by');
+
+    $query = DB::table('winners')
+                         ->join('users', 'winners.user_id', '=', 'users.id');
+    if ($filter_by) {
+      $query->where('winners.scholarship_id', '=', $filter_by);
+    }
+
+    $winners = $query->get();
+
+    $scholarships = Scholarship::all();
+    return View::make('admin.winners.index', compact('winners', 'scholarships'));
   }
 
   public function store()

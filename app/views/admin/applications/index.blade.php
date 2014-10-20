@@ -20,8 +20,8 @@
                 <div class="dropdown">
                     <a data-toggle="dropdown" href="#">Gender <span class='glyphicon glyphicon-chevron-down'/> </a>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                       <li> {{filter_applicants_by('m', 'Male') }} </li>
-                      <li> {{filter_applicants_by('f', 'Female') }} </li>
+                       <li> {{ filter_applicants_by('m', 'Male') }} </li>
+                      <li> {{ filter_applicants_by('f', 'Female') }} </li>
                     </ul>
                   </div>
                 </th>
@@ -31,9 +31,9 @@
                   <div class="dropdown">
                     <a data-toggle="dropdown" href="#">Status <span class='glyphicon glyphicon-chevron-down'/> </a>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                       <li> {{filter_applicants_by('completed', 'Completed') }} </li>
-                      <li> {{filter_applicants_by('submitted', 'Submitted') }} </li>
-                      <li> {{filter_applicants_by('incomplete', 'Incomplete') }} </li>
+                       <li> {{ filter_applicants_by('completed', 'Completed') }} </li>
+                      <li> {{ filter_applicants_by('submitted', 'Submitted') }} </li>
+                      <li> {{ filter_applicants_by('incomplete', 'Incomplete') }} </li>
                     </ul>
                   </div>
                 </th>
@@ -41,9 +41,9 @@
                   <div class="dropdown">
                     <a data-toggle="dropdown" href="#">Score <span class='glyphicon glyphicon-chevron-down'/> </a>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                       <li> {{filter_applicants_by('yes', 'Yes') }} </li>
-                      <li> {{filter_applicants_by('no', 'No') }} </li>
-                      <li> {{filter_applicants_by('maybe', 'Maybe') }} </li>
+                       <li> {{ filter_applicants_by('yes', 'Yes') }} </li>
+                      <li> {{ filter_applicants_by('no', 'No') }} </li>
+                      <li> {{ filter_applicants_by('maybe', 'Maybe') }} </li>
                     </ul>
                   </div>
                 </th>

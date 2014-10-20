@@ -57,6 +57,11 @@ function filter_applicants_by($status, $body)
   return link_to_route('applications.index', $body, ['filter_by' => $status]);
 }
 
+function filter_winners_by($status, $body)
+{
+  return link_to_route('admin.winner.index', $body, ['filter_by' => $status]);
+}
+
 
 /**
  * Set a class on active menu items.

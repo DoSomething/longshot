@@ -10,6 +10,15 @@
       <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         <h1 class="page-header">All Winners</h1>
 
+        <div class="dropdown">
+          <a data-toggle="dropdown" href="#">Scholarship <span class='glyphicon glyphicon-chevron-down'/> </a>
+          <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+              @foreach($scholarships as $scholarship)
+                <li> {{ filter_winners_by($scholarship->id, $scholarship->title) }} </li>
+              @endforeach
+          </ul>
+        </div>
+
         <div class="table-responsive">
           <table class="table table-striped">
             <thead>
