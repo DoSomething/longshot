@@ -9,6 +9,11 @@ class Scholarship extends \Eloquent {
     return $this->hasMany('Application');
   }
 
+  public function winner()
+  {
+    return $this->hasMany('Winners');
+  }
+
   public static function getCurrentScholarship()
   {
     // @TODO: this needs to be updated.

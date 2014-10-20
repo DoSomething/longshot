@@ -83,6 +83,13 @@
           {{ Form::close() }}
         @endif
 
+      @if ($app_rating && $app_rating == 'yes')
+        {{ Form::open(['route' => 'admin.winner.store']) }}
+        {{ Form::hidden('user_id', $id) }}
+        {{ Form::submit('Make ' . $user['first_name'] . ' a winner', ['class' => 'btn btn-primary btn-lg', 'name' => 'winner']) }}
+        {{ Form::close() }}
+      @endif
+
       </div>
 
 
