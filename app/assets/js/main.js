@@ -19,11 +19,12 @@ Panels.init($container, $mainNav);
 var $modals = $container.find('[data-ui="modal"]');
 
 if ($modals.length > 0) {
-  $modals.each(function (index, element) {
-    // console.log(element);
+  $modals.each(function (index, content) {
+    // console.log(content);
     // @TODO: allow creation of multiple modals if necessary; maybe place in array()?
-    var modal = new Modal(element, $container);
-    console.log(modal);
+
+    var modal = new Modal(content, $container);
+    // console.log(modal);
   });
 }
 
