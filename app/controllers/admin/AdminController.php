@@ -70,16 +70,12 @@ class AdminController extends \BaseController {
     $filter_by = Request::get('filter_by');
     $direction = Request::get('direction');
 
-    $query = DB::table('users')
-                  ->select('users.id', 'users.first_name', 'users.last_name', 'users.email',
-                           'profiles.state', 'profiles.gender',
-                           'applications.submitted', 'applications.completed', 'applications.gpa',
-                           'ratings.rating')
-                  ->leftJoin('role_user', 'users.id', '=', 'role_user.user_id')
-                  ->leftJoin('profiles', 'profiles.user_id', '=', 'users.id')
-                  ->leftJoin('applications', 'applications.user_id', '=', 'users.id')
-                  ->leftJoin('ratings', 'application_id', '=', 'applications.id')
+    $query = DB::table('users');
+
+    $query = $this->applicantBaseQuery($query);
+    $query->leftJoin('role_user', 'users.id', '=', 'role_user.user_id')
                   ->where('role_user.role_id', '=', 2);
+
     if ($sort_by) {
       $query->orderBy($sort_by, $direction);
     }
@@ -111,6 +107,20 @@ class AdminController extends \BaseController {
 
     $applicants = $query->paginate(25)->appends(Input::all());
     return View::make('admin.applications.index', compact('applicants'));
+  }
+
+  public function search()
+  {
+    $name = Request::get('search');
+
+    $query = DB::table('users');
+    $query = $this->applicantBaseQuery($query);
+
+    $query->where('last_name', 'LIKE', '%'. $name .'%');
+
+    $applicants = $query->paginate(25)->appends(Input::all());
+    return View::make('admin.applications.index', compact('applicants'));
+
   }
 
 
@@ -164,6 +174,23 @@ class AdminController extends \BaseController {
     $rate->save();
 
     return Redirect::to('admin/applications?filter_by=completed')->with('flash_message', ['text' => '<strong>Success:</strong> Awesome, we got that rated for you!', 'class' => 'alert-success']);
+  }
+
+
+  /**
+   * Helper function to select/join for the admin index table.
+   */
+  public static function applicantBaseQuery($query)
+  {
+    $query->select('users.id', 'users.first_name', 'users.last_name', 'users.email',
+                           'profiles.state', 'profiles.gender',
+                           'applications.submitted', 'applications.completed', 'applications.gpa',
+                           'ratings.rating')
+                  ->leftJoin('profiles', 'profiles.user_id', '=', 'users.id')
+                  ->leftJoin('applications', 'applications.user_id', '=', 'users.id')
+                  ->leftJoin('ratings', 'application_id', '=', 'applications.id');
+
+    return $query;
   }
 
 
