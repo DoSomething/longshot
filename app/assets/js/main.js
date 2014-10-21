@@ -10,4 +10,20 @@ var $mainNav   = $('#main-nav');
 
 
 Panels.init($container, $mainNav);
-Modal.init($body, $container);
+
+// Modal.init($body, $container);
+
+
+
+// If there's a designated content modal, then lets activate it!
+var $modals = $container.find('[data-ui="modal"]');
+
+if ($modals.length > 0) {
+  $modals.each(function (index, element) {
+    // console.log(element);
+    // @TODO: allow creation of multiple modals if necessary; maybe place in array()?
+    var modal = new Modal(element, $container);
+    console.log(modal);
+  });
+}
+

@@ -6,6 +6,13 @@
 
 
 .slideshow { @include list_reset(); position: relative;
+
+  .__carousel { @include list_reset(); background-color: rgba(blue, 0.2); }
+
+
+  .__controller { @include list_reset(); background-color: red; }
+
+
   .__slide { position: absolute; top: 0; transition: all 0.3s ease-out;
     
     &.-pending { transform: translateX(100%); }

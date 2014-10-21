@@ -2,72 +2,60 @@ var $           = require('jquery');
 var classToggle = require('./classToggle');
 var Slideshow   = require('./slideshow');
 
-/**
- * Modal
- */
-var Modal = {
 
-  $modal: $('<div class="modal"><div class="wrapper"></div></div>'),
-  $closeButton: $('<button class="button button--close">&#215;</button>'),
+var Modal = function (element, $container) {
+  var _this = this;
 
-  /**
-   * Initailize the Modal.
-   */
-  init: function($body, $container) {
+  this.$modal = $('<div class="modal"><div class="wrapper"></div></div>');
+  this.$closeButton = $('<button class="button button--close">&#215;</button>');
 
-    var $modalTrigger = $container.find('[data-ui="modal"]');
+  // Initialize the new Modal.
+  this.init(element, $container);
 
-    // If there's a designated content modal, then lets activate it!
-    if ($modalTrigger.length > 0) {
-
-      var $modal = this.$modal;
-
-      var modalType = $modalTrigger.data('modal-type');
-      $modal.addClass('modal--' + modalType);
-
-      if (modalType === 'slideshow') {
-        // Create a slideshow from the modal content!
-        var slideshow = new Slideshow($modalTrigger);
-
-        // Append the slideshow to the modal.
-        $modal.find('.wrapper').append(slideshow);
-      }
-
-      // Append modal to the container.
-      $container.append($modal);
-
-
-
-      $modalTrigger.on('click', '.card', function() {  // @TODO: don't use .card use a more generic trigger name as class or data attr.
-        console.log(slideshow);
-
-        slideshow.activate();
-
-        // Slideshow.activate($(this));
-
-      //   var $selectedItem = $($slides.get(activeIndex));
-      //   classToggle($selectedItem, '-pending');
-      //   classToggle($selectedItem, '-viewing');
-
-
-      //   $modal.addClass('is-toggled');
-      //   $body.addClass('has-modal'); // @TODO: save offset top position to return user to it once modal closed!
-      });
-
-      this.$closeButton.on('click', function() {
-        $modal.removeClass('is-toggled');
-        $body.removeClass('has-modal');
-
-      //   var $lastSelectedItem = $($slides.get(activeIndex));
-      //   classToggle($lastSelectedItem, '-viewing');
-      //   classToggle($lastSelectedItem, '-pending');
-      });
-    }
-
-  }
-
-
-
+  this.$closeButton.on('click', function () {
+    _this.close();
+  });
 };
+
+
+Modal.prototype.init = function (element, $container) {
+  var _this        = this;
+  var $element     = $(element);
+  var $modal       = this.$modal;
+  var modalType    = $element.data('modal-type');
+  var modalContent = '';  // @TODO: add placeholder content?
+  
+  $modal.addClass('modal--' + modalType);
+  $modal.append(this.$closeButton);
+
+
+  if (modalType === 'slideshow') {
+    // Create a slideshow from the modal content!
+    modalContent = new Slideshow($element);
+    console.log(modalContent);
+    
+    $modal.find('.wrapper').append(modalContent.$slideshow);
+  }
+  
+
+  $container.append($modal);
+
+  $element.on('click', '[data-modal="trigger"]', function () {
+    // console.log(modalContent);
+    modalContent.activate();
+    _this.open();
+  });
+}
+
+
+Modal.prototype.open = function () {
+  this.$modal.addClass('is-toggled');
+}
+
+
+Modal.prototype.close = function () {
+  this.$modal.removeClass('is-toggled');
+}
+
 
 module.exports = Modal;

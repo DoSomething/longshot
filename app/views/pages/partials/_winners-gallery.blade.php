@@ -1,6 +1,6 @@
 <ul class="gallery" data-ui="modal" data-modal-type="slideshow">
   <li data-slide="1">
-    <article class="card">
+    <article class="card" data-modal="trigger">
       <div class="wrapper">
         <h1 class="heading -delta __title">Aaliyah Danielson</h1>
         <ul class="media-list media-list--key-value __info">
@@ -19,7 +19,7 @@
   </li>
 
   <li data-slide="2">
-    <article class="card">
+    <article class="card" data-modal="trigger">
       <div class="wrapper">
         <h1 class="heading -delta __title">Bryan Caraballo</h1>
         <ul class="media-list media-list--key-value __info">
@@ -38,7 +38,7 @@
   </li>
 
   <li data-slide="3">
-    <article class="card">
+    <article class="card" data-modal="trigger">
       <div class="wrapper">
         <h1 class="heading -delta __title">Carson Arthur</h1>
         <ul class="media-list media-list--key-value __info">
@@ -57,7 +57,7 @@
   </li>
 
   <li data-slide="4">
-    <article class="card">
+    <article class="card" data-modal="trigger">
       <div class="wrapper">
         <h1 class="heading -delta __title">Christina Soto</h1>
         <ul class="media-list media-list--key-value __info">
@@ -76,7 +76,7 @@
   </li>
 
   <li data-slide="5">
-    <article class="card">
+    <article class="card" data-modal="trigger">
       <div class="wrapper">
         <h1 class="heading -delta __title">Cole Scanlon</h1>
         <ul class="media-list media-list--key-value __info">
@@ -95,7 +95,7 @@
   </li>
 
   <li data-slide="6">
-    <article class="card">
+    <article class="card" data-modal="trigger">
       <div class="wrapper">
         <h1 class="heading -delta __title">Diwas Adhikari</h1>
         <ul class="media-list media-list--key-value __info">
@@ -114,7 +114,7 @@
   </li>
 
   <li data-slide="7">
-    <article class="card">
+    <article class="card" data-modal="trigger">
       <div class="wrapper">
         <h1 class="heading -delta __title">Evan Mercer</h1>
         <ul class="media-list media-list--key-value __info">
@@ -133,7 +133,7 @@
   </li>
 
   <li data-slide="8">
-    <article class="card">
+    <article class="card" data-modal="trigger">
       <div class="wrapper">
         <h1 class="heading -delta __title">Hannah Moran</h1>
         <ul class="media-list media-list--key-value __info">
@@ -152,7 +152,7 @@
   </li>
 
   <li data-slide="9">
-    <article class="card">
+    <article class="card" data-modal="trigger">
       <div class="wrapper">
         <h1 class="heading -delta __title">Joshua Davis</h1>
         <ul class="media-list media-list--key-value __info">
@@ -171,7 +171,7 @@
   </li>
 
   <li data-slide="10">
-    <article class="card">
+    <article class="card" data-modal="trigger">
       <div class="wrapper">
         <h1 class="heading -delta __title">Karoline Vanvoorhis</h1>
         <ul class="media-list media-list--key-value __info">
@@ -190,7 +190,7 @@
   </li>
 
   <li data-slide="11">
-    <article class="card">
+    <article class="card" data-modal="trigger">
       <div class="wrapper">
         <h1 class="heading -delta __title">Kathleen Kanaley</h1>
         <ul class="media-list media-list--key-value __info">
@@ -209,7 +209,7 @@
   </li>
 
   <li data-slide="12">
-    <article class="card">
+    <article class="card" data-modal="trigger">
       <div class="wrapper">
         <h1 class="heading -delta __title">Kimberlyann Simpson</h1>
         <ul class="media-list media-list--key-value __info">
@@ -228,7 +228,7 @@
   </li>
 
   <li data-slide="13">
-    <article class="card">
+    <article class="card" data-modal="trigger">
       <div class="wrapper">
         <h1 class="heading -delta __title">Lillie Meakim</h1>
         <ul class="media-list media-list--key-value __info">
@@ -247,7 +247,7 @@
   </li>
 
   <li data-slide="14">
-    <article class="card">
+    <article class="card" data-modal="trigger">
       <div class="wrapper">
         <h1 class="heading -delta __title">Maria Brouard</h1>
         <ul class="media-list media-list--key-value __info">
@@ -266,7 +266,7 @@
   </li>
 
   <li data-slide="15">
-    <article class="card">
+    <article class="card" data-modal="trigger">
       <div class="wrapper">
         <h1 class="heading -delta __title">Michael Gonzalez</h1>
         <ul class="media-list media-list--key-value __info">
@@ -285,7 +285,7 @@
   </li>
 
   <li data-slide="16">
-    <article class="card">
+    <article class="card" data-modal="trigger">
       <div class="wrapper">
         <h1 class="heading -delta __title">Nadaysia Brooks</h1>
         <ul class="media-list media-list--key-value __info">
@@ -304,7 +304,7 @@
   </li>
 
   <li data-slide="17">
-    <article class="card">
+    <article class="card" data-modal="trigger">
       <div class="wrapper">
         <h1 class="heading -delta __title">Orestes Marquetti</h1>
         <ul class="media-list media-list--key-value __info">
@@ -323,7 +323,7 @@
   </li>
 
   <li data-slide="18">
-    <article class="card">
+    <article class="card" data-modal="trigger">
       <div class="wrapper">
         <h1 class="heading -delta __title">Ralph Etienne</h1>
         <ul class="media-list media-list--key-value __info">
@@ -342,7 +342,7 @@
   </li>
 
   <li data-slide="19">
-    <article class="card">
+    <article class="card" data-modal="trigger">
       <div class="wrapper">
         <h1 class="heading -delta __title">Travis Gayle</h1>
         <ul class="media-list media-list--key-value __info">
@@ -361,7 +361,7 @@
   </li>
 
   <li data-slide="20">
-    <article class="card">
+    <article class="card" data-modal="trigger">
       <div class="wrapper">
         <h1 class="heading -delta __title">Vivian Nguyen</h1>
         <ul class="media-list media-list--key-value __info">

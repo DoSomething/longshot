@@ -10,7 +10,7 @@
 }
 
 .modal--slideshow { display: none; height: 100%; left: 0; top: 100%; width: 100%; 
-  > .wrapper { background-color: pink; }
+  > .wrapper { height: 100%; background-color: rgba(pink, 0.3); }
 }
 
 body.has-modal { position: fixed; width: 100%; }
