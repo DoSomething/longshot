@@ -67,7 +67,7 @@
       <div class="field-group">
 
         @if (isset($user))
-          @foreach($user->race as $key2=>$raceString)
+          @foreach($user->race as $key2 => $raceString)
             {{ Form::label('race['. $key . ']', ' ') }}
             @if (isset($user->race[$key2]) && $user->race[$key2]->race == $race)
               {{ Form::checkbox('race['. $key . ']', $race, true) }}

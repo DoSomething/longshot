@@ -10,6 +10,9 @@
       <h1> {{ $user['first_name'] . ' ' . $user['last_name'] }} </h1>
        {{ $user['email'] }}
 
+       <br/>
+        {{ link_to_route('admin.application.edit', ' Edit User', array($id), ['class' => 'glyphicon glyphicon-pencil']) }}
+
         <h2>Profile Information</h2>
         <div class="well well-lg">
           <dl>

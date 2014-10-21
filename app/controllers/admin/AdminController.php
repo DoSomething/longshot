@@ -140,6 +140,34 @@ class AdminController extends \BaseController {
     return View::make('admin.applications.show', compact('id', 'application', 'app_id', 'user', 'profile', 'races', 'scholarship', 'recomendations', 'show_rating', 'possible_ratings', 'app_rating'));
   }
 
+  public function applicationsEdit($id)
+  {
+    $application = Application::getUserApplication($id);
+    $user_info = User::getUserInfo($id);
+    $profile = Profile::with('race')->whereUserId($id)->firstOrFail();
+    $label = Scholarship::getScholarshipLabels();
+    $app_id = Application::getUserApplicationId($id);
+    $races = Profile::getRaces();
+    $states = Profile::getStates();
+
+    $hear_about = Scholarship::getCurrentScholarship()->pluck('hear_about_options');
+    $choices = Application::formatChoices($hear_about);
+
+    $recomendations = null;
+    if ($app_id)
+      $recomendations = Recommendation::getUserRecs($app_id->id);
+
+    $show_rating = FALSE;
+    if (Application::isComplete($app_id->id))
+      $show_rating = TRUE;
+
+    $app_rating = Rating::getApplicationRating($app_id->id);
+    $possible_ratings = Rating::getPossibleRatings();
+
+    return View::make('admin.applications.edit')->withUser($profile)->with(compact('id', 'application', 'app_id', 'user', 'user_info', 'profile', 'races', 'label', 'choices', 'recomendations', 'states', 'show_rating', 'possible_ratings', 'app_rating'));
+
+  }
+
   /**
    *
    */
