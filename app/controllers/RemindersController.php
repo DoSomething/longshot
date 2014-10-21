@@ -27,10 +27,10 @@ class RemindersController extends Controller {
     }))
     {
       case Password::INVALID_USER:
-        return Redirect::back()->with('flash_message', Lang::get($response));
+        return Redirect::back()->with('flash_message', ['text' => Lang::get($response), 'class' => '-error']);
 
       case Password::REMINDER_SENT:
-        return Redirect::back()->with('flash_message', Lang::get($response));
+        return Redirect::back()->with('flash_message', ['text' => Lang::get($response), 'class' => '-success']);
     }
   }
 
@@ -73,7 +73,7 @@ class RemindersController extends Controller {
       case Password::INVALID_PASSWORD:
       case Password::INVALID_TOKEN:
       case Password::INVALID_USER:
-        return Redirect::back()->withInput()->with('flash_message', Lang::get($response));
+        return Redirect::back()->withInput()->with('flash_message', ['text' => Lang::get($response), 'class' => '-error']);
 
       case Password::PASSWORD_RESET:
         return Redirect::to('login')->with('flash_message', ['text' => 'Your password has been reset.', 'class' => '-success']);
