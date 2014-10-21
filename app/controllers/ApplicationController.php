@@ -173,7 +173,11 @@ class ApplicationController extends \BaseController {
     }
     $application->save();
 
-    return $this->redirectAfterSave($input, $id);
+    $override = null;
+    if (Auth::user()->hasRole('administrator') && stripos($_SERVER['HTTP_REFERER'], 'admin'))
+      $override = 'applications.index';
+
+    return $this->redirectAfterSave($input, $id, $override);
   }
 
 
@@ -188,9 +192,12 @@ class ApplicationController extends \BaseController {
     //
   }
 
-  public function redirectAfterSave($input, $id)
+  public function redirectAfterSave($input, $id, $override = NULL)
   {
-    if (isset($input['complete']))
+    if (isset($override)) {
+      return Redirect::route($override)->with('flash_message', ['text' => 'Your profile has been updated', 'class' => '-success']);
+    }
+    elseif (isset($input['complete']))
     {
       return Redirect::route('review', $id)->with('flash_message', ['text' => 'Application information has been saved!', 'class' => '-success']);
     }

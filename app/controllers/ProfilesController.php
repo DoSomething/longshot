@@ -177,6 +177,9 @@ class ProfilesController extends \BaseController {
     if (Application::isSubmitted($user->id))
       $override = 'status';
 
+    if (Auth::user()->hasRole('administrator') && stripos($_SERVER['HTTP_REFERER'], 'admin'))
+      $override = 'applications.index';
+
     return $this->redirectAfterSave($input, $user->id, $override);
   }
 
