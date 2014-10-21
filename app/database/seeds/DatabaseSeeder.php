@@ -38,7 +38,7 @@ class DatabaseSeeder extends Seeder {
 
     $this->call('AppSubmitHelpTextTableSeeder');
     $this->call('HelperTextTableSeeder');
-    $this->call('StatusPageHelpTextSeeder');
+    $this->call('StatusPageHelpTextTableSeeder')
     $this->command->info('Help text table seeded!');
 
 
