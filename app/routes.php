@@ -54,6 +54,8 @@ Route::group(['before' => 'role:administrator', 'prefix' => 'admin'], function()
   # Applications management
   Route::get('applications', ['as' => 'applications.index', 'uses' => 'AdminController@applicationsIndex']);
   Route::get('applications/{id}', ['as' => 'applications.show', 'uses' => 'AdminController@applicationsShow']);
+  Route::get('applications/{id}/edit', ['as' => 'admin.application.edit', 'uses' => 'AdminController@applicationsEdit']);
+
   Route::post('applicaiton/rate', ['as' => 'applications.rate', 'uses' => 'AdminController@rate']);
 
   # Winners

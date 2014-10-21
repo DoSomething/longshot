@@ -42,15 +42,17 @@ class ApplicationController extends \BaseController {
   public function create()
   {
     //@TODO: need to figure out which scholarship is the current run.
-    $scholarship = Scholarship::getCurrentScholarship()->select(['label_app_accomplishments', 'label_app_activities', 'label_app_participation', 'label_app_essay1', 'label_app_essay2', 'hear_about_options'])->first();
-    $choices = Application::formatChoices($scholarship->hear_about_options);
+    $label = Scholarship::getScholarshipLabels();
+    $hear_about = Scholarship::getCurrentScholarship()->pluck('hear_about_options');
+
+    $choices = Application::formatChoices($hear_about);
 
     $help_text = Setting::getSpecifiedSettingsVars(['application_create_help_text']);
     $page_vars = Setting::getPageSettingsVars();
 
     $vars = (object) array_merge($page_vars, $help_text);
 
-    return View::make('application.create')->with(compact('scholarship', 'choices', 'vars'));
+    return View::make('application.create')->with(compact('label', 'choices', 'vars'));
   }
 
 
@@ -130,15 +132,16 @@ class ApplicationController extends \BaseController {
   {
     // @TODO: add a filter here to check for app complete.
     $user = User::whereId($id)->firstOrFail();
-    $scholarship = Scholarship::getCurrentScholarship()->select(['label_app_accomplishments', 'label_app_activities', 'label_app_participation', 'label_app_essay1', 'label_app_essay2', 'hear_about_options'])->first();
-    $choices = Application::formatChoices($scholarship->hear_about_options);
+    $label = Scholarship::getScholarshipLabels();
+    $hear_about = Scholarship::getCurrentScholarship()->pluck('hear_about_options');
+    $choices = Application::formatChoices($hear_about);
 
     $help_text = Setting::getSpecifiedSettingsVars(['application_create_help_text']);
     $page_vars = Setting::getPageSettingsVars();
 
     $vars = (object) array_merge($page_vars, $help_text);
 
-    return View::make('application.edit')->with(compact('user', 'scholarship', 'choices', 'vars'));
+    return View::make('application.edit')->with(compact('user', 'label', 'choices', 'vars'));
   }
 
 
@@ -170,7 +173,11 @@ class ApplicationController extends \BaseController {
     }
     $application->save();
 
-    return $this->redirectAfterSave($input, $id);
+    $override = null;
+    if (Auth::user()->hasRole('administrator') && stripos($_SERVER['HTTP_REFERER'], 'admin'))
+      $override = 'applications.index';
+
+    return $this->redirectAfterSave($input, $id, $override);
   }
 
 
@@ -185,9 +192,12 @@ class ApplicationController extends \BaseController {
     //
   }
 
-  public function redirectAfterSave($input, $id)
+  public function redirectAfterSave($input, $id, $override = NULL)
   {
-    if (isset($input['complete']))
+    if (isset($override)) {
+      return Redirect::route($override)->with('flash_message', ['text' => 'Your profile has been updated', 'class' => '-success']);
+    }
+    elseif (isset($input['complete']))
     {
       return Redirect::route('review', $id)->with('flash_message', ['text' => 'Application information has been saved!', 'class' => '-success']);
     }
