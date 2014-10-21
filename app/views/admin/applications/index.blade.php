@@ -17,7 +17,7 @@
           {{ Form::text('search',  NULL, ['placeholder' => 'last name']) }}
         </div>
         <button type="submit" class="btn btn-default glyphicon glyphicon-search"> Submit</button>
-        {{Form::close() }}
+        {{ Form::close() }}
 
         <div class="table-responsive">
           <table class="table table-striped">
