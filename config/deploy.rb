@@ -22,7 +22,7 @@ namespace :deploy do
   folders = %w{logs dumps system}
 
   task :backup_db do
-    run "cd #{release_path} && php artisan db:backup --upload-s3 #{ENV["S3_BUCKET"]}"
+    run "cd #{release_path} && php artisan db:backup --upload-s3 $S3_BUCKET"
   end
 
   task :link_folders do
