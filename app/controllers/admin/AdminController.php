@@ -206,14 +206,10 @@ class AdminController extends \BaseController {
 
   public function export()
   {
-    $blank_rec_results = DB::select('SELECT u.id, u.first_name, u.last_name, u.email
-                                     FROM applications a
-                                     INNER JOIN recommendations r on r.application_id = a.id
-                                     INNER JOIN users u on u.id = a.user_id
-                                     WHERE a.submitted = 1
-                                     AND r.rank_character IS null');
+    $export = new Export;
+    $ex = $export->blank_rec_query();
     $output = '';
-    foreach ($blank_rec_results as $row) {
+    foreach ($ex as $row) {
       foreach ($row as $key => $person) {
         $output .= $person;
         $output .= ',';
