@@ -21,8 +21,8 @@ default_run_options[:shell] = '/bin/bash'
 namespace :deploy do
   folders = %w{logs dumps system}
 
-  task :backup_db, :on_error => :continue do
-    run "cd #{release_path} && php artisan db:backup --upload-s3 footlocker-backup"
+  task :backup_db do
+    run "cd #{release_path} && php artisan db:backup --upload-s3 #{ENV["S3_BUCKET"]}"
   end
 
   task :link_folders do
