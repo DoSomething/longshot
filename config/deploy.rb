@@ -13,6 +13,9 @@ set :repository, "."
 set :scm, :none
 set :deploy_via, :copy
 set :keep_releases, 1
+set :default_environment, {
+  'S3_BUCKET' => ENV["S3_BUCKET"]
+}
 
 ssh_options[:keys] = [ENV["CAP_PRIVATE_KEY"]]
 
