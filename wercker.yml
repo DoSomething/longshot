@@ -33,10 +33,15 @@ deploy:
         name: Make all files readable
         code: find . -type f -exec chmod 644 {} \;
     - script:
-        name: write env var
+        name: write private key env var
         code: |-
           export CAP_PRIVATE_KEY=`mktemp`
           echo -e $WERCKER_APP_KEY_PRIVATE > $CAP_PRIVATE_KEY
+    - script:
+        name: write s3 bucket env var
+        code: |-
+          export S3_BUCKET=`mktemp`
+          echo -e $S3_BUCKET > $S3_BUCKET
     - cap
   after-steps:
       - hipchat-notify:
