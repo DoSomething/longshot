@@ -204,6 +204,32 @@ class AdminController extends \BaseController {
     return Redirect::to('admin/applications?filter_by=completed')->with('flash_message', ['text' => '<strong>Success:</strong> Awesome, we got that rated for you!', 'class' => 'alert-success']);
   }
 
+  public function export()
+  {
+    $blank_rec_results = DB::select('SELECT u.id, u.first_name, u.last_name, u.email
+                                     FROM applications a
+                                     INNER JOIN recommendations r on r.application_id = a.id
+                                     INNER JOIN users u on u.id = a.user_id
+                                     WHERE a.submitted = 1
+                                     AND r.rank_character IS null');
+    $output = '';
+    foreach ($blank_rec_results as $row) {
+      foreach ($row as $key => $person) {
+        $output .= $person;
+        $output .= ',';
+      }
+      $output .= "\n";
+    }
+    $headers = array(
+        'Content-Type' => 'text/csv',
+        'Content-Disposition' => 'attachment; filename="ExportFileName.csv"',
+    );
+
+
+    return Response::make(rtrim($output, "\n"), 200, $headers);
+
+  }
+
 
   /**
    * Helper function to select/join for the admin index table.

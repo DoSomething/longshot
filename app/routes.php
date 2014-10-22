@@ -74,9 +74,12 @@ Route::group(['before' => 'role:administrator', 'prefix' => 'admin'], function()
   Route::get('settings/appearance', ['as' => 'appearance.edit', 'uses' => 'SettingsController@editAppearance']);
   Route::post('settings/appearance', ['as' => 'appearance.update', 'uses' => 'SettingsController@updateAppearance']);
 
-  #Emails
+  # Emails
   Route::get('email', ['as' => 'emails', 'uses' => 'EmailController@index']);
   Route::post('email', ['as' => 'emails.update', 'uses' => 'EmailController@update']);
+
+  # Exporting
+  Route::get('export', ['as' => 'export', 'uses' => 'AdminController@export']);
 });
 
 
