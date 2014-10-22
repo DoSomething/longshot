@@ -40,7 +40,7 @@ deploy:
     - script:
         name: write s3 bucket env var
         code: |-
-          export S3_BUCKET=`mktemp`
+          export S3_BUCKET_NAME=`mktemp`
           echo -e $S3_BUCKET > $S3_BUCKET_NAME
     - cap
   after-steps:
