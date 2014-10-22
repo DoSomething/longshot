@@ -40,9 +40,13 @@ namespace :deploy do
     run "cd #{release_path} && php artisan custom-styles"
   end
 
+  task :restart_queue_worker do
+    run "ps -ef | grep 'queue:work' | awk '{print $2}' | xargs sudo kill -9"
+  end
+
 end
 
 after "deploy:update", "deploy:cleanup"
 after "deploy:symlink", "deploy:link_folders"
 before "deploy:artisan_migrate", "deploy:backup_db"
-after "deploy:link_folders", "deploy:artisan_migrate", "deploy:artisan_custom_styles"
+after "deploy:link_folders", "deploy:restart_queue_worker", "deploy:artisan_migrate", "deploy:artisan_custom_styles"
