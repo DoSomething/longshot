@@ -13,9 +13,6 @@ set :repository, "."
 set :scm, :none
 set :deploy_via, :copy
 set :keep_releases, 1
-set :default_environment, {
-  'S3_BUCKET' => ENV["S3_BUCKET"]
-}
 
 ssh_options[:keys] = [ENV["CAP_PRIVATE_KEY"]]
 
@@ -25,7 +22,8 @@ namespace :deploy do
   folders = %w{logs dumps system}
 
   task :backup_db do
-    run "cd #{release_path} && php artisan db:backup --upload-s3 #{ENV["S3_BUCKET"]}"
+    run "whoami"
+    run "cd #{release_path} && php artisan db:backup --upload-s3 #{ENV["S3_BUCKET_NAME"]}"
   end
 
   task :link_folders do

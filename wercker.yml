@@ -41,7 +41,7 @@ deploy:
         name: write s3 bucket env var
         code: |-
           export S3_BUCKET=`mktemp`
-          echo -e $S3_BUCKET > $S3_BUCKET
+          echo -e $S3_BUCKET > $S3_BUCKET_NAME
     - cap
   after-steps:
       - hipchat-notify:
