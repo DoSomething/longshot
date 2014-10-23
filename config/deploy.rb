@@ -16,10 +16,12 @@ set :keep_releases, 1
 
 ssh_options[:keys] = [ENV["CAP_PRIVATE_KEY"]]
 
+default_run_options[:shell] = '/bin/bash'
+
 namespace :deploy do
   folders = %w{logs dumps system}
 
-  task :backup_db do
+  task :backup_db, :on_error => :continue do
     run "cd #{release_path} && php artisan db:backup --upload-s3 footlocker-backup"
   end
 
@@ -40,7 +42,7 @@ namespace :deploy do
     run "cd #{release_path} && php artisan custom-styles"
   end
 
-  task :restart_queue_worker do
+  task :restart_queue_worker, :on_error => :continue do
     run "ps -ef | grep 'queue:work' | awk '{print $2}' | xargs sudo kill -9"
   end
 
