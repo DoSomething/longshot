@@ -213,8 +213,10 @@ class AdminController extends \BaseController {
 
   public function export_results()
   {
+    $request = key(Input::except('_token'));
+    $function = $request . '_query';
     $export = new Export;
-    $ex = $export->submitted_blank_rec_query();
+    $ex = $export->$function();
     $output = '';
     foreach ($ex as $row) {
       foreach ($row as $key => $person) {
@@ -223,9 +225,10 @@ class AdminController extends \BaseController {
       }
       $output .= "\n";
     }
+    $filename = $request . '-' . time() . '.csv';
     $headers = array(
         'Content-Type' => 'text/csv',
-        'Content-Disposition' => 'attachment; filename="ExportFileName.csv"',
+        'Content-Disposition' => 'attachment; filename="'. $filename . '"',
     );
 
 

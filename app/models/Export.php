@@ -36,7 +36,7 @@ class Export extends Eloquent {
     return $results;
   }
 
-  public static function nominated_no_app()
+  public static function nominated_no_app_query()
   {
     $results = DB::select('SELECT n.nom_name, n.nom_email
                            FROM nominations n

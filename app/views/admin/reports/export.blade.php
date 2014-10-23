@@ -10,20 +10,20 @@
 
         {{ Form::open(['route' => 'export.csv']) }}
 
-          {{ Form::button('<i class="glyphicon glyphicon-download-alt"></i> Submitted Apps, no completed recs', array('type' => 'submit', 'class' => 'btn btn-default btn-lg')) }}
+          {{ Form::button('<i class="glyphicon glyphicon-download-alt"></i> Submitted Apps, no completed recs', array('type' => 'submit', 'name' => 'submitted_blank_rec', 'class' => 'btn btn-default btn-lg')) }}
 
           <br/>
 
-           {{ Form::button('<i class="glyphicon glyphicon-download-alt"></i> Submitted Apps, no requested recs', array('type' => 'submit', 'class' => 'btn btn-default btn-lg')) }}
+           {{ Form::button('<i class="glyphicon glyphicon-download-alt"></i> Submitted Apps, no requested recs', array('type' => 'submit', 'name'=> 'submitted_no_rec', 'class' => 'btn btn-default btn-lg')) }}
 
           <br/>
 
-          {{ Form::button('<i class="glyphicon glyphicon-download-alt"></i> Incomplete Apps', array('type' => 'submit', 'class' => 'btn btn-default btn-lg')) }}
+          {{ Form::button('<i class="glyphicon glyphicon-download-alt"></i> Incomplete Apps', array('type' => 'submit','name' => 'incomplete_apps', 'class' => 'btn btn-default btn-lg')) }}
 
 
           <br/>
 
-          {{ Form::button('<i class="glyphicon glyphicon-download-alt"></i> Nominated, no app', array('type' => 'submit', 'class' => 'btn btn-default btn-lg')) }}
+          {{ Form::button('<i class="glyphicon glyphicon-download-alt"></i> Nominated, no app', array('type' => 'submit', 'name' => 'nominated_no_app', 'class' => 'btn btn-default btn-lg')) }}
 
 
         {{ Form::close() }}
