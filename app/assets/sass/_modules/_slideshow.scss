@@ -5,12 +5,26 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-.slideshow { @include list_reset(); position: relative;
+.slideshow { @include list_reset(); height: 100%; position: relative;
 
-  .__carousel { @include list_reset(); background-color: rgba(blue, 0.2); }
+  .__carousel { @include list_reset(); position: relative;
+    background-color: rgba(blue, 0.2);
+    // padding: 0 10%;
+  }
 
 
-  .__controller { @include list_reset(); background-color: red; }
+  .__controller { @include list_reset(); height: 3em; position: absolute; width: 100%; z-index: 10;
+    background-color: red;
+    bottom: 0;
+
+    .__control { cursor: pointer; height: 100%; position: absolute; text-align: center; width: 25%;
+      background-color: rgba(yellow, 0.5);
+
+      &:hover { color: #fff; }
+      &.-prev { left: 0; }
+      &.-next { right: 0; }
+    }
+  }
 
 
   .__slide { position: absolute; top: 0; transition: all 0.3s ease-out;

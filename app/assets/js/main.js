@@ -23,7 +23,7 @@ if ($modals.length > 0) {
     // console.log(content);
     // @TODO: allow creation of multiple modals if necessary; maybe place in array()?
 
-    var modal = new Modal(content, $container);
+    var modal = new Modal(content, $container, $body);
     // console.log(modal);
   });
 }
