@@ -211,7 +211,7 @@ class AdminController extends \BaseController {
 
 
 
-  public static function export_results()
+  public function export_results()
   {
     $export = new Export;
     $ex = $export->submitted_blank_rec_query();
