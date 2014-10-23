@@ -206,8 +206,15 @@ class AdminController extends \BaseController {
 
   public function export()
   {
+    return View::make('admin.reports.export');
+  }
+
+
+
+  public static function export_results()
+  {
     $export = new Export;
-    $ex = $export->blank_rec_query();
+    $ex = $export->submitted_blank_rec_query();
     $output = '';
     foreach ($ex as $row) {
       foreach ($row as $key => $person) {
