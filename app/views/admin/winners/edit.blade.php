@@ -15,6 +15,9 @@
         {{ Form::model($winner, ['method' => 'PATCH', 'route' => ['admin.winner.update', $winner->id], 'files' => TRUE]) }}
 
         <div class="form-group">
+          <div class="image-holder">
+            <img src="{{ $winner->photo }}" alt="uploaded image">
+          </div>
           {{ Form::label('photo', 'Photo: ') }}
           {{  Form::file('photo') }}
         </div>

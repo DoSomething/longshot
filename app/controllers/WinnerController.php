@@ -55,7 +55,9 @@ class WinnerController extends \BaseController {
 
     $image = Input::file('photo');
     if (Input::hasFile('photo')) {
-      $image->move(uploadedContentPath('images') . '/winners/', snakeCaseToKebabCase($image->getClientOriginalName() . '-' . time()));
+      $filename = time() . '-' . stringtoKebabCase($image->getClientOriginalName());
+      $image->move(uploadedContentPath('images') . '/winners/', $filename);
+      $winner->photo = '/content/images/winners/' . $filename;
     }
 
     $winner->save();
