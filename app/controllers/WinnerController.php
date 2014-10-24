@@ -33,8 +33,36 @@ class WinnerController extends \BaseController {
     return Redirect::back()->with('flash_message', ['text' => '<strong>Success:</strong> Awesome, we got that person as a winner for you!', 'class' => 'alert-success']);
   }
 
-  public function update()
+
+  /**
+   * Show the form for editing the specified resource.
+   *
+   * @param  int  $id
+   * @return Response
+   */
+  public function edit($id)
   {
+    $winner = Winner::with('user')->where('user_id', $id)->firstOrFail();
+
+    return View::make('admin.winners.edit', compact('winner'));
+  }
+
+  public function update($id)
+  {
+    $input = Input::except('photo');
+    $winner = Winner::with('user')->where('id', $id)->firstOrFail();
+    $winner->fill($input);
+
+    $image = Input::file('photo');
+    if (Input::hasFile('photo')) {
+      $filename = time() . '-' . stringtoKebabCase($image->getClientOriginalName());
+      $image->move(uploadedContentPath('images') . '/winners/', $filename);
+      $winner->photo = '/content/images/winners/' . $filename;
+    }
+
+    $winner->save();
+
+    return Redirect::back()->with('flash_message', ['text' => '<strong>Success:</strong> BAM, that\'s saved!', 'class' => 'alert-success']);;
 
   }
 

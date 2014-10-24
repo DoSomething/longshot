@@ -34,7 +34,8 @@
             <tr>
               <td>{{ $winner->user_id  }}</td>
               {{-- @TODO this should be the edit route --}}
-              <td>{{ link_to('/admin/applications/' . $winner->user_id, $winner->first_name . ' ' . $winner->last_name)  }}</td>
+
+              <td>{{ link_to_route('admin.winner.edit', $winner->first_name . ' ' . $winner->last_name, array($winner->user_id)) }}</td>
               <td>{{ $winner->college }}</td>
               <td>{{ $winner->description  }}</td>
             </tr>
