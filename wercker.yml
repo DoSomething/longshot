@@ -33,7 +33,7 @@ deploy:
         name: Make all files readable
         code: find . -type f -exec chmod 644 {} \;
     - script:
-        name: write env var
+        name: write private key env var
         code: |-
           export CAP_PRIVATE_KEY=`mktemp`
           echo -e $WERCKER_APP_KEY_PRIVATE > $CAP_PRIVATE_KEY
