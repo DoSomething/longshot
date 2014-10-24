@@ -5,7 +5,7 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-.card { background-color: rgba(255,255,255,0.5);
+.card {
    
   figure { clear: both; float: left; margin: 0 1em 0.5em 0; width: 25%;
     > img { margin: 0 auto; }
@@ -39,6 +39,14 @@
 
 }
 
+.slideshow {
+
+  .card { padding: pxcalc(20) pxcalc(10);
+    .__title { padding-right: 40px; text-align: left; }
+  }
+
+}
+
 
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -56,6 +64,14 @@
 
     .__title { text-align: left; }
     .__body { clear: both; }
+  }
+
+  // JS ENABLED
+  // 
+  .slideshow {
+  
+    .card { background-color: #fff; border-radius: 5px; box-shadow: 0 0 10px rgba(0,0,0,0.3); }
+
   }
 
 }
@@ -87,5 +103,15 @@
   //   .__title { text-align: left; }
   //   .__body { clear: both; }
   // }
+
+  
+  // JS ENABLED
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  
+  .slideshow {
+
+    .card { padding: pxcalc(20); }
+
+  }
 
 }

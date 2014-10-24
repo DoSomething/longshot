@@ -5,18 +5,54 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-.modal { background-color: rgba(0,0,0,0.6); position: fixed; z-index: 1000; 
-  .button--close { padding: 20px; position: absolute; right: 0; top: 0; }
+.modal { background-color: rgba(0,0,0,0.8); display: none; position: fixed; z-index: 1000; 
+  .button--close { position: absolute; right: 5px; top: 5px; z-index: 100; }
 }
 
-.modal--slideshow { display: none; height: 100%; left: 0; top: 100%; width: 100%; 
-  > .wrapper { height: 100%; background-color: rgba(pink, 0.3); }
+.modal--slideshow { height: 100%; left: 0; top: 100%; width: 100%;
+  > .wrapper { height: 100%; }
 }
 
 body.has-modal { position: fixed; width: 100%; }
 
 
+// .modal>.wrapper {
+//   width: 80%;
+//   overflow: hidden;
+//   position: absolute;
+//   margin: 0 auto;
+//   height: 80%;
+//   left: 50%;
+//   top: 50%;
+//   transform: translate(-50%, -50%);
+// }
+
 
 // JS ENABLED
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-.modal--slideshow.is-toggled { display: block; top: 0; }
+.modal.is-toggled { display: block; }
+
+.modal--slideshow.is-toggled { top: 0; }
+
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// MEDIA QUERIES
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+@media only screen and (min-width: $small) {
+
+  .modal--slideshow {
+    > .wrapper { padding: pxcalc(10) 0; }
+  }  
+
+}
+
+
+@media only screen and (min-width: $large) {
+  
+  // .modal--slideshow {
+  //   > .wrapper { margin: 0 auto; max-width: pxcalc(700); overflow: hidden; }
+  // }  
+
+}

@@ -3,43 +3,37 @@ var classToggle = require('./classToggle');
 
 
 var Slideshow = function ($content) {
-  console.log('[#1 Slideshow] Create Slideshow from constructor function.');
 
   var _this = this;
 
   this.$slideshow      = $('<div class="slideshow"></div>');
-  this.$controller     = $('<ul class="__controller"><li class="__control -prev" data-direction="prev"><span class="icon icon-previous" data-icon="&#x25c0"></span></li><li class="__control -next" data-direction="next"><span class="icon icon-next" data-icon="&#x25ba"></span></li></ul>');
-  this.$controllerPrev = this.$controller.find('.-prev');
-  this.$controllerNext = this.$controller.find('.-next');
+  this.$controllerPrev = $('<button class="__control button button--control -prev" data-direction="prev"><span class="icon icon-prev" data-icon="&#x3c"></span></button>');
+  this.$controllerNext = $('<button class="__control button button--control -next" data-direction="next"><span class="icon icon-next" data-icon="&#x3e"></span></button>');
   this.$carousel       = $('<ul class="__carousel">' + $content.html() + '</ul>');
-  this.$slides         = this.$carousel.find('.card').parent();  // @TODO: maybe use something else instead of .card?
+  this.$slides         = this.$carousel.find('[data-slideshow="content"]').closest('li');  // @TODO: maybe use something else instead of .card?
   this.slidesTotal     = this.$slides.length;
   this.activeIndex     = 0;
 
   this.$slides.addClass('__slide -pending');
   this.$slideshow.append(this.$carousel);
-  this.$slideshow.append(this.$controller);
-
-  console.log(this);
+  this.$slideshow.append(this.$controllerPrev, this.$controllerNext);
 
 };
 
 
 Slideshow.prototype.activate = function (selection) {
-  console.log('[#2 Slideshow] Activating Slideshow.');
   
   if (selection) {
-    this.activeIndex = (selection.parent().data('slide')) - 1; // account for zero-based index offset
+    this.activeIndex = (selection.closest('li').data('slide')) - 1; // account for zero-based index offset
   }
 
   this.show(this.activeIndex);
   this.controllerActivate();
-  
+
 };
 
 
 Slideshow.prototype.controller = function (event) {
-  console.log('[#5 Slideshow] Activate Slideshow controller.');
 
   var _this = event.data;
   var $controlButton = $(this);
@@ -57,27 +51,23 @@ Slideshow.prototype.controller = function (event) {
 
 
 Slideshow.prototype.controllerActivate = function () {
-  console.log('[#4 Slideshow] Activate Slideshow controller.');
 
   // Update the controller button status.
   this.controllerUpdate();
 
-  this.$controller.on('click', '.__control', this, this.controller);
+  this.$slideshow.on('click', '.__control', this, this.controller);
 
 }
 
 
 Slideshow.prototype.controllerDeactivate = function () {
-  console.log('[#6 Slideshow] Deactivate Slideshow controller.');
 
-  this.$controller.off('click', '.__control');
+  this.$slideshow.off('click', '.__control');
 
 }
 
 
 Slideshow.prototype.controllerUpdate = function() {
-  console.log('[#n Slideshow] Updating Controller buttons.');
-  console.log('Updating and index is now ' + this.activeIndex);
 
   if (this.activeIndex === 0) {
     this.toggleButton(this.$controllerPrev, 'off');
@@ -105,7 +95,6 @@ Slideshow.prototype.controllerUpdate = function() {
 
 
 Slideshow.prototype.toggleButton = function ($button, status) {
-  console.log('[#n Slideshow] Toggle Controller button.');
 
   if (status === 'off') {
     $button.addClass('-disabled');
@@ -121,7 +110,6 @@ Slideshow.prototype.toggleButton = function ($button, status) {
 
 
 Slideshow.prototype.show = function (slideIndex) {
-  console.log('[#3 Slideshow] Showing Slideshow slide.');
 
   var _$slides = this.$slides;
 
@@ -141,23 +129,20 @@ Slideshow.prototype.show = function (slideIndex) {
 
 
 Slideshow.prototype.move = function (direction) {
-  console.log('[#5 Slideshow] Moving to ' + direction + ' Slide.');
 
   var $currentSlide = $(this.$slides.get(this.activeIndex));
 
 
   if (direction === 'prev') {
-    console.log($currentSlide);
     $currentSlide.removeClass('-viewing').addClass('-pending');
-    $currentSlide.prev().removeClass('-completed').addClass('-viewing');  // Don't like this too much, might be better to use index!
+    $currentSlide.prev().removeClass('-completed').addClass('-viewing');
     this.activeIndex--;
     this.controllerUpdate();
   }
 
   if (direction === 'next') {
-    console.log($currentSlide);
     $currentSlide.removeClass('-viewing').addClass('-completed');
-    $currentSlide.next().removeClass('-pending').addClass('-viewing');  // Don't like this too much, might be better to use index!
+    $currentSlide.next().removeClass('-pending').addClass('-viewing');
     this.activeIndex++;
     this.controllerUpdate();
   }
@@ -166,7 +151,6 @@ Slideshow.prototype.move = function (direction) {
 
 
 Slideshow.prototype.reset = function () {
-  console.log('[#6 Slideshow] Resetting Slideshow.');
 
   var _$slides = this.$slides;
 

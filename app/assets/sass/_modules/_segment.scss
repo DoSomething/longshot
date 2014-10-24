@@ -5,7 +5,7 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-.segment { @include container(95% show); padding: pxcalc(20) 0;
+.segment { @include container(95%); padding: pxcalc(20) 0;
 
   .fragment + .fragment { padding-top: 1.5em; }
 
@@ -21,7 +21,7 @@
 
 @media only screen and (min-width: $medium) {
 
-  .segment { @include container($wide show); padding: pxcalc(35) 0;
+  .segment { @include container($wide); padding: pxcalc(35) 0;
     > .wrapper { @include push(2 of 24); width: span(20 of 24); }
 
     &.-compact {

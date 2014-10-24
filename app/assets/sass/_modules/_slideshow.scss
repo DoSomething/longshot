@@ -5,29 +5,22 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-.slideshow { @include list_reset(); height: 100%; position: relative;
-
-  .__carousel { @include list_reset(); position: relative;
-    background-color: rgba(blue, 0.2);
-    // padding: 0 10%;
-  }
-
-
-  .__controller { @include list_reset(); height: 3em; position: absolute; width: 100%; z-index: 10;
+.slideshow { @include list_reset(); height: 100%; padding-bottom: pxcalc(50); position: relative; width: 100%;
+  &:after { @include pseudo_base(50px, 100%); bottom: 0; box-shadow: 0 0 10px 10px rgba(255,255,255,0.85); position: absolute; z-index: 20; 
     background-color: red;
-    bottom: 0;
+  }
 
-    .__control { cursor: pointer; height: 100%; position: absolute; text-align: center; width: 25%;
-      background-color: rgba(yellow, 0.5);
+  .__carousel { @include list_reset(); @include composite_layer(); background-color: #fff; height: 100%; position: relative; width: 100%; z-index: 10; }
+  
 
-      &:hover { color: #fff; }
-      &.-prev { left: 0; }
-      &.-next { right: 0; }
-    }
+  .__control { height: 50px; position: absolute; width: 50%; z-index: 30;
+    &.-prev { left: 0; }
+    &.-next { right: 0; }  
   }
 
 
-  .__slide { position: absolute; top: 0; transition: all 0.3s ease-out;
+  .__slide { height: 100%; position: absolute; top: 0; transition: all 0.3s ease-out; width: 100%;
+    > .wrapper { height: 100%; }
     
     &.-pending { transform: translateX(100%); }
 
@@ -35,4 +28,45 @@
 
     &.-completed { transform: translateX(-100%); }
   }
+
+  [data-slideshow="content"] { height: 100%; overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+  }
+
+}
+
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// MEDIA QUERIES
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+@media only screen and (min-width: $small) {
+
+  .slideshow { padding-bottom: 0;
+    &:after { display: none; }
+      
+    .__carousel { background-color: transparent; }
+    
+    .__control { bottom: auto; height: 100px; margin-top: -50px; top: 50%; width: 50px; }
+  
+    [data-slideshow="content"] { margin: 0 auto; width: calc(100% - 110px); }
+
+  }
+
+}
+
+
+@media only screen and (min-width: $medium) {
+
+  .slideshow {
+  
+    .__slide {
+      > .wrapper { overflow-y: scroll; }
+    }
+    
+    [data-slideshow="content"] { height: auto; left: 50%; max-width: pxcalc(600); top: 50%; position: absolute; transform: translate(-50%, -50%); }
+
+  }
+
 }
