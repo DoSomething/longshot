@@ -53,6 +53,8 @@ Route::group(['before' => 'role:administrator', 'prefix' => 'admin'], function()
 
   # Applications management
   Route::get('applications', ['as' => 'applications.index', 'uses' => 'AdminController@applicationsIndex']);
+  Route::get('applications/export', ['as' => 'export', 'uses' => 'AdminController@export']);
+  Route::post('applications/export', ['as' => 'export.csv', 'uses' => 'AdminController@export_results']);
   Route::get('applications/{id}', ['as' => 'applications.show', 'uses' => 'AdminController@applicationsShow']);
   Route::get('applications/{id}/edit', ['as' => 'admin.application.edit', 'uses' => 'AdminController@applicationsEdit']);
 
@@ -74,9 +76,10 @@ Route::group(['before' => 'role:administrator', 'prefix' => 'admin'], function()
   Route::get('settings/appearance', ['as' => 'appearance.edit', 'uses' => 'SettingsController@editAppearance']);
   Route::post('settings/appearance', ['as' => 'appearance.update', 'uses' => 'SettingsController@updateAppearance']);
 
-  #Emails
+  # Emails
   Route::get('email', ['as' => 'emails', 'uses' => 'EmailController@index']);
   Route::post('email', ['as' => 'emails.update', 'uses' => 'EmailController@update']);
+
 });
 
 

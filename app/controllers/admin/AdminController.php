@@ -204,6 +204,38 @@ class AdminController extends \BaseController {
     return Redirect::to('admin/applications?filter_by=completed')->with('flash_message', ['text' => '<strong>Success:</strong> Awesome, we got that rated for you!', 'class' => 'alert-success']);
   }
 
+  public function export()
+  {
+    return View::make('admin.reports.export');
+  }
+
+
+
+  public function export_results()
+  {
+    $request = key(Input::except('_token'));
+    $function = $request . '_query';
+    $export = new Export;
+    $ex = $export->$function();
+    $output = '';
+    foreach ($ex as $row) {
+      foreach ($row as $key => $person) {
+        $output .= $person;
+        $output .= ',';
+      }
+      $output .= "\n";
+    }
+    $filename = $request . '-' . time() . '.csv';
+    $headers = array(
+        'Content-Type' => 'text/csv',
+        'Content-Disposition' => 'attachment; filename="'. $filename . '"',
+    );
+
+
+    return Response::make(rtrim($output, "\n"), 200, $headers);
+
+  }
+
 
   /**
    * Helper function to select/join for the admin index table.
