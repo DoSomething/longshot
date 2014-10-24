@@ -23,6 +23,7 @@ namespace :deploy do
 
   task :backup_db, :on_error => :continue do
     bucket = ENV["S3_BUCKET"]
+    puts ENV
     run "cd #{release_path} && php artisan db:backup --upload-s3 #{bucket}"
   end
 
