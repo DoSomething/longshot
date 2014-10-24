@@ -21,9 +21,9 @@ default_run_options[:shell] = '/bin/bash'
 namespace :deploy do
   folders = %w{logs dumps system}
 
-  task :backup_db do
-    run "whoami"
-    run "cd #{release_path} && php artisan db:backup --upload-s3 #{ENV["S3_BUCKET_NAME"]}"
+  task :backup_db, :on_error => :continue do
+    bucket = ENV["S3_BUCKET"]
+    run "cd #{release_path} && php artisan db:backup --upload-s3 #{bucket}"
   end
 
   task :link_folders do
