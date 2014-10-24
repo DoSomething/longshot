@@ -134,7 +134,8 @@ class AdminController extends \BaseController {
     $user = User::getUserInfo($id);
     $scholarship = Scholarship::getScholarshipLabels();
     $app_id = Application::getUserApplicationId($id);
-    $races = Profile::getUserRace($app_id->id);
+    $prof_id = Profile::getUserProfileId($id);
+    $races = Profile::getUserRace($prof_id);
 
     $recomendations = null;
     if ($app_id)

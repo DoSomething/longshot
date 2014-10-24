@@ -112,6 +112,11 @@ class Profile extends Eloquent {
 
   }
 
+  public static function getUserProfileId($id)
+  {
+    return Profile::where('user_id', $id)->pluck('id');
+  }
+
   public static function getUserRace($id)
   {
     $races = Race::where('profile_id', $id)->select('race')->get()->toArray();
