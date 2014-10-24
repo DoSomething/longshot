@@ -12,7 +12,7 @@
         {{ $winner->user->first_name . ' ' . $winner->user->last_name }}
         </h1>
 
-        {{ Form::model($winner, ['method' => 'PATCH', 'route' => ['admin.winner.update', $winner->id]]) }}
+        {{ Form::model($winner, ['method' => 'PATCH', 'route' => ['admin.winner.update', $winner->id], 'files' => TRUE]) }}
 
         <div class="form-group">
           {{ Form::label('photo', 'Photo: ') }}

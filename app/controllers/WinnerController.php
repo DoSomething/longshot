@@ -53,6 +53,10 @@ class WinnerController extends \BaseController {
     $winner = Winner::with('user')->where('id', $id)->firstOrFail();
     $winner->fill($input);
 
+    $image = Input::file('photo');
+    if (Input::hasFile('photo')) {
+      $image->move(uploadedContentPath('images') . '/winners/', snakeCaseToKebabCase($image->getClientOriginalName() . '-' . time()));
+    }
 
     $winner->save();
 
