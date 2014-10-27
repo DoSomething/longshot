@@ -36,16 +36,9 @@ Slideshow.prototype.activate = function (selection) {
 Slideshow.prototype.controller = function (event) {
 
   var _this = event.data;
-  var $controlButton = $(this);
-  var direction = $controlButton.data('direction');
+  var direction = $(this).data('direction');
 
-  if (direction === 'prev' && !$controlButton.hasClass('is-disabled')) {
-    _this.move(direction);
-  } else if (direction === 'next' && !$controlButton.hasClass('is-disabled')) {
-    _this.move(direction);
-  } else {
-    return false;
-  }
+  _this.move(direction);
 
 }
 
@@ -69,46 +62,22 @@ Slideshow.prototype.controllerDeactivate = function () {
 
 Slideshow.prototype.controllerUpdate = function() {
 
-  // If first slide selected, turn off the Prev controller button.
-  if (this.activeIndex === 0) {
-    this.toggleButton(this.$controllerPrev, 'off');
-    return;
-  }
-
-  // If last slide selected, turn off the Next controller button.
-  if (this.activeIndex === (this.slidesTotal - 1)) {
-    this.toggleButton(this.$controllerNext, 'off');
-    return;
-  }
-
-  // If on any slide past first slide and Prev controller button is off, turn it on.
-  if (this.activeIndex > 0) {
-    if (this.$controllerPrev.hasClass('is-disabled')) {
-      this.toggleButton(this.$controllerPrev, 'on');
-    }
-  }
-
-  // If on any slide prior to last slide and Next controller button is off, turn it on.
-  if (this.activeIndex < (this.slidesTotal - 1)) {
-    if (this.$controllerNext.hasClass('is-disabled')) {
-      this.toggleButton(this.$controllerNext, 'on');
-    }
-  }
+  this.$controllerPrev.toggleClass('is-disabled', this.isFirstSlide());
+  this.$controllerNext.toggleClass('is-disabled', this.isLastSlide());
 
 }
 
 
-Slideshow.prototype.toggleButton = function ($button, status) {
+Slideshow.prototype.isFirstSlide = function() {
 
-  if (status === 'off') {
-    $button.addClass('is-disabled');
-    return;
-  }
+  return (this.activeIndex === 0);
 
-  if (status === 'on') {
-    $button.removeClass('is-disabled');
-    return;
-  }
+}
+
+
+Slideshow.prototype.isLastSlide = function() {
+
+  return (this.activeIndex === (this.slidesTotal - 1));
 
 }
 
@@ -136,19 +105,20 @@ Slideshow.prototype.move = function (direction) {
 
   var $currentSlide = $(this.$slides.get(this.activeIndex));
 
-
-  if (direction === 'prev') {
+  if (direction === 'prev' && !this.isFirstSlide()) {
     $currentSlide.removeClass('is-viewing').addClass('is-pending');
     $currentSlide.prev().removeClass('is-completed').addClass('is-viewing');
     this.activeIndex--;
     this.controllerUpdate();
-  }
-
-  if (direction === 'next') {
+  } 
+  else if (direction === 'next' && !this.isLastSlide()) {
     $currentSlide.removeClass('is-viewing').addClass('is-completed');
     $currentSlide.next().removeClass('is-pending').addClass('is-viewing');
     this.activeIndex++;
     this.controllerUpdate();
+  }
+  else {
+    return false;
   }
 
 }
@@ -172,8 +142,6 @@ Slideshow.prototype.reset = function () {
     }
   });
 
-  this.toggleButton(this.$controllerPrev, 'on');
-  this.toggleButton(this.$controllerNext, 'on');
   this.controllerDeactivate();
 
 }
