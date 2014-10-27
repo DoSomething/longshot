@@ -6,9 +6,7 @@
 
 
 .slideshow { @include list_reset(); height: 100%; padding-bottom: pxcalc(50); position: relative; width: 100%;
-  &:after { @include pseudo_base(50px, 100%); bottom: 0; box-shadow: 0 0 10px 10px rgba(255,255,255,0.85); position: absolute; z-index: 20;
-    background-color: red;
-  }
+  &:after { @include pseudo_base(50px, 100%); background-color: $app_background; bottom: 0; box-shadow: 0 0 10px 10px rgba(255,255,255,0.85); position: absolute; z-index: 20; }
 
   .__carousel { @include list_reset(); @include composite_layer(); background-color: #fff; height: 100%; position: relative; width: 100%; z-index: 10; }
 
