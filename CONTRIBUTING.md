@@ -1,3 +1,11 @@
 # Contribution Guidelines
 
-Please submit all issues and pull requests to the [laravel/framework](http://github.com/laravel/framework) repository!
+- Files must use only <?php tags
+- Class names must be declared in `StudlyCaps`
+- Method names must be declared in `snake_case`
+- Indent with two spaces
+- A class' opening { must be on the same line as the class name.
+- K&R style braces
+ - Functions have brackets on their own line
+  - Control structures have brackets on the same line
+
