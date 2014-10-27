@@ -125,7 +125,11 @@
 // PSEUDO ELEMENT BASE
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-@mixin pseudo_base($height:0, $width:0) { content: ''; display: block; height: $height + px; width: $width + px; }
+//--
+// Need to specify height and width units.
+//--
+
+@mixin pseudo_base($height:0, $width:0) { content: ''; display: block; height: $height; width: $width; }
 
 
 

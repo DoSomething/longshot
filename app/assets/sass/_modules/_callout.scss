@@ -13,8 +13,8 @@ $lg_size: 200;
 
   > .wrapper { display: table; height: pxcalc($sm_size); margin: 0 auto; position: relative; text-align: center; width: pxcalc($sm_size);
     // @ TODO: Potentially turn this into a mixin to DRY it up.
-    &:before { @include pseudo_base($sm_size + 20,$sm_size + 20); border: 1px solid $app_primary; border-radius: 100%; left: 50%; margin-left: -(($sm_size + 5)/2) + px; position: absolute; top: -10px; }
-    &:after { @include pseudo_base($sm_size + 20,$sm_size + 20); border: 1px solid $app_primary; border-radius: 100%; left: 50%; margin-left: -(($sm_size + 35)/2) + px; position: absolute; top: -10px; }
+    &:before { @include pseudo_base($sm_size + 20px, $sm_size + 20px); border: 1px solid $app_primary; border-radius: 100%; left: 50%; margin-left: -(($sm_size + 5)/2) + px; position: absolute; top: -10px; }
+    &:after { @include pseudo_base($sm_size + 20px, $sm_size + 20px); border: 1px solid $app_primary; border-radius: 100%; left: 50%; margin-left: -(($sm_size + 35)/2) + px; position: absolute; top: -10px; }
   }
 
   strong { @include rem(18); display: table-cell; font-family: $font_proxima_nova_regular; font-weight: normal; line-height: 1; text-transform: uppercase; vertical-align: middle; width: 100%; }
@@ -42,8 +42,8 @@ $lg_size: 200;
   .callout--scholarship {
 
     > .wrapper { height: pxcalc($lg_size); width: pxcalc($lg_size);
-      &:before { @include pseudo_base($lg_size + 20,$lg_size + 20); left: 50%; margin-left: -(($lg_size + 5)/2) + px; top: -10px; }
-      &:after { @include pseudo_base($lg_size + 20,$lg_size + 20); left: 50%; margin-left: -(($lg_size + 35)/2) + px; top: -10px; }
+      &:before { @include pseudo_base($lg_size + 20px,$lg_size + 20px); left: 50%; margin-left: -(($lg_size + 5)/2) + px; top: -10px; }
+      &:after { @include pseudo_base($lg_size + 20px,$lg_size + 20px); left: 50%; margin-left: -(($lg_size + 35)/2) + px; top: -10px; }
     }
 
     strong { @include rem(24); }

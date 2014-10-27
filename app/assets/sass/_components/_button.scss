@@ -20,11 +20,34 @@
 
 }
 
+.button--close { background-color: $app_background; border-radius: 3px; color: #fff; height: 45px; line-height: 45px; padding: 0; text-align: center; width: 45px;
+  &:focus { outline: none; }
+
+  .icon { @include rem(22); line-height: 45px; }
+}
+
+.button--control { color: #fff; background-color: $app_background; padding: 0;
+  &:focus { outline: none; }
+  &.is-disabled { cursor: not-allowed; opacity: 0.2; }
+
+  .icon { @include rem(40); }
+}
+
 
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // MEDIA QUERIES
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+@media only screen and (min-width: $small) {
+
+  .button--close,
+  .button--control { background-color: transparent;
+    .icon { text-shadow: 0 0 5px rgba(0,0,0,0.5); }
+  }
+
+}
+
 
 @media only screen and (min-width: $large) {
 
