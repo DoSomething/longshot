@@ -5,7 +5,7 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-.modal { background-color: rgba(0,0,0,0.8); display: none; position: fixed; z-index: 1000; 
+.modal { background-color: rgba(0,0,0,0.8); display: none; position: fixed; z-index: 1000;
   .button--close { position: absolute; right: 5px; top: 5px; z-index: 100; }
 }
 
@@ -14,18 +14,6 @@
 }
 
 body.has-modal { position: fixed; width: 100%; }
-
-
-// .modal>.wrapper {
-//   width: 80%;
-//   overflow: hidden;
-//   position: absolute;
-//   margin: 0 auto;
-//   height: 80%;
-//   left: 50%;
-//   top: 50%;
-//   transform: translate(-50%, -50%);
-// }
 
 
 // JS ENABLED
@@ -44,15 +32,15 @@ body.has-modal { position: fixed; width: 100%; }
 
   .modal--slideshow {
     > .wrapper { padding: pxcalc(10) 0; }
-  }  
+  }
 
 }
 
 
 @media only screen and (min-width: $large) {
-  
+
   // .modal--slideshow {
   //   > .wrapper { margin: 0 auto; max-width: pxcalc(700); overflow: hidden; }
-  // }  
+  // }
 
 }

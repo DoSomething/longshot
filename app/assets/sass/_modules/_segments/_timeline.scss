@@ -17,8 +17,8 @@ $peg_length: 30;
 
   ul { @include list_reset();
     li { padding-left: ($indicator_full_size + $peg_length + 10) + px; position: relative;
-      &:before { @include pseudo_base($indicator_size,$indicator_size); background-color: #fff; border: $line_thickness + px solid $app_primary; border-radius: 100%; margin-top: -($indicator_full_size / 2) + px; left: 0; position: absolute; top: 50%; }
-      &:after { @include pseudo_base($line_thickness,$peg_length); background-color: $app_primary; position: absolute; left: $indicator_full_size + px; margin-top: -($line_thickness / 2) + px; top: 50%; }
+      &:before { @include pseudo_base($indicator_size + px, $indicator_size + px); background-color: #fff; border: $line_thickness + px solid $app_primary; border-radius: 100%; margin-top: -($indicator_full_size / 2) + px; left: 0; position: absolute; top: 50%; }
+      &:after { @include pseudo_base($line_thickness + px, $peg_length + px); background-color: $app_primary; position: absolute; left: $indicator_full_size + px; margin-top: -($line_thickness / 2) + px; top: 50%; }
     }
 
     li + li { margin-top: 1em; }
@@ -42,7 +42,7 @@ $peg_length: 30;
 
       li { float: left; padding: (($indicator_size / 2) + $peg_length + 10) + px pxcalc(0) 0 0; text-align: center; width: 25%;
         &:before { left: 50%; margin-left: -($indicator_full_size / 2) + px; margin-top: 0; top: -(($indicator_full_size / 2) + ($timeline_thickness / 2)) + px; }
-        &:after { @include pseudo_base($peg_length,$line_thickness); left: 50%; margin-left: -($line_thickness / 2) + px; margin-top: 0; top: (($indicator_full_size / 2) - ($timeline_thickness / 2)) + px; }
+        &:after { @include pseudo_base($peg_length + px, $line_thickness + px); left: 50%; margin-left: -($line_thickness / 2) + px; margin-top: 0; top: (($indicator_full_size / 2) - ($timeline_thickness / 2)) + px; }
       }
 
       li + li { margin-top: 0; }

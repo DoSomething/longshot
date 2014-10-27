@@ -4,7 +4,6 @@ var Slideshow   = require('./slideshow');
 
 
 var Modal = function (content, $container, $body) {
-  console.log('[#1 Modal] Create Modal from constructor function.');
 
   this.$modal         = $('<div class="modal"><div class="wrapper"></div></div>');
   this.$closeButton   = $('<button class="button button--close"><span class="icon" data-icon="&#xd7"></span></button>');
@@ -14,15 +13,12 @@ var Modal = function (content, $container, $body) {
   this.document       = $(document);
   this.scrollPosition = 0;
 
-  console.log(this);
-
   this.init($container, $body);
 
 };
 
 
 Modal.prototype.init = function ($container, $body) {
-  console.log('[#2 Modal] Initialize the newly created Modal.');
 
   var _this = this;
 
@@ -31,7 +27,7 @@ Modal.prototype.init = function ($container, $body) {
 
   if (this.modalType === 'slideshow') {
     this.modalContent = new Slideshow(this.$content);
-    
+
     this.$modal.find('.wrapper').append(this.modalContent.$slideshow);
   }
 
@@ -53,7 +49,6 @@ Modal.prototype.init = function ($container, $body) {
 
 
 Modal.prototype.open = function ($selection, $body) {
-  console.log('[#3 Modal] Open the Modal.');
 
   if (this.modalType === 'slideshow') {
     this.modalContent.activate($selection);
@@ -67,7 +62,6 @@ Modal.prototype.open = function ($selection, $body) {
 
 
 Modal.prototype.close = function ($body) {
-  console.log('[#4 Modal] Close the Modal.');
 
   $body.removeClass('has-modal');
   this.document.scrollTop(this.scrollPosition);

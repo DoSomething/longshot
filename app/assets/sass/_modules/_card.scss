@@ -6,17 +6,16 @@
 
 
 .card {
-   
+  > .wrapper { margin-bottom: 1em; }
+
   figure { clear: both; float: left; margin: 0 1em 0.5em 0; width: 25%;
     > img { margin: 0 auto; }
   }
   figcaption { background-color: $app_primary; color: #fff; display: none; margin-top: pxcalc(5); padding: pxcalc(5); text-align: center; }
-  
+
   .__title { text-align: center; }
-  .__info { margin-bottom: 1em; }
 
 }
-
 
 
 // JS ENABLED
@@ -26,7 +25,7 @@
 
   .segment--gallery {
     .card { cursor: pointer;
-      figure { float: none; margin: 0; width: auto; 
+      figure { float: none; margin: 0; width: auto;
         > img { width: 100%; }
       }
       figcaption { display: block; }
@@ -56,9 +55,9 @@
 @media only screen and (min-width: $small) {
 
   .card {
-    > .wrapper { @include span(last 5); }
+    > .wrapper { @include span(last 6); }
 
-    figure { @include span(first 3); clear: none; margin: 0;
+    figure { @include span(first 2); clear: none; margin: 0 0 1em;
       > img { width: 100%; }
     }
 
@@ -66,10 +65,11 @@
     .__body { clear: both; }
   }
 
+
   // JS ENABLED
-  // 
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   .slideshow {
-  
+
     .card { background-color: #fff; border-radius: 5px; box-shadow: 0 0 10px rgba(0,0,0,0.3); }
 
   }
@@ -80,11 +80,22 @@
 @media only screen and (min-width: $medium) {
 
   .card {
-  //   figure { @include span(first 3 of 10) }
+    > .wrapper { @include span(last 5); }
 
-  //   .__title { float: none; margin-left: 0; width: 100%; }
-  
-    // figure { width: 10%; }
+    figure { @include span(first 3); }
+  }
+
+
+  // JS ENABLED
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  .slideshow {
+
+    .card {
+      > .wrapper { @include span(last 6); }
+
+      figure { @include span(first 2); }
+    }
+
   }
 
 }
@@ -93,21 +104,9 @@
 
 @media only screen and (min-width: $large) {
 
-  // .card {
-  //   > .wrapper { @include span(last 5); }
-
-  //   figure { @include span(first 3); clear: none; margin: 0;
-  //     > img { width: 100%; }
-  //   }
-
-  //   .__title { text-align: left; }
-  //   .__body { clear: both; }
-  // }
-
-  
   // JS ENABLED
-  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
   .slideshow {
 
     .card { padding: pxcalc(20); }

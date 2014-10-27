@@ -2,7 +2,7 @@ var $      = require('jquery');
 var Panels = require('./panels');
 var Modal  = require('./modal');
 
-
+// @TODO: may turn the following variables into an module object so it's easier to pass variables around.
 var $body      = $('body');
 var $container = $('#container');
 var $content   = $('#content');
@@ -16,11 +16,9 @@ Panels.init($container, $mainNav);
 var $modals = $container.find('[data-ui="modal"]');
 
 if ($modals.length > 0) {
-  $modals.each(function (index, content) {
-    // @TODO: allow creation of multiple modals if necessary; maybe place in array()?
+  var modalList = [];
 
-    var modal = new Modal(content, $container, $body);
-    // console.log(modal);
+  $modals.each(function (index, content) {
+    modalList[index] = new Modal(content, $container, $body);
   });
 }
-
