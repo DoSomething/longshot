@@ -53,6 +53,7 @@
                        <li> {{ filter_applicants_by('yes', 'Yes') }} </li>
                       <li> {{ filter_applicants_by('no', 'No') }} </li>
                       <li> {{ filter_applicants_by('maybe', 'Maybe') }} </li>
+                      <li> {{ filter_applicants_by('unrated', 'Not Yet Rated') }} </li>
                     </ul>
                   </div>
                 </th>

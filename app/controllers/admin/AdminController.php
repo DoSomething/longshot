@@ -102,6 +102,15 @@ class AdminController extends \BaseController {
         case 'f':
           $query->where('profiles.gender', '=', $filter_by);
           break;
+        case 'unrated':
+          $query->where('applications.submitted', '=', 1)
+                ->where('applications.completed', '=', 1)
+                ->whereNotExists(function($query) {
+                   $query->select(DB::raw(1))
+                      ->from('ratings')
+                      ->whereRaw('ratings.application_id = applications.id');
+                  });
+          break;
         }
     }
 
