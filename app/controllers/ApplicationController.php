@@ -48,9 +48,10 @@ class ApplicationController extends \BaseController {
     $choices = Application::formatChoices($hear_about);
 
     $help_text = Setting::getSpecifiedSettingsVars(['application_create_help_text']);
+    $favicon   = Setting::getSpecifiedSettingsVars(['favicon']);
     $page_vars = Setting::getPageSettingsVars();
 
-    $vars = (object) array_merge($page_vars, $help_text);
+    $vars = (object) array_merge($page_vars, $help_text, $favicon);
 
     return View::make('application.create')->with(compact('label', 'choices', 'vars'));
   }
@@ -116,7 +117,11 @@ class ApplicationController extends \BaseController {
   public function show($id)
   {
     $user = User::with('application')->whereId($id)->firstOrFail();
-    $vars = (object) Setting::getPageSettingsVars();
+
+    $favicon   = Setting::getSpecifiedSettingsVars(['favicon']);
+    $page_vars = Setting::getPageSettingsVars();
+
+    $vars = (object) array_merge($page_vars, $favicon);
 
     return View::make('application.show', compact('vars'))->withUser($user);
   }
@@ -131,15 +136,16 @@ class ApplicationController extends \BaseController {
   public function edit($id)
   {
     // @TODO: add a filter here to check for app complete.
-    $user = User::whereId($id)->firstOrFail();
-    $label = Scholarship::getScholarshipLabels();
+    $user       = User::whereId($id)->firstOrFail();
+    $label      = Scholarship::getScholarshipLabels();
     $hear_about = Scholarship::getCurrentScholarship()->pluck('hear_about_options');
-    $choices = Application::formatChoices($hear_about);
+    $choices    = Application::formatChoices($hear_about);
 
+    $favicon   = Setting::getSpecifiedSettingsVars(['favicon']);
     $help_text = Setting::getSpecifiedSettingsVars(['application_create_help_text']);
     $page_vars = Setting::getPageSettingsVars();
 
-    $vars = (object) array_merge($page_vars, $help_text);
+    $vars = (object) array_merge($page_vars, $help_text, $favicon);
 
     return View::make('application.edit')->with(compact('user', 'label', 'choices', 'vars'));
   }

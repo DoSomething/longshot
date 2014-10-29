@@ -6,6 +6,8 @@ class Setting extends Eloquent {
 
   public static $pageQueryItems = ['company_name', 'company_url', 'header_logo', 'footer_logo', 'footer_text', 'tracking_code_id'];
 
+  public static $socialDataQueryItems = ['open_graph_data_title', 'open_graph_data_description', 'open_graph_data_type', 'open_graph_data_url', 'open_graph_data_image'];
+
   public static $nominateQueryItems = ['nominate_text', 'nominate_image'];
 
   public static $individualQueryItems = ['eligibility_text', 'basic_info_help_text', 'create_account_help_text', 'profile_create_help_text', 'application_create_help_text', 'recommendation_create_help_text', 'recommendation_update_help_text', 'application_submit_help_text', 'status_page_help_text_incomplete', 'status_page_help_text_submitted', 'status_page_help_text_complete'];
@@ -49,6 +51,16 @@ class Setting extends Eloquent {
   public static function getPageSettingsVars()
   {
     return self::getSpecifiedSettingsVars(self::$pageQueryItems);
+  }
+
+
+  /**
+   * Shortcut to grab all global Meta Data Setting variables.
+   * @return array
+   */
+  public static function getMetaDataSettingsVars()
+  {
+    return self::getSpecifiedSettingsVars(self::$socialDataQueryItems);
   }
 
 }

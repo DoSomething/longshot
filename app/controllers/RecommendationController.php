@@ -38,10 +38,11 @@ class RecommendationController extends \BaseController {
     // This will be seen by applicants only.
     $num_recs = Scholarship::getCurrentScholarship()->select('num_recommendations_max', 'num_recommendations_min')->firstOrFail()->toArray();
 
+    $favicon   = Setting::getSpecifiedSettingsVars(['favicon']);
     $help_text = Setting::getSpecifiedSettingsVars(['recommendation_create_help_text']);
     $page_vars = Setting::getPageSettingsVars();
 
-    $vars = (object) array_merge($page_vars, $help_text);
+    $vars = (object) array_merge($page_vars, $help_text, $favicon);
 
     return View::make('recommendation.create', compact('num_recs', 'vars'));
   }
@@ -112,10 +113,11 @@ class RecommendationController extends \BaseController {
     // Make sure this person has the right token in the url.
     $correct_token = RecommendationToken::where('recommendation_id', $id)->pluck('token');
 
+    $favicon   = Setting::getSpecifiedSettingsVars(['favicon']);
     $help_text = Setting::getSpecifiedSettingsVars(['recommendation_update_help_text']);
     $page_vars = Setting::getPageSettingsVars();
 
-    $vars = (object) array_merge($page_vars, $help_text);
+    $vars = (object) array_merge($page_vars, $help_text, $favicon);
 
     if (isset($_GET['token']) && $_GET['token'] == $correct_token) {
       $recommendation = Recommendation::whereId($id)->firstOrFail();

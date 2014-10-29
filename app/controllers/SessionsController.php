@@ -27,7 +27,10 @@ class SessionsController extends \BaseController {
       return Redirect::route('status');
     }
 
-    $vars = (object) Setting::getPageSettingsVars();
+    $favicon   = Setting::getSpecifiedSettingsVars(['favicon']);
+    $page_vars = Setting::getPageSettingsVars();
+
+    $vars = (object) array_merge($page_vars, $favicon);
 
     return View::make('sessions.create', compact('vars'));
   }

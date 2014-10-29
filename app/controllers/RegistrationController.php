@@ -24,11 +24,12 @@ class RegistrationController extends \BaseController {
   public function create()
   {
 
+    $favicon         = Setting::getSpecifiedSettingsVars(['favicon']);
     $eligibilityText = Setting::getSpecifiedSettingsVars(['eligibility_text']);
-    $help_text = Setting::getSpecifiedSettingsVars(['create_account_help_text']);
-    $page_vars = Setting::getPageSettingsVars();
+    $help_text       = Setting::getSpecifiedSettingsVars(['create_account_help_text']);
+    $page_vars       = Setting::getPageSettingsVars();
 
-    $vars = (object) array_merge($page_vars, $help_text, $eligibilityText);
+    $vars = (object) array_merge($page_vars, $help_text, $eligibilityText, $favicon);
 
     return View::make('registration.create', compact('vars'));
   }

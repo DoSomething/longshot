@@ -25,10 +25,11 @@ class ProfilesController extends \BaseController {
     $states = Profile::getStates();
     $races = Profile::getRaces();
 
+    $favicon   = Setting::getSpecifiedSettingsVars(['favicon']);
     $help_text = Setting::getSpecifiedSettingsVars(['basic_info_help_text']);
     $page_vars = Setting::getPageSettingsVars();
 
-    $vars = (object) array_merge($page_vars, $help_text);
+    $vars = (object) array_merge($page_vars, $help_text, $favicon);
 
     return View::make('profile.create')->with(compact('states', 'races', 'vars'));
   }
@@ -96,7 +97,10 @@ class ProfilesController extends \BaseController {
       return Redirect::home()->with('flash_message', ['text' => 'This user does\'t exist!', 'class' => '-warning']);
     }
 
-    $vars = (object) Setting::getPageSettingsVars();
+    $favicon   = Setting::getSpecifiedSettingsVars(['favicon']);
+    $page_vars = Setting::getPageSettingsVars();
+
+    $vars = (object) array_merge($page_vars, $favicon);
 
     if (! $user->profile)
     {
@@ -118,13 +122,14 @@ class ProfilesController extends \BaseController {
   public function edit($id)
   {
     $profile = Profile::with('race')->whereUserId($id)->firstOrFail();
-    $states = Profile::getStates();
-    $races = Profile::getRaces();
+    $states  = Profile::getStates();
+    $races   = Profile::getRaces();
 
+    $favicon   = Setting::getSpecifiedSettingsVars(['favicon']);
     $help_text = Setting::getSpecifiedSettingsVars(['basic_info_help_text']);
     $page_vars = Setting::getPageSettingsVars();
 
-    $vars = (object) array_merge($page_vars, $help_text);
+    $vars = (object) array_merge($page_vars, $help_text, $favicon);
 
     return View::make('profile.edit')->withUser($profile)->with(compact('states', 'races', 'vars'));
   }

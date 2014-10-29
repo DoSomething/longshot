@@ -7,6 +7,7 @@
  */
 Event::listen('settings.change', function($category)
 {
+
   if ($category === 'general') {
 
     Cache::forget('setting.' . implode('.', Setting::$pageQueryItems));
@@ -17,9 +18,16 @@ Event::listen('settings.change', function($category)
       Cache::forget('setting.' . $item);
     }
 
+  } elseif ($category === 'meta_data') {
+
+    Cache::forget('setting.' . implode('.', Setting::$socialDataQueryItems));
+
+    Cache::forget('setting.favicon');
+
   } else {
 
     Cache::forget('setting.' . $category);
 
   }
+
 });

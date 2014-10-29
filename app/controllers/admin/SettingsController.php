@@ -42,6 +42,19 @@ class SettingsController extends \BaseController {
 
 
   /**
+   * Show the form for editing the specified resource.
+   *
+   * @return Response
+   */
+  public function editMetaData()
+  {
+    $settings = Setting::whereCategory('meta_data')->get();
+
+    return View::make('admin.settings.meta-data.edit', compact('settings'));
+  }
+
+
+  /**
    * Update the specified resource in storage.
    *
    * @return Response
@@ -113,10 +126,9 @@ class SettingsController extends \BaseController {
 
     // Uploaded Images
     foreach ($inputImages as $key => $image) {
-      if (Input::hasFile($key))
-      {
-        $inputImages[$key] = '/content/images/' . snakeCaseToKebabCase($key) . '.png';
-        Input::file($key)->move(uploadedContentPath('images'), snakeCaseToKebabCase($key) . '.png');
+      if (Input::hasFile($key)) {
+        $inputImages[$key] = '/content/images/' . snakeCaseToKebabCase($key) . '.' . Input::file($key)->guessExtension();
+        Input::file($key)->move(uploadedContentPath('images'), snakeCaseToKebabCase($key) . '.' . Input::file($key)->guessExtension());
       }
     }
 
@@ -126,6 +138,7 @@ class SettingsController extends \BaseController {
 
     $settings->each(function($setting) use ($input)
     {
+      // If setting is an image type but no new image uploaded skip it.
       if ($setting->type === 'image' && $input[$setting->key] == null) return;
       $setting->value = $input[$setting->key];
       $setting->save();
@@ -136,6 +149,52 @@ class SettingsController extends \BaseController {
 
     return Redirect::route('general.edit')->with('flash_message', ['text' => '<strong>Success:</strong> <em>General</em> settings have been saved!', 'class' => 'alert-success']);
 
+  }
+
+
+  /**
+   * Update the specified resource in storage.
+   *
+   * @return Response
+   */
+  public function updateMetaData()
+  {
+    $inputText = Input::only(
+      'open_graph_data_title',
+      'open_graph_data_description',
+      'open_graph_data_type',
+      'open_graph_data_url'
+    );
+
+    $inputImages = Input::only('open_graph_data_image', 'favicon');
+
+    $this->settingsForm->validate($inputText);
+    $this->settingsForm->validate($inputImages);
+
+    // Uploaded Files
+    foreach ($inputImages as $key => $image) {
+      if (Input::hasFile($key)) {
+        $inputImages[$key] = '/content/images/' . snakeCaseToKebabCase($key) . '.' . Input::file($key)->guessExtension();
+        Input::file($key)->move(uploadedContentPath('images'), snakeCaseToKebabCase($key) . '.' . Input::file($key)->guessExtension());
+      }
+    }
+
+    $input = array_merge($inputText, $inputImages);
+
+    $settings = Setting::whereCategory('meta_data')->get();
+
+    $settings->each(function($setting) use ($input)
+    {
+      // If setting is an image type but no new image uploaded skip it.
+      if ($setting->type === 'image' && $input[$setting->key] == null) return;
+      $setting->value = $input[$setting->key];
+      $setting->save();
+    });
+
+    // Updated General Settings so clear the cache.
+    Event::fire('settings.change', ['meta_data']);
+
+    return Redirect::route('meta-data.edit')->with('flash_message', ['text' => '<strong>Success:</strong> <em>Meta Data</em> settings have been saved!', 'class' => 'alert-success']);
   }
 
 }

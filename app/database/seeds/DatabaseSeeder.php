@@ -39,8 +39,13 @@ class DatabaseSeeder extends Seeder {
     $this->call('AppSubmitHelpTextTableSeeder');
     $this->call('HelperTextTableSeeder');
     $this->call('StatusPageHelpTextTableSeeder')
-    $this->command->info('Help text table seeded!');
+    $this->command->info('Help text seeded into Settings table!');
 
+    $this->call('OpenGraphDataSettingsTableSeeder');
+    $this->command->info('Open graph data seeded into Settings table!');
+
+    $this->call('FaviconSettingsTableSeeder');
+    $this->command->info('Favicon seeded into Settings table!');
 
     // Explicitly undo disabling foreign key checks.
     DB::statement('SET FOREIGN_KEY_CHECKS=1;');

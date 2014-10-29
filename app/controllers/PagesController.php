@@ -106,7 +106,11 @@ class PagesController extends \BaseController {
     $pathList = Path::lists('url');
     $pageRequest = stringtoKebabCase($path);
     $url = $pageRequest;
-    $vars = (object) Setting::getPageSettingsVars();
+
+    $favicon   = Setting::getSpecifiedSettingsVars(['favicon']);
+    $page_vars = Setting::getPageSettingsVars();
+
+    $vars = (object) array_merge($page_vars, $favicon);
 
     if (!in_array($pageRequest, $pathList))
     {
@@ -139,10 +143,12 @@ class PagesController extends \BaseController {
     $page = Path::getPageContent('/');
     $winners = Winner::getLastYearWinners();
     $url = 'home';
-    $nominate_vars = Setting::getSpecifiedSettingsVars(['nominate_text', 'nominate_image']);
-    $page_vars = Setting::getPageSettingsVars();
 
-    $vars = (object) array_merge($page_vars, $nominate_vars);
+    $favicon       = Setting::getSpecifiedSettingsVars(['favicon']);
+    $nominate_vars = Setting::getSpecifiedSettingsVars(['nominate_text', 'nominate_image']);
+    $page_vars     = Setting::getPageSettingsVars();
+
+    $vars = (object) array_merge($page_vars, $nominate_vars, $favicon);
 
     return View::make('pages.home', compact('page', 'winners', 'url', 'scholarshipAmount', 'vars'));
   }
