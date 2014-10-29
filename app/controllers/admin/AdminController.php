@@ -127,7 +127,7 @@ class AdminController extends \BaseController {
 
     $query->where('last_name', 'LIKE', '%'. $name .'%');
 
-    $applicants = $query->paginate(25)->appends(Input::all());
+    $applicants = $query->paginate(100)->appends(Input::all());
     return View::make('admin.applications.index', compact('applicants'));
 
   }
