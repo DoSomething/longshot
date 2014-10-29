@@ -6,7 +6,7 @@ class Setting extends Eloquent {
 
   public static $pageQueryItems = ['company_name', 'company_url', 'header_logo', 'footer_logo', 'footer_text', 'tracking_code_id'];
 
-  public static $socialDataQueryItems = ['open_graph_data_title', 'open_graph_data_description', 'open_graph_data_type', 'open_graph_data_url', 'open_graph_data_image'];
+  public static $openGraphDataQueryItems = ['open_graph_data_title', 'open_graph_data_description', 'open_graph_data_type', 'open_graph_data_url', 'open_graph_data_image'];
 
   public static $nominateQueryItems = ['nominate_text', 'nominate_image'];
 
@@ -58,9 +58,9 @@ class Setting extends Eloquent {
    * Shortcut to grab all global Meta Data Setting variables.
    * @return array
    */
-  public static function getMetaDataSettingsVars()
+  public static function getOpenGraphDataSettingsVars()
   {
-    return self::getSpecifiedSettingsVars(self::$socialDataQueryItems);
+    return self::getSpecifiedSettingsVars(self::$openGraphDataQueryItems);
   }
 
 }

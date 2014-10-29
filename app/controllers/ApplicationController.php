@@ -47,8 +47,8 @@ class ApplicationController extends \BaseController {
 
     $choices = Application::formatChoices($hear_about);
 
-    $help_text = Setting::getSpecifiedSettingsVars(['application_create_help_text']);
     $favicon   = Setting::getSpecifiedSettingsVars(['favicon']);
+    $help_text = Setting::getSpecifiedSettingsVars(['application_create_help_text']);
     $page_vars = Setting::getPageSettingsVars();
 
     $vars = (object) array_merge($page_vars, $help_text, $favicon);

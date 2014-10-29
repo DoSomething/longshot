@@ -108,9 +108,10 @@ class PagesController extends \BaseController {
     $url = $pageRequest;
 
     $favicon   = Setting::getSpecifiedSettingsVars(['favicon']);
+    $ogd_vars  = Setting::getOpenGraphDataSettingsVars();
     $page_vars = Setting::getPageSettingsVars();
 
-    $vars = (object) array_merge($page_vars, $favicon);
+    $vars = (object) array_merge($page_vars, $ogd_vars, $favicon);
 
     if (!in_array($pageRequest, $pathList))
     {
@@ -145,10 +146,11 @@ class PagesController extends \BaseController {
     $url = 'home';
 
     $favicon       = Setting::getSpecifiedSettingsVars(['favicon']);
+    $ogd_vars      = Setting::getOpenGraphDataSettingsVars();
     $nominate_vars = Setting::getSpecifiedSettingsVars(['nominate_text', 'nominate_image']);
     $page_vars     = Setting::getPageSettingsVars();
 
-    $vars = (object) array_merge($page_vars, $nominate_vars, $favicon);
+    $vars = (object) array_merge($page_vars, $nominate_vars, $ogd_vars, $favicon);
 
     return View::make('pages.home', compact('page', 'winners', 'url', 'scholarshipAmount', 'vars'));
   }
