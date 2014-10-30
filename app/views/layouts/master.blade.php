@@ -7,9 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    @include('layouts.partials.open-graph-data')
-
-    <title>{{ isset($page) ? $page->title . ' | ' : '' }}{{ $vars->company_name }} Scholarship Application</title>
+    <title>{{ isset($page) ? $page->title . ' | ' : '' }}{{ $vars->site_name }}</title>
 
     <link rel="icon" type="image/ico" href="{{ $vars->favicon or '/favicon.ico' }}"/>
     <script src="/dist/js/modernizr.js"></script>
@@ -18,6 +16,8 @@
     @if (Cache::has('custom.styles'))
       {{ '<style>' . Cache::get('custom.styles') . '</style>' }}
     @endif
+
+    @include('layouts.partials.open-graph-data')
 
     @if (!empty($vars->tracking_code_id))
       @include('layouts.partials.google-analytics')

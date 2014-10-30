@@ -7,7 +7,7 @@ class SiteInfoSettingsTableSeeder extends Seeder {
     Setting::insert([
       'category'    => 'general',
       'key'         => 'site_name',
-      'value'       => '',
+      'value'       => 'Scholarship Application',
       'type'        => 'text',
       'description' => 'Enter name for this website.'
     ]);
@@ -15,7 +15,7 @@ class SiteInfoSettingsTableSeeder extends Seeder {
     Setting::insert([
       'category'    => 'general',
       'key'         => 'site_url',
-      'value'       => '',
+      'value'       => 'http://tmiagency.org',
       'type'        => 'text',
       'description' => 'Enter URL for this website.'
     ]);
