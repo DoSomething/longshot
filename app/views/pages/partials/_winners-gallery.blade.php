@@ -4,7 +4,7 @@
     <div class="wrapper">
     <article class="card" data-modal="trigger" data-slideshow="content">
       <div class="wrapper">
-        <h1 class="heading -delta __title">{{ $winner->user->first_name . $winner->user->last_name }}</h1>
+        <h1 class="heading -delta __title">{{ $winner->user->first_name . ' ' . $winner->user->last_name }}</h1>
         <ul class="media-list media-list--key-value __info">
           <li><strong>Location:</strong> {{ $winner->location[0]->city . ', ' . $winner->location[0]->state }} </li>
           <li><strong>Sports(s):</strong> Basketball and Soccer</li>
