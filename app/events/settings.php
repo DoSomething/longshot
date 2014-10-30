@@ -20,7 +20,7 @@ Event::listen('settings.change', function($category)
 
   } elseif ($category === 'meta_data') {
 
-    Cache::forget('setting.' . implode('.', Setting::$socialDataQueryItems));
+    Cache::forget('setting.' . implode('.', Setting::$openGraphDataQueryItems));
 
     Cache::forget('setting.favicon');
 

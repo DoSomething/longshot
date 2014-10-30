@@ -4,7 +4,7 @@ class Setting extends Eloquent {
 
   protected $fillable = ['value', 'description'];
 
-  public static $pageQueryItems = ['company_name', 'company_url', 'header_logo', 'footer_logo', 'footer_text', 'tracking_code_id'];
+  public static $pageQueryItems = ['company_name', 'company_url', 'site_name', 'site_url', 'header_logo', 'footer_logo', 'footer_text', 'tracking_code_id'];
 
   public static $openGraphDataQueryItems = ['open_graph_data_title', 'open_graph_data_description', 'open_graph_data_type', 'open_graph_data_url', 'open_graph_data_image'];
 

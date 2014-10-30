@@ -41,6 +41,9 @@ class DatabaseSeeder extends Seeder {
     $this->call('StatusPageHelpTextTableSeeder')
     $this->command->info('Help text seeded into Settings table!');
 
+    $this->call('SiteInfoSettingsTableSeeder');
+    $this->command->info('Site info seeded into Settings table!');
+
     $this->call('OpenGraphDataSettingsTableSeeder');
     $this->command->info('Open graph data seeded into Settings table!');
 

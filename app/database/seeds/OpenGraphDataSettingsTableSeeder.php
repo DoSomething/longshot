@@ -17,7 +17,7 @@ class OpenGraphDataSettingsTableSeeder extends Seeder {
       'key'         => 'open_graph_data_description',
       'value'       => '',
       'type'        => 'textarea',
-      'description' => 'Enter description text to share on social media.'
+      'description' => 'Enter a one or two sentence description to share on social media.'
     ]);
 
     Setting::insert([

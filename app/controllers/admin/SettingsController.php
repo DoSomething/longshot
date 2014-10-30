@@ -101,6 +101,8 @@ class SettingsController extends \BaseController {
     $inputText = Input::only(
       'company_name',
       'company_url',
+      'site_name',
+      'site_url',
       'eligibility_text',
       'footer_text',
       'basic_info_help_text',
