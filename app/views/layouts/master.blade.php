@@ -1,3 +1,4 @@
+<?php dd($vars); ?>
 <!DOCTYPE html>
 
 <!--[if lte IE 8]><html class="no-js lt-ie9 lte-ie8" lang="en"><![endif]-->

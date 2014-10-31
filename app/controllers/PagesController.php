@@ -145,12 +145,12 @@ class PagesController extends \BaseController {
     $winners = Winner::getLastYearWinners();
     $url = 'home';
 
-    $favicon       = Setting::getSpecifiedSettingsVars(['favicon']);
-    $ogd_vars      = Setting::getOpenGraphDataSettingsVars();
-    $nominate_vars = Setting::getSpecifiedSettingsVars(['nominate_text', 'nominate_image']);
-    $page_vars     = Setting::getPageSettingsVars();
+    // $favicon       = Setting::getSpecifiedSettingsVars(['favicon']);
+    // $ogd_vars      = Setting::getOpenGraphDataSettingsVars();
+    // $page_vars     = Setting::getPageSettingsVars();
+    $help_text = Setting::getSpecifiedSettingsVars(['nominate_text', 'nominate_image']);
 
-    $vars = (object) array_merge($page_vars, $nominate_vars, $ogd_vars, $favicon);
+    // $vars = (object) array_merge($page_vars, $nominate_vars, $ogd_vars, $favicon);
 
     return View::make('pages.home', compact('page', 'winners', 'url', 'scholarshipAmount', 'vars'));
   }
