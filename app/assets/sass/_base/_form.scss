@@ -83,11 +83,7 @@ p + form { margin-top: 2em; }
     &.-dual { margin-top: 0; }
 
     &.-action { @include clearfix();
-      .button + .button { margin-top: 0; }
-
-      .-alpha { float: left; }
-
-      .-beta { float: right; }
+      .button.-link { margin-top: 1.5em; text-transform: none; }
     }
   }
 

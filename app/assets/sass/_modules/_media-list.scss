@@ -5,7 +5,11 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-.media-list { @include list_reset(); }
+.media-list { @include list_reset();
+
+    li + li { margin-top: pxcalc(3); }
+
+}
 
 p + .media-list { margin-top: 2rem; }
 
