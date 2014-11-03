@@ -1,21 +1,28 @@
 <?php
 
+use Scholarship\Repositories\SettingRepository;
 use Scholarship\Forms\ProfileForm;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class ProfilesController extends \BaseController {
 
-  /**
-   * @var ProfileForm
-   */
   protected $profileForm;
 
-  function __construct(ProfileForm $profileForm)
+  protected $settings;
+
+  function __construct(SettingRepository $settings, ProfileForm $profileForm)
   {
+    $this->settings = $settings;
+
     $this->profileForm = $profileForm;
+
     $this->beforeFilter('currentUser', ['only' => ['edit', 'update']]);
+
     $this->beforeFilter('startedProcess:profile', ['only' => ['create']]);
-  }  /**
+  }
+
+
+  /**
    * Show the form for creating a new resource.
    *
    * @return Response
@@ -25,11 +32,7 @@ class ProfilesController extends \BaseController {
     $states = Profile::getStates();
     $races = Profile::getRaces();
 
-    $favicon   = Setting::getSpecifiedSettingsVars(['favicon']);
-    $help_text = Setting::getSpecifiedSettingsVars(['basic_info_help_text']);
-    $page_vars = Setting::getPageSettingsVars();
-
-    $vars = (object) array_merge($page_vars, $help_text, $favicon);
+    $vars = $this->settings->getSpecifiedSettingsVars(['basic_info_help_text']);
 
     return View::make('profile.create')->with(compact('states', 'races', 'vars'));
   }
@@ -97,19 +100,14 @@ class ProfilesController extends \BaseController {
       return Redirect::home()->with('flash_message', ['text' => 'This user does\'t exist!', 'class' => '-warning']);
     }
 
-    $favicon   = Setting::getSpecifiedSettingsVars(['favicon']);
-    $page_vars = Setting::getPageSettingsVars();
-
-    $vars = (object) array_merge($page_vars, $favicon);
-
     if (! $user->profile)
     {
       // @TODO: Probably change states into a public static function of Controller.
       $states = Profile::getStates();
-      return View::make('profile.create', compact('states', 'vars'));
+      return View::make('profile.create', compact('states'));
     }
 
-    return View::make('profile.show', compact('vars'))->withUser($user);
+    return View::make('profile.show')->withUser($user);
   }
 
 
@@ -125,11 +123,7 @@ class ProfilesController extends \BaseController {
     $states  = Profile::getStates();
     $races   = Profile::getRaces();
 
-    $favicon   = Setting::getSpecifiedSettingsVars(['favicon']);
-    $help_text = Setting::getSpecifiedSettingsVars(['basic_info_help_text']);
-    $page_vars = Setting::getPageSettingsVars();
-
-    $vars = (object) array_merge($page_vars, $help_text, $favicon);
+    $vars = $this->settings->getSpecifiedSettingsVars(['basic_info_help_text']);
 
     return View::make('profile.edit')->withUser($profile)->with(compact('states', 'races', 'vars'));
   }

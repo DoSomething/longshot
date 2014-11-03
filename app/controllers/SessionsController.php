@@ -1,12 +1,10 @@
 <?php
 
 use Scholarship\Forms\LoginForm;
+use Scholarship\Repositories\SettingRepository;
 
 class SessionsController extends \BaseController {
 
-  /**
-   * @var RegistrationForm
-   */
   protected $loginForm;
 
   function __construct(LoginForm $loginForm)
@@ -27,12 +25,7 @@ class SessionsController extends \BaseController {
       return Redirect::route('status');
     }
 
-    $favicon   = Setting::getSpecifiedSettingsVars(['favicon']);
-    $page_vars = Setting::getPageSettingsVars();
-
-    $vars = (object) array_merge($page_vars, $favicon);
-
-    return View::make('sessions.create', compact('vars'));
+    return View::make('sessions.create');
   }
 
 

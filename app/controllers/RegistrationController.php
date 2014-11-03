@@ -1,16 +1,18 @@
 <?php
 
+use Scholarship\Repositories\SettingRepository;
 use Scholarship\Forms\RegistrationForm;
 
 class RegistrationController extends \BaseController {
 
-  /**
-   * @var RegistrationForm
-   */
   protected $registrationForm;
 
-  function __construct(RegistrationForm $registrationForm)
+  protected $settings;
+
+  function __construct(SettingRepository $settings, RegistrationForm $registrationForm)
   {
+    $this->settings = $settings;
+
     $this->registrationForm = $registrationForm;
   }
 
@@ -24,12 +26,10 @@ class RegistrationController extends \BaseController {
   public function create()
   {
 
-    $favicon         = Setting::getSpecifiedSettingsVars(['favicon']);
-    $eligibilityText = Setting::getSpecifiedSettingsVars(['eligibility_text']);
-    $help_text       = Setting::getSpecifiedSettingsVars(['create_account_help_text']);
-    $page_vars       = Setting::getPageSettingsVars();
+    $eligibilityText = $this->settings->getSpecifiedSettingsVars(['eligibility_text']);
+    $help_text       = $this->settings->getSpecifiedSettingsVars(['create_account_help_text']);
 
-    $vars = (object) array_merge($page_vars, $help_text, $eligibilityText, $favicon);
+    $vars = (object) array_merge($eligibilityText, $help_text);
 
     return View::make('registration.create', compact('vars'));
   }

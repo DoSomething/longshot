@@ -1,5 +1,7 @@
 <?php
 
+use Scholarship\Repositories\SettingRepository;
+
 /**
  * Clear the cache if a setting change occurs.
  *
@@ -10,17 +12,17 @@ Event::listen('settings.change', function($category)
 
   if ($category === 'general') {
 
-    Cache::forget('setting.' . implode('.', Setting::$pageQueryItems));
+    Cache::forget('setting.' . implode('.', SettingRepository::$pageQueryItems));
 
-    Cache::forget('setting.' . implode('.', Setting::$nominateQueryItems));
+    Cache::forget('setting.' . implode('.', SettingRepository::$nominateQueryItems));
 
-    foreach (Setting::$individualQueryItems as $item) {
+    foreach (SettingRepository::$individualQueryItems as $item) {
       Cache::forget('setting.' . $item);
     }
 
   } elseif ($category === 'meta_data') {
 
-    Cache::forget('setting.' . implode('.', Setting::$openGraphDataQueryItems));
+    Cache::forget('setting.' . implode('.', SettingRepository::$openGraphDataQueryItems));
 
     Cache::forget('setting.favicon');
 

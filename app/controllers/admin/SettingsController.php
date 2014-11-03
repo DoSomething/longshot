@@ -4,9 +4,6 @@ use Scholarship\Forms\SettingsForm;
 
 class SettingsController extends \BaseController {
 
-  /**
-   * @var SettingsForm
-   */
   protected $settingsForm;
 
   function __construct(SettingsForm $settingsForm)
@@ -22,9 +19,9 @@ class SettingsController extends \BaseController {
    */
   public function editAppearance()
   {
-    $settings = Setting::whereCategory('appearance')->get();
+    $settings_data = Setting::whereCategory('appearance')->get();
 
-    return View::make('admin.settings.appearance.edit', compact('settings'));
+    return View::make('admin.settings.appearance.edit')->with('settings', $settings_data);
   }
 
 
@@ -35,9 +32,9 @@ class SettingsController extends \BaseController {
    */
   public function editGeneral()
   {
-    $settings = Setting::whereCategory('general')->get();
+    $settings_data = Setting::whereCategory('general')->get();
 
-    return View::make('admin.settings.general.edit', compact('settings'));
+    return View::make('admin.settings.general.edit')->with('settings', $settings_data);
   }
 
 
@@ -48,9 +45,9 @@ class SettingsController extends \BaseController {
    */
   public function editMetaData()
   {
-    $settings = Setting::whereCategory('meta_data')->get();
+    $settings_data = Setting::whereCategory('meta_data')->get();
 
-    return View::make('admin.settings.meta-data.edit', compact('settings'));
+    return View::make('admin.settings.meta-data.edit')->with('settings', $settings_data);
   }
 
 
@@ -72,8 +69,8 @@ class SettingsController extends \BaseController {
 
     $this->settingsForm->validate($input);
 
-    $settings = Setting::whereCategory('appearance')->get();
-    $settings->each(function($setting) use($input)
+    $settings_data = Setting::whereCategory('appearance')->get();
+    $settings_data->each(function($setting) use($input)
     {
       $setting->value = $input[$setting->key];
       $setting->save();
@@ -97,7 +94,7 @@ class SettingsController extends \BaseController {
    */
   public function updateGeneral()
   {
-    // @TODO: maybe collect the help_text related items via the Setting::$individualQueryItems static property?
+    // @TODO: maybe collect the help_text related items via the $individualQueryItems SettingsRepository property?
     $inputText = Input::only(
       'company_name',
       'company_url',
@@ -136,9 +133,9 @@ class SettingsController extends \BaseController {
 
     $input = array_merge($inputText, $inputImages);
 
-    $settings = Setting::whereCategory('general')->get();
+    $settings_data = Setting::whereCategory('general')->get();
 
-    $settings->each(function($setting) use ($input)
+    $settings_data->each(function($setting) use ($input)
     {
       // If setting is an image type but no new image uploaded skip it.
       if ($setting->type === 'image' && $input[$setting->key] == null) return;
@@ -183,9 +180,9 @@ class SettingsController extends \BaseController {
 
     $input = array_merge($inputText, $inputImages);
 
-    $settings = Setting::whereCategory('meta_data')->get();
+    $settings_data = Setting::whereCategory('meta_data')->get();
 
-    $settings->each(function($setting) use ($input)
+    $settings_data->each(function($setting) use ($input)
     {
       // If setting is an image type but no new image uploaded skip it.
       if ($setting->type === 'image' && $input[$setting->key] == null) return;

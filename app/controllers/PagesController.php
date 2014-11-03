@@ -1,8 +1,17 @@
 <?php
 
 use Michelf\MarkdownExtra;
+use Scholarship\Repositories\SettingRepository;
 
 class PagesController extends \BaseController {
+
+  protected $settings;
+
+  public function __construct(SettingRepository $settings)
+  {
+    $this->settings = $settings;
+  }
+
 
   /**
    * Display a listing of the resource.
@@ -107,12 +116,6 @@ class PagesController extends \BaseController {
     $pageRequest = stringtoKebabCase($path);
     $url = $pageRequest;
 
-    $favicon   = Setting::getSpecifiedSettingsVars(['favicon']);
-    $ogd_vars  = Setting::getOpenGraphDataSettingsVars();
-    $page_vars = Setting::getPageSettingsVars();
-
-    $vars = (object) array_merge($page_vars, $ogd_vars, $favicon);
-
     if (!in_array($pageRequest, $pathList))
     {
       return App::abort(404);
@@ -122,11 +125,11 @@ class PagesController extends \BaseController {
 
     if (View::exists('pages.' . $pageRequest))
     {
-      return View::make('pages.' . $pageRequest, compact('page', 'url', 'vars'));
+      return View::make('pages.' . $pageRequest, compact('page', 'url'));
     }
 
     // Otherwise, return the default static view template.
-    return View::make('pages.static', compact('page', 'url', 'vars'));
+    return View::make('pages.static', compact('page', 'url'));
   }
 
 
@@ -145,12 +148,7 @@ class PagesController extends \BaseController {
     $winners = Winner::getLastYearWinners();
     $url = 'home';
 
-    // $favicon       = Setting::getSpecifiedSettingsVars(['favicon']);
-    // $ogd_vars      = Setting::getOpenGraphDataSettingsVars();
-    // $page_vars     = Setting::getPageSettingsVars();
-    $help_text = Setting::getSpecifiedSettingsVars(['nominate_text', 'nominate_image']);
-
-    // $vars = (object) array_merge($page_vars, $nominate_vars, $ogd_vars, $favicon);
+    $vars = $this->settings->getSpecifiedSettingsVars(['nominate_text', 'nominate_image']);
 
     return View::make('pages.home', compact('page', 'winners', 'url', 'scholarshipAmount', 'vars'));
   }

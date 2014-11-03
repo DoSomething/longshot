@@ -2,15 +2,15 @@
 
 use Scholarship\Forms\ApplicationForm;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Scholarship\Repositories\SettingRepository;
 
 class ApplicationController extends \BaseController {
 
-  /**
-  * @var applicationForm
-  */
   protected $applicationForm;
 
-  function __construct(ApplicationForm $applicationForm)
+  protected $settings;
+
+  function __construct(ApplicationForm $applicationForm, SettingRepository $settings)
   {
     $this->applicationForm = $applicationForm;
 
@@ -21,16 +21,8 @@ class ApplicationController extends \BaseController {
 
     // Users can only update their app if it hasn't been submitted.
     $this->beforeFilter('submittedApp', ['only' => ['create', 'edit']]);
-  }
 
-  /**
-   * Display a listing of the resource.
-   *
-   * @return Response
-   */
-  public function index()
-  {
-    //
+    $this->settings = $settings;
   }
 
 
@@ -47,11 +39,7 @@ class ApplicationController extends \BaseController {
 
     $choices = Application::formatChoices($hear_about);
 
-    $favicon   = Setting::getSpecifiedSettingsVars(['favicon']);
-    $help_text = Setting::getSpecifiedSettingsVars(['application_create_help_text']);
-    $page_vars = Setting::getPageSettingsVars();
-
-    $vars = (object) array_merge($page_vars, $help_text, $favicon);
+    $vars = $this->settings->getSpecifiedSettingsVars(['application_create_help_text']);
 
     return View::make('application.create')->with(compact('label', 'choices', 'vars'));
   }
@@ -118,12 +106,7 @@ class ApplicationController extends \BaseController {
   {
     $user = User::with('application')->whereId($id)->firstOrFail();
 
-    $favicon   = Setting::getSpecifiedSettingsVars(['favicon']);
-    $page_vars = Setting::getPageSettingsVars();
-
-    $vars = (object) array_merge($page_vars, $favicon);
-
-    return View::make('application.show', compact('vars'))->withUser($user);
+    return View::make('application.show')->withUser($user);
   }
 
 
@@ -141,11 +124,7 @@ class ApplicationController extends \BaseController {
     $hear_about = Scholarship::getCurrentScholarship()->pluck('hear_about_options');
     $choices    = Application::formatChoices($hear_about);
 
-    $favicon   = Setting::getSpecifiedSettingsVars(['favicon']);
-    $help_text = Setting::getSpecifiedSettingsVars(['application_create_help_text']);
-    $page_vars = Setting::getPageSettingsVars();
-
-    $vars = (object) array_merge($page_vars, $help_text, $favicon);
+    $vars = $this->settings->getSpecifiedSettingsVars(['application_create_help_text']);
 
     return View::make('application.edit')->with(compact('user', 'label', 'choices', 'vars'));
   }

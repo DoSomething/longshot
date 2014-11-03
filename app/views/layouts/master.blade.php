@@ -1,4 +1,3 @@
-<?php dd($vars); ?>
 <!DOCTYPE html>
 
 <!--[if lte IE 8]><html class="no-js lt-ie9 lte-ie8" lang="en"><![endif]-->
@@ -8,9 +7,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>{{ isset($page) ? $page->title . ' | ' : '' }}{{ $vars->site_name }}</title>
+    <title>{{ isset($page) ? $page->title . ' | ' : '' }}{{ $global_vars->site_name }}</title>
 
-    <link rel="icon" type="image/ico" href="{{ $vars->favicon or '/favicon.ico' }}"/>
+    <link rel="icon" type="image/ico" href="{{ $global_vars->favicon or '/favicon.ico' }}"/>
     <script src="/dist/js/modernizr.js"></script>
     <link rel="stylesheet" href="/dist/css/main.css"/>
 
@@ -20,7 +19,7 @@
 
     @include('layouts.partials.open-graph-data')
 
-    @if (!empty($vars->tracking_code_id))
+    @if (!empty($global_vars->tracking_code_id))
       @include('layouts.partials.google-analytics')
     @endif
   </head>
