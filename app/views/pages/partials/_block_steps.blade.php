@@ -1,27 +1,37 @@
 {{-- Block Type: Steps --}}
 
-<section class="segment segment--steps {{ $block->block_type === 'steps-vertical' ? '-vertical' : '-horizontal' }}">
+<section {{ output_id($block->block_title) }} class="segment segment--steps {{ $block->block_type === 'steps-vertical' ? '-vertical' : '-horizontal' }}">
 
   @if($url === 'home')
 
-    <h1 class="__title heading -alpha">{{ $block->block_title }}</h1>
+    @if (!empty($block->block_title))
+      <h1 class="heading -alpha">{{ $block->block_title }}</h1>
+    @endif
 
     <div class="wrapper">
-      {{ $block->block_body_html }}
+      @if (!empty($block->block_body_html))
+        {{ $block->block_body_html }}
+      @endif
 
-      <aside class="callout callout--scholarship">
-        <div class="wrapper">
-          <strong><span class="__amount">${{ useMetricPrefix($scholarshipAmount) }}</span> Scholarship</strong>
-        </div>
-      </aside>
+      @if (isset($scholarshipAmount))
+        <aside class="callout callout--scholarship">
+          <div class="wrapper">
+            <strong><span class="__amount">${{ useMetricPrefix($scholarshipAmount) }}</span> Scholarship</strong>
+          </div>
+        </aside>
+      @endif
     </div>
 
   @else
 
     <div class="wrapper">
-      <h1 class="__title heading {{ $block->block_type === 'steps-vertical' ? '-alpha' : '-gamma' }}">{{ $block->block_title }}</h1>
+      @if (!empty($block->block_title))
+        <h1 class="heading {{ $block->block_type === 'steps-vertical' ? '-alpha' : '-gamma' }}">{{ $block->block_title }}</h1>
+      @endif
 
-      {{ $block->block_body_html }}
+      @if (!empty($block->block_body_html))
+        {{ $block->block_body_html }}
+      @endif
     </div>
 
   @endif

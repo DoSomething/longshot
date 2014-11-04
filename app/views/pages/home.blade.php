@@ -71,14 +71,7 @@
       <div class="__image" style="background-image: url('{{ $vars->nominate_image or '/dist/images/nominate-image-placeholder.jpg' }}');"></div>
     </section>
 
-    <section class="segment segment--gallery" data-modal="">
-      <div class="wrapper">
-        <h1 class="__title heading -alpha">2013-2014 Class</h1>
-
-        @include('pages.partials._winners-gallery')
-
-      </div>
-    </section>
+    @include('pages.partials._winners-gallery')
 
   </article>
 @stop

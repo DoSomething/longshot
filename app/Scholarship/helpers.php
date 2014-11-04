@@ -123,7 +123,7 @@ function uploadedContentPath($type = '')
  */
 function snakeCaseToTitleCase($text)
 {
-  return $output = ucwords(str_replace('_', ' ', $text));
+  return ucwords(str_replace('_', ' ', $text));
 }
 
 
@@ -132,7 +132,7 @@ function snakeCaseToTitleCase($text)
  */
 function snakeCaseToKebabCase($text)
 {
-  return $output = str_replace('_', '-', $text);
+  return str_replace('_', '-', $text);
 }
 
 
@@ -141,7 +141,10 @@ function snakeCaseToKebabCase($text)
  */
 function stringtoKebabCase($text)
 {
-  return $output = str_replace(' ', '-', strtolower($text));
+  $symbols = ["'", "’", ":"];
+  $text = str_replace($symbols, '', $text);
+  $text = str_replace(' ', '-', strtolower($text));
+  return $text;
 }
 
 
@@ -176,6 +179,18 @@ function outputBlock($block)
   }
 
   return $block->block_type;
+}
+
+
+/**
+ * If title supplied, output an ID for tag.
+ */
+function output_id($title) {
+  if (!empty($title)) {
+    return 'id="' . stringtoKebabCase($title) . '"';
+  }
+
+  return false;
 }
 
 
