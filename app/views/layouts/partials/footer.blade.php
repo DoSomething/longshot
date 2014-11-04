@@ -15,8 +15,8 @@
 
     <p class="__copyright">Copyright &copy; {{ date('Y') }} {{ $global_vars->company_name or 'TMI Agency' }}</p>
 
-    @if (! empty($vars->footer_text))
-      <small class="__message">{{ $vars->footer_text }}</small>
+    @if (! empty($global_vars->footer_text))
+      <small class="__message">{{ $global_vars->footer_text }}</small>
     @endif
 
   </div>
