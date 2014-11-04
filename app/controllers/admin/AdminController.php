@@ -151,7 +151,6 @@ class AdminController extends \BaseController {
     if ($app_id) {
       $recomendations = Recommendation::getUserRecs($app_id->id);
 
-      $show_rating = FALSE;
       if (Application::isComplete($app_id->id))
         $show_rating = TRUE;
       $app_rating = Rating::getApplicationRating($app_id->id);
