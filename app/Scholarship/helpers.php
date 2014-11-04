@@ -122,7 +122,7 @@ function uploadedContentPath($type = '')
  */
 function snakeCaseToTitleCase($text)
 {
-  return $output = ucwords(str_replace('_', ' ', $text));
+  return ucwords(str_replace('_', ' ', $text));
 }
 
 
@@ -186,8 +186,7 @@ function outputBlock($block)
  */
 function output_id($title) {
   if (!empty($title)) {
-    $title = 'id="' . stringtoKebabCase($title) . '"';
-    return $title;
+    return 'id="' . stringtoKebabCase($title) . '"';
   }
 
   return false;
