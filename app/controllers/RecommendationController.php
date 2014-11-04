@@ -31,7 +31,7 @@ class RecommendationController extends \BaseController {
     // This will be seen by applicants only.
     $num_recs = Scholarship::getCurrentScholarship()->select('num_recommendations_max', 'num_recommendations_min')->firstOrFail()->toArray();
 
-    $vars = $this->settings->getSpecifiedSettingsVars(['recommendation_create_help_text']);
+    $vars = (object) $this->settings->getSpecifiedSettingsVars(['recommendation_create_help_text']);
 
     return View::make('recommendation.create', compact('num_recs', 'vars'));
   }
@@ -103,7 +103,7 @@ class RecommendationController extends \BaseController {
     // Make sure this person has the right token in the url.
     $correct_token = RecommendationToken::where('recommendation_id', $id)->pluck('token');
 
-    $vars = $this->settings->getSpecifiedSettingsVars(['recommendation_update_help_text']);
+    $vars = (object) $this->settings->getSpecifiedSettingsVars(['recommendation_update_help_text']);
 
     if (isset($_GET['token']) && $_GET['token'] == $correct_token) {
       $recommendation = Recommendation::whereId($id)->firstOrFail();

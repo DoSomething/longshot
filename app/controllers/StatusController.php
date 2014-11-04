@@ -91,7 +91,7 @@ class StatusController extends \BaseController {
     $profile = Profile::getUserProfile($id);
     $scholarship = Scholarship::getScholarshipLabels();
 
-    $vars = $this->settings->getSpecifiedSettingsVars(['application_submit_help_text']);
+    $vars = (object) $this->settings->getSpecifiedSettingsVars(['application_submit_help_text']);
 
     $prof_complete = Profile::isComplete(Auth::user()->id);
     if (!$prof_complete) {
