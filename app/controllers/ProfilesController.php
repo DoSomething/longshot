@@ -32,7 +32,7 @@ class ProfilesController extends \BaseController {
     $states = Profile::getStates();
     $races = Profile::getRaces();
 
-    $vars = $this->settings->getSpecifiedSettingsVars(['basic_info_help_text']);
+    $vars = (object) $this->settings->getSpecifiedSettingsVars(['basic_info_help_text']);
 
     return View::make('profile.create')->with(compact('states', 'races', 'vars'));
   }
@@ -123,7 +123,7 @@ class ProfilesController extends \BaseController {
     $states  = Profile::getStates();
     $races   = Profile::getRaces();
 
-    $vars = $this->settings->getSpecifiedSettingsVars(['basic_info_help_text']);
+    $vars = (object) $this->settings->getSpecifiedSettingsVars(['basic_info_help_text']);
 
     return View::make('profile.edit')->withUser($profile)->with(compact('states', 'races', 'vars'));
   }

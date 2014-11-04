@@ -148,7 +148,7 @@ class PagesController extends \BaseController {
     $winners = Winner::getLastYearWinners();
     $url = 'home';
 
-    $vars = $this->settings->getSpecifiedSettingsVars(['nominate_text', 'nominate_image']);
+    $vars = (object) $this->settings->getSpecifiedSettingsVars(['nominate_text', 'nominate_image']);
 
     return View::make('pages.home', compact('page', 'winners', 'url', 'scholarshipAmount', 'vars'));
   }

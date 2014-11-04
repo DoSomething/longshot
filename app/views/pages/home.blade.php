@@ -68,7 +68,10 @@
 
         {{ Form::close() }}
       </div>
-      <div class="__image" style="background-image: url('{{ $vars->nominate_image or '/dist/images/nominate-image-placeholder.jpg' }}');"></div>
+
+      @if (!empty($vars->nominate_text))
+        <div class="__image" style="background-image: url('{{ $vars->nominate_image or '/dist/images/nominate-image-placeholder.jpg' }}');"></div>
+      @endif
     </section>
 
     @include('pages.partials._winners-gallery')

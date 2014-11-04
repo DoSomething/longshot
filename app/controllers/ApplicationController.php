@@ -39,7 +39,7 @@ class ApplicationController extends \BaseController {
 
     $choices = Application::formatChoices($hear_about);
 
-    $vars = $this->settings->getSpecifiedSettingsVars(['application_create_help_text']);
+    $vars = (object) $this->settings->getSpecifiedSettingsVars(['application_create_help_text']);
 
     return View::make('application.create')->with(compact('label', 'choices', 'vars'));
   }
@@ -124,7 +124,7 @@ class ApplicationController extends \BaseController {
     $hear_about = Scholarship::getCurrentScholarship()->pluck('hear_about_options');
     $choices    = Application::formatChoices($hear_about);
 
-    $vars = $this->settings->getSpecifiedSettingsVars(['application_create_help_text']);
+    $vars = (object) $this->settings->getSpecifiedSettingsVars(['application_create_help_text']);
 
     return View::make('application.edit')->with(compact('user', 'label', 'choices', 'vars'));
   }
