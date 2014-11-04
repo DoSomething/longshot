@@ -147,14 +147,15 @@ class AdminController extends \BaseController {
     $races = Profile::getUserRace($prof_id);
 
     $recomendations = null;
-    if ($app_id)
+    $show_rating = FALSE;
+    if ($app_id) {
       $recomendations = Recommendation::getUserRecs($app_id->id);
 
-    $show_rating = FALSE;
-    if (Application::isComplete($app_id->id))
-      $show_rating = TRUE;
+      if (Application::isComplete($app_id->id))
+        $show_rating = TRUE;
+      $app_rating = Rating::getApplicationRating($app_id->id);
+    }
 
-    $app_rating = Rating::getApplicationRating($app_id->id);
     $possible_ratings = Rating::getPossibleRatings();
 
     return View::make('admin.applications.show', compact('id', 'application', 'app_id', 'user', 'profile', 'races', 'scholarship', 'recomendations', 'show_rating', 'possible_ratings', 'app_rating'));
