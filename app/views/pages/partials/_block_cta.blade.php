@@ -1,10 +1,15 @@
 {{-- Block Type: Call To Action --}}
 
-<section class="segment segment--cta">
-  <h1 class="heading -alpha">{{ $block->block_title }}</h1>
+<section {{ output_id($block->block_title) }} class="segment segment--cta">
+
+  @if (!empty($block->block_title))
+    <h1 class="heading -alpha">{{ $block->block_title }}</h1>
+  @endif
 
   <div class="wrapper">
-    {{ $block->block_body_html }}
+    @if (!empty($block->block_body_html))
+      {{ $block->block_body_html }}
+    @endif
 
     @if($url === 'home')
       <div class="fragment">

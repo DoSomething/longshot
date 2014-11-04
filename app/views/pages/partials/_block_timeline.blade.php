@@ -1,11 +1,15 @@
 {{-- Block Type: Timeline --}}
 
-<section class="segment segment--timeline">
+<section {{ output_id($block->block_title) }} class="segment segment--timeline">
   <div class="wrapper">
 
-    <h2 class="heading -gamma">{{ $block->block_title }}</h1>
+    @if (!empty($block->block_title))
+      <h1 class="heading -gamma">{{ $block->block_title }}</h1>
+    @endif
 
-    {{ $block->block_body_html }}
+    @if (!empty($block->block_body_html))
+      {{ $block->block_body_html }}
+    @endif
 
-  </h2>
+  </div>
 </section>

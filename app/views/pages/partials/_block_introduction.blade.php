@@ -1,7 +1,11 @@
 {{-- Block Type: Introduction --}}
 
-<div class="segment segment--introduction">
+<div id="introduction" class="segment segment--introduction">
   <div class="wrapper">
-    {{ $block->block_body_html }}
+
+    @if (!empty($block->block_body_html))
+      {{ $block->block_body_html }}
+    @endif
+
   </div>
 </div>
