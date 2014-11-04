@@ -3,6 +3,7 @@
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
+use Scholarship\Repositories\SettingRepository;
 
 class CustomStylesCommand extends Command {
 
@@ -38,9 +39,11 @@ class CustomStylesCommand extends Command {
    */
   public function fire()
   {
-    $settings = Setting::getCategorySettingsVars('appearance');
+    $settings = new SettingRepository();
 
-    createCustomStylesheet($settings);
+    $setting_data = $settings->getCategorySettingsVars('appearance');
+
+    createCustomStylesheet($setting_data);
 
     $this->info('Custom settings have been saved to the cache.');
   }

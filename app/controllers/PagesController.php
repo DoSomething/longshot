@@ -1,8 +1,17 @@
 <?php
 
 use Michelf\MarkdownExtra;
+use Scholarship\Repositories\SettingRepository;
 
 class PagesController extends \BaseController {
+
+  protected $settings;
+
+  public function __construct(SettingRepository $settings)
+  {
+    $this->settings = $settings;
+  }
+
 
   /**
    * Display a listing of the resource.
@@ -106,7 +115,6 @@ class PagesController extends \BaseController {
     $pathList = Path::lists('url');
     $pageRequest = stringtoKebabCase($path);
     $url = $pageRequest;
-    $vars = (object) Setting::getPageSettingsVars();
 
     if (!in_array($pageRequest, $pathList))
     {
@@ -117,11 +125,11 @@ class PagesController extends \BaseController {
 
     if (View::exists('pages.' . $pageRequest))
     {
-      return View::make('pages.' . $pageRequest, compact('page', 'url', 'vars'));
+      return View::make('pages.' . $pageRequest, compact('page', 'url'));
     }
 
     // Otherwise, return the default static view template.
-    return View::make('pages.static', compact('page', 'url', 'vars'));
+    return View::make('pages.static', compact('page', 'url'));
   }
 
 
@@ -139,10 +147,8 @@ class PagesController extends \BaseController {
     $page = Path::getPageContent('/');
     $winners = Winner::getLastYearWinners();
     $url = 'home';
-    $nominate_vars = Setting::getSpecifiedSettingsVars(['nominate_text', 'nominate_image']);
-    $page_vars = Setting::getPageSettingsVars();
 
-    $vars = (object) array_merge($page_vars, $nominate_vars);
+    $vars = $this->settings->getSpecifiedSettingsVars(['nominate_text', 'nominate_image']);
 
     return View::make('pages.home', compact('page', 'winners', 'url', 'scholarshipAmount', 'vars'));
   }

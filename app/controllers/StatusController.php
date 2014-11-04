@@ -1,18 +1,22 @@
 <?php
 
+use Scholarship\Repositories\SettingRepository;
 use Scholarship\Forms\ReviewForm;
 
 class StatusController extends \BaseController {
 
-  /**
-  * @var reviewForm
-  */
   protected $reviewForm;
 
-  function __construct(ReviewForm $reviewForm)
+  protected $settings;
+
+  function __construct(SettingRepository $settings, ReviewForm $reviewForm)
   {
+    $this->settings = $settings;
+
     $this->reviewForm = $reviewForm;
   }
+
+
   /**
    * User status page.
    * This page shows an overall glance of the status of the application.
@@ -32,10 +36,10 @@ class StatusController extends \BaseController {
     // Is the app complete & been submitted?
     if ($app_filled_out && $application->submitted) {
       $status = 'Submitted. Waiting for recommendation...';
-      $help_text = Setting::getSpecifiedSettingsVars(['status_page_help_text_submitted'])['status_page_help_text_submitted'];
+      $help_text = $this->settings->getSpecifiedSettingsVars(['status_page_help_text_submitted'])['status_page_help_text_submitted'];
     } else {
       $status = 'Incomplete';
-      $help_text = Setting::getSpecifiedSettingsVars(['status_page_help_text_incomplete'])['status_page_help_text_incomplete'];
+      $help_text = $this->settings->getSpecifiedSettingsVars(['status_page_help_text_incomplete'])['status_page_help_text_incomplete'];
     }
 
     $profile = Profile::where('user_id', $user->id)->first();
@@ -53,7 +57,7 @@ class StatusController extends \BaseController {
         $rec->isRecommendationComplete($rec);
         if ($rec->isComplete($rec->id) && isset($app_filled_out) && $application->submitted) {
           $status = 'Completed.';
-          $help_text = Setting::getSpecifiedSettingsVars(['status_page_help_text_complete'])['status_page_help_text_complete'];
+          $help_text = $this->settings->getSpecifiedSettingsVars(['status_page_help_text_complete'])['status_page_help_text_complete'];
           }
 
       }
@@ -65,16 +69,14 @@ class StatusController extends \BaseController {
       $submit = link_to_route('review', 'Review & Submit Application', [$user->id], ['class' => 'button -small']);
     }
 
-    $page_vars = Setting::getPageSettingsVars();
-
-    $vars = (object) ($page_vars);
+    // @TODO: $help_text got removed from getting merged into $vars... find out why.
 
     // @TODO: find a better way of retrieving the timeline in case there are other blocks to that type.
     // Query cached for 2 hours.
     $timeline = Block::remember(120, 'query.block.timeline')->whereBlockType('timeline')->select('block_body_html')->first();
     $timeline = $timeline->block_body_html;
 
-    return View::make('status.index', compact('profile', 'application', 'recommendations', 'app_filled_out', 'prof_complete', 'submit', 'status', 'vars', 'add_rec_link', 'timeline', 'help_text'));
+    return View::make('status.index', compact('profile', 'application', 'recommendations', 'app_filled_out', 'prof_complete', 'submit', 'status', 'add_rec_link', 'timeline', 'help_text'));
 
   }
 
@@ -89,10 +91,7 @@ class StatusController extends \BaseController {
     $profile = Profile::getUserProfile($id);
     $scholarship = Scholarship::getScholarshipLabels();
 
-    $help_text = Setting::getSpecifiedSettingsVars(['application_submit_help_text']);
-    $page_vars = Setting::getPageSettingsVars();
-
-    $vars = (object) array_merge($page_vars, $help_text);
+    $vars = $this->settings->getSpecifiedSettingsVars(['application_submit_help_text']);
 
     $prof_complete = Profile::isComplete(Auth::user()->id);
     if (!$prof_complete) {

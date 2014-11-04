@@ -74,6 +74,8 @@ Route::group(['before' => 'role:administrator', 'prefix' => 'admin'], function()
   Route::post('settings/general', ['as' => 'general.update', 'uses' => 'SettingsController@updateGeneral']);
   Route::get('settings/appearance', ['as' => 'appearance.edit', 'uses' => 'SettingsController@editAppearance']);
   Route::post('settings/appearance', ['as' => 'appearance.update', 'uses' => 'SettingsController@updateAppearance']);
+  Route::get('settings/meta-data', ['as' => 'meta-data.edit', 'uses' => 'SettingsController@editMetaData']);
+  Route::post('settings/meta-data', ['as' => 'meta-data.update', 'uses' => 'SettingsController@updateMetaData']);
 
   # Emails
   Route::get('email', ['as' => 'emails', 'uses' => 'EmailController@index']);

@@ -1,31 +1,24 @@
 <?php
 
+use Scholarship\Repositories\SettingRepository;
 use Scholarship\Forms\RecommendationForm;
 
 class RecommendationController extends \BaseController {
-  /**
-   * @var recommendationForm
-   */
+
   protected $recommendationForm;
 
-  function __construct(RecommendationForm $recommendationForm)
+  protected $settings;
+
+  function __construct(SettingRepository $settings, RecommendationForm $recommendationForm)
   {
+    $this->settings = $settings;
+
     $this->recommendationForm = $recommendationForm;
 
     // Check that the current user doesn't create many applications
     $this->beforeFilter('createdRec', ['only' => ['create']]);
   }
 
-  /**
-   * Display a listing of the resource.
-   * GET /recommendation
-   *
-   * @return Response
-   */
-  public function index()
-  {
-    //
-  }
 
   /**
    * Show the form for creating a new resource.
@@ -38,13 +31,11 @@ class RecommendationController extends \BaseController {
     // This will be seen by applicants only.
     $num_recs = Scholarship::getCurrentScholarship()->select('num_recommendations_max', 'num_recommendations_min')->firstOrFail()->toArray();
 
-    $help_text = Setting::getSpecifiedSettingsVars(['recommendation_create_help_text']);
-    $page_vars = Setting::getPageSettingsVars();
-
-    $vars = (object) array_merge($page_vars, $help_text);
+    $vars = $this->settings->getSpecifiedSettingsVars(['recommendation_create_help_text']);
 
     return View::make('recommendation.create', compact('num_recs', 'vars'));
   }
+
 
   /**
    * Store a newly created resource in storage.
@@ -112,10 +103,7 @@ class RecommendationController extends \BaseController {
     // Make sure this person has the right token in the url.
     $correct_token = RecommendationToken::where('recommendation_id', $id)->pluck('token');
 
-    $help_text = Setting::getSpecifiedSettingsVars(['recommendation_update_help_text']);
-    $page_vars = Setting::getPageSettingsVars();
-
-    $vars = (object) array_merge($page_vars, $help_text);
+    $vars = $this->settings->getSpecifiedSettingsVars(['recommendation_update_help_text']);
 
     if (isset($_GET['token']) && $_GET['token'] == $correct_token) {
       $recommendation = Recommendation::whereId($id)->firstOrFail();
@@ -146,6 +134,7 @@ class RecommendationController extends \BaseController {
       return App::abort(403, 'Access denied');
     }
   }
+
 
   /**
    * Update the specified resource in storage.
@@ -215,19 +204,6 @@ class RecommendationController extends \BaseController {
   }
 
 
-
-  /**
-   * Remove the specified resource from storage.
-   * DELETE /recommendation/{id}
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function destroy($id)
-  {
-    //
-  }
-
   /**
    * Sends email to applicant saying the rec request has been sent.
    */
@@ -278,7 +254,5 @@ class RecommendationController extends \BaseController {
       );
     $email->sendEmail('received', 'recommender', $recommendation->email, $data2);
   }
-
-
 
 }
