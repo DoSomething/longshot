@@ -2,7 +2,7 @@
   <div class="wrapper">
 
     <div class="__partner">
-      <span>In partnership with:</span> <img src="{{ $vars->footer_logo or '/dist/images/tmi-logo.png' }}" alt="partner">
+      <span>In partnership with:</span> <img src="{{ $global_vars->footer_logo or '/dist/images/tmi-logo.png' }}" alt="partner">
     </div>
 
     <nav class="alternative-nav">
@@ -13,10 +13,10 @@
       </ul>
     </nav>
 
-    <p class="__copyright">Copyright &copy; {{ date('Y') }} {{ $vars->company_name or 'TMI Agency' }}</p>
+    <p class="__copyright">Copyright &copy; {{ date('Y') }} {{ $global_vars->company_name or 'TMI Agency' }}</p>
 
-    @if (! empty($vars->footer_text))
-      <small class="__message">{{ $vars->footer_text }}</small>
+    @if (! empty($global_vars->footer_text))
+      <small class="__message">{{ $global_vars->footer_text }}</small>
     @endif
 
   </div>
