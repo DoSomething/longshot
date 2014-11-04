@@ -12,7 +12,7 @@
 
   &.-small { @include rem(16); background-color: $app_primary; border-radius: 3px; color: #fff; display: inline-block; min-width: 150px; padding: 0.5em 1em; }
 
-  &.-link { @include rem(16); display: block; line-height: 1; text-transform: uppercase;
+  &.-link { @include rem(16); background-color: transparent; color: $app_primary; display: block; line-height: 1; text-transform: uppercase;
     > .icon { padding-left: pxcalc(5); position: relative; top: 1px; }
   }
 

@@ -82,12 +82,11 @@ p + form { margin-top: 2em; }
 
     &.-dual { margin-top: 0; }
 
-    &.-action { @include clearfix();
-      .button + .button { margin-top: 0; }
-
-      .-alpha { float: left; }
-
-      .-beta { float: right; }
+    &.-action { @include clearfix(); padding: 1.5em 0;
+      .button {
+        &.-default {  }
+        &.-link { margin-top: 1em; text-transform: none; }
+      }
     }
   }
 

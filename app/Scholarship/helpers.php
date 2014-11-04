@@ -89,6 +89,7 @@ function createCustomStylesheet($styles)
   $output .= ".border-primary-color { border-color: #$styles->primary_color; }";
   $output .= ".button.-default { background-color: #$styles->primary_color; color: #$styles->primary_color_contrast; }";
   $output .= ".button.-small { background-color: #$styles->primary_color; color: #$styles->primary_color_contrast; }";
+  $output .= ".button.-link { color: #$styles->primary_color; }";
   $output .= "a { color: #$styles->primary_color; }";
   $output .= "#button-main-nav { color: #$styles->primary_color_contrast; }";
   $output .= "#button-main-nav:hover, #button-main-nav:focus { color: #$styles->primary_color; }";
