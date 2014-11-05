@@ -3,6 +3,7 @@
 @extends('layouts.master')
 
 @section('main_content')
+  <?php //dd($global_vars); ?>
   <article class="page">
     <h1 class="__title heading -beta text-primary-color">Review &amp; Submit</h1>
 
@@ -67,7 +68,7 @@
 
         <div class="field-group -checkbox">
           {{ Form::checkbox('media_release', 1, false, ['id' => 'eligibility']); }}
-          {{ Form::label('media_release', "Foot Locker and TMI may use your application in any media or public relations campaigns.") }}
+          {{ Form::label('media_release', $global_vars->company_name . " and TMI may use your application in any media or public relations campaigns.") }}
           {{ errorsFor('media_release', $errors); }}
         </div>
 
