@@ -11,29 +11,14 @@
     span,
     img { display: inline-block; }
 
-    span { bottom: pxcalc(5); margin-right: pxcalc(5); position: relative; }
+    span { bottom: pxcalc(5); margin-right: pxcalc(5); }
 
     img { max-height: 50px; }
   }
 
+  .__copyright { padding-top: 1.5em; }
+
   .__message { clear: both; display: block; padding-top: 2em; }
-
-  .__copyright { clear: both; padding-top: 1.5em; }
-
-  .alternative-nav { display: table; margin: 1.5em auto 0;
-    a { display: block; text-decoration: none;
-      > span { padding: 0 0.75em; }
-    }
-
-    .__menu { @include list_reset(); overflow: hidden;
-      li { float: left;
-        span { border-right: 1px solid $app_primary; }
-        &:last-child span { border: 0 none; }
-      }
-    }
-
-
-  }
 
 }
 
@@ -48,11 +33,13 @@
   [role="contentinfo"] { @include container($wide);
     > .wrapper { @include push(1 of 24); width: span(22 of 24); }
 
-    .__partner { float: left; text-align: left; }
-
-    .alternative-nav { float: right; display: block; margin: 0;
-      a { height: 50px; line-height: 30px; padding: 10px 0; }
+    .__partner { float: left; text-align: left;
+      span { line-height: 1; margin-top: pxcalc(15); vertical-align: top; }
     }
+
+    .__copyright { float: right; line-height: 1; margin-top: pxcalc(15); padding-top: 0; }
+
+    .__message { display: table; margin: 0 auto; max-width: 60%; padding-top: 2.5em; }
 
   }
 
