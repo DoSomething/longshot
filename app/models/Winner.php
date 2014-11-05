@@ -19,10 +19,15 @@ class Winner extends Eloquent {
   {
     $old_id = Scholarship::getCurrentScholarship()->pluck('id') - 1;
     $winners = Winner::rememberForever()->with('user')->where('scholarship_id', $old_id)->get();
-    foreach ($winners as $key => $winner) {
-      $winner->location = Profile::rememberForever()->where('user_id', $winner->user->id)->select('city', 'state')->get();
-      $winner->gpa = Application::rememberForever()->where('user_id', $winner->user->id)->pluck('gpa');
+
+    if (count($winners) > 0) {
+      foreach ($winners as $key => $winner) {
+        $winner->location = Profile::rememberForever()->where('user_id', $winner->user->id)->select('city', 'state')->get();
+        $winner->gpa = Application::rememberForever()->where('user_id', $winner->user->id)->pluck('gpa');
+      }
+      return $winners;
     }
-    return $winners;
+
+    return false;
   }
 }
