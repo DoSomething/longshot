@@ -3,7 +3,6 @@
 @extends('layouts.master')
 
 @section('main_content')
-  <?php //dd($global_vars); ?>
   <article class="page">
     <h1 class="__title heading -beta text-primary-color">Review &amp; Submit</h1>
 
