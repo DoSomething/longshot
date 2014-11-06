@@ -113,7 +113,8 @@ class SettingsController extends \BaseController {
       'tracking_code_id',
       'status_page_help_text_incomplete',
       'status_page_help_text_submitted',
-      'status_page_help_text_complete'
+      'status_page_help_text_complete',
+      'official_rules_url'
       );
 
     $inputImages = Input::only('header_logo', 'footer_logo', 'nominate_image');

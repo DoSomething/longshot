@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\DB;
 
 class SettingRepository {
 
-  public static $pageQueryItems = ['company_name', 'company_url', 'site_name', 'site_url', 'header_logo', 'footer_logo', 'footer_text', 'tracking_code_id'];
+  public static $pageQueryItems = ['company_name', 'company_url', 'site_name', 'site_url', 'header_logo', 'footer_logo', 'footer_text', 'tracking_code_id', 'official_rules_url'];
 
   public static $openGraphDataQueryItems = ['open_graph_data_title', 'open_graph_data_description', 'open_graph_data_type', 'open_graph_data_url', 'open_graph_data_image'];
 
