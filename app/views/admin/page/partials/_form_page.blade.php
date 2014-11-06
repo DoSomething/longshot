@@ -41,6 +41,13 @@
 {{-- Hero Image --}}
 <div class="form-group">
   {{ Form::label('hero_image', 'Hero Image: ') }}
+
+  @if (!empty($page->hero_image))
+    <div class="image-holder">
+      <img src="{{ $page->hero_image }}" alt="uploaded image">
+    </div>
+  @endif
+
   {{ Form::file('hero_image') }}
   {{ errorsFor('hero_image', $errors); }}
 </div>

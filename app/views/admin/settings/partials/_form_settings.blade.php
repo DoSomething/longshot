@@ -1,10 +1,10 @@
-@foreach($settings as $setting)
+@foreach ($settings as $setting)
 
   {{-- Text Setting Type --}}
-  @if($setting->type === 'text')
+  @if ($setting->type === 'text')
     <div class="form-group">
       {{ Form::label($setting->key, snakeCaseToTitleCase($setting->key) . ': ') }}
-      @if($setting->description)
+      @if ($setting->description)
         <p><em class="text-muted">{{ $setting->description }}</em></p>
       @endif
       {{ Form::text($setting->key, $setting->value, ['class' => 'form-control', 'placeholder' => 'enter value']) }}
@@ -14,10 +14,10 @@
 
 
   {{-- Textarea Setting Type --}}
-  @if($setting->type === 'textarea')
+  @if ($setting->type === 'textarea')
     <div class="form-group">
       {{ Form::label($setting->key, snakeCaseToTitleCase($setting->key) . ': ') }}
-      @if($setting->description)
+      @if ($setting->description)
         <p><em class="text-muted">{{ $setting->description }}</em></p>
       @endif
       {{ Form::textarea($setting->key, $setting->value, ['class' => 'form-control', 'placeholder' => 'enter value', 'rows' => '5']) }}
@@ -27,10 +27,10 @@
 
 
   {{-- Color Setting Type --}}
-  @if($setting->type === 'color')
+  @if ($setting->type === 'color')
     <div class="form-group">
       {{ Form::label($setting->key, snakeCaseToTitleCase($setting->key) . ': ') }}
-      @if($setting->description)
+      @if ($setting->description)
         <p><em class="text-muted">{{ $setting->description }}</em></p>
       @endif
       <div class="input-group">
@@ -43,15 +43,19 @@
 
 
   {{-- Image Setting Type --}}
-  @if($setting->type === 'image')
+  @if ($setting->type === 'image')
     <div class="form-group">
       {{ Form::label($setting->key, snakeCaseToTitleCase($setting->key) . ': ') }}
-      @if($setting->description)
+      @if ($setting->description)
         <p><em class="text-muted">{{ $setting->description }}</em></p>
       @endif
-      <div class="image-holder">
-        <img src="{{ $setting->value }}" alt="uploaded image">
-      </div>
+
+      @if (!empty($setting->value))
+        <div class="image-holder">
+          <img src="{{ $setting->value }}" alt="uploaded image">
+        </div>
+      @endif
+
       {{ Form::file($setting->key) }}
       {{ errorsFor($setting->key, $errors); }}
     </div>

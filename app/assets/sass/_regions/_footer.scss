@@ -11,9 +11,9 @@
     span,
     img { display: inline-block; }
 
-    span { bottom: pxcalc(5); margin-right: pxcalc(5); }
+    span { bottom: pxcalc(5); line-height: 1; margin: pxcalc(15) pxcalc(5) 0 0; vertical-align: top; }
 
-    img { max-height: 50px; }
+    img { max-height: 50px; max-width: 150px; }
   }
 
   .__copyright { padding-top: 1.5em; }
@@ -33,9 +33,7 @@
   [role="contentinfo"] { @include container($wide);
     > .wrapper { @include push(1 of 24); width: span(22 of 24); }
 
-    .__partner { float: left; text-align: left;
-      span { line-height: 1; margin-top: pxcalc(15); vertical-align: top; }
-    }
+    .__partner { float: left; text-align: left; }
 
     .__copyright { float: right; line-height: 1; margin-top: pxcalc(15); padding-top: 0; }
 

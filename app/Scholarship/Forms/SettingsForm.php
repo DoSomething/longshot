@@ -24,6 +24,7 @@ class SettingsForm extends FormValidator {
     'site_url'                 => 'url',
     'favicon'                  => 'mimes:ico',
     'open_graph_data_url'      => 'url',
+    'official_rules_url'       => 'url',
   ];
 
 }
