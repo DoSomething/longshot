@@ -23,8 +23,8 @@ class Email extends Eloquent {
     $default_data = array(
       'status_page' => link_to_route('status', 'status page'),
       'faq_page'    => link_to('faq', 'FAQ page'),
-      'home_page'   => link_to_route('home', 'Foot Locker Scholar Athletes'),
-      'email'       => link_to('mailto:footlocker@tmiagency.org', 'footlocker@tmiagency.org'),
+      'home_page'   => link_to_route('home', Scholarship::getCurrentScholarship()->pluck('title')),
+      'email'       => link_to('mailto:' . Config::get('mail.from.address'), Config::get('mail.from.address')),
       );
     $data = array_merge($data, $default_data);
     if (isset($data)) {
