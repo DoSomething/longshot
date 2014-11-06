@@ -19,10 +19,10 @@ textarea {
   resize: vertical;
 }
 
-.btn + .btn { margin-top: 15px; }
-
 .sidebar {
   .btn { width: 100%; }
+
+  .btn + .btn { margin-top: 15px; }
 }
 
 .image-holder { padding: 10px 10px 20px;

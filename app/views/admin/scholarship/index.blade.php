@@ -8,16 +8,22 @@
       @include('admin.layouts.partials.subnav-settings')
 
       <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-        <h1 class="page-header">Scholarship List</h1>
-        <h2 class="sub-header">All scholarships</h2>
+        <h1 class="page-header">Scholarships</h1>
+
+        {{ '<a class="btn btn-default" href="' . URL::route('admin.scholarship.create', null) . '"><span class="glyphicon glyphicon-plus"></span> Create New Scholarship</a>' }}
+
+        {{-- @TODO: get the real id! --}}
+        {{ '<a class="btn btn-default" href="' . URL::route('admin.scholarship.edit', 1) . '"><span class="glyphicon glyphicon-pencil"></span> Edit Current Scholarship</a>' }}
+
+
         <div class="table-responsive">
           <table class="table table-striped">
             <thead>
               <tr>
                 <th>ID</th>
-                <th> Title </th>
-                <th> Description </th>
-                <th> Amount</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Amount</th>
               </tr>
             </thead>
             <tbody>
@@ -32,9 +38,7 @@
             </tbody>
           </table>
         </div>
-        {{ link_to_route('admin.scholarship.create', 'Create new scholarship »', null, array('class' => 'btn btn-default', 'role'=> 'button')) }}
-        {{-- @TODO: get the real id! --}}
-        {{ link_to_route('admin.scholarship.edit', 'Edit current scholarship »', 1, array('class' => 'btn btn-default', 'role'=> 'button')) }}
+
       </div>
 
     </div>
