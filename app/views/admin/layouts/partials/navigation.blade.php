@@ -8,11 +8,13 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      {{ link_to_route('admin', 'Scholarship App', null, ['class' => 'navbar-brand']) }}
+
+      {{ '<a class="navbar-brand" href="' . URL::route('home', null) . '" title="View live site"><span class="glyphicon glyphicon-globe"></span> Scholarship App</a>' }}
     </div>
 
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
+        <li>{{ link_to_route('admin', 'Dashboard') }}</li>
         <li>{{ link_to_route('settings', 'Settings') }}</li>
         <li>{{ link_to_route('applications.index', 'Applications') }}</li>
         <li>{{ link_to_route('admin.page.index', 'Pages') }}</li>

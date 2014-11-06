@@ -9,15 +9,17 @@
 
       <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         <h1 class="page-header">All Applications</h1>
-        {{ $applicants->links() }}
-
 
         {{ Form::open(['route' => 'search', 'class' => 'navbar-form navbar-right']) }}
-        <div class="form-group">
-          {{ Form::text('search',  NULL, ['placeholder' => 'last name']) }}
-        </div>
-        <button type="submit" class="btn btn-default glyphicon glyphicon-search"> Submit</button>
+          <div class="input-group">
+            {{ Form::text('search',  NULL, ['class' => 'form-control', 'placeholder' => 'last name']) }}
+            <div class="input-group-btn">
+              <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span> Search</button>
+            </div>
+          </div>
         {{ Form::close() }}
+
+        {{ $applicants->links() }}
 
         <div class="table-responsive">
           <table class="table table-striped">
