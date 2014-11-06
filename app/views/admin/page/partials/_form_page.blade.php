@@ -1,5 +1,3 @@
-<?php //dd($page->toArray()); ?>
-
 {{-- Title --}}
 <div class="form-group">
   {{ Form::label('title', 'Page Title: ') }}
