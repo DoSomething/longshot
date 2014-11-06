@@ -24,7 +24,7 @@ class NominationController extends \BaseController {
 
     $this->sendNomEmail($nom);
 
-    return Redirect::route('home')->with('flash_message', ['text' => 'Thanks for taking the time to nominate someone for the Foot Locker Scholar Athletes program! If you know other outstanding individuals for the program, we’d love to hear about them.', 'class' => '-info']);
+    return Redirect::route('home')->with('flash_message', ['text' => 'Thanks for taking the time to nominate someone! If you know other outstanding individuals for the program, we’d love to hear about them.', 'class' => '-info']);
   }
 
   public function sendNomEmail($nom)
