@@ -36,6 +36,12 @@
           </div>
         @endif
 
+        @if (count($errors) > 0)
+          <div class="flash-message -error">
+            <em>There are errors in form below, please fix them.</em>
+          </div>
+        @endif
+
         <div id="content" class="content">
           <main role="main">
             @yield('main_content')
