@@ -9,10 +9,13 @@
 
     <p class="__message">
       <small>
-        @if (! empty($global_vars->footer_text))
+        @if (!empty($global_vars->footer_text))
           {{ $global_vars->footer_text }}
         @endif
-        Check out the {{ link_to($global_vars->official_rules_url, 'Official Rules', ['target' => '_blank']) }}.
+
+        @if (isset($global_vars->official_rules_url))
+          Check out the {{ link_to($global_vars->official_rules_url, 'Official Rules', ['target' => '_blank']) }}.
+        @endif
       </small>
     </p>
 
