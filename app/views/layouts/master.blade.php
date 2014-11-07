@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>{{ isset($page) ? $page->title . ' | ' : '' }}{{ $global_vars->site_name }}</title>
+    <title>{{ isset($page) ? $page->title . ' | ' : '' }}{{ !empty($global_vars->site_name) ? $global_vars->site_name : 'Scholarship Application' }}</title>
 
     <link rel="icon" type="image/ico" href="{{ $global_vars->favicon or '/favicon.ico' }}"/>
     <script src="/dist/js/modernizr.js"></script>
