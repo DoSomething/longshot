@@ -44,7 +44,7 @@
 
   {{-- Essay 1 --}}
   <div class="field-group {{ setInvalidClass('essay1', $errors) }}">
-    {{ Form::label('essay1', $label['essay1']) }}
+    {{ HTML::decode(Form::label('essay1', $label['essay1'])) }}
     {{ Form::textarea('essay1') }}
     {{ errorsFor('essay1', $errors); }}
   </div>
