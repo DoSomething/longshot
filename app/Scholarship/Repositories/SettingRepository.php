@@ -67,6 +67,7 @@ class SettingRepository {
 
   /**
    * Save uploaded image to the images directory and return path to image.
+   * @param string $key Name of image input.
    * @return  string Path to image.
    */
   public function moveImage($key)
