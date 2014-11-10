@@ -134,6 +134,19 @@
   {{ errorsFor('label_rec_essay1', $errors); }}
 </div>
 
+{{-- Recomendation Optional question --}}
+<div class="form-group">
+  {{ Form::label('display_optional_rec_question', 'Display optional recommendation question? ') }}
+  {{ Form::checkbox('display_optional_rec_question', 1, ['class' => 'form-control']) }}
+  {{ errorsFor('display_optional_rec_question', $errors); }}
+</div>
+<div class="form-group">
+  {{ Form::label('label_rec_optional_question', 'Recomendation Optional Question Label: ') }}
+  {{ Form::text('label_rec_optional_question', null, ['class' => 'form-control']) }}
+  {{ errorsFor('label_rec_optional_question', $errors); }}
+</div>
+
+
 {{-- How did you hear options? --}}
 <div class="form-group">
   {{ Form::label('hear_about_options', 'Hear about this options (comma seperated list) ') }}

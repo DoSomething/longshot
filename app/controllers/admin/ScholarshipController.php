@@ -81,11 +81,14 @@ class ScholarshipController extends \BaseController {
   public function update($id)
   {
     $input = Input::all();
+    // Must explicity get checkbox content to save as boolean, since a non-checked  box doesn't return anything from a form submit.
+    $optional = Input::get('display_optional_rec_question');
     $scholarship = Scholarship::whereId($id)->firstOrFail();
+    $scholarship->display_optional_rec_question = $optional;
     $scholarship->fill($input)->save();
 
     // Maybe this should go to scholarship/show?
-    return Redirect::route('admin')->with('flash_message', ['text' => '<strong>Success:</strong> Scholarship information has been saved!', 'class' => 'alert-success']);
+    return Redirect::back()->with('flash_message', ['text' => '<strong>Success:</strong> Scholarship information has been saved!', 'class' => 'alert-success']);
   }
 
   /**
