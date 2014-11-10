@@ -67,6 +67,15 @@
             {{ errorsFor('essay1', $errors); }}
           </div>
 
+          {{-- Optional Question --}}
+          @if ($scholarship->display_optional_rec_question)
+          <div class="field-group">
+            {{ Form::label('optional_question', $scholarship->label_rec_optional_question) }}
+            {{ Form::text('optional_question') }}
+            {{ errorsFor('optional_question', $errors); }}
+          </div>
+          @endif
+
 
 
 

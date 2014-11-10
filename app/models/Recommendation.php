@@ -2,7 +2,7 @@
 
 class Recommendation extends \Eloquent {
 
-  protected $fillable = ['first_name', 'last_name', 'phone', 'email', 'relationship', 'rank_character', 'rank_addiational', 'essay1'];
+  protected $fillable = ['first_name', 'last_name', 'phone', 'email', 'relationship', 'rank_character', 'rank_addiational', 'essay1', 'optional_question'];
 
   public function application()
   {

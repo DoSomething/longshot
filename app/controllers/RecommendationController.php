@@ -153,10 +153,7 @@ class RecommendationController extends \BaseController {
     }
     $this->recommendationForm->validate($input);
     $recommendation = Recommendation::whereId($id)->firstOrFail();
-    $recommendation->rank_character = $input['rank_character'];
-    $recommendation->rank_additional = $input['rank_additional'];
-    $recommendation->essay1 = $input['essay1'];
-    $recommendation->save();
+    $recommendation->fill($input)->save();
     $application = Application::whereId($recommendation->application_id)->firstOrFail();
     $application->completed = 1;
     $application->save();
