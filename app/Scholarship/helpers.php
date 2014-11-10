@@ -121,6 +121,9 @@ function createCustomStylesheet($styles)
   if (isset($styles->primary_color_interaction)) {
     $output .= ".button.-default:hover, .button.-default:active { background-color: #$styles->primary_color_interaction }";
     $output .= ".button.-small:hover, .button.-small:active { background-color: #$styles->primary_color_interaction }";
+  } else {
+    $output .= ".button.-default:hover, .button.-default:active { background-color: #$styles->primary_color }";
+    $output .= ".button.-small:hover, .button.-small:active { background-color: #$styles->primary_color }";
   }
 
   Cache::forever('custom.styles', $output);
