@@ -74,7 +74,6 @@
         <div class="field-group -checkbox">
           {{ Form::checkbox('rules', 1, false, ['id' => 'eligibility']); }}
           {{ Form::label('rules', "You agree to the ") }} {{ link_to($global_vars->official_rules_url, 'Official Rules', ['target' => '_blank']) }}
-
           {{ errorsFor('rules', $errors); }}
         </div>
 
