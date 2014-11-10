@@ -84,26 +84,44 @@ function createCustomStylesheet($styles)
 {
   $styles = (object) $styles;
 
-  $output = ".bg-primary-color { background-color: #$styles->primary_color; }";
-  $output .= ".text-primary-color { color: #$styles->primary_color; }";
-  $output .= ".border-primary-color { border-color: #$styles->primary_color; }";
-  $output .= ".button.-default { background-color: #$styles->primary_color; color: #$styles->primary_color_contrast; }";
-  $output .= ".button.-small { background-color: #$styles->primary_color; color: #$styles->primary_color_contrast; }";
-  $output .= ".button.-link { color: #$styles->primary_color; }";
-  $output .= "a { color: #$styles->primary_color; }";
-  $output .= "#button-main-nav { color: #$styles->primary_color_contrast; }";
-  $output .= "#button-main-nav:hover, #button-main-nav:focus { color: #$styles->primary_color; }";
-  $output .= ".main-nav a { color: #$styles->primary_color; }";
-  $output .= ".main-nav .__menu li span { border-color: #$styles->primary_color; }";
-  $output .= "[role=\"contentinfo\"] .alternative-nav .__menu li span { border-color: #$styles->primary_color; }";
-  $output .= ".banner + .segment { border-color: #$styles->primary_color; }";
-  $output .= ".segment--introduction > .wrapper { border-color: #$styles->primary_color; }";
-  $output .= ".segment--detailed-list .__title:before { background-color: #$styles->primary_color; }";
-  $output .= ".segment--timeline ul:before, .segment--timeline ul li:after { background-color: #$styles->primary_color; }";
-  $output .= ".segment--timeline ul li:before { border-color: #$styles->primary_color; }";
-  $output .= ".segment--checklist { border-color: #$styles->primary_color; }";
-  $output .= ".callout--scholarship > .wrapper:before, .callout--scholarship > .wrapper:after { border-color: #$styles->primary_color; }";
-  $output .= ".card figcaption { background-color: #$styles->primary_color; }";
+  $output = '';
+
+  if (isset($styles->primary_color)) {
+    $output .= "a { color: #$styles->primary_color; }";
+
+    $output .= ".bg-primary-color { background-color: #$styles->primary_color; }";
+    $output .= ".text-primary-color { color: #$styles->primary_color; }";
+    $output .= ".border-primary-color { border-color: #$styles->primary_color; }";
+
+    $output .= ".button.-link { color: #$styles->primary_color; }";
+    $output .= ".button.-default { background-color: #$styles->primary_color; " . (isset($styles->primary_color_contrast) ? "color: #$styles->primary_color_contrast;" : "") . "}";
+    $output .= ".button.-small { background-color: #$styles->primary_color; " . (isset($styles->primary_color_contrast) ? "color: #$styles->primary_color_contrast;" : "") . "}";
+
+    $output .= "#button-main-nav:hover, #button-main-nav:focus { color: #$styles->primary_color; }";
+    $output .= ".main-nav a { color: #$styles->primary_color; }";
+    $output .= ".main-nav .__menu li span { border-color: #$styles->primary_color; }";
+
+    $output .= ".banner + .segment { border-color: #$styles->primary_color; }";
+
+    $output .= ".segment--introduction > .wrapper { border-color: #$styles->primary_color; }";
+    $output .= ".segment--detailed-list .__title:before { background-color: #$styles->primary_color; }";
+    $output .= ".segment--timeline ul:before, .segment--timeline ul li:after { background-color: #$styles->primary_color; }";
+    $output .= ".segment--timeline ul li:before { border-color: #$styles->primary_color; }";
+    $output .= ".segment--checklist { border-color: #$styles->primary_color; }";
+
+    $output .= ".callout--scholarship > .wrapper:before, .callout--scholarship > .wrapper:after { border-color: #$styles->primary_color; }";
+
+    $output .= ".card figcaption { background-color: #$styles->primary_color; }";
+  }
+
+  if (isset($styles->primary_color_contrast)) {
+    $output .= "#button-main-nav { color: #$styles->primary_color_contrast; }";
+  }
+
+  if (isset($styles->primary_color_interaction)) {
+    $output .= ".button.-default:hover, .button.-default:active { background-color: #$styles->primary_color_interaction }";
+    $output .= ".button.-small:hover, .button.-small:active { background-color: #$styles->primary_color_interaction }";
+  }
 
   Cache::forever('custom.styles', $output);
 }
