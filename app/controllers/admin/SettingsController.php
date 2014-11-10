@@ -72,7 +72,12 @@ class SettingsController extends \BaseController {
     $settings_data = Setting::whereCategory('appearance')->get();
     $settings_data->each(function($setting) use($input)
     {
-      $setting->value = $input[$setting->key];
+      // If setting is empty, set it to NULL.
+      if ($input[$setting->key] === '') {
+        $setting->value = NULL;
+      } else {
+        $setting->value = $input[$setting->key];
+      }
       $setting->save();
     });
 
@@ -139,8 +144,16 @@ class SettingsController extends \BaseController {
     $settings_data->each(function($setting) use ($input)
     {
       // If setting is an image type but no new image uploaded skip it.
-      if ($setting->type === 'image' && $input[$setting->key] == null) return;
-      $setting->value = $input[$setting->key];
+      if ($setting->type === 'image' && $input[$setting->key] == NULL) {
+        return;
+      }
+      // If setting is empty, set it to NULL.
+      elseif ($input[$setting->key] === '') {
+        $setting->value = NULL;
+      }
+      else {
+        $setting->value = $input[$setting->key];
+      }
       $setting->save();
     });
 
@@ -186,8 +199,16 @@ class SettingsController extends \BaseController {
     $settings_data->each(function($setting) use ($input)
     {
       // If setting is an image type but no new image uploaded skip it.
-      if ($setting->type === 'image' && $input[$setting->key] == null) return;
-      $setting->value = $input[$setting->key];
+      if ($setting->type === 'image' && $input[$setting->key] == NULL) {
+        return;
+      }
+      // If setting is empty, set it to NULL.
+      elseif ($input[$setting->key] === '') {
+        $setting->value = NULL;
+      }
+      else {
+        $setting->value = $input[$setting->key];
+      }
       $setting->save();
     });
 

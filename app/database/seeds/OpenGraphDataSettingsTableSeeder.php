@@ -7,7 +7,7 @@ class OpenGraphDataSettingsTableSeeder extends Seeder {
     Setting::insert([
       'category'    => 'meta_data',
       'key'         => 'open_graph_data_title',
-      'value'       => '',
+      'value'       => NULL,
       'type'        => 'text',
       'description' => 'Enter title text to share on social media.'
     ]);
@@ -15,7 +15,7 @@ class OpenGraphDataSettingsTableSeeder extends Seeder {
     Setting::insert([
       'category'    => 'meta_data',
       'key'         => 'open_graph_data_description',
-      'value'       => '',
+      'value'       => NULL,
       'type'        => 'textarea',
       'description' => 'Enter a one or two sentence description to share on social media.'
     ]);
@@ -31,7 +31,7 @@ class OpenGraphDataSettingsTableSeeder extends Seeder {
     Setting::insert([
       'category'    => 'meta_data',
       'key'         => 'open_graph_data_url',
-      'value'       => '',
+      'value'       => NULL,
       'type'        => 'text',
       'description' => 'Enter site URL to share on social media.'
     ]);
@@ -39,7 +39,7 @@ class OpenGraphDataSettingsTableSeeder extends Seeder {
     Setting::insert([
       'category'    => 'meta_data',
       'key'         => 'open_graph_data_image',
-      'value'       => '',
+      'value'       => NULL,
       'type'        => 'image',
       'description' => 'Upload a square thumbnail image to share on social media.'
     ]);
