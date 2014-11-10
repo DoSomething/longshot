@@ -1,6 +1,7 @@
 <?php namespace Scholarship\Repositories;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
 
 class SettingRepository {
 
@@ -11,22 +12,6 @@ class SettingRepository {
   public static $nominateQueryItems = ['nominate_text', 'nominate_image'];
 
   public static $individualQueryItems = ['eligibility_text', 'basic_info_help_text', 'create_account_help_text', 'profile_create_help_text', 'application_create_help_text', 'recommendation_create_help_text', 'recommendation_update_help_text', 'application_submit_help_text', 'status_page_help_text_incomplete', 'status_page_help_text_submitted', 'status_page_help_text_complete'];
-
-
-  /**
-   * If a setting is empty, then set it to NULL.
-   * @return  array
-   */
-  public function nullify($items)
-  {
-    foreach ($items as $key => $value) {
-      if ($value === '') {
-        $items[$key] = NULL;
-      }
-    }
-
-    return $items;
-  }
 
 
   /**
@@ -79,4 +64,55 @@ class SettingRepository {
     return $this->getSpecifiedSettingsVars(self::$openGraphDataQueryItems);
   }
 
+
+  /**
+   * Save uploaded image to the images directory and return path to image.
+   * @return  string Path to image.
+   */
+  public function moveImage($key)
+  {
+    $extension = Input::file($key)->guessExtension();
+
+    Input::file($key)->move(uploadedContentPath('images'), snakeCaseToKebabCase($key) . '.' . $extension);
+
+    $path = '/content/images/' . snakeCaseToKebabCase($key) . '.' . $extension;
+
+    return $path;
+  }
+
+
+  /**
+   * If a setting is empty, then set it to NULL.
+   * @param   array $input Array of inputs retrieved for the form.
+   * @return  array
+   */
+  public function nullify($input)
+  {
+    foreach ($input as $key => $value) {
+      if ($value === '') {
+        $input[$key] = NULL;
+      }
+    }
+
+    return $input;
+  }
+
+
+  /**
+   * Loop through settings collection and save each to the database.
+   * @param   object $settings_data Settings collection retrieved from database based on category.
+   * @param   array $input Array of inputs retrieved for the form.
+   * @return  void
+   */
+  public function saveSettings($settings_data, $input)
+  {
+    $settings_data->each(function($setting) use ($input)
+    {
+      // If setting is an image type but no new image uploaded skip it.
+      if ($setting->type === 'image' && $input[$setting->key] === NULL) return;
+
+      $setting->value = $input[$setting->key];
+      $setting->save();
+    });
+  }
 }
