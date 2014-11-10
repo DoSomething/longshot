@@ -14,6 +14,22 @@ class SettingRepository {
 
 
   /**
+   * If a setting is empty, then set it to NULL.
+   * @return  array
+   */
+  public function nullify($items)
+  {
+    foreach ($items as $key => $value) {
+      if ($value === '') {
+        $items[$key] = NULL;
+      }
+    }
+
+    return $items;
+  }
+
+
+  /**
    * Retrieve specific settings content based on category.
    * Using this method does not cache the settings.
    * @return  array List of query results returned from the Settings table based on specified category.
