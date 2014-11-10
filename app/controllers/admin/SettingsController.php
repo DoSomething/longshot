@@ -66,8 +66,10 @@ class SettingsController extends \BaseController {
     $input = Input::only(
       'primary_color',
       'primary_color_contrast',
+      'primary_color_interaction',
       'secondary_color',
       'secondary_color_contrast',
+      'secondary_color_interaction',
       'cap_color',
       'cap_color_contrast'
       );
