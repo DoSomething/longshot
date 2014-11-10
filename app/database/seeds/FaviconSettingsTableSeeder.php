@@ -7,7 +7,7 @@ class FaviconSettingsTableSeeder extends Seeder {
     Setting::insert([
       'category'    => 'meta_data',
       'key'         => 'favicon',
-      'value'       => '',
+      'value'       => NULL,
       'type'        => 'image',
       'description' => 'Upload a custom favicon (must be of type ".ico").'
     ]);

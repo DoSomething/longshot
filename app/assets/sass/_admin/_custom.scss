@@ -41,6 +41,12 @@ textarea {
 .form-group { margin-bottom: 35px; }
 
 
+.form-control {
+  &::-webkit-input-placeholder { color: #bbb; font-style: italic; }
+  &::-moz-placeholder { color: #bbb; font-style: italic; }  // Firefox 19+
+  &:-ms-input-placeholder { color: #bbb; font-style: italic; }
+}
+
 
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
