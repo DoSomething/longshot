@@ -15,6 +15,7 @@
     "tests"
   ],
   "dependencies": {
+    "bootstrap": "~3.3.0",
     "jquery": "~2.1.1",
     "picturefill": "~2.1.0",
     "normalize.css": "~3.0.1",
