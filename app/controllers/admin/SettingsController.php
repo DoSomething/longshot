@@ -1,14 +1,19 @@
 <?php
 
 use Scholarship\Forms\SettingsForm;
+use Scholarship\Repositories\SettingRepository;
 
 class SettingsController extends \BaseController {
 
   protected $settingsForm;
 
-  function __construct(SettingsForm $settingsForm)
+  protected $settings;
+
+  function __construct(SettingsForm $settingsForm, SettingRepository $settings)
   {
     $this->settingsForm = $settingsForm;
+
+    $this->settings = $settings;
   }
 
 
@@ -61,25 +66,23 @@ class SettingsController extends \BaseController {
     $input = Input::only(
       'primary_color',
       'primary_color_contrast',
+      'primary_color_interaction',
       'secondary_color',
       'secondary_color_contrast',
+      'secondary_color_interaction',
       'cap_color',
       'cap_color_contrast'
       );
 
     $this->settingsForm->validate($input);
 
+    $input = $this->settings->nullify($input);
+
+    // Get specified category settings collection.
     $settings_data = Setting::whereCategory('appearance')->get();
-    $settings_data->each(function($setting) use($input)
-    {
-      // If setting is empty, set it to NULL.
-      if ($input[$setting->key] === '') {
-        $setting->value = NULL;
-      } else {
-        $setting->value = $input[$setting->key];
-      }
-      $setting->save();
-    });
+
+    // Save settings.
+    $this->settings->saveSettings($settings_data, $input);
 
     // Updated Appearance Settings so clear the cache.
     Event::fire('settings.change', ['appearance']);
@@ -132,30 +135,19 @@ class SettingsController extends \BaseController {
     // Uploaded Images
     foreach ($inputImages as $key => $image) {
       if (Input::hasFile($key)) {
-        $inputImages[$key] = '/content/images/' . snakeCaseToKebabCase($key) . '.' . Input::file($key)->guessExtension();
-        Input::file($key)->move(uploadedContentPath('images'), snakeCaseToKebabCase($key) . '.' . Input::file($key)->guessExtension());
+        $inputImages[$key] = $this->settings->moveImage($key);
       }
     }
 
     $input = array_merge($inputText, $inputImages);
 
+    $input = $this->settings->nullify($input);
+
+    // Get specified category settings collection.
     $settings_data = Setting::whereCategory('general')->get();
 
-    $settings_data->each(function($setting) use ($input)
-    {
-      // If setting is an image type but no new image uploaded skip it.
-      if ($setting->type === 'image' && $input[$setting->key] == NULL) {
-        return;
-      }
-      // If setting is empty, set it to NULL.
-      elseif ($input[$setting->key] === '') {
-        $setting->value = NULL;
-      }
-      else {
-        $setting->value = $input[$setting->key];
-      }
-      $setting->save();
-    });
+    // Save settings.
+    $this->settings->saveSettings($settings_data, $input);
 
     // Updated General Settings so clear the cache.
     Event::fire('settings.change', ['general']);
@@ -184,33 +176,22 @@ class SettingsController extends \BaseController {
     $this->settingsForm->validate($inputText);
     $this->settingsForm->validate($inputImages);
 
-    // Uploaded Files
+    // Uploaded Images
     foreach ($inputImages as $key => $image) {
       if (Input::hasFile($key)) {
-        $inputImages[$key] = '/content/images/' . snakeCaseToKebabCase($key) . '.' . Input::file($key)->guessExtension();
-        Input::file($key)->move(uploadedContentPath('images'), snakeCaseToKebabCase($key) . '.' . Input::file($key)->guessExtension());
+        $inputImages[$key] = $this->settings->moveImage($key);
       }
     }
 
     $input = array_merge($inputText, $inputImages);
 
+    $input = $this->settings->nullify($input);
+
+    // Get specified category settings collection.
     $settings_data = Setting::whereCategory('meta_data')->get();
 
-    $settings_data->each(function($setting) use ($input)
-    {
-      // If setting is an image type but no new image uploaded skip it.
-      if ($setting->type === 'image' && $input[$setting->key] == NULL) {
-        return;
-      }
-      // If setting is empty, set it to NULL.
-      elseif ($input[$setting->key] === '') {
-        $setting->value = NULL;
-      }
-      else {
-        $setting->value = $input[$setting->key];
-      }
-      $setting->save();
-    });
+    // Save settings.
+    $this->settings->saveSettings($settings_data, $input);
 
     // Updated General Settings so clear the cache.
     Event::fire('settings.change', ['meta_data']);

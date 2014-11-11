@@ -1,6 +1,7 @@
 <?php namespace Scholarship\Repositories;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
 
 class SettingRepository {
 
@@ -63,4 +64,56 @@ class SettingRepository {
     return $this->getSpecifiedSettingsVars(self::$openGraphDataQueryItems);
   }
 
+
+  /**
+   * Save uploaded image to the images directory and return path to image.
+   * @param string $key Name of image input.
+   * @return  string Path to image.
+   */
+  public function moveImage($key)
+  {
+    $extension = Input::file($key)->guessExtension();
+
+    Input::file($key)->move(uploadedContentPath('images'), snakeCaseToKebabCase($key) . '.' . $extension);
+
+    $path = '/content/images/' . snakeCaseToKebabCase($key) . '.' . $extension;
+
+    return $path;
+  }
+
+
+  /**
+   * If a setting is empty, then set it to NULL.
+   * @param   array $input Array of inputs retrieved for the form.
+   * @return  array
+   */
+  public function nullify($input)
+  {
+    foreach ($input as $key => $value) {
+      if ($value === '') {
+        $input[$key] = NULL;
+      }
+    }
+
+    return $input;
+  }
+
+
+  /**
+   * Loop through settings collection and save each to the database.
+   * @param   object $settings_data Settings collection retrieved from database based on category.
+   * @param   array $input Array of inputs retrieved for the form.
+   * @return  void
+   */
+  public function saveSettings($settings_data, $input)
+  {
+    $settings_data->each(function($setting) use ($input)
+    {
+      // If setting is an image type but no new image uploaded skip it.
+      if ($setting->type === 'image' && $input[$setting->key] === NULL) return;
+
+      $setting->value = $input[$setting->key];
+      $setting->save();
+    });
+  }
 }
