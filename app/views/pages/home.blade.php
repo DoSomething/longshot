@@ -20,7 +20,7 @@
       <div class="wrapper">
         <h1 class="__title heading -alpha -alt">Nominate A Star</h1>
 
-        @if (!empty($vars->nominate_text))
+        @if (isset($vars->nominate_text))
           <p class="__message">{{ $vars->nominate_text }}</p>
         @endif
 
@@ -69,7 +69,7 @@
         {{ Form::close() }}
       </div>
 
-      @if (!empty($vars->nominate_text))
+      @if (isset($vars->nominate_image))
         <div class="__image" style="background-image: url('{{ $vars->nominate_image or '/dist/images/nominate-image-placeholder.jpg' }}');"></div>
       @endif
     </section>

@@ -30,8 +30,7 @@
       }
       figcaption { display: block; }
 
-      .__title,
-      .__info,
+      > .wrapper,
       .__body { display: none; }
     }
   }

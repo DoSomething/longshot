@@ -9,9 +9,7 @@
     <div class="segment -compact">
       <div class="wrapper">
 
-        @if (!empty($vars->application_create_help_text))
-          <p>{{ $vars->application_create_help_text }}</p>
-        @endif
+        <p>{{ $vars->application_create_help_text or 'All fields are required, unless (optional) is written next to it.' }}</p>
 
         {{ Form::model($user->application, ['method' => 'PATCH', 'route' => ['application.update', $user->id], 'class' => 'form--application']) }}
 

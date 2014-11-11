@@ -7,17 +7,17 @@
 
     <p class="__copyright">Copyright &copy; {{ date('Y') }} {{ $global_vars->company_name or 'TMI Agency' }}</p>
 
+    @if (isset($global_vars->footer_text) || isset($global_vars->official_rules_url))
     <p class="__message">
       <small>
-        @if (!empty($global_vars->footer_text))
-          {{ $global_vars->footer_text }}
-        @endif
+        {{ $global_vars->footer_text or '' }}
 
         @if (isset($global_vars->official_rules_url))
           Check out the {{ link_to($global_vars->official_rules_url, 'Official Rules', ['target' => '_blank']) }}.
         @endif
       </small>
     </p>
+    @endif
 
   </div>
 </footer>

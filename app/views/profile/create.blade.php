@@ -11,9 +11,7 @@
 
         <div class="progress"><strong>Step 1 of 2</strong></div>
 
-        @if (!empty($vars->basic_info_help_text))
-          <p>{{ $vars->basic_info_help_text }}</p>
-        @endif
+        <p>{{ $vars->basic_info_help_text or 'All fields are required, unless (optional) is written next to it.' }}</p>
 
         {{ Form::open(['route' => 'profile.store']) }}
 
