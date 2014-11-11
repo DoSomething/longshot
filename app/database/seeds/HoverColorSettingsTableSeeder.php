@@ -1,6 +1,6 @@
 <?php
 
-class HoverColorSettingsTableSeeder extends Seeder {
+class InteractionColorSettingsTableSeeder extends Seeder {
 
   public function run()
   {

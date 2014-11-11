@@ -53,8 +53,8 @@ class DatabaseSeeder extends Seeder {
     $this->call('OfficialRulesSettingsTableSeeder');
     $this->command->info('Official Rules URL seeded into Settings table!');
 
-    $this->call('HoverColorSettingsTableSeeder');
-    $this->command->info('Hover colors seeded into Settings table!');
+    $this->call('InteractionColorSettingsTableSeeder');
+    $this->command->info('Interaction colors seeded into Settings table!');
 
     // Explicitly undo disabling foreign key checks.
     DB::statement('SET FOREIGN_KEY_CHECKS=1;');
