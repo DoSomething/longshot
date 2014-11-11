@@ -12,7 +12,7 @@
         {{-- This will be seen by the recommender --}}
         <p>Please fill all fields with information regarding the applicant.</p>
 
-        @if (!empty($vars->recommendation_update_help_text))
+        @if (isset($vars->recommendation_update_help_text))
           <p>{{ $vars->recommendation_update_help_text }}</p>
         @endif
 
