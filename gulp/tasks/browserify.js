@@ -14,6 +14,7 @@ var uglify       = require('gulp-uglify');
 var watchify     = require('watchify');
 var bundleLogger = require('../util/bundleLogger');
 var handleErrors = require('../util/handleErrors');
+var config       = require('../util/config');
 
 gulp.task('browserify', function() {
 
@@ -21,7 +22,7 @@ gulp.task('browserify', function() {
 
   var bundler = bundleMethod({
     // Specify the entry point for the app.
-    entries: ['./app/assets/js/main.js'],
+    entries: [config.jsSrc + '/main.js'],
     // Enable source maps!
     debug: true
   });
@@ -39,7 +40,7 @@ gulp.task('browserify', function() {
       // desired output filename here.
       .pipe(source('main.js'))
       // Specify the output destination.
-      .pipe(gulp.dest('./public/dist/js/'))
+      .pipe(gulp.dest(config.jsDest))
       // Log when bundling completes!
       .on('end', bundleLogger.end);
   };
