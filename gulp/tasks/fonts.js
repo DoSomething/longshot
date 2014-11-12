@@ -5,9 +5,10 @@
  *
  */
 
-var gulp = require('gulp');
+var gulp   = require('gulp');
+var config = require('../util/config');
 
 gulp.task('fonts', function() {
-  return gulp.src('./app/assets/fonts/**')
-    .pipe(gulp.dest('public/dist/fonts'))
+  return gulp.src(config.fontsSrc + '/**')
+    .pipe(gulp.dest(config.fontsDest))
 });

@@ -59,7 +59,7 @@
 
     @include('layouts.partials.upgrade-message')
 
-    <script src="/dist/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/dist/js/jquery.min.js"></script>
     <script src="/dist/js/main.js"></script>
 
   </body>

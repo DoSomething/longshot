@@ -8,8 +8,8 @@
 
     <title>Scholarship Application Administration</title>
     <link rel="icon" type="image/ico" href="/favicon.ico?v1"/>
-    <link rel="stylesheet" href="/dist/bower_components/bootstrap/dist/css/bootstrap.min.css">
-    <script src="/dist/bower_components/jquery/dist/jquery.min.js"></script>
+    <link rel="stylesheet" href="/dist/css/bootstrap.min.css">
+    <script src="/dist/js/jquery.min.js"></script>
     @section('styles')
       <link rel="stylesheet" href="/dist/css/admin.css"/>
     @show
@@ -29,6 +29,6 @@
 
     @yield('main_content')
 
-    <script src="/dist/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/dist/js/bootstrap.min.js"></script>
   </body>
 </html>
