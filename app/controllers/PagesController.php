@@ -143,14 +143,27 @@ class PagesController extends \BaseController {
   public function home()
   {
     // @TODO: cache query to retrieve scholarship amount.
-    $scholarshipAmount = Scholarship::getCurrentScholarship()->pluck('amount_scholarship');
+    // $scholarshipAmount = Scholarship::getCurrentScholarship()->pluck('amount_scholarship');
+    // $scholarshipData = Scholarship::getCurrentScholarship()->select('id', 'amount_scholarship', 'application_start', 'winners_announced')->firstOrFail();
+
+    $scholarshipData = Scholarship::getCurrentScholarship();
+
+    $scholarship = [];
+    $scholarship['id'] = $scholarshipData->id;
+    $scholarship['amount'] = $scholarshipData->amount_scholarship;
+    $scholarship['start'] = $scholarshipData->application_start;
+    $scholarship['end'] = $scholarshipData->winners_announced;
+    $scholarship = (object) $scholarship;
+
+    // dd($scholarship);
+
     $page = Path::getPageContent('/');
     $winners = Winner::getLastYearWinners();
     $url = 'home';
 
     $vars = (object) $this->settings->getSpecifiedSettingsVars(['nominate_text', 'nominate_image']);
 
-    return View::make('pages.home', compact('page', 'winners', 'url', 'scholarshipAmount', 'vars'));
+    return View::make('pages.home', compact('page', 'winners', 'url', 'scholarship', 'vars'));
   }
 
 
