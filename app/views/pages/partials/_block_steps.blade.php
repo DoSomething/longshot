@@ -13,10 +13,10 @@
         {{ $block->block_body_html }}
       @endif
 
-      @if (isset($scholarshipAmount))
+      @if (isset($scholarship->amount_scholarship))
         <aside class="callout callout--scholarship">
           <div class="wrapper">
-            <strong><span class="__amount">${{ useMetricPrefix($scholarshipAmount) }}</span> Scholarship</strong>
+            <strong><span class="__amount">${{ useMetricPrefix($scholarship->amount_scholarship) }}</span> Scholarship</strong>
           </div>
         </aside>
       @endif

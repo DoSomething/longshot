@@ -216,6 +216,42 @@ function output_id($title) {
 
 
 /**
+ * Return the year from a date string value retrieved from mysql.
+ * @param  string $date Date as string ('2014-11-13').
+ * @return string
+ */
+function output_date_year($date) {
+  return date('Y', strtotime($date));
+}
+
+
+
+/**
+ * Return a year period from provided start and end years.
+ * @param  string $start       Start date as string; format('2014-11-13');
+ * @param  string $end         End date as string; format('2014-11-13');
+ * @param  integer $time_travel Set the start and end date back or forward a specified number.
+ * @return string
+ */
+function output_year_period($start, $end, $time_travel = NULL)
+  {
+    $start = output_date_year($start);
+    $end   = output_date_year($end);
+
+    if ($time_travel) {
+      $start = (string) ($start + $time_travel);
+      $end   = (string) ($end + $time_travel);
+    }
+
+    if ($start === $end) {
+      return $end;
+    }
+
+    return $start.'-'.$end;
+  }
+
+
+/**
  * Add a class to the body to indicate current section of app.
  */
 function bodyClass()
