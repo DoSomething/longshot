@@ -9,7 +9,8 @@ class Export extends Eloquent {
                            INNER JOIN recommendations r on r.application_id = a.id
                            INNER JOIN users u on u.id = a.user_id
                            WHERE a.submitted = 1
-                           AND r.rank_character IS null');
+                           AND r.rank_character IS null
+                           AND a.completed IS null');
     return $results;
   }
 
