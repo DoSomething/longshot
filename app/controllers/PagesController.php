@@ -142,23 +142,17 @@ class PagesController extends \BaseController {
    */
   public function home()
   {
-    $scholarship = [];
+    $scholarship = Scholarship::getCurrentScholarship();
 
-    $scholarship_data = Scholarship::getCurrentScholarship();
-
-    $scholarship['id']     = $scholarship_data->id;
-    $scholarship['amount'] = $scholarship_data->amount_scholarship;
-
-    $past_scholarship_period = Scholarship::getPastScholarshipPeriod($scholarship['id'] - 1);
+    $past_scholarship_period = Scholarship::getPastScholarshipPeriod($scholarship->id - 1);
 
     if (!$past_scholarship_period) {
-      $scholarship['past_period'] = output_year_period($scholarship_data->application_start, $scholarship_data->winners_announced, -1);
+      $scholarship->past_period = output_year_period($scholarship->application_start, $scholarship->winners_announced, -1);
     }
     else {
-      $scholarship['past_period'] = $past_scholarship_period;
+      $scholarship->past_period = $past_scholarship_period;
     }
 
-    $scholarship = (object) $scholarship;
     $winners = Winner::getLastYearWinners($scholarship->id - 1);
     $page = Path::getPageContent('/');
     $url = 'home';

@@ -4,6 +4,8 @@ class Scholarship extends \Eloquent {
 
   protected $guarded = ['id'];
 
+  // private $past_period = NULL;
+
   public function application()
   {
     return $this->hasMany('Application');
