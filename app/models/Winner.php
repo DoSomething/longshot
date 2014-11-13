@@ -15,10 +15,9 @@ class Winner extends Eloquent {
     return $this->belongsTo('User');
   }
 
-  public static function getLastYearWinners()
+  public static function getLastYearWinners($id)
   {
-    $old_id = Scholarship::getCurrentScholarship()->pluck('id') - 1;
-    $winners = Winner::rememberForever()->with('user')->where('scholarship_id', $old_id)->get();
+    $winners = Winner::rememberForever()->with('user')->where('scholarship_id', $id)->get();
 
     if (count($winners) > 0) {
       foreach ($winners as $key => $winner) {

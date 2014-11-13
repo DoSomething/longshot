@@ -20,7 +20,7 @@ class Path extends \Eloquent {
    */
   public static function getPageContent($pageRequest)
   {
-    $path = Path::with('page', 'page.blocks')->whereUrl($pageRequest)->firstOrFail();
+    $path = Path::with('page', 'page.blocks')->whereUrl($pageRequest)->remember(120)->firstOrFail();
     return $path->page;
   }
 

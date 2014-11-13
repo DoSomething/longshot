@@ -142,23 +142,25 @@ class PagesController extends \BaseController {
    */
   public function home()
   {
-    // @TODO: cache query to retrieve scholarship amount.
-    // $scholarshipAmount = Scholarship::getCurrentScholarship()->pluck('amount_scholarship');
-    // $scholarshipData = Scholarship::getCurrentScholarship()->select('id', 'amount_scholarship', 'application_start', 'winners_announced')->firstOrFail();
-
-    $scholarshipData = Scholarship::getCurrentScholarship();
-
     $scholarship = [];
-    $scholarship['id'] = $scholarshipData->id;
-    $scholarship['amount'] = $scholarshipData->amount_scholarship;
-    $scholarship['start'] = $scholarshipData->application_start;
-    $scholarship['end'] = $scholarshipData->winners_announced;
+
+    $scholarship_data = Scholarship::getCurrentScholarship();
+
+    $scholarship['id']     = $scholarship_data->id;
+    $scholarship['amount'] = $scholarship_data->amount_scholarship;
+
+    $past_scholarship_period = Scholarship::getPastScholarshipPeriod($scholarship['id'] - 1);
+
+    if (!$past_scholarship_period) {
+      $scholarship['past_period'] = output_year_period($scholarship_data->application_start, $scholarship_data->winners_announced, -1);
+    }
+    else {
+      $scholarship['past_period'] = $past_scholarship_period;
+    }
+
     $scholarship = (object) $scholarship;
-
-    // dd($scholarship);
-
+    $winners = Winner::getLastYearWinners($scholarship->id - 1);
     $page = Path::getPageContent('/');
-    $winners = Winner::getLastYearWinners();
     $url = 'home';
 
     $vars = (object) $this->settings->getSpecifiedSettingsVars(['nominate_text', 'nominate_image']);
