@@ -50,8 +50,13 @@ class Application extends Eloquent {
   // Given a user id, returns bool if all required fields are
   public static function isSubmitted($user_id)
   {
-    $application = Application::where('user_id', $user_id)->select('submitted')->firstOrFail();
-    return $application->submitted;
+    $application = Application::where('user_id', $user_id)->select('submitted')->first();
+
+    if ($application) {
+      return $application->submitted;
+    }
+
+    return false;
   }
 
   // Given an application id returns if app is submitted & complete
