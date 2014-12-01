@@ -122,7 +122,7 @@ Route::filter('role', function($route, $request, $role)
 Route::filter('startedProcess', function($route, $request, $value)
 {
   $user = Auth::user();
-  if (!is_null($user->$value))
+  if ($user && !is_null($user->$value))
   {
     return Redirect::route($value .'.edit', $user->id);
   }
@@ -136,12 +136,14 @@ Route::filter('startedProcess', function($route, $request, $value)
 Route::filter('createdRec', function($route, $request)
 {
   $user = Auth::user();
-  $application = Application::where('user_id', $user->id)->first();
-  $recommendations = Recommendation::where('application_id', $application->id)->get()->toArray();
+  if ($user) {
+    $application = Application::where('user_id', $user->id)->first();
+    $recommendations = Recommendation::where('application_id', $application->id)->get()->toArray();
 
-  if (!empty($recommendations))
-  {
-    return Redirect::route('recommendation.edit', array('user' => $user->id, 'app_id' => $application->id));
+    if (!empty($recommendations))
+    {
+      return Redirect::route('recommendation.edit', array('user' => $user->id, 'app_id' => $application->id));
+    }
   }
 });
 
