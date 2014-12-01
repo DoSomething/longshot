@@ -31,7 +31,16 @@ class Scholarship extends \Eloquent {
    */
   public static function getScholarshipLabels()
   {
-    $fields = array('label_app_accomplishments as accomplishments', 'label_app_activities as activities', 'label_app_participation as participation' ,'label_app_essay1 as essay1', 'label_app_essay2 as essay2', 'label_rec_rank_character as rank_character', 'label_rec_rank_additional as rank_additional', 'label_rec_essay1 as rec_essay1');
+    $fields = array('label_app_accomplishments as accomplishments',
+                    'label_app_activities as activities',
+                    'label_app_participation as participation' ,
+                    'label_app_essay1 as essay1',
+                    'label_app_essay2 as essay2',
+                    'label_rec_rank_character as rank_character',
+                    'label_rec_rank_additional as rank_additional',
+                    'label_rec_essay1 as rec_essay1',
+                    'label_rec_optional_question as rec_optional_question'
+                    );
     return Scholarship::getCurrentScholarship()->select($fields)->first()->toArray();
   }
 
