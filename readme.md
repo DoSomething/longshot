@@ -35,11 +35,17 @@ After the migrations run and set the database up, seed the database by running:
 ### Front-end
 Development uses a typical **Homestead** setup for a virtual machine. Once the machine is up and running run `vagrant ssh` and change directories into the laravel project directory.
 
-From the laravel project directory install the NPM modules, by running:
+The following commands need to be run from within the root directory for the project on the virtual machine.
+
+To install the required ruby gems by running:
+
+    $ bundle install
+
+To install the required NPM modules, by running:
 
     $ npm install
 
-To install the Bower front-end packages, run:
+To install the required Bower front-end packages, run:
 
     $ bower install
 
