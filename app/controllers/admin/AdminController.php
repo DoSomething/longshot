@@ -16,21 +16,32 @@ class AdminController extends \BaseController {
                   ->where('role_user.role_id', '=', 2)
                   ->count();
 
-    $count['apps'] = Application::count();
+    $count['apps'] = Application::leftJoin('role_user', 'applications.user_id', '=', 'role_user.user_id')
+                                  ->where('role_user.role_id', '=', 2)
+                                  ->count();
     $count['noms'] = Nomination::count();
     $unique = DB::select("SELECT COUNT(DISTINCT (nom_email)) as count FROM nominations");
     $count['unique_noms'] = $unique[0]->count;
     $unique = DB::select("SELECT COUNT(DISTINCT (rec_email)) as count FROM nominations");
     $count['unique_recs'] = $unique[0]->count;
-    $count['submitted_apps'] = Application::where('submitted', '=', 1)->count();
-    $count['completed_apps'] = Application::where('submitted', '=', 1)->where('completed', '=', 1)->count();
+    $count['submitted_apps'] = Application::where('submitted', '=', 1)
+                                            ->leftJoin('role_user', 'applications.user_id', '=', 'role_user.user_id')
+                                            ->where('role_user.role_id', '=', 2)
+                                            ->count();
+    $count['completed_apps'] = Application::where('submitted', '=', 1)
+                                            ->where('completed', '=', 1)
+                                            ->leftJoin('role_user', 'applications.user_id', '=', 'role_user.user_id')
+                                            ->where('role_user.role_id', '=', 2)
+                                            ->count();
 
     // @TODO: combime these two, the is null and is not null will not bind as a variable. :(
     $base_rec_null_query = 'SELECT count(*) as total FROM (
                         SELECT count(*) as c
                         FROM recommendations r
                         INNER JOIN applications a on a.id = r.application_id
+                        LEFT JOIN role_user ru on a.user_id = ru.user_id
                         WHERE r.rank_additional is null
+                        AND ru.role_id = 2
                         AND a.submitted = 1
                         GROUP BY r.application_id
                         HAVING c = :count
@@ -40,7 +51,9 @@ class AdminController extends \BaseController {
                         SELECT count(*) as count
                         FROM recommendations r
                         INNER JOIN applications a on a.id = r.application_id
+                        LEFT JOIN role_user ru on a.user_id = ru.user_id
                         WHERE r.rank_additional is not null
+                        AND ru.role_id = 2
                         AND a.submitted = 1
                         GROUP BY r.application_id
                         HAVING count = :count
