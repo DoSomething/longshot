@@ -57,11 +57,11 @@
           <dl>
             @foreach ($recomendations as $rec)
               @foreach ($rec as $key => $field)
-                   @if (isset($scholarship[$key]))
-                <dt><strong>{{ snakeCaseToTitleCase($scholarship[$key]) }} </strong></dt>
-              @else
-                <dt><strong>{{ snakeCaseToTitleCase($key) }}</strong></dt>
-              @endif
+                @if (isset($scholarship[$key]))
+                  <dt><strong>{{ snakeCaseToTitleCase($scholarship[$key]) }} </strong></dt>
+                @else
+                  <dt><strong>{{ snakeCaseToTitleCase($key) }}</strong></dt>
+                @endif
               <dd>{{ $field }}</dd>
               @endforeach
             @endforeach
