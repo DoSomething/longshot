@@ -70,7 +70,12 @@ class Profile extends Eloquent {
             'WA'=>"Washington",
             'WV'=>"West Virginia",
             'WI'=>"Wisconsin",
-            'WY'=>"Wyoming"
+            'WY'=>"Wyoming",
+            'AS'=>"American Samoa",
+            'GU'=>"Guam",
+            'MP'=>"Northern Mariana Islands",
+            'PR'=>"Puerto Rico",
+            'VI'=>"Virgin Islands"
             );
     return $states;
   }
