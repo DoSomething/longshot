@@ -15,7 +15,6 @@ class Scholarship extends \Eloquent {
     return $this->hasMany('Winners');
   }
 
-
   /**
    * Get current scholarship collection from database.
    * @return object Eloquent collection object.

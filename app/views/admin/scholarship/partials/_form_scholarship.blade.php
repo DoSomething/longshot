@@ -33,6 +33,13 @@
   {{ errorsFor('application_end', $errors); }}
 </div>
 
+{{-- Nomination End Date --}}
+<div class="form-group">
+  {{ Form::label('nomination_end', ' Nomination End date: ') }}
+  {{ Form::input('date', 'nomination_end', null, ['class' => 'form-control']) }}
+  {{ errorsFor('nomination_end', $errors); }}
+</div>
+
 {{-- Announce Winner Date --}}
 <div class="form-group">
   {{ Form::label('winners_announced', 'Winners Announced Date: ') }}
