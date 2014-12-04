@@ -16,8 +16,10 @@
       @include('pages.partials._block_' . outputBlock($block))
     @endforeach
 
+  {{-- Only include nomination form if still open. --}}
+  @if(strtotime($scholarship['nomination_end']) >= time())
     @include('pages.partials._nomination-form')
-
+  @endif
 
     @include('pages.partials._winners-gallery')
 
