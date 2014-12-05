@@ -115,6 +115,17 @@ Route::filter('role', function($route, $request, $role)
   }
 });
 
+/**
+ * This filter checks to see if the scholarhsip is closed
+ * If so, it blocks many many routes.
+ */
+Route::filter('isClosed', function($route, $request)
+{
+  if (Scholarship::isClosed()) {
+    return Redirect::home()->with('flash_message', ['text' => 'Applications have closed for the year!', 'class' => '-error']);
+  }
+});
+
 /*
  * This checks to see if the user has started created the process
  * Example: if the user already has an application don't create a new one, edit the current one.

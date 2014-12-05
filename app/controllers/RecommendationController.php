@@ -15,6 +15,7 @@ class RecommendationController extends \BaseController {
 
     $this->recommendationForm = $recommendationForm;
 
+    $this->beforeFilter('isClosed');
     // Check that the current user doesn't create many applications
     $this->beforeFilter('createdRec', ['only' => ['create']]);
   }

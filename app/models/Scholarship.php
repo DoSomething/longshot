@@ -24,6 +24,20 @@ class Scholarship extends \Eloquent {
     return Scholarship::orderBy('application_start', 'desc')->remember(120)->firstOrFail();
   }
 
+  /**
+   * Determine if the current scholarship is still closed.
+   *
+   * @return boolean - True if closed, else false.
+   */
+  public static function isClosed()
+  {
+    $end_date = self::getCurrentScholarship()->application_end;
+    if (strtotime($end_date) <= time()) {
+      return TRUE;
+    }
+    return FALSE;
+  }
+
 
   /**
    * Get all labels for a scholarship.
