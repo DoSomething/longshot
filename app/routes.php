@@ -8,7 +8,7 @@
 */
 
 # Registration
-Route::get('register', ['as' => 'registration.create', 'uses' => 'RegistrationController@create'])->before('guest');
+Route::get('register', ['as' => 'registration.create', 'uses' => 'RegistrationController@create'])->before('guest|isClosed');
 Route::post('register', ['as' => 'registration.store', 'uses' => 'RegistrationController@store']);
 
 # Authentication
@@ -34,7 +34,7 @@ Route::get('status', ['as' => 'status', 'uses' => 'StatusController@status', 'be
 Route::get('resend-email', ['as' => 'resend', 'uses' => 'StatusController@resendEmailRequest']);
 
 # Review
-Route::get('review/{id}', ['as' => 'review', 'uses' => 'StatusController@review', 'before' => 'auth']);
+Route::get('review/{id}', ['as' => 'review', 'uses' => 'StatusController@review', 'before' => 'auth|isClosed']);
 Route::post('review', ['as' => 'review.store', 'uses' => 'StatusController@submit', 'before' => 'auth']);
 
 # Recomendation
