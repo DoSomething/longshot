@@ -15,7 +15,14 @@
 
       </div>
     </div>
-
+     <?php
+        (isset($profile)) ? $prof_status = "edit" : $prof_status = 'start';
+        if ((isset($application)) && !($application->submitted)) {
+          $app_status = "edit" ;
+        } else if(is_null($application) && !is_null($profile)) {
+          $app_status = 'start';
+        }
+      ?>
     <section class="segment segment--checklist">
       <div class="wrapper">
         <h1 class="heading -gamma">Progress</h1>
@@ -23,15 +30,11 @@
         <ul class="media-list media-list--status">
           <li class="{{ $prof_complete ? 'complete' : '-incomplete' }}">
             <span class="icon icon-status" data-icon="&#x2713"></span>Basic Information
-            {{ isset($profile) ? '<a class="button -link" href="' . URL::route('profile.edit', Auth::user()->id) . '">Edit<span class="icon icon-edit"></span></a>' : '<a class="button -link" href="' . URL::route('profile.create', null) . '">Start<span class="icon icon-start"></span></a>' }}
+            <a class="button -link" href=" {{ URL::route('profile.create') }} "> {{ $prof_status }} <span class="icon icon-{{ $prof_status }}"></span></a>
           </li>
           <li class="{{ $app_filled_out ? 'complete' : '-incomplete' }}">
             <span class="icon icon-status" data-icon="&#x2713"></span>Application
-            @if (isset($application) && !($application->submitted))
-              {{ '<a class="button -link" href="' . URL::route('application.edit', Auth::user()->id) . '">Edit<span class="icon icon-edit"></span></a>' }}
-            @elseif (is_null($application) && !is_null($profile))
-              {{ '<a class="button -link" href="' . URL::route('application.create', Auth::user()->id) . '">Start<span class="icon icon-start"></span></a>' }}
-            @endif
+              <a class="button -link" href=" {{ URL::route('application.create') }} ">{{ $app_status }}<span class="icon icon-{{ $app_status }}"></span></a>
           </li>
         </ul>
 
