@@ -121,7 +121,8 @@ Route::filter('role', function($route, $request, $role)
  */
 Route::filter('isClosed', function($route, $request)
 {
-  if (Scholarship::isClosed()) {
+  $user = Auth::user();
+  if (Scholarship::isClosed() && !$user->hasRole('administrator')) {
     return Redirect::home()->with('flash_message', ['text' => 'Applications have closed for the year!', 'class' => '-error']);
   }
 });
