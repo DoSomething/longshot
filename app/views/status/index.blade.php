@@ -16,6 +16,7 @@
       </div>
     </div>
      <?php
+        $app_status = NULL;
         (isset($profile)) ? $prof_status = "edit" : $prof_status = 'start';
         if ((isset($application)) && !($application->submitted)) {
           $app_status = "edit" ;
