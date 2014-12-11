@@ -30,15 +30,19 @@
         <ul class="media-list media-list--status">
           <li class="{{ $prof_complete ? 'complete' : '-incomplete' }}">
             <span class="icon icon-status" data-icon="&#x2713"></span>Basic Information
-            <a class="button -link" href=" {{ URL::route('profile.create') }} "> {{ $prof_status }} <span class="icon icon-{{ $prof_status }}"></span></a>
+            @if ($prof_status && !$closed)
+              <a class="button -link" href=" {{ URL::route('profile.create') }} "> {{ $prof_status }} <span class="icon icon-{{ $prof_status }}"></span></a>
+            @endif
           </li>
           <li class="{{ $app_filled_out ? 'complete' : '-incomplete' }}">
             <span class="icon icon-status" data-icon="&#x2713"></span>Application
+            @if ($app_status && !$closed)
               <a class="button -link" href=" {{ URL::route('application.create') }} ">{{ $app_status }}<span class="icon icon-{{ $app_status }}"></span></a>
+            @endif
           </li>
         </ul>
 
-        @if (isset($submit))
+        @if (isset($submit) && !$closed)
           {{ $submit }}
         @endif
 
@@ -59,14 +63,14 @@
                   <li>Email sent to <strong>{{ $rec['email'] }}</strong></li>
                 </ul>
 
-                @if ($rec['complete'] !== 'All set!')
+                @if ($rec['complete'] !== 'Recommendation received!' && !$closed)
                   {{ '<a class="button -link" href="' . URL::route('resend', array('id' => $rec['id'])) . '">Resend<span class="icon icon-send"></span></a>' }}
                 @endif
               </li>
             @endforeach
           </ul>
 
-          @if (isset($add_rec_link))
+          @if (isset($add_rec_link) && !$closed)
             {{ $add_rec_link }}
           @endif
 
