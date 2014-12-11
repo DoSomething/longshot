@@ -198,8 +198,7 @@ class PagesController extends \BaseController {
     $path = Path::wherePageId($id)->firstOrFail();
 
     // @TODO: if image already exists, should we delete old one?
-    if (Input::hasFile('hero_image'))
-    {
+    if (Input::hasFile('hero_image')) {
       $file = Input::file('hero_image');
       $filename = $file->getClientOriginalName();
       $file->move(public_path() . '/pages/images/', $filename);
@@ -215,30 +214,36 @@ class PagesController extends \BaseController {
 
     $blocks = Input::get('blocks');
 
-    foreach($blocks as $key => $block)
-    {
-      if (isset($block['id']))
-      {
+    // Remove old blocks if they should be!
+    $old_blocks = Block::where('page_id', $id)->get()->toArray();
+    if (count($old_blocks) > count($blocks)) {
+      foreach($old_blocks as $key => $old_block) {
+        if (!array_key_exists($key, $blocks)) {
+          $byeeee = Block::whereId($old_block['id']);
+          $byeeee->delete();
+        }
+      }
+    }
+
+    // Update and save new ones.
+    foreach($blocks as $key => $block) {
+      if (isset($block['id'])) {
         $currentBlock = Block::whereId($block['id'])->firstOrFail();
         $currentBlock->block_type = $block['type'];
         $currentBlock->block_title = $block['title'];
-        if (! empty($block['body']))
-        {
+        if (! empty($block['body'])) {
           $currentBlock->block_body = $block['body'];
           $currentBlock->block_body_html = MarkdownExtra::defaultTransform($block['body']);
         }
         $currentBlock->save();
       }
-      else
-      {
+      else {
         // @TODO: Pull this code out to DRY it up and make it a method of the Page class, to pass the block to.
-        if (! empty($block['title']) || ! empty($block['body']) )
-        {
+        if (! empty($block['title']) || ! empty($block['body']) ) {
           $newBlock = new Block;
           $newBlock->block_type = $block['type'];
           $newBlock->block_title = $block['title'];
-          if (! empty($block['body']))
-          {
+          if (! empty($block['body'])) {
             $newBlock->block_body = $block['body'];
             $newBlock->block_body_html = MarkdownExtra::defaultTransform($block['body']);
           }
