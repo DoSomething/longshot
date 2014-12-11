@@ -26,6 +26,7 @@ class StatusController extends \BaseController {
     $user = Auth::user();
     $app_filled_out = FALSE;
     $prof_complete = FALSE;
+    $closed = Scholarship::isClosed();
     // @TODO: are these queries too heavy?
     // Get all info about application status.
     $application = Application::where('user_id', $user->id)->first();
@@ -58,7 +59,7 @@ class StatusController extends \BaseController {
         if ($rec->isComplete($rec->id) && isset($app_filled_out) && $application->submitted) {
           $status = 'Completed.';
           $help_text = $this->settings->getSpecifiedSettingsVars(['status_page_help_text_complete'])['status_page_help_text_complete'];
-          }
+        }
 
       }
       $recommendations = $recommendations->toArray();
@@ -76,7 +77,7 @@ class StatusController extends \BaseController {
     $timeline = Block::remember(120, 'query.block.timeline')->whereBlockType('timeline')->select('block_body_html')->first();
     $timeline = $timeline->block_body_html;
 
-    return View::make('status.index', compact('profile', 'application', 'recommendations', 'app_filled_out', 'prof_complete', 'submit', 'status', 'add_rec_link', 'timeline', 'help_text'));
+    return View::make('status.index', compact('profile', 'application', 'recommendations', 'app_filled_out', 'prof_complete', 'submit', 'status', 'add_rec_link', 'timeline', 'help_text', 'closed'));
 
   }
 
