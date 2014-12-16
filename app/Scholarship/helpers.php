@@ -1,6 +1,22 @@
 <?php
 # View Helper Functions
 
+/**
+ * Check to see if query date is older than comparison date.
+ * @param  [string] $date             Date to check.
+ * @param  [string] $expiration_date  Expiration date to compare against.
+ * @return [boolean]
+ */
+function date_has_expired($date, $expiration_date = null) {
+  if ($expiration_date) {
+    strtotime($expiration_date);
+  } else {
+    $expiration_date = time();
+  }
+
+  return strtotime($date) <= $expiration_date;
+}
+
 
 /**
  * Output form errors within specified markup.
@@ -225,12 +241,22 @@ function output_date_year($date) {
 }
 
 
+/**
+ * Return the full date in month/day/year format ('11/13/2014').
+ * Custom format can be specified.
+ * @param  string $date  Date as string ('2014-11-13').
+ * @return string
+ */
+function output_full_date($date, $format = 'd/m/Y') {
+  return date($format, strtotime($date));
+}
+
 
 /**
  * Return a year period from provided start and end years.
  * @param  string $start       Start date as string; format('2014-11-13');
  * @param  string $end         End date as string; format('2014-11-13');
- * @param  integer $time_travel Set the start and end date back or forward a specified number.
+ * @param  int $time_travel    Set the start and end date back or forward a specified number.
  * @return string
  */
 function output_year_period($start, $end, $time_travel = NULL)

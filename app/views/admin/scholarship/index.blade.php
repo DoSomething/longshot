@@ -22,7 +22,8 @@
               <tr>
                 <th>ID</th>
                 <th>Title</th>
-                <th>Description</th>
+                <th>Application Start</th>
+                <th>Application End</th>
                 <th>Amount</th>
               </tr>
             </thead>
@@ -31,7 +32,8 @@
                 <tr>
                   <td>{{ $scholarship->id }}</td>
                   <td>{{link_to('/admin/scholarship/' . $scholarship->id . '/edit' , $scholarship->title) }}</td>
-                  <td>{{ $scholarship->description }}</td>
+                  <td>{{ output_full_date($scholarship->application_start) }}</td>
+                  <td>{{ output_full_date($scholarship->application_end) }}</td>
                   <td> $ {{ $scholarship->amount_scholarship}}</td>
                 </tr>
               @endforeach

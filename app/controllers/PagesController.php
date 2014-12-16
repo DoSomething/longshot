@@ -137,7 +137,6 @@ class PagesController extends \BaseController {
    * Display the home page.
    * GET /
    *
-   * @param  string patg
    * @return Response
    */
   public function home()
@@ -179,6 +178,7 @@ class PagesController extends \BaseController {
 
     return View::make('admin.page.edit')->with(compact('page', 'blocks', 'types'));
   }
+
 
   /**
    * Update the specified resource in storage.
@@ -256,18 +256,6 @@ class PagesController extends \BaseController {
     }
 
     return Redirect::route('admin.page.index')->with('flash_message', ['text' => '<strong>Success:</strong> <em>Static</em> page has been updated!', 'class' => 'alert-success']);
-  }
-
-  /**
-   * Remove the specified resource from storage.
-   * DELETE /page/{id}
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function destroy($id)
-  {
-    //
   }
 
 }
