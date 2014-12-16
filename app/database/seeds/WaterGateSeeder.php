@@ -11,19 +11,17 @@ class WaterGateSeeder extends Seeder {
   {
     // Allow for timestamps and keys to be saved.
     Eloquent::unguard();
+
+    $recs = $this->createRecs();
+    $rec_app_ids = $recs[0];
+    $all_recs = $recs[1];
+
     $csv = 'watergate.csv';
     if (FALSE !== ($fh = fopen($csv, 'r'))) {
       // Get the first row outta there.
       $cols = fgetcsv($fh);
       $count = 1;
       while ($row = fgetcsv($fh)) {
-        // if ($count > 4) {
-        //   die;
-        // }
-        var_dump($row);
-        print "\n";
-        print "\n";
-        print "\n";
         $user = User::create([
           'email'      => $row[1],
           'password'   => $row[2],
@@ -82,6 +80,23 @@ class WaterGateSeeder extends Seeder {
             ]);
           $user->application()->save($application);
 
+          // Do the same thing twice, becuase a user may have 2 recs.
+          // When broken out into a function the unsets don't stick.
+          if (($key = array_search($app_id, $rec_app_ids)) !== false) {
+            unset($rec_app_ids[$key]);
+            $recommendation = $all_recs[$key];
+            $recommendation->application()->associate($application);
+            $recommendation->save();
+            echo "associate " . $application->id . " with " . $recommendation->id . "\n";
+          }
+          if (($key = array_search($app_id, $rec_app_ids)) !== false) {
+            unset($rec_app_ids[$key]);
+            $recommendation = $all_recs[$key];
+            $recommendation->application()->associate($application);
+            $recommendation->save();
+            echo "associate " . $application->id . " with " . $recommendation->id . "\n";
+          }
+
         }
         echo "done with " .  $row[1]  . "\n";
         $count ++;
@@ -90,12 +105,7 @@ class WaterGateSeeder extends Seeder {
     }
   }
 
-  public function match_recs()
-  {
-
-  }
-
-  public function create_recs()
+  public function createRecs()
   {
      // Let's use another file for recs
     $csv = 'recs.csv';
@@ -104,6 +114,7 @@ class WaterGateSeeder extends Seeder {
       $cols = fgetcsv($fh);
       while ($rec = fgetcsv($fh)) {
         $app_ids[] = $rec[0];
+
         $recommendation = Recommendation::create([
           'first_name'        => $rec[1],
           'last_name'         => $rec[2],
@@ -115,9 +126,10 @@ class WaterGateSeeder extends Seeder {
           'essay1'            => ($rec[8] != '0') ? $rec[8] : NULL,
           'optional_question' => ($rec[9] != '0') ? $rec[9] : NULL,
         ]);
-        $all_recs[$rec[0]] = $recommendation;
+        $all_recs[] = $recommendation;
 
       }
+      return array($app_ids, $all_recs);
     }
 
   }
