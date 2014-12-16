@@ -85,21 +85,13 @@ class WaterGateSeeder extends Seeder {
           // Associate the app with the recs if they are there.
           // Do the same thing twice, becuase a user may have 2 recs.
           // When broken out into a function the unsets don't stick.
-          if (($key = array_search($app_id, $rec_app_ids)) !== false) {
+          while (($key = array_search($app_id, $rec_app_ids)) !== false) {
             unset($rec_app_ids[$key]);
             $recommendation = $all_recs[$key];
             $recommendation->application()->associate($application);
             $recommendation->save();
             echo "associate " . $application->id . " with " . $recommendation->id . "\n";
           }
-          if (($key = array_search($app_id, $rec_app_ids)) !== false) {
-            unset($rec_app_ids[$key]);
-            $recommendation = $all_recs[$key];
-            $recommendation->application()->associate($application);
-            $recommendation->save();
-            echo "associate " . $application->id . " with " . $recommendation->id . "\n";
-          }
-
         }
         echo "done with " .  $row[1]  . "\n";
         $count ++;
