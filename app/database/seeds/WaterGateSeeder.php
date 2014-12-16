@@ -12,16 +12,16 @@ class WaterGateSeeder extends Seeder {
     // Allow for timestamps and keys to be saved.
     Eloquent::unguard();
 
+    // NEW USERS
     // Create all recs so we know which app_ids have recs when we get there.
     $recs = $this->createRecs();
     $rec_app_ids = $recs[0];
     $all_recs = $recs[1];
 
-    $csv = 'watergate.csv';
+    $csv = 'created.csv';
     if (FALSE !== ($fh = fopen($csv, 'r'))) {
       // Get the first row outta there.
       $cols = fgetcsv($fh);
-      $count = 1;
       while ($row = fgetcsv($fh)) {
         $user = User::create([
           'email'      => $row[1],
@@ -75,8 +75,8 @@ class WaterGateSeeder extends Seeder {
             'test_type'         => $row[30],
             'test_score'        => $row[31],
             'gpa'               => $row[32],
-            'submitted'         => $row[33],
-            'completed'         => $row[34],
+            'submitted'         => ($row[33] != '0') ? $row[33] : NULL,
+            'completed'         => ($row[34] != '0') ? $row[34] : NULL,
             'created_at'        => $row[35],
             'updated_at'        => $row[36],
             ]);
@@ -98,6 +98,7 @@ class WaterGateSeeder extends Seeder {
 
       }
     }
+    fclose($fh);
   }
 
   public function createRecs()
@@ -127,6 +128,7 @@ class WaterGateSeeder extends Seeder {
         $all_recs[] = $recommendation;
 
       }
+      fclose($fh);
       return array($app_ids, $all_recs);
     }
 
