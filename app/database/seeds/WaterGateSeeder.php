@@ -9,11 +9,17 @@ class WaterGateSeeder extends Seeder {
    */
   public function run()
   {
+    // Allow for timestamps and keys to be saved.
+    Eloquent::unguard();
     $csv = 'watergate.csv';
     if (FALSE !== ($fh = fopen($csv, 'r'))) {
-      // Get the first row.
+      // Get the first row outta there.
       $cols = fgetcsv($fh);
+      $count = 1;
       while ($row = fgetcsv($fh)) {
+        // if ($count > 4) {
+        //   die;
+        // }
         var_dump($row);
         print "\n";
         print "\n";
@@ -28,7 +34,7 @@ class WaterGateSeeder extends Seeder {
         ]);
 
         // Has the person started a profile?
-        if ($row[8] !== 'NULL') {
+        if ($row[8] != '0') {
           $profile = Profile::create([
             'birthdate'       => $row[9],
             'phone'           => $row[10],
@@ -45,7 +51,7 @@ class WaterGateSeeder extends Seeder {
           ]);
           $user->profile()->save($profile);
 
-          if ($row[21] !== 'NULL') {
+          if ($row[21] != '0') {
             $races = explode(',', $row[21]);
             foreach($races as $race) {
               $new_race = new Race;
@@ -56,7 +62,7 @@ class WaterGateSeeder extends Seeder {
           }
         }
         $app_id = $row[22];
-        if ($app_id !== 'NULL') {
+        if ($app_id != '0') {
           $application = Application::create([
             'scholarship_id'    => 1,
             'accomplishments'   => $row[23],
@@ -73,12 +79,46 @@ class WaterGateSeeder extends Seeder {
             'completed'         => $row[34],
             'created_at'        => $row[35],
             'updated_at'        => $row[36],
-          ]);
-         $user->application()->save($application);
+            ]);
+          $user->application()->save($application);
+
         }
         echo "done with " .  $row[1]  . "\n";
+        $count ++;
 
       }
     }
+  }
+
+  public function match_recs()
+  {
+
+  }
+
+  public function create_recs()
+  {
+     // Let's use another file for recs
+    $csv = 'recs.csv';
+    if (FALSE !== ($fh = fopen($csv, 'r'))) {
+      // Get the first row outta there.
+      $cols = fgetcsv($fh);
+      while ($rec = fgetcsv($fh)) {
+        $app_ids[] = $rec[0];
+        $recommendation = Recommendation::create([
+          'first_name'        => $rec[1],
+          'last_name'         => $rec[2],
+          'email'             => $rec[3],
+          'phone'             => $rec[4],
+          'relationship'      => $rec[5],
+          'rank_character'    => ($rec[6] != '0') ? $rec[6] : NULL,
+          'rank_additional'   => ($rec[7] != '0') ? $rec[7] : NULL,
+          'essay1'            => ($rec[8] != '0') ? $rec[8] : NULL,
+          'optional_question' => ($rec[9] != '0') ? $rec[9] : NULL,
+        ]);
+        $all_recs[$rec[0]] = $recommendation;
+
+      }
+    }
+
   }
 }
