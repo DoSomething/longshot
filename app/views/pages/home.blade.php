@@ -17,7 +17,7 @@
     @endforeach
 
     {{-- Only include nomination form if still open. --}}
-    @if(strtotime($scholarship['nomination_end']) >= time())
+    @if(!date_has_expired($global_vars->nomination_end))
       @include('pages.partials._nomination-form')
     @endif
 
