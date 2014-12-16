@@ -94,8 +94,61 @@ class WaterGateSeeder extends Seeder {
           }
         }
         echo "done with " .  $row[1]  . "\n";
-        $count ++;
+      }
+    }
+    fclose($fh);
 
+
+    // USERS WHO HAVE UPDATED CONTENT
+    $csv = 'updated.csv';
+    if (FALSE !== ($fh = fopen($csv, 'r'))) {
+      // Get the first row outta there.
+      $cols = fgetcsv($fh);
+      while ($row = fgetcsv($fh)) {
+        $profile = Profile::whereId($row[8])->firstOrFail();
+        $profile->birthdate = $row[9];
+        $profile->phone = $row[10];
+        $profile->address_street = $row[11];
+        $profile->address_premise = $row[12];
+        $profile->city = $row[13];
+        $profile->state = $row[14];
+        $profile->zip = $row[15];
+        $profile->gender = $row[16];
+        $profile->school = $row[17];
+        $profile->grade = $row[18];
+        $profile->created_at = $row[19];
+        $profile->updated_at = $row[20];
+        $profile->save();
+        if ($row[21] != '0') {
+            $races = explode(',', $row[21]);
+            foreach($races as $race) {
+              $new_race = new Race;
+              $new_race->race = $race;
+              $new_race->profile()->associate($profile);
+              $new_race->save();
+            }
+        }
+
+        $application = Application::whereId($row[22])->firstOrFail();
+        $application->scholarship_id = 1;
+        $application->accomplishments = $row[23];
+        $application->activities = $row[24];
+        $application->participation = $row[25];
+        $application->essay1 = $row[26];
+        $application->essay2 = $row[27];
+        $application->hear_about = $row[28];
+        $application->link = $row[29];
+        $application->test_type = $row[30];
+        $application->test_score = $row[31];
+        $application->gpa = $row[32];
+        $application->submitted = ($row[33] != '0') ? $row[33] : NULL;
+        $application->completed = ($row[34] != '0') ? $row[34] : NULL;
+        $application->created_at = $row[35];
+        $application->updated_at = $row[36];
+
+        $application->save();
+
+        echo "updated  " .  $row[1]  . "\n";
       }
     }
     fclose($fh);
