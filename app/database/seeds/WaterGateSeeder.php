@@ -12,6 +12,7 @@ class WaterGateSeeder extends Seeder {
     // Allow for timestamps and keys to be saved.
     Eloquent::unguard();
 
+    // Create all recs so we know which app_ids have recs when we get there.
     $recs = $this->createRecs();
     $rec_app_ids = $recs[0];
     $all_recs = $recs[1];
@@ -59,6 +60,7 @@ class WaterGateSeeder extends Seeder {
             }
           }
         }
+        // Has this person started the app?
         $app_id = $row[22];
         if ($app_id != '0') {
           $application = Application::create([
@@ -80,6 +82,7 @@ class WaterGateSeeder extends Seeder {
             ]);
           $user->application()->save($application);
 
+          // Associate the app with the recs if they are there.
           // Do the same thing twice, becuase a user may have 2 recs.
           // When broken out into a function the unsets don't stick.
           if (($key = array_search($app_id, $rec_app_ids)) !== false) {
@@ -114,7 +117,10 @@ class WaterGateSeeder extends Seeder {
       $cols = fgetcsv($fh);
       while ($rec = fgetcsv($fh)) {
         $app_ids[] = $rec[0];
-
+        // This will create recs with zeroed out app_ids
+        // If there are any left, we can manually resolve the data.
+        // in testing I had two left over of people who updated their rec
+        // but not their app during this time frame.
         $recommendation = Recommendation::create([
           'first_name'        => $rec[1],
           'last_name'         => $rec[2],
