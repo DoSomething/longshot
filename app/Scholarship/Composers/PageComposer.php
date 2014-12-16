@@ -8,7 +8,7 @@ class PageComposer {
 
   public function __construct(SettingRepository $settings)
   {
-    $this->settings    = $settings;
+    $this->settings = $settings;
   }
 
   public function compose($view)
