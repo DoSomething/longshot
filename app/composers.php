@@ -6,7 +6,6 @@
 
 $views = [
   'layouts.master',
-  'pages.home',
   'status.review',
   'admin.layouts.partials.footer'
 ];
