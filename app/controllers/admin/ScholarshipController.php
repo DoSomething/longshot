@@ -10,7 +10,7 @@ class ScholarshipController extends \BaseController {
    */
   public function index()
   {
-    $scholarships = Scholarship::get(['id', 'title', 'description', 'amount_scholarship']);
+    $scholarships = Scholarship::get(['id', 'title', 'amount_scholarship', 'application_start', 'application_end']);
     return View::make('admin.scholarship.index')->with(compact('scholarships'));
   }
 
@@ -46,17 +46,6 @@ class ScholarshipController extends \BaseController {
     $scholarship->save();
   }
 
-  /**
-   * Display the specified resource.
-   * GET /scholarship/{id}
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function show($id)
-  {
-    //
-  }
 
   /**
    * Show the form for editing the specified resource.
@@ -70,6 +59,7 @@ class ScholarshipController extends \BaseController {
     $scholarship = Scholarship::whereId($id)->firstOrFail();
     return View::make('admin.scholarship.edit')->with(compact('scholarship'));
   }
+
 
   /**
    * Update the specified resource in storage.
@@ -89,18 +79,6 @@ class ScholarshipController extends \BaseController {
 
     // Maybe this should go to scholarship/show?
     return Redirect::back()->with('flash_message', ['text' => '<strong>Success:</strong> Scholarship information has been saved!', 'class' => 'alert-success']);
-  }
-
-  /**
-   * Remove the specified resource from storage.
-   * DELETE /scholarship/{id}
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function destroy($id)
-  {
-    //
   }
 
 }
