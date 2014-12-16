@@ -13,9 +13,9 @@ class PageComposer {
 
   public function compose($view)
   {
-    $favicon           = $this->settings->getSpecifiedSettingsVars(['favicon']);
-    $ogd_vars          = $this->settings->getOpenGraphDataSettingsVars();
-    $page_vars         = $this->settings->getPageSettingsVars();
+    $favicon   = $this->settings->getSpecifiedSettingsVars(['favicon']);
+    $ogd_vars  = $this->settings->getOpenGraphDataSettingsVars();
+    $page_vars = $this->settings->getPageSettingsVars();
 
     $vars = (object) array_merge($favicon, $ogd_vars, $page_vars);
 
