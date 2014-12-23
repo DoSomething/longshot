@@ -25,6 +25,10 @@
 
           {{ Form::button('<i class="glyphicon glyphicon-download-alt"></i> Nominated, no app', array('type' => 'submit', 'name' => 'nominated_no_app', 'class' => 'btn btn-default btn-lg')) }}
 
+          <br/>
+
+          {{ Form::button('<i class="glyphicon glyphicon-download-alt"></i> Completed apps', array('type' => 'submit', 'name' => 'completed_apps', 'class' => 'btn btn-default btn-lg')) }}
+
 
         {{ Form::close() }}
 

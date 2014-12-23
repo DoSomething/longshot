@@ -46,4 +46,16 @@ class Export extends Eloquent {
                                              WHERE n.nom_email = u.email)');
     return $results;
   }
+
+  public static function completed_apps_query()
+  {
+    $results = DB::select('SELECT u.id, u.first_name, u.last_name, u.email
+                          FROM applications a
+                          INNER JOIN users u on u.id = a.user_id
+                          WHERE a.completed = 1
+                          AND a.submitted = 1');
+
+    return $results;
+
+  }
 }
