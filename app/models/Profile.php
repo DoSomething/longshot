@@ -13,6 +13,11 @@ class Profile extends Eloquent {
    return $this->hasMany('Race');
   }
 
+  public function setBirthdateAttribute($birthdate)
+  {
+    $this->attributes['birthdate'] = date('Y-m-d',(strtotime($birthdate)));
+  }
+
   /*
    * List of all US states
    * this could probably be done in a better way.

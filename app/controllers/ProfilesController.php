@@ -57,7 +57,7 @@ class ProfilesController extends \BaseController {
     }
     // @TODO: there's a better way of doing the following...
     $profile = new Profile;
-    $profile->birthdate = date('Y-m-d',(strtotime($input['birthdate'])));
+    $profile->birthdate = $input['birthdate'];
     $profile->phone = $input['phone'];
     $profile->address_street = $input['address_street'];
     $profile->address_premise = $input['address_premise'];
@@ -140,7 +140,6 @@ class ProfilesController extends \BaseController {
     $user = User::with('profile')->whereId($id)->firstOrFail();
     $input = Input::only('birthdate', 'phone', 'address_street', 'address_premise', 'city', 'state', 'zip', 'gender', 'school', 'grade', 'complete');
     $currentRaces = Race::where('profile_id', $user->profile->id)->select('race')->get()->toArray();
-    $input['birthdate'] = date('Y-m-d',(strtotime($input['birthdate'])));
 
     // Let's make the arrays match
     $newArray = array();

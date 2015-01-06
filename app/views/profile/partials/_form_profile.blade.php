@@ -1,4 +1,3 @@
-
   {{-- Birthdate --}}
   <div class="field-group -dual -alpha {{ setInvalidClass('birthdate', $errors) }}">
     {{ Form::label('birthdate', 'Birthdate: ') }}
