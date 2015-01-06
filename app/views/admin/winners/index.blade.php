@@ -26,7 +26,6 @@
                 <th> ID (edit user info) </th>
                 <th> Name (edit winner info)</th>
                 <th> College </th>
-                <th> Description </th>
               </tr>
               </thead>
             <tbody>
@@ -36,7 +35,6 @@
 
               <td>{{ link_to_route('admin.winner.edit', $winner->first_name . ' ' . $winner->last_name, array($winner->user_id)) }}</td>
               <td>{{ $winner->college }}</td>
-              <td>{{ $winner->description  }}</td>
             </tr>
             @endforeach
             </tbody>
