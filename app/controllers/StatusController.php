@@ -75,7 +75,9 @@ class StatusController extends \BaseController {
     // @TODO: find a better way of retrieving the timeline in case there are other blocks to that type.
     // Query cached for 2 hours.
     $timeline = Block::remember(120, 'query.block.timeline')->whereBlockType('timeline')->select('block_body_html')->first();
-    $timeline = $timeline->block_body_html;
+    if ($timeline) {
+      $timeline = $timeline->block_body_html;
+    }
 
     return View::make('status.index', compact('profile', 'application', 'recommendations', 'app_filled_out', 'prof_complete', 'submit', 'status', 'add_rec_link', 'timeline', 'help_text', 'closed'));
 

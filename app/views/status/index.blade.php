@@ -87,13 +87,14 @@
       </div>
     </section>
 
-    <section class="segment segment--timeline">
-      <div class="wrapper">
-        <h2 class="heading -gamma">Key Dates</h1>
-        {{ $timeline }}
-      </div>
-    </section>
-
+    @if ($timeline)
+      <section class="segment segment--timeline">
+        <div class="wrapper">
+          <h2 class="heading -gamma">Key Dates</h1>
+          {{ $timeline }}
+        </div>
+      </section>
+    @endif
     <footer>
       <div class="wrapper">
         <p>Need help? <a href="mailto:{{Config::get('mail.from.address')}}">Contact Us</a></p>
