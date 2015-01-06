@@ -23,6 +23,7 @@ class Winner extends Eloquent {
       foreach ($winners as $key => $winner) {
         $winner->location = Profile::rememberForever()->where('user_id', $winner->user->id)->select('city', 'state')->get();
         $winner->gpa = Application::rememberForever()->where('user_id', $winner->user->id)->pluck('gpa');
+        $winner->participation = Application::rememberForever()->where('user_id', $winner->user->id)->pluck('participation');
       }
       return $winners;
     }
