@@ -67,7 +67,7 @@
               @foreach($applicants as $applicant)
                 <tr>
                   <td>{{ $applicant->id  }}</td>
-                  <td>{{ link_to('/admin/applications/' . $applicant->id , $applicant->first_name . ' ' . $applicant->last_name) }}</td>
+                  <td>{{ link_to_route('admin.application.show', $applicant->first_name . ' ' . $applicant->last_name, array($applicant->id)) }}</td>
 
                   <td> {{{ $applicant->gender or '' }}} </td>
                   <td> {{{ $applicant->state or '' }}} </td>
