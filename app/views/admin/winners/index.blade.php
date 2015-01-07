@@ -23,21 +23,18 @@
           <table class="table table-striped">
             <thead>
               <tr>
-                <th> ID </th>
-                <th> Name </th>
+                <th> ID (edit user info) </th>
+                <th> Name (edit winner info)</th>
                 <th> College </th>
-                <th> Description </th>
               </tr>
               </thead>
             <tbody>
             @foreach ($winners as $winner)
             <tr>
-              <td>{{ $winner->user_id  }}</td>
-              {{-- @TODO this should be the edit route --}}
+              <td>{{ link_to_route('admin.application.show', $winner->user_id, array($winner->user_id))  }}</td>
 
               <td>{{ link_to_route('admin.winner.edit', $winner->first_name . ' ' . $winner->last_name, array($winner->user_id)) }}</td>
               <td>{{ $winner->college }}</td>
-              <td>{{ $winner->description  }}</td>
             </tr>
             @endforeach
             </tbody>

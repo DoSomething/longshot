@@ -55,7 +55,7 @@ Route::group(['before' => 'role:administrator', 'prefix' => 'admin'], function()
   Route::get('applications', ['as' => 'applications.index', 'uses' => 'AdminController@applicationsIndex']);
   Route::get('applications/export', ['as' => 'export', 'uses' => 'AdminController@export']);
   Route::post('applications/export', ['as' => 'export.csv', 'uses' => 'AdminController@export_results']);
-  Route::get('applications/{id}', ['as' => 'applications.show', 'uses' => 'AdminController@applicationsShow']);
+  Route::get('applications/{id}', ['as' => 'admin.application.show', 'uses' => 'AdminController@applicationsShow']);
   Route::get('applications/{id}/edit', ['as' => 'admin.application.edit', 'uses' => 'AdminController@applicationsEdit']);
 
   Route::post('application/rate', ['as' => 'applications.rate', 'uses' => 'AdminController@rate']);
