@@ -51,8 +51,6 @@ class RegistrationController extends \BaseController {
     unset($input['eligibility']);
     $user = User::create($input);
 
-    // Assign an initial role of 'applicant'.
-    $user->assignRole(2);
 
     Auth::login($user);
 
