@@ -29,6 +29,10 @@
 
           {{ Form::button('<i class="glyphicon glyphicon-download-alt"></i> Completed apps', array('type' => 'submit', 'name' => 'completed_apps', 'class' => 'btn btn-default btn-lg')) }}
 
+          <br/>
+
+           {{ Form::button('<i class="glyphicon glyphicon-download-alt"></i> Requested Recs, not complete', array('type' => 'submit', 'name' => 'rec_requested_not_finished', 'class' => 'btn btn-default btn-lg')) }}
+
 
         {{ Form::close() }}
 
