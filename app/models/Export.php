@@ -58,4 +58,13 @@ class Export extends Eloquent {
     return $results;
 
   }
+
+  public static function rec_requested_not_finished_query()
+  {
+    $results = DB::select('SELECT first_name, last_name, relationship, phone, email
+                          FROM recommendations r
+                          WHERE rank_character is null');
+
+    return $results;
+  }
 }
