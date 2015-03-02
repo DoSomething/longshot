@@ -89,7 +89,7 @@
 
   {{-- School --}}
   <div class="field-group {{ setInvalidClass('school', $errors) }}">
-    {{ Form::label('school', 'Name of Current High School: ') }}
+    {{ Form::label('school', 'Name of Current School: ') }}
     {{ Form::text('school') }}
     {{ errorsFor('school', $errors); }}
   </div>
