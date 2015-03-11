@@ -12,12 +12,12 @@ class AdminController extends \BaseController {
     $count = array();
     $user = Auth::user();
     $count['users'] =  $query = DB::table('users')
-                  ->leftJoin('role_user', 'users.id', '=', 'role_user.user_id')
-                  ->where('role_user.role_id', '=', 2)
-                  ->count();
+                                  ->leftJoin('role_user', 'users.id', '=', 'role_user.user_id')
+                                  ->where('role_user.role_id', '<>', 1)
+                                  ->count();
 
     $count['apps'] = Application::leftJoin('role_user', 'applications.user_id', '=', 'role_user.user_id')
-                                  ->where('role_user.role_id', '=', 2)
+                                  ->where('role_user.role_id', '<>', 1)
                                   ->count();
     $count['noms'] = Nomination::count();
     $unique = DB::select("SELECT COUNT(DISTINCT (nom_email)) as count FROM nominations");
@@ -26,12 +26,12 @@ class AdminController extends \BaseController {
     $count['unique_recs'] = $unique[0]->count;
     $count['submitted_apps'] = Application::where('submitted', '=', 1)
                                             ->leftJoin('role_user', 'applications.user_id', '=', 'role_user.user_id')
-                                            ->where('role_user.role_id', '=', 2)
+                                            ->where('role_user.role_id', '<>', 1)
                                             ->count();
     $count['completed_apps'] = Application::where('submitted', '=', 1)
                                             ->where('completed', '=', 1)
                                             ->leftJoin('role_user', 'applications.user_id', '=', 'role_user.user_id')
-                                            ->where('role_user.role_id', '=', 2)
+                                            ->where('role_user.role_id', '<>', 1)
                                             ->count();
 
     // @TODO: combime these two, the is null and is not null will not bind as a variable. :(
@@ -41,7 +41,7 @@ class AdminController extends \BaseController {
                         INNER JOIN applications a on a.id = r.application_id
                         LEFT JOIN role_user ru on a.user_id = ru.user_id
                         WHERE r.rank_additional is null
-                        AND ru.role_id = 2
+                        AND ru.role_id <> 1
                         AND a.submitted = 1
                         GROUP BY r.application_id
                         HAVING c = :count
@@ -53,7 +53,7 @@ class AdminController extends \BaseController {
                         INNER JOIN applications a on a.id = r.application_id
                         LEFT JOIN role_user ru on a.user_id = ru.user_id
                         WHERE r.rank_additional is not null
-                        AND ru.role_id = 2
+                        AND ru.role_id <> 1
                         AND a.submitted = 1
                         GROUP BY r.application_id
                         HAVING count = :count
@@ -87,7 +87,7 @@ class AdminController extends \BaseController {
 
     $query = $this->applicantBaseQuery($query);
     $query->leftJoin('role_user', 'users.id', '=', 'role_user.user_id')
-                  ->where('role_user.role_id', '=', 2);
+                  ->where('role_user.role_id', '<>', 1);
 
     if ($sort_by) {
       $query->orderBy($sort_by, $direction);
@@ -267,12 +267,12 @@ class AdminController extends \BaseController {
   public static function applicantBaseQuery($query)
   {
     $query->select('users.id', 'users.first_name', 'users.last_name', 'users.email',
-                           'profiles.state', 'profiles.gender',
-                           'applications.submitted', 'applications.completed', 'applications.gpa',
-                           'ratings.rating')
-                  ->leftJoin('profiles', 'profiles.user_id', '=', 'users.id')
-                  ->leftJoin('applications', 'applications.user_id', '=', 'users.id')
-                  ->leftJoin('ratings', 'application_id', '=', 'applications.id');
+                   'profiles.state', 'profiles.gender',
+                   'applications.submitted', 'applications.completed', 'applications.gpa',
+                   'ratings.rating')
+          ->leftJoin('profiles', 'profiles.user_id', '=', 'users.id')
+          ->leftJoin('applications', 'applications.user_id', '=', 'users.id')
+          ->leftJoin('ratings', 'application_id', '=', 'applications.id');
 
     return $query;
   }
