@@ -13,11 +13,11 @@ class AdminController extends \BaseController {
     $user = Auth::user();
     $count['users'] =  $query = DB::table('users')
                                   ->leftJoin('role_user', 'users.id', '=', 'role_user.user_id')
-                                  ->whereNull('role_user.role_id')
+                                  ->where('role_user.role_id', '=', 2)
                                   ->count();
 
     $count['apps'] = Application::leftJoin('role_user', 'applications.user_id', '=', 'role_user.user_id')
-                                  ->whereNull('role_user.role_id')
+                                  ->where('role_user.role_id', '=', 2)
                                   ->count();
     $count['noms'] = Nomination::count();
     $unique = DB::select("SELECT COUNT(DISTINCT (nom_email)) as count FROM nominations");
@@ -26,12 +26,12 @@ class AdminController extends \BaseController {
     $count['unique_recs'] = $unique[0]->count;
     $count['submitted_apps'] = Application::where('submitted', '=', 1)
                                             ->leftJoin('role_user', 'applications.user_id', '=', 'role_user.user_id')
-                                            ->whereNull('role_user.role_id')
+                                            ->where('role_user.role_id', '=', 2)
                                             ->count();
     $count['completed_apps'] = Application::where('submitted', '=', 1)
                                             ->where('completed', '=', 1)
                                             ->leftJoin('role_user', 'applications.user_id', '=', 'role_user.user_id')
-                                            ->whereNull('role_user.role_id')
+                                            ->where('role_user.role_id', '=', 2)
                                             ->count();
 
     // @TODO: combime these two, the is null and is not null will not bind as a variable. :(
@@ -87,7 +87,7 @@ class AdminController extends \BaseController {
 
     $query = $this->applicantBaseQuery($query);
     $query->leftJoin('role_user', 'users.id', '=', 'role_user.user_id')
-                  ->whereNull('role_user.role_id');
+                  ->where('role_user.role_id', '=', 2);
 
     if ($sort_by) {
       $query->orderBy($sort_by, $direction);
