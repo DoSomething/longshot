@@ -14,7 +14,7 @@
         {{ link_to_route('admin.application.edit', ' Edit User', array($id), ['class' => 'glyphicon glyphicon-pencil']) }}
 
         <h2>Profile Information</h2>
-        <div class="well well-lg">
+        <div class="details -inline well well-lg">
           <dl>
             @foreach ($profile as $key => $field)
                 @if (!empty($field))
@@ -31,7 +31,7 @@
 
         @if (!is_null($application))
           <h2>Application Responses</h2>
-          <div class="well well-lg">
+          <div class="details well well-lg">
             <dl>
                 @foreach ($application as $key => $field)
                 {{-- did the have a value in the field --}}
@@ -53,7 +53,7 @@
 
         @if (!is_null($recomendations))
         <h2>Recommender Responses</h2>
-        <div class="well well-lg">
+        <div class="details well well-lg">
           <dl>
             @foreach ($recomendations as $rec)
               @foreach ($rec as $key => $field)
