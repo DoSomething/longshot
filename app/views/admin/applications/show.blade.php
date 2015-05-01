@@ -1,3 +1,4 @@
+<?php //dd($recomendations); ?>
 @extends('admin.layouts.master')
 
 @section('main_content')
@@ -7,96 +8,109 @@
       @include('admin.layouts.partials.subnav-applications')
 
       <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-      <h1> {{ $user['first_name'] . ' ' . $user['last_name'] }} </h1>
-       {{ $user['email'] }}
+        <h1>{{ $user['first_name'] . ' ' . $user['last_name'] }}</h1>
 
-       <br/>
-        {{ link_to_route('admin.application.edit', ' Edit User', array($id), ['class' => 'glyphicon glyphicon-pencil']) }}
+        <div class="wrapper">
+          <p>{{ strtolower($user['email']) }}</p>
+          {{-- link_to_route('admin.application.edit', ' Edit User', array($id), ['class' => 'glyphicon glyphicon-pencil']) --}}
+          {{ '<a class="btn btn-default btn-edit" href="' . URL::route('admin.application.edit', array('id' => $id)) . '"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit</a>' }}
 
-        <h2>Profile Information</h2>
-        <div class="well well-lg">
-          <dl>
+          <hr>
+
+          <h2>Profile Information</h2>
+          <div class="details well well-lg">
             @foreach ($profile as $key => $field)
                 @if (!empty($field))
-                 <dt><strong>{{ snakeCaseToTitleCase($key) }}</strong></dt>
-                 <dd>{{ $field }}</dd>
+                  <div>
+                    <p><strong>{{ snakeCaseToTitleCase($key) }}:</strong> {{ $field }}</p>
+                  </div>
                 @endif
             @endforeach
-            <dt><strong> Races </strong> </dt>
-            @foreach($races as $race)
-            <dd> {{ $race['race']}} <dd>
-            @endforeach
-          </dl>
-        </div>
 
-        @if (!is_null($application))
-          <h2>Application Responses</h2>
-          <div class="well well-lg">
-            <dl>
-                @foreach ($application as $key => $field)
-                {{-- did the have a value in the field --}}
-                @if (!empty($field))
-                  {{-- does the field have a better title in the scholarship? --}}
-                  @if (isset($scholarship[$key]))
-                    <dt><strong>{{ snakeCaseToTitleCase($scholarship[$key]) }} </strong></dt>
-                  @else
-                    <dt><strong>{{ snakeCaseToTitleCase($key) }}</strong></dt>
-                  @endif
-                  <dd>{{ $field }}</dd>
-                @endif
-              @endforeach
-            </dl>
-
+            <div>
+              <p><strong>Races:</strong></p>
+              <ul>
+                @foreach($races as $race)
+                <li> {{ $race['race']}} </li>
+                @endforeach
+              </ul>
+            </div>
           </div>
-        @endif
 
-
-        @if (!is_null($recomendations))
-        <h2>Recommender Responses</h2>
-        <div class="well well-lg">
-          <dl>
-            @foreach ($recomendations as $rec)
-              @foreach ($rec as $key => $field)
-                @if (isset($scholarship[$key]))
-                  <dt><strong>{{ snakeCaseToTitleCase($scholarship[$key]) }} </strong></dt>
-                @else
-                  <dt><strong>{{ snakeCaseToTitleCase($key) }}</strong></dt>
-                @endif
-              <dd>{{ $field }}</dd>
+          @if (!is_null($application))
+            <h2>Application Responses</h2>
+            <div class="details well well-lg">
+              @foreach ($application as $key => $field)
+                <div>
+                  {{-- Does it have a value in the field? --}}
+                  @if (!empty($field))
+                    {{-- Does the field have a better title in the scholarship? --}}
+                    @if (isset($scholarship[$key]))
+                      <p><strong>{{ snakeCaseToTitleCase($scholarship[$key]) }}</strong></p>
+                    @else
+                      <p><strong>{{ snakeCaseToTitleCase($key) }}</strong></p>
+                    @endif
+                      <p>{{ $field }}</p>
+                  @endif
+                </div>
               @endforeach
-            @endforeach
-          </dl>
+            </div>
+          @endif
+
+
+          @if (!is_null($recomendations) && count($recomendations) > 0)
+            <h2>Recommender Responses</h2>
+            <div class="details well well-lg">
+              @foreach ($recomendations as $rec)
+                @foreach ($rec as $key => $field)
+                  <div>
+                    @if (isset($scholarship[$key]))
+                      <p><strong>{{ snakeCaseToTitleCase($scholarship[$key]) }}</strong></p>
+                    @else
+                      <p><strong>{{ snakeCaseToTitleCase($key) }}</strong></p>
+                    @endif
+                      <p>{{ $field }}</p>
+                  </div>
+                @endforeach
+              @endforeach
+            </div>
+          @endif
+
+
+          @if ($show_rating)
+            <hr>
+
+            <h2>Review</h2>
+
+            <div class="segment">
+              {{ Form::open(['route' => 'applications.rate']) }}
+                {{ Form::hidden('app_id', $app_id->id)}}
+                <p><strong>Application rating:</strong></p>
+                <div class="btn-group" role="group">
+                  @foreach($possible_ratings as $rating)
+                    @if ($app_rating == $rating)
+                      {{ Form::submit(ucfirst($rating), ['class' => 'btn btn-default btn-md active', 'name' => 'rating']) }}
+                    @else
+                      {{ Form::submit(ucfirst($rating), ['class' => 'btn btn-default btn-md', 'name' => 'rating']) }}
+                    @endif
+                  @endforeach
+                </div>
+              {{ Form::close() }}
+            </div>
+
+            @if ($app_rating && $app_rating == 'yes')
+              <div class="segment">
+                {{ Form::open(['route' => 'admin.winner.store']) }}
+                  <p><strong>Is {{ $user['first_name'] }} a scholarship winner?</strong></p>
+                  {{ Form::hidden('user_id', $id) }}
+                  {{ Form::submit('Award Scholarship!', ['class' => 'btn btn-primary btn-md', 'name' => 'winner']) }}
+                {{ Form::close() }}
+              </div>
+            @endif
+          @endif
+
         </div>
-        @endif
-
-        @if ($show_rating)
-          <div class='btn-group'>
-          {{ Form::open(['route' => 'applications.rate']) }}
-            {{ Form::hidden('app_id', $app_id->id)}}
-            @foreach($possible_ratings as $rating)
-              @if ($app_rating == $rating)
-                {{ Form::submit($rating, ['class' => 'btn btn-info btn-md active', 'name' => 'rating']) }}
-
-              @else
-                {{ Form::submit($rating, ['class' => 'btn btn-info btn-md', 'name' => 'rating']) }}
-              @endif
-            @endforeach
-           </div>
-
-          {{ Form::close() }}
-
-        @if ($app_rating && $app_rating == 'yes')
-          {{ Form::open(['route' => 'admin.winner.store']) }}
-          {{ Form::hidden('user_id', $id) }}
-          {{ Form::submit('Make ' . $user['first_name'] . ' a winner', ['class' => 'btn btn-primary btn-lg', 'name' => 'winner']) }}
-          {{ Form::close() }}
-        @endif
-
-      @endif
-
       </div>
-
-
 
     </div>
   </div>

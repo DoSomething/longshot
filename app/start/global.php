@@ -100,6 +100,7 @@ require app_path().'/filters.php';
 */
 
 require app_path().'/events/settings.php';
+require app_path().'/events/data.php';
 
 /*
 |--------------------------------------------------------------------------

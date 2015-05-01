@@ -152,7 +152,7 @@ class PagesController extends \BaseController {
       $scholarship->past_period = $past_scholarship_period;
     }
 
-    $winners = Winner::getLastYearWinners($scholarship->id - 1);
+    $winners = (new Winner)->getLatest($scholarship);
     $page = Path::getPageContent('/');
     $url = 'home';
 
