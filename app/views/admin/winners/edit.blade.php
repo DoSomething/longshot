@@ -12,29 +12,33 @@
         {{ $winner->user->first_name . ' ' . $winner->user->last_name }}
         </h1>
 
-        {{ Form::model($winner, ['method' => 'PATCH', 'route' => ['admin.winner.update', $winner->id], 'files' => TRUE]) }}
+        {{ Form::model($winner, ['method' => 'PATCH', 'route' => ['admin.winner.update', $winner->id], 'files' => TRUE, 'class' => 'col-md-8']) }}
 
-        <div class="form-group">
-          <div class="image-holder">
-            <img src="{{ $winner->photo }}" alt="uploaded image">
+          <div class="form-group">
+            {{ Form::label('photo', 'Photo: ') }}
+
+            @if (!empty($winner->photo))
+              <div class="image-holder">
+                <img src="{{ $winner->photo }}" alt="uploaded image">
+              </div>
+            @endif
+
+            {{ Form::file('photo') }}
           </div>
-          {{ Form::label('photo', 'Photo: ') }}
-          {{  Form::file('photo') }}
-        </div>
 
-        <div class="form-group">
-          {{ Form::label('description', 'Bio: ') }}
-          {{ Form::textarea('description') }}
-        </div>
+          <div class="form-group">
+            {{ Form::label('description', 'Bio: ') }}
+            {{ Form::textarea('description', $winner->description, ['class' => 'form-control', 'placeholder' => 'enter biography for winner']) }}
+          </div>
 
-        <div class="form-group">
-          {{ Form::label('college', 'College: ') }}
-          {{ Form::text('college') }}
-        </div>
+          <div class="form-group">
+            {{ Form::label('college', 'College: ') }}
+            {{ Form::text('college', $winner->college, ['class' => 'form-control', 'placeholder' => 'enter college name']) }}
+          </div>
 
           {{-- Submit Button --}}
           <div>
-            {{ Form::submit('Update winner') }}
+            {{ Form::submit('Update winner', ['class' => 'btn btn-default']) }}
           </div>
 
         {{ Form::close() }}

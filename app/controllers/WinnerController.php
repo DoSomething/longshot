@@ -20,6 +20,7 @@ class WinnerController extends \BaseController {
     return View::make('admin.winners.index', compact('winners', 'scholarships'));
   }
 
+
   public function store()
   {
     $scholarship_id = Scholarship::getCurrentScholarship()->pluck('id');
@@ -30,6 +31,7 @@ class WinnerController extends \BaseController {
     $winner->scholarship_id = $scholarship_id;
 
     $winner->save();
+
     return Redirect::back()->with('flash_message', ['text' => '<strong>Success:</strong> Awesome, we got that person as a winner for you!', 'class' => 'alert-success']);
   }
 
@@ -47,6 +49,7 @@ class WinnerController extends \BaseController {
     return View::make('admin.winners.edit', compact('winner'));
   }
 
+
   public function update($id)
   {
     $input = Input::except('photo');
@@ -61,6 +64,9 @@ class WinnerController extends \BaseController {
     }
 
     $winner->save();
+
+    // Clear cache since scholarship winner's information was updated.
+    Event::fire('data.update', ['winners', $winner->scholarship_id]);
 
     return Redirect::back()->with('flash_message', ['text' => '<strong>Success:</strong> BAM, that\'s saved!', 'class' => 'alert-success']);;
 
