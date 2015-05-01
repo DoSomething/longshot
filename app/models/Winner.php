@@ -66,11 +66,14 @@ class Winner extends Eloquent {
 
           unset($winner->user);
         }
+
+        Cache::forever('data.scholarship' . $id . '.winners', $winners);
+
+        return $winners;
       }
-
-      Cache::forever('data.scholarship' . $id . '.winners', $winners);
-
-      return $winners;
+      else {
+        return false;
+      }
     }
 
     // Retrieve cached scholarship winner data.
