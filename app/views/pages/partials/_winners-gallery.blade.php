@@ -1,7 +1,7 @@
 @if ($winners)
   <section id="winners-gallery" class="segment segment--gallery" data-modal="">
     <div class="wrapper">
-      <h1 class="__title heading -alpha">{{ $scholarship->past_period }} Class</h1>
+      <h1 class="__title heading -alpha">{{ $winner_scholarship_period }} Class</h1>
 
       <ul class="gallery" data-ui="modal" data-modal-type="slideshow">
       @foreach ($winners as $key => $winner)

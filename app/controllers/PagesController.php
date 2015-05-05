@@ -23,8 +23,8 @@ class PagesController extends \BaseController {
   {
    $pages = DB::table('pages')->get();
    return View::make('admin.page.index', compact('pages'));
-
   }
+
 
   /**
    * Show the form for creating a new resource.
@@ -143,22 +143,32 @@ class PagesController extends \BaseController {
   {
     $scholarship = Scholarship::getCurrentScholarship();
 
-    $past_scholarship_period = Scholarship::getPastScholarshipPeriod($scholarship->id - 1);
-
-    if (!$past_scholarship_period) {
-      $scholarship->past_period = output_year_period($scholarship->application_start, $scholarship->winners_announced, -1);
+    // Determine whether to use past or present scholarship winners.
+    if (date_has_expired($scholarship->winners_announced)) {
+      $winners_scholarship = $scholarship;
+      $winners_scholarship_id = $scholarship->id;
     }
     else {
-      $scholarship->past_period = $past_scholarship_period;
+      $winners_scholarship = Scholarship::getPastScholarship($scholarship->id - 1);
+      $winners_scholarship_id = $scholarship->id - 1;
     }
 
-    $winners = (new Winner)->getLatest($scholarship);
+    // If not scholarship found, use time travel to set period dates.
+    if (!$winners_scholarship) {
+      $winner_scholarship_period = Scholarship::getScholarshipPeriod($scholarship, -1);
+    }
+    else {
+      $winner_scholarship_period = Scholarship::getScholarshipPeriod($winners_scholarship);
+    }
+
+
+    $winners = (new Winner)->getWinners($winners_scholarship_id);
     $page = Path::getPageContent('/');
     $url = 'home';
 
     $vars = (object) $this->settings->getSpecifiedSettingsVars(['nominate_text', 'nominate_image']);
 
-    return View::make('pages.home', compact('page', 'winners', 'url', 'scholarship', 'vars'));
+    return View::make('pages.home', compact('page', 'winners', 'url', 'scholarship', 'winner_scholarship_period', 'vars'));
   }
 
 

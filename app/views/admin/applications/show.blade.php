@@ -1,4 +1,5 @@
-<?php //dd($recomendations); ?>
+<?php //dd($application); ?>
+
 @extends('admin.layouts.master')
 
 @section('main_content')
@@ -12,7 +13,6 @@
 
         <div class="wrapper">
           <p>{{ strtolower($user['email']) }}</p>
-          {{-- link_to_route('admin.application.edit', ' Edit User', array($id), ['class' => 'glyphicon glyphicon-pencil']) --}}
           {{ '<a class="btn btn-default btn-edit" href="' . URL::route('admin.application.edit', array('id' => $id)) . '"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit</a>' }}
 
           <hr>
@@ -100,11 +100,21 @@
 
             @if ($app_rating && $app_rating == 'yes')
               <div class="segment">
-                {{ Form::open(['route' => 'admin.winner.store']) }}
-                  <p><strong>Is {{ $user['first_name'] }} a scholarship winner?</strong></p>
-                  {{ Form::hidden('user_id', $id) }}
-                  {{ Form::submit('Award Scholarship!', ['class' => 'btn btn-primary btn-md', 'name' => 'winner']) }}
-                {{ Form::close() }}
+                @if ($is_winner)
+                  {{ Form::open(['route' => 'admin.winner.destroy', 'method' => 'delete']) }}
+                    <p><strong>Revoke scholarship from {{ $user['first_name'] }}?</strong></p>
+                    <p><small>Note: this will also delete any information saved for {{ $user['first_name'] }}'s scholarship winner profile.</small></p>
+                    {{ Form::hidden('user_id', $id) }}
+                    {{ Form::hidden('scholarship_id', $application['scholarship_id']) }}
+                    {{ Form::submit('Revoke Scholarship!', ['class' => 'btn btn-danger btn-md', 'name' => 'winner']) }}
+                  {{ Form::close() }}
+                @else
+                  {{ Form::open(['route' => 'admin.winner.store']) }}
+                    <p><strong>Award scholarship to {{ $user['first_name'] }}?</strong></p>
+                    {{ Form::hidden('user_id', $id) }}
+                    {{ Form::submit('Award Scholarship!', ['class' => 'btn btn-success btn-md', 'name' => 'winner']) }}
+                  {{ Form::close() }}
+                @endif
               </div>
             @endif
           @endif
