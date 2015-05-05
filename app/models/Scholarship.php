@@ -75,16 +75,14 @@ class Scholarship extends \Eloquent {
 
 
   /**
-   * Get past year period of scholarship requested.
+   * Get year period of scholarship requested.
    * @param  integer $id Scholarship ID.
    * @return string||boolean  Year period for scholarship or FALSE if no scholarship found.
    */
-  public static function getPastScholarshipPeriod($id)
+  public static function getScholarshipPeriod($scholarship, $time_travel = null)
   {
-    $past_scholarship = static::getPastScholarship($id);
-
-    if ($past_scholarship) {
-      return output_year_period($past_scholarship->application_start, $past_scholarship->winners_announced);
+    if ($scholarship) {
+      return output_year_period($scholarship->application_start, $scholarship->winners_announced, $time_travel);
     }
 
     return false;

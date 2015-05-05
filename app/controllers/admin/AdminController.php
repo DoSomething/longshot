@@ -151,6 +151,9 @@ class AdminController extends \BaseController {
    */
   public function applicationsShow($id)
   {
+    // @TODO: this could all be consolidated using some eager loading which
+    // would significantly reduce the number of SQL queries needed, as well
+    // as the number of variables passed to the view.
     $application = Application::getUserApplication($id);
     $profile = Profile::getUserProfile($id);
     $user = User::getUserInfo($id);
@@ -158,6 +161,7 @@ class AdminController extends \BaseController {
     $app_id = Application::getUserApplicationId($id);
     $prof_id = Profile::getUserProfileId($id);
     $races = Profile::getUserRace($prof_id);
+    $is_winner = Winner::where('user_id', $id)->first() ? TRUE : FALSE;
 
     $recomendations = null;
     $show_rating = FALSE;
@@ -171,7 +175,7 @@ class AdminController extends \BaseController {
 
     $possible_ratings = Rating::getPossibleRatings();
 
-    return View::make('admin.applications.show', compact('id', 'application', 'app_id', 'user', 'profile', 'races', 'scholarship', 'recomendations', 'show_rating', 'possible_ratings', 'app_rating'));
+    return View::make('admin.applications.show', compact('id', 'application', 'app_id', 'user', 'profile', 'races', 'scholarship', 'recomendations', 'show_rating', 'possible_ratings', 'app_rating', 'is_winner'));
   }
 
   public function applicationsEdit($id)

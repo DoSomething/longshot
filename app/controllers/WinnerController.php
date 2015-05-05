@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Filesystem\Filesystem;
 
 class WinnerController extends \BaseController {
 
@@ -68,8 +69,31 @@ class WinnerController extends \BaseController {
     // Clear cache since scholarship winner's information was updated.
     Event::fire('data.update', ['winners', $winner->scholarship_id]);
 
-    return Redirect::back()->with('flash_message', ['text' => '<strong>Success:</strong> BAM, that\'s saved!', 'class' => 'alert-success']);;
+    return Redirect::back()->with('flash_message', ['text' => '<strong>Success:</strong> BAM, that\'s saved!', 'class' => 'alert-success']);
+  }
 
+
+  public function destroy()
+  {
+    $user_id = Input::get('user_id');
+    $scholarship_id = Input::get('scholarship_id');
+
+    $record = Winner::where('user_id', $user_id)->first();
+
+    // Clean up and remove the associated winner profile image.
+    $image_path = public_path() . $record->photo;
+    $image = new Filesystem;
+
+    if ($image->exists($image_path)) {
+      $image->delete($image_path);
+    }
+
+    $record->delete();
+
+    // Clear cache since scholarship winner was removed.
+    Event::fire('data.update', ['winners', $scholarship_id]);
+
+    return Redirect::back()->with('flash_message', ['text' => '<strong>Success:</strong> All set. Scholarship award has been revoked.', 'class' => 'alert-success']);
   }
 
 }
