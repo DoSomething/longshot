@@ -1,5 +1,3 @@
-<?php //dd($application); ?>
-
 @extends('admin.layouts.master')
 
 @section('main_content')

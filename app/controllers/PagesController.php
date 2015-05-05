@@ -153,7 +153,7 @@ class PagesController extends \BaseController {
       $winners_scholarship_id = $scholarship->id - 1;
     }
 
-    // If not scholarship found, use time travel to set period dates.
+    // If no scholarship found, use time travel to set period dates.
     if (!$winners_scholarship) {
       $winner_scholarship_period = Scholarship::getScholarshipPeriod($scholarship, -1);
     }
