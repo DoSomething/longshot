@@ -3,21 +3,33 @@
 ## Prerequisites
 1.  Composer
 2.  Node
-3.  Homestead
+3.  Homestead or [DS Homestead](https://github.com/DoSomething/ds-homestead) for DoSomething developers
+4.  Sequel Pro
 
 ## Local Development Setup
 1. Clone the repo
-2. Create a .env.local.php file from default.env.local.php
-3. Edit your `Homestead.yml` file to include this new info
-4. Add your app url (scholarship.dev) to your `etc/hosts` file
-5. Run `php artisan migrate` to create the database
-6. Visit scholarship.dev:8000
+2. Create a `.env.local.php` file from `default.env.local.php` and make sure your `.env.local.php` has the correct keys for your dev environment. Reach out to the tech team for the correct keys to use in your dev environments `.env.local.php` file.
+3. Edit your `Homestead.yml` file to include this new info. Making sure the `folders` and `sites` configuration is correct for your local set up.
+4. Add your app url (scholarship.dev) to your `etc/hosts` file i.e. `127.0.0.1 scholarship.dev`
+5. Manually create a `scholarship_app` database in Sequel Pro.
+    - Open a `new connection` window and click on the `standard` connection tab
+    - Name the connection 
+    - Enter host info: `127.0.0.1`
+    - Username: `homestead` 
+    - Enter password from `.env.local.php` file
+    - Port: `33060`
+    - Hit `connect`
+    - In the `choose database` dropdown select `add database`
+    - Name the database `scholarship_app` with UTF-8 encoding.
+6. ssh into your Vagrant VM (`vagrant ssh`) and navigate to your project directory.
+7. Run `php artisan migrate` to create the database
+8. Visit scholarship.dev:8000
 
 ### Composer
 
 Before doing anything else, you need to install all the project's dependencies with `composer`. 
 
-Within the directory for the project in the Vagrant VM, run:
+Within the directory for the project in the Vagrant VM (`vagrant ssh`), run:
 
     $ composer install
 
