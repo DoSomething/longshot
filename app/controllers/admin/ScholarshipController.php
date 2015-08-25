@@ -44,6 +44,8 @@ class ScholarshipController extends \BaseController {
       }
     }
     $scholarship->save();
+
+    return Redirect::route('admin.scholarship.index')->with('flash_message', ['text' => '<strong>Success:</strong> New Scholarship has been created!', 'class' => 'alert-success']);
   }
 
 
