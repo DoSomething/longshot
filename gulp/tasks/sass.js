@@ -3,7 +3,7 @@
  */
 
 var gulp         = require('gulp');
-var sass         = require('gulp-ruby-sass');
+var sass         = require('gulp-sass');
 var autoprefixer = require('gulp-autoprefixer');
 var handleErrors = require('../util/handleErrors');
 var config       = require('../util/config');
