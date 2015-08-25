@@ -1,4 +1,6 @@
-<?php namespace Scholarship\Repositories;
+<?php 
+
+namespace Scholarship\Repositories;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
