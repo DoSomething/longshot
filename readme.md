@@ -49,10 +49,6 @@ Development uses a typical **Homestead** setup for a virtual machine. Once the m
 
 The following commands need to be run from within the root directory for the project on the virtual machine.
 
-To install the required ruby gems by running:
-
-    $ bundle install
-
 To install the required NPM modules, by running:
 
     $ npm install
