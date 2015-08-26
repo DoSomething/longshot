@@ -14,7 +14,7 @@ class AddAdditionalFieldsToWinnersTable extends Migration {
   {
     Schema::table('winners', function(Blueprint $table)
     {
-      $table->string('first_name')->after('user_id');
+      $table->string('first_name')->after('scholarship_id');
       $table->string('last_name')->after('first_name');
       $table->string('city')->after('last_name');
       $table->string('state')->after('city');
