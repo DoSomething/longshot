@@ -85,6 +85,11 @@ Route::group(['before' => 'role:administrator', 'prefix' => 'admin'], function()
 });
 
 
+// @Delet: Demo testing purposes.
+Route::get('/transfer', function() {
+  dd(Winner::transferWinners());
+});
+
 
 # Pages
 // This route needs to be the last route in the list that is hit

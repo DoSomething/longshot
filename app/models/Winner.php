@@ -1,6 +1,7 @@
 <?php
 
 class Winner extends Eloquent {
+
   protected $guarded = ['id'];
 
   public $timestamps = false;
@@ -66,6 +67,33 @@ class Winner extends Eloquent {
     else {
       return $cachedWinners;
     }
+  }
+
+
+  /**
+   * Transfer collected winner data into winners table.
+   * 
+   * @param  object $applicant Single applicant's data.
+   * @throws Exception If the database migration has not been run, then missing required columns.
+   * @return boolean
+   */
+  public static function transferWinners($applicant = null) {
+    // @PseudoCode steps:
+    // 
+    // Confirm database structure.
+    // If parameter passed then only adding single row.
+    // If no parameter, then collecting all winner data and updating the table.
+    // 
+    // Collect winner's data.
+    // Update the winner's table with the data.
+    // Exit and party.
+
+    if (! Schema::hasColumn('winners', 'first_name_ds')) {
+      throw new Exception('Please run migration command to add new fields to the winners table in database.');
+    }
+
+
+    return true;
   }
 
 }
