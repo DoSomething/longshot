@@ -127,4 +127,29 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
   {
     return $user = User::whereId($id)->select('first_name', 'last_name', 'email')->first()->toArray();
   }
+
+
+  /**
+   * Get full public biography for user.
+   * 
+   * @param  int|array $ids  Single or multiple user ids.
+   * @return object
+   */
+  public function getFullBios($ids)
+  {
+    $fields = [
+      'profile' => function ($query) { $query->select('user_id', 'city', 'state'); },
+      'application' => function ($query) { $query->select('user_id', 'scholarship_id', 'gpa', 'participation'); },
+    ];
+
+    if (is_array($ids)) {
+      $data = User::with($fields)->whereIn('id', $ids)->get()->toArray();
+    }
+    else {
+      $data = User::with($fields)->findOrFail($ids);
+    }
+
+    return $data;
+  }
+
 }

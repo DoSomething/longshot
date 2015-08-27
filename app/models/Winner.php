@@ -19,6 +19,7 @@ class Winner extends Eloquent {
   }
 
 
+
   /**
    * Retrieve winners data for the specified scholarship.
    *
@@ -73,26 +74,26 @@ class Winner extends Eloquent {
   /**
    * Transfer collected winner data into winners table.
    * 
-   * @param  object $applicant Single applicant's data.
    * @throws Exception If the database migration has not been run, then missing required columns.
    * @return boolean
    */
-  public static function transferWinners($applicant = null) {
+  public function transferWinners() {
     // @PseudoCode steps:
     // 
     // Confirm database structure.
-    // If parameter passed then only adding single row.
-    // If no parameter, then collecting all winner data and updating the table.
-    // 
-    // Collect winner's data.
+    // Collect all winner data.
     // Update the winner's table with the data.
     // Exit and party.
 
-    if (! Schema::hasColumn('winners', 'first_name_ds')) {
+    if (! Schema::hasColumn('winners', 'first_name')) {
       throw new Exception('Please run migration command to add new fields to the winners table in database.');
     }
 
+    
+    $scholarships = Scholarship::lists('id');
+    array_unshift($scholarships, 0);
 
+    // Still in progress... Need to lay some foundation in User model.
     return true;
   }
 

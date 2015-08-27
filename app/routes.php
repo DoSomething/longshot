@@ -87,7 +87,11 @@ Route::group(['before' => 'role:administrator', 'prefix' => 'admin'], function()
 
 // @Delet: Demo testing purposes.
 Route::get('/transfer', function() {
-  dd(Winner::transferWinners());
+  // dd(Winner::transferWinners());
+
+  $winner = new Winner;
+
+  dd($winner->transferWinners());
 });
 
 

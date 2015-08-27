@@ -21,19 +21,33 @@ class WinnerController extends \BaseController {
     return View::make('admin.winners.index', compact('winners', 'scholarships'));
   }
 
-
+  /**
+   * Store a single winnner record.
+   * 
+   * @return Response
+   */
   public function store()
   {
-    $scholarship_id = Scholarship::getCurrentScholarship()->pluck('id');
-
     $user_id = Input::get('user_id');
+
+    $user = (new User)->getFullBios($user_id);
+
     $winner = new Winner;
     $winner->user_id = $user_id;
-    $winner->scholarship_id = $scholarship_id;
+    $winner->scholarship_id = $user->application['scholarship_id'];
+    $winner->first_name = $user->first_name;
+    $winner->last_name = $user->last_name;
+    $winner->city = $user->profile['city'];
+    $winner->state = $user->profile['state'];
+    $winner->gpa = $user->application['gpa'];
+    $winner->participation = $user->application['participation'];
 
     $winner->save();
+    
 
-    return Redirect::back()->with('flash_message', ['text' => '<strong>Success:</strong> Awesome, we got that person as a winner for you!', 'class' => 'alert-success']);
+    dd($winner->toArray());
+    
+    // return Redirect::back()->with('flash_message', ['text' => '<strong>Success:</strong> Awesome, we got that person as a winner for you!', 'class' => 'alert-success']);
   }
 
 
