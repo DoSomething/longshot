@@ -27,6 +27,19 @@ textarea {
   .btn { width: 100%; }
 
   .btn + .btn { margin-top: 15px; }
+
+  .btn.-hover-red {
+    &:hover {
+      background-color: $app_red;
+      color: #FFF;
+    }
+  }
+
+  form {
+    position: absolute;
+    bottom: 20px;
+    width: 80%;
+  }
 }
 
 .segment + .segment { margin-top: 20px; }

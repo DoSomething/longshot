@@ -118,4 +118,16 @@ class SettingRepository {
       $setting->save();
     });
   }
+
+  /**
+   * Reset the appearance settings.
+   *
+   * @return  void
+   */
+  public function resetAppearanceSettings()
+  {
+    $settings_data = $this->getCategorySettingsVars('appearance');
+
+    createCustomStylesheet($settings_data);
+  }
 }
