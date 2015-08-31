@@ -199,4 +199,9 @@ class SettingsController extends \BaseController {
     return Redirect::route('meta-data.edit')->with('flash_message', ['text' => '<strong>Success:</strong> <em>Meta Data</em> settings have been saved!', 'class' => 'alert-success']);
   }
 
+  public function clearCache()
+  {
+    dd('clear cache');
+  }
+
 }

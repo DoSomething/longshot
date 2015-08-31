@@ -7,4 +7,7 @@
     <li class="{{ setActive('winners', 3, 'active') }}">{{ link_to_route('admin.winner.index', 'Winners') }}</li>
     <li class="{{ setActive('email', 2, 'active') }}">{{ link_to_route('emails', 'Emails') }}</li>
   </ul>
+  {{ Form::open(array('route' => 'general.clear-cache')) }}
+    {{ Form::submit('Clear Cache', ['class' => 'btn btn-primary btn-large']) }}
+  {{ Form::close() }}
 </div>
