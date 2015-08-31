@@ -8,6 +8,6 @@
     <li class="{{ setActive('email', 2, 'active') }}">{{ link_to_route('emails', 'Emails') }}</li>
   </ul>
   {{ Form::open(array('route' => 'general.clear-cache')) }}
-    {{ Form::submit('Clear Cache', ['class' => 'btn btn-primary btn-large']) }}
+    {{ Form::submit('Clear Cache', ['class' => 'btn btn-default -hover-red']) }}
   {{ Form::close() }}
 </div>
