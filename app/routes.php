@@ -85,16 +85,6 @@ Route::group(['before' => 'role:administrator', 'prefix' => 'admin'], function()
 });
 
 
-// @Delet: Demo testing purposes.
-Route::get('/transfer', function() {
-  // dd(Winner::transferWinners());
-
-  $winner = new Winner;
-
-  dd($winner->transferWinners());
-});
-
-
 # Pages
 // This route needs to be the last route in the list that is hit
 // because the wildcard catches anything after the root and routes

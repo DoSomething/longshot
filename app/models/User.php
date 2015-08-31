@@ -143,7 +143,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     ];
 
     if (is_array($ids)) {
-      $data = User::with($fields)->whereIn('id', $ids)->get()->toArray();
+      $data = User::with($fields)->whereIn('id', $ids)->get();
     }
     else {
       $data = User::with($fields)->findOrFail($ids);

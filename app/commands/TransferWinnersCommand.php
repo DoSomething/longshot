@@ -38,7 +38,23 @@ class TransferWinnersCommand extends Command {
   public function fire()
   {
     try {
-      $transfer = (new Winner)->transferWinners();
+      $users = (new Winner)->collectBiosForWinners();
+
+      foreach ($users as $user) {
+        $winner = Winner::where('user_id', $user->id)->firstOrFail();
+
+        $winner->setUserData($user);
+
+        $winner->save();
+      }
+
+      // Clear cache since scholarship winner's information was updated.
+      $scholarship_ids = Scholarship::lists('id');
+      array_unshift($scholarship_ids, 0);
+
+      foreach ($scholarship_ids as $id) {
+        Event::fire('data.update', ['winners', $id]);
+      }
 
       $this->info('Transfer completed, have a scholarly beer!');
     }
@@ -46,47 +62,4 @@ class TransferWinnersCommand extends Command {
       $this->error($error->getMessage());
     }
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  // /**
-  //  * Get the console command arguments.
-  //  *
-  //  * @return array
-  //  */
-  // protected function getArguments()
-  // {
-  //  return array(
-  //    array('example', InputArgument::REQUIRED, 'An example argument.'),
-  //  );
-  // }
-
-  // /**
-  //  * Get the console command options.
-  //  *
-  //  * @return array
-  //  */
-  // protected function getOptions()
-  // {
-  //  return array(
-  //    array('example', null, InputOption::VALUE_OPTIONAL, 'An example option.', null),
-  //  );
-  // }
-
 }
