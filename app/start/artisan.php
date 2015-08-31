@@ -12,3 +12,5 @@
 */
 
 Artisan::add(new CustomStylesCommand);
+
+Artisan::add(new TransferWinnersCommand);

@@ -1,6 +1,7 @@
 <?php
 
 class Winner extends Eloquent {
+
   protected $guarded = ['id'];
 
   public $timestamps = false;
@@ -18,6 +19,7 @@ class Winner extends Eloquent {
   }
 
 
+
   /**
    * Retrieve winners data for the specified scholarship.
    *
@@ -30,29 +32,9 @@ class Winner extends Eloquent {
 
     // No winner data in cache for this scholarship, so lets collect it from the DB.
     if (!$cachedWinners) {
-      $selectedData = [
-        'user' => function ($query) { $query->select('id', 'first_name', 'last_name'); },
-        'user.profile' => function ($query) { $query->select('user_id', 'city', 'state'); },
-        'user.application' => function ($query) { $query->select('user_id', 'gpa', 'participation'); },
-        'scholarship' => function ($query) { $query->select('id', 'application_start', 'winners_announced'); }
-      ];
-
-      $winners = Winner::with($selectedData)->where('scholarship_id', $id)->get();
+      $winners = Winner::where('scholarship_id', $id)->get();
 
       if (count($winners) > 0) {
-        foreach ($winners as $key => $winner) {
-          $winner->first_name         = $winner->user['first_name'];
-          $winner->last_name          = $winner->user['last_name'];
-          $winner->gpa                = $winner->user->application['gpa'];
-          $winner->participation      = $winner->user->application['participation'];
-          $winner->state              = $winner->user->profile['state'];
-          $winner->city               = $winner->user->profile['city'];
-          $winner->scholarship_period = '';
-
-          unset($winner->user);
-          unset($winner->scholarship);
-        }
-
         Cache::forever('data.scholarship' . $id . '.winners', $winners);
 
         return $winners;
@@ -66,6 +48,45 @@ class Winner extends Eloquent {
     else {
       return $cachedWinners;
     }
+  }
+
+
+  /**
+   * Collects all current winners and their full biographies.
+   * 
+   * @throws Exception If the database migration has not been run, then missing required columns.
+   * @return object
+   */
+  public function collectBiosForWinners() 
+  {
+    if (! Schema::hasColumn('winners', 'first_name')) {
+      throw new Exception('Please run migration command to add new fields to the winners table in database.');
+    }
+
+    $user_ids = Winner::lists('user_id');
+
+    $users = (new User)->getFullBios($user_ids);
+    
+    return $users;
+  }
+
+
+  /**
+   * When passed a User object, sets user data to corresponding properties on Winner object.
+   * 
+   * @param  User $user  Instance of user class with specified data.
+   * @return void
+   */
+  public function setUserData(User $user)
+  {
+    $this->user_id = $user->id;
+    $this->scholarship_id = $user->application['scholarship_id'];
+    $this->first_name = $user->first_name;
+    $this->last_name = $user->last_name;
+    $this->city = $user->profile['city'];
+    $this->state = $user->profile['state'];
+    $this->gpa = $user->application['gpa'];
+    $this->participation = $user->application['participation'];
   }
 
 }

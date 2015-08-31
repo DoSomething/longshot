@@ -85,7 +85,6 @@ Route::group(['before' => 'role:administrator', 'prefix' => 'admin'], function()
 });
 
 
-
 # Pages
 // This route needs to be the last route in the list that is hit
 // because the wildcard catches anything after the root and routes

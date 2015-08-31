@@ -22,16 +22,24 @@ class WinnerController extends \BaseController {
   }
 
 
+  /**
+   * Store a single winnner record.
+   * 
+   * @return Response
+   */
   public function store()
   {
-    $scholarship_id = Scholarship::getCurrentScholarship()->pluck('id');
-
     $user_id = Input::get('user_id');
+
+    $user = (new User)->getFullBios($user_id);
+
     $winner = new Winner;
-    $winner->user_id = $user_id;
-    $winner->scholarship_id = $scholarship_id;
+    $winner->setUserData($user);
 
     $winner->save();
+
+    // Clear cache since scholarship winner's information was updated.
+    Event::fire('data.update', ['winners', $winner->scholarship_id]);
 
     return Redirect::back()->with('flash_message', ['text' => '<strong>Success:</strong> Awesome, we got that person as a winner for you!', 'class' => 'alert-success']);
   }
@@ -73,12 +81,15 @@ class WinnerController extends \BaseController {
   }
 
 
+  /**
+   * Delete a single winner record.
+   * 
+   * @return Response
+   */
   public function destroy()
   {
     $user_id = Input::get('user_id');
-    $scholarship_id = Input::get('scholarship_id');
-
-    $record = Winner::where('user_id', $user_id)->first();
+    $record = Winner::where('user_id', $user_id)->firstOrFail();
 
     // Clean up and remove the associated winner profile image.
     $image_path = public_path() . $record->photo;
@@ -91,7 +102,7 @@ class WinnerController extends \BaseController {
     $record->delete();
 
     // Clear cache since scholarship winner was removed.
-    Event::fire('data.update', ['winners', $scholarship_id]);
+    Event::fire('data.update', ['winners', $record->scholarship_id]);
 
     return Redirect::back()->with('flash_message', ['text' => '<strong>Success:</strong> All set. Scholarship award has been revoked.', 'class' => 'alert-success']);
   }
