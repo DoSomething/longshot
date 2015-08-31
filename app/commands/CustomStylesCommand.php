@@ -41,9 +41,7 @@ class CustomStylesCommand extends Command {
   {
     $settings = new SettingRepository();
 
-    $setting_data = $settings->getCategorySettingsVars('appearance');
-
-    createCustomStylesheet($setting_data);
+    $settings->resetAppearanceSettings();
 
     $this->info('Custom settings have been saved to the cache.');
   }
