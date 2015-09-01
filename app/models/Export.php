@@ -93,7 +93,7 @@ class Export extends Eloquent {
     return $results;
   }
 
-  public static function completed_apps_first_email_query()
+  public static function completed_apps_by_first_and_email_query()
   {
     $results = DB::select('SELECT u.first_name, u.email
                           FROM applications a
@@ -104,12 +104,13 @@ class Export extends Eloquent {
     return $results;
   }
 
-  public static function submitted_only_apps_first_email_query()
+  public static function incomplete_apps_by_first_and_email_query()
   {
     $results = DB::select('SELECT u.first_name, u.email
                           FROM applications a
                           INNER JOIN users u on u.id = a.user_id
-                          WHERE a.submitted = 1');
+                          WHERE a.submitted = 1
+                          AND a.completed = null');
 
     return $results;
   }
