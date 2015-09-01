@@ -18,7 +18,7 @@
               </ul>
             </div>
             <figure>
-              <img src="{{ $winner->photo }}" alt="Image of scholarship winner {{ $winner->user->first_name . ' ' . $winner->user->last_name }}">
+              <img src="{{ $winner->photo }}" alt="Image of scholarship winner {{ $winner->first_name . ' ' . $winner->last_name }}">
               <figcaption>{{ $winner->first_name }}</figcaption>
             </figure>
             <div class="__body"> {{ $winner->description }} </div>

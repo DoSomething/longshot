@@ -14,3 +14,5 @@
 Artisan::add(new CustomStylesCommand);
 
 Artisan::add(new TransferWinnersCommand);
+
+Artisan::add(new WipeDatabaseCommand);
