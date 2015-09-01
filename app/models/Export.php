@@ -86,7 +86,7 @@ class Export extends Eloquent {
 
   public static function recommenders_query()
   {
-    $results = DB::select('SELECT first_name, email
+    $results = DB::select('SELECT DISTINCT first_name, email
                           FROM recommendations
                           WHERE rank_character IS NOT null');
 
