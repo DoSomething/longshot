@@ -67,4 +67,51 @@ class Export extends Eloquent {
 
     return $results;
   }
+
+  public static function nominators_query()
+  {
+    $results = DB::select('SELECT DISTINCT rec_name as Name, rec_email as Email
+                          FROM nominations');
+
+    return $results;
+  }
+
+  public static function nominees_query()
+  {
+    $results = DB::select('SELECT DISTINCT nom_name as Name, nom_email as Email
+                          FROM nominations');
+
+    return $results;
+  }
+
+  public static function recommenders_query()
+  {
+    $results = DB::select('SELECT first_name, email
+                          FROM recommendations
+                          WHERE rank_character IS NOT null');
+
+    return $results;
+  }
+
+  public static function completed_apps_by_first_and_email_query()
+  {
+    $results = DB::select('SELECT u.first_name, u.email
+                          FROM applications a
+                          INNER JOIN users u on u.id = a.user_id
+                          WHERE a.completed = 1
+                          AND a.submitted = 1');
+
+    return $results;
+  }
+
+  public static function incomplete_apps_by_first_and_email_query()
+  {
+    $results = DB::select('SELECT u.first_name, u.email
+                          FROM applications a
+                          INNER JOIN users u on u.id = a.user_id
+                          WHERE a.submitted = 1
+                          AND a.completed = null');
+
+    return $results;
+  }
 }
