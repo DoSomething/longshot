@@ -45,7 +45,7 @@ class WipeDatabaseCommand extends Command {
 			return $this->error('Please back up the current database before proceeding!');
 		}
 
-		// Get the dmins from the Users table.
+		// Get the admins from the Users table.
 		$admins = DB::select(DB::raw('SELECT *
 						                      FROM users u
 						                      INNER JOIN role_user ru

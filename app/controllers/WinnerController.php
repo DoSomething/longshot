@@ -9,13 +9,15 @@ class WinnerController extends \BaseController {
   {
     $filter_by = Request::get('filter_by');
 
-    $query = DB::table('winners')
-                         ->join('users', 'winners.user_id', '=', 'users.id');
+    $query = DB::table('winners');
+
     if ($filter_by) {
       $query->where('winners.scholarship_id', '=', $filter_by);
     }
 
     $winners = $query->get();
+
+    // dd($winners);
 
     $scholarships = Scholarship::all();
     return View::make('admin.winners.index', compact('winners', 'scholarships'));
@@ -53,12 +55,17 @@ class WinnerController extends \BaseController {
    */
   public function edit($id)
   {
-    $winner = Winner::with('user')->where('user_id', $id)->firstOrFail();
+    $winner = Winner::findOrFail($id);
 
     return View::make('admin.winners.edit', compact('winner'));
   }
 
 
+  /**
+   * Update the specified resource.
+   * 
+   * @return Response
+   */
   public function update($id)
   {
     $input = Input::except('photo');
