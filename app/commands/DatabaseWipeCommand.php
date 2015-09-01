@@ -11,14 +11,14 @@ class WipeDatabaseCommand extends Command {
 	 *
 	 * @var string
 	 */
-	protected $name = 'wipe:users';
+	protected $name = 'wipe:applicants';
 
 	/**
 	 * The console command description.
 	 *
 	 * @var string
 	 */
-	protected $description = 'Command description.';
+	protected $description = 'Clear out all applicant data from database.';
 
 	/**
 	 * Create a new command instance.
@@ -37,23 +37,24 @@ class WipeDatabaseCommand extends Command {
 	 */
 	public function fire()
 	{
+		if (! $this->confirm('Did you transfer the winners data to the winners table? [y|n]')) {
+			return $this->error('Please run artisan transfer:winners command!');
+		}
+
 		if (! $this->confirm('Did you run a dump and back up the current database? [y|n]')) {
 			return $this->error('Please back up the current database before proceeding!');
 		}
 
-		// Do the thing here:
-		// applications ✓
-		// nominations ✓
-		// failed_jobs ✓
-		// password_reminders ✓
-		// profiles ✓
-		// races ✓
-		// ratings ✓
-		// recommendation_tokens ✓
-		// recommendations ✓
-		// users
+		// Get the dmins from the Users table.
+		$admins = DB::select(DB::raw('SELECT *
+						                      FROM users u
+						                      INNER JOIN role_user ru
+						                      WHERE ru.id = u.id;'));
 
 
+		DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+		
+		// Clear out database tables.
 		Application::truncate();
 		Nomination::truncate();
 		Profile::truncate();
@@ -61,12 +62,26 @@ class WipeDatabaseCommand extends Command {
 		Rating::truncate();
 		Recommendation::truncate();
 		RecommendationToken::truncate();
-		// Users::truncate();
-
-
+		User::truncate();
 		DB::table('failed_jobs')->truncate();
 		DB::table('password_reminders')->truncate();
 
+
+		// Add the admins back into the Users table.
+		foreach ($admins as $admin) {
+			DB::table('users')->insert([
+		    'email' => $admin->email, 
+		    'password' => $admin->password, 
+		    'first_name' => $admin->first_name, 
+		    'last_name' => $admin->last_name,
+		    'remember_token' => null,
+		    'created_at' => date("Y-m-d H:i:s"),
+		    'updated_at' => date("Y-m-d H:i:s"),
+	    ]);
+		}
+
+
+		DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
 		$this->info('All set! We successfully killed all the user data with fire.');
 	
