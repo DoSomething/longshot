@@ -17,8 +17,6 @@ class WinnerController extends \BaseController {
 
     $winners = $query->get();
 
-    // dd($winners);
-
     $scholarships = Scholarship::all();
     return View::make('admin.winners.index', compact('winners', 'scholarships'));
   }
