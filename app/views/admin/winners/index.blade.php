@@ -14,7 +14,7 @@
           <a data-toggle="dropdown" href="#">Scholarship <span class='glyphicon glyphicon-chevron-down'/> </a>
           <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
               @foreach($scholarships as $scholarship)
-                <li> {{ filter_winners_by($scholarship->id, $scholarship->title) }} </li>
+                <li> {{ filter_winners_by($scholarship->id, $scholarship->title . ' ' . date("Y", strtotime($scholarship->application_start))) }} </li>
               @endforeach
           </ul>
         </div>
