@@ -8,7 +8,7 @@
 
   {{-- GPA --}}
   <div class="field-group -mono {{ setInvalidClass('gpa', $errors) }}">
-    {{ Form::label('gpa', 'Unweighted GPA: ') }}
+    {{ Form::label('gpa', 'GPA (please enter your GPA on a 4.0 or 5.0 scale)') }}
     {{ Form::text('gpa') }}
     {{ errorsFor('gpa', $errors); }}
   </div>
