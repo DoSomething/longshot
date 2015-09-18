@@ -11,7 +11,7 @@
       {{ $block->block_body_html }}
     @endif
 
-    @if($url === 'home' && !Scholarship::isClosed())
+    @if($url === 'home' && !Scholarship::isClosed() && Scholarship::isOpen())
       <div class="fragment">
         @if (Auth::guest())
           {{ link_to_route('registration.create', 'Start Application', null, ['class' => 'button -default']) }}

@@ -43,6 +43,17 @@ class Scholarship extends \Eloquent {
     return date_has_expired($end_date);
   }
 
+  /**
+   * Determine if the current scholarship application or nomination is open.
+   *
+   * @param  $type  Check dates for either the application or the nomination period.
+   * @return boolean - True if closed, else false.
+   */
+  public static function isOpen()
+  {
+    return date_has_expired(self::getCurrentScholarship()->application_start);
+  }
+
 
   /**
    * Get all labels for a scholarship.
