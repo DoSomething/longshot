@@ -92,7 +92,7 @@ class StatusController extends \BaseController {
     // Get all the things.
     $application = Application::getUserApplication($id);
     $profile = Profile::getUserProfile($id);
-    $scholarship = Scholarship::getScholarshipLabels();
+    $scholarship = Scholarship::getScholarshipLabels($application['scholarship_id']);
 
     $vars = (object) $this->settings->getSpecifiedSettingsVars(['application_submit_help_text']);
 
