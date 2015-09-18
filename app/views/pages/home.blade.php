@@ -17,7 +17,7 @@
     @endforeach
 
     {{-- Only include nomination form if still open. --}}
-    @if(!Scholarship::isClosed('nomination'))
+    @if(!Scholarship::isClosed('nomination') && Scholarship::isOpen())
       @include('pages.partials._nomination-form')
     @endif
 
