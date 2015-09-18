@@ -49,17 +49,9 @@ class Scholarship extends \Eloquent {
    * @param  $type  Check dates for either the application or the nomination period.
    * @return boolean - True if closed, else false.
    */
-  public static function isOpen($type = 'application')
+  public static function isOpen()
   {
-    if ($type === 'application') {
-      $start_date = self::getCurrentScholarship()->application_start;
-    }
-
-    if ($type === 'nomination') {
-      $start_date = self::getCurrentScholarship()->nomination_start;
-    }
-
-    return date_has_expired($start_date);
+    return date_has_expired(self::getCurrentScholarship()->application_start);
   }
 
 
