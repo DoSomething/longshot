@@ -157,7 +157,7 @@ class AdminController extends \BaseController {
     $application = Application::getUserApplication($id);
     $profile = Profile::getUserProfile($id);
     $user = User::getUserInfo($id);
-    $scholarship = Scholarship::getScholarshipLabels();
+    $scholarship = Scholarship::getScholarshipLabels($application['scholarship_id']);
     $app_id = Application::getUserApplicationId($id);
     $prof_id = Profile::getUserProfileId($id);
     $races = Profile::getUserRace($prof_id);
@@ -183,7 +183,7 @@ class AdminController extends \BaseController {
     $application = Application::getUserApplication($id);
     $user_info = User::getUserInfo($id);
     $profile = Profile::with('race')->whereUserId($id)->firstOrFail();
-    $label = Scholarship::getScholarshipLabels();
+    $label = Scholarship::getScholarshipLabels($application['scholarship_id']);
     $app_id = Application::getUserApplicationId($id);
     $races = Profile::getRaces();
     $states = Profile::getStates();

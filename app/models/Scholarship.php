@@ -46,8 +46,10 @@ class Scholarship extends \Eloquent {
 
   /**
    * Get all labels for a scholarship.
+   * @param integer $id Scholarship ID.
+   * @return array Array of application labels.
    */
-  public static function getScholarshipLabels()
+  public static function getScholarshipLabels($id)
   {
     $fields = array('label_app_accomplishments as accomplishments',
                     'label_app_activities as activities',
@@ -59,7 +61,8 @@ class Scholarship extends \Eloquent {
                     'label_rec_essay1 as rec_essay1',
                     'label_rec_optional_question as rec_optional_question'
                     );
-    return Scholarship::getCurrentScholarship()->select($fields)->first()->toArray();
+
+    return Scholarship::where('id', '=', $id)->select($fields)->first()->toArray();
   }
 
 

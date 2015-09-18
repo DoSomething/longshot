@@ -34,7 +34,8 @@ class ApplicationController extends \BaseController {
   public function create()
   {
     //@TODO: need to figure out which scholarship is the current run.
-    $label = Scholarship::getScholarshipLabels();
+    $current_scholarship_id = Scholarship::getCurrentScholarship()->id;
+    $label = Scholarship::getScholarshipLabels($current_scholarship_id);
     $hear_about = Scholarship::getCurrentScholarship()->pluck('hear_about_options');
 
     $choices = Application::formatChoices($hear_about);
@@ -119,10 +120,11 @@ class ApplicationController extends \BaseController {
   public function edit($id)
   {
     // @TODO: add a filter here to check for app complete.
-    $user       = User::whereId($id)->firstOrFail();
-    $label      = Scholarship::getScholarshipLabels();
-    $hear_about = Scholarship::getCurrentScholarship()->pluck('hear_about_options');
-    $choices    = Application::formatChoices($hear_about);
+    $user        = User::whereId($id)->firstOrFail();
+    $application = Application::getUserApplication($id);
+    $label       = Scholarship::getScholarshipLabels($application['scholarship_id']);
+    $hear_about  = Scholarship::getCurrentScholarship()->pluck('hear_about_options');
+    $choices     = Application::formatChoices($hear_about);
 
     $vars = (object) $this->settings->getSpecifiedSettingsVars(['application_create_help_text']);
 
