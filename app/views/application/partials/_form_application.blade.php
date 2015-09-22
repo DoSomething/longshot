@@ -15,14 +15,14 @@
 
   {{-- Test Type --}}
   <div class="field-group -mono {{ setInvalidClass('test_type', $errors) }}">
-    {{ Form::label('test_type', 'Test Type: (optional) ') }}
-    {{ Form::select('test_type', array('PSAT' => 'PSAT', 'SAT' => 'SAT', 'PLAN' => 'PLAN', 'ACT' => 'ACT')); }}
+    {{ Form::label('test_type', 'Test Type:') }}
+    {{ Form::select('test_type', array('PSAT' => 'PSAT', 'SAT' => 'SAT', 'PLAN' => 'PLAN', 'ACT' => 'ACT', 'Prefer not to submit scores' => 'Prefer not to submit scores')); }}
     {{ errorsFor('test_type', $errors); }}
   </div>
 
   {{-- Test Score --}}
   <div class="field-group -mono {{ setInvalidClass('test_score', $errors) }}">
-    {{ Form::label('test_score', 'Test Score: (optional)') }}
+    {{ Form::label('test_score', 'Test Score:') }}
     {{ Form::text('test_score') }}
     {{ errorsFor('test_score', $errors); }}
   </div>
