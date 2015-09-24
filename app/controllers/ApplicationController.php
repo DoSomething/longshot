@@ -73,11 +73,25 @@ class ApplicationController extends \BaseController {
       $application->gpa = $input['gpa'];
     }
 
-    if ($input['test_score'] != '')
+    if($input['test_type'] == 'Prefer not to submit scores')
+    {
+      $application->test_type = null;
+    }
+    else
     {
       $application->test_type = $input['test_type'];
+    }
+    
+    
+    if($input['test_score'] != '')
+    {
       $application->test_score = $input['test_score'];
     }
+    else
+    {
+      $application->test_score = null;
+    }
+    
     $application->activities = $input['activities'];
     $application->participation = $input['participation'];
     $application->essay1 = $input['essay1'];

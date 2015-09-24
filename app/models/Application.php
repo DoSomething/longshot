@@ -42,7 +42,7 @@ class Application extends Eloquent {
   // Given a user id, returns bool if all required fields are
   public static function isFilledOut($id)
   {
-    $optional = ['test_type', 'test_score', 'link', 'hear_about', 'completed', 'submitted'];
+    $optional = ['test_score', 'link', 'hear_about', 'completed', 'submitted'];
     $fields = Application::where('user_id', $id)->firstOrFail()->toArray();
 
     return fieldsAreComplete($fields, $optional);
@@ -83,6 +83,5 @@ class Application extends Eloquent {
     $fields = array('id');
     return $application = Application::where('user_id', $id)->select($fields)->first();
   }
-
 
 }
