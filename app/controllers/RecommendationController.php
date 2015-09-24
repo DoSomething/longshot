@@ -152,6 +152,12 @@ class RecommendationController extends \BaseController {
     if (isset($input['app_id'])) {
       return $this->updateUserRec($input);
     }
+
+    //broken? unclear.
+    if(isset($input['rec_id'])){
+      return $this->updateAdmin($input);
+    }
+
     $this->recommendationForm->validate($input);
     $recommendation = Recommendation::whereId($id)->firstOrFail();
     $recommendation->fill($input)->save();
@@ -161,6 +167,17 @@ class RecommendationController extends \BaseController {
     $this->prepareRecReceivedEmail($recommendation);
 
     return Redirect::route('home')->with('flash_message', ['text' => 'Thanks, we got your recommendation!', 'class' => '-success']);
+  }
+
+  public function updateAdmin($input)
+  {
+    $recommendation = Recommendation::whereId($input['rec_id'])->firstOrFail();
+    // dd($input);
+    // dd($recommendation->fill($input)->save());
+    $input['essay1'] = $input['rec_essay1'];
+    $recommendation->fill($input)->save();
+    //Redirect::back()->with('flash_message', ['text' => 'updated.', 'class' => '-success']);
+    return Redirect::route('applications.index');
   }
 
   public function updateUserRec($input)

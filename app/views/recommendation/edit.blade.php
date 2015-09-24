@@ -16,6 +16,7 @@
           <p>{{ $vars->recommendation_update_help_text }}</p>
         @endif
 
+
         {{ Form::model($recommendation, ['method' => 'PATCH', 'route' => ['recommendation.update', $recommendation->id]]) }}
 
           {{-- First Name --}}
@@ -49,7 +50,7 @@
           {{-- Rank Character --}}
           <div class="field-group">
             {{ Form::label('rank_character', $scholarship->label_rec_rank_character) }}
-            {{ Form::select('rank_character', $rank_values); }}
+            {{ Form::select('label', $label); }}
             {{ errorsFor('rank_character', $errors); }}
           </div>
 
