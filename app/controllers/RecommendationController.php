@@ -153,7 +153,6 @@ class RecommendationController extends \BaseController {
       return $this->updateUserRec($input);
     }
 
-    //broken? unclear.
     if(isset($input['rec_id'])){
       return $this->updateAdmin($input);
     }
@@ -172,8 +171,6 @@ class RecommendationController extends \BaseController {
   public function updateAdmin($input)
   {
     $recommendation = Recommendation::whereId($input['rec_id'])->firstOrFail();
-    // dd($input);
-    // dd($recommendation->fill($input)->save());
     $input['essay1'] = $input['rec_essay1'];
     $recommendation->fill($input)->save();
     //Redirect::back()->with('flash_message', ['text' => 'updated.', 'class' => '-success']);
