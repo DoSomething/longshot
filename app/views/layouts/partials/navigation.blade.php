@@ -8,7 +8,7 @@
 
       @if (Auth::guest())
          <li class="{{ setActive('login') }}"><a href="/login"><span>Log in</span></a></li>
-        @if (!Scholarship::isClosed())
+        @if (!Scholarship::isClosed() && Scholarship::isOpen())
           <li class="{{ setActive('register') }}"><a href="/register"><span>Apply</span></a></li>
         @endif
       @else
