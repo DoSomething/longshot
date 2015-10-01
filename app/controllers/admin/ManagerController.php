@@ -41,8 +41,7 @@ class ManagerController extends \BaseController {
 
 		$user = new User;
 		$user->fill($input)->save();
-		dd($user);
-		$user->assignRoll(1);
+		$user->assignRole(1);
 
 		return Redirect::route('admin.manage.index')->with('flash_message', ['text' => '<strong>Success:</strong> Admin has been created!', 'class' => 'alert-success']);
 	}

@@ -34,7 +34,7 @@
 				{{-- Create New Admin Button --}}
 
 					<div>
-						<button class='btn btn-primary'>Create New Admin</button>
+						<a class='btn btn-primary' href="{{ URL::route('admin.manage.create') }}">Create New Admin </a>
 					</div>
 
 
