@@ -23,21 +23,23 @@
           <table class="table table-striped">
             <thead>
               <tr>
-                <th>Winner ID</th>
                 <th>Name (edit winner info)</th>
                 <th>College</th>
+                <th>Winner ID</th>
               </tr>
               </thead>
             <tbody>
             @foreach ($winners as $winner)
             <tr>
-              <td>{{ $winner->id  }}</td>
               <td>{{ link_to_route('admin.winner.edit', $winner->first_name . ' ' . $winner->last_name, [$winner->id]) }}</td>
               <td>{{ $winner->college }}</td>
+              <td>{{ $winner->id }}</td>
             </tr>
             @endforeach
             </tbody>
 
         </div>
+
     </div>
   </div>
+@stop

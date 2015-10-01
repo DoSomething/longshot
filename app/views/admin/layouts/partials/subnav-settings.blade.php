@@ -6,6 +6,7 @@
     <li class="{{ setActive('scholarship', 2, 'active') }}">{{ link_to_route('admin.scholarship.index', 'Scholarships') }}</li>
     <li class="{{ setActive('winners', 3, 'active') }}">{{ link_to_route('admin.winner.index', 'Winners') }}</li>
     <li class="{{ setActive('email', 2, 'active') }}">{{ link_to_route('emails', 'Emails') }}</li>
+    <li class="{{ setActive('email', 2, 'active') }}">{{ link_to_route('admin.manage.index', 'Manage Admins') }}</li>
   </ul>
   {{ Form::open(array('route' => 'general.clear-cache')) }}
     {{ Form::submit('Clear Cache', ['class' => 'btn btn-default -hover-red']) }}
