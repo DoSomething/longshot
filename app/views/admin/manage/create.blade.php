@@ -11,36 +11,46 @@
 					New Admin
 				</h1>
 
-				{{ Form::open(['route' => 'admin.manage.store']) }}
+				{{ Form::open(['route' => 'admin.manage.store', 'class' => 'col-md-8']) }}
 
-				   {{-- First Name Field --}}
-			          <div class="form-group">
-			            {{ Form::label('first_name', 'First Name: ') }}
-			            {{ Form::text('first_name') }}
-			            {{ errorsFor('first_name', $errors); }}
-			          </div>
+					{{-- First Name Field --}}
+						<div class="form-group">
+							{{ Form::label('first_name', 'First Name: ') }}
+							{{ Form::text('first_name', null, ['class' => 'form-control']) }}
+							{{ errorsFor('first_name', $errors); }}
+						</div>
 
-			          {{-- Last Name Field --}}
-			          <div class="form-group -dual -beta {{ setInvalidClass('last_name', $errors) }}">
-			            {{ Form::label('last_name', 'Last Name: ') }}
-			            {{ Form::text('last_name') }}
-			            {{ errorsFor('last_name', $errors); }}
-			          </div>
+					{{-- Last Name Field --}}
+						<div class="form-group">
+							{{ Form::label('last_name', 'Last Name: ') }}
+							{{ Form::text('last_name', null, ['class' => 'form-control']) }}
+							{{ errorsFor('last_name', $errors); }}
+						</div>
 
-			          {{-- Email Field --}}
-			          @include('layouts/partials/_form-email-field')
+					{{-- Email Field --}}
+						<div class="form-group">
+							{{ Form::label('email', 'Email: ') }}
+							{{ Form::text('email', null, ['class' => 'form-control']) }}
+							{{ errorsFor('email', $errors); }}
+						</div>
 
-			          {{-- Password Field --}}
-			          @include('layouts/partials/_form-password-field')
+					{{-- Password Field --}}
+						<div class="form-group">
+							{{ Form::label('password', 'Password: ') }}
+							{{ Form::password('password', ['class' => 'form-control']) }}
+							{{ errorsFor('password', $errors); }}
+						</div>
 
-			          {{-- Password Confirmation Field --}}
-			          @include('layouts/partials/_form-password-confirmation-field')
-
+					{{-- Password Confirmation Field --}}
+						<div class="form-group">
+							{{ Form::label('password_confirmation', 'Confirm Password: ') }}
+							{{ Form::password('password_confirmation', ['class' => 'form-control']) }}
+						</div>
 
 					{{-- Save Button --}}
-					<div>
-						{{ Form::submit('Create', ['class' => 'btn btn-primary']) }}
-					</div>
+						<div>
+							{{ Form::submit('Create', ['class' => 'btn btn-primary']) }}
+						</div>
 
 				{{ Form::close() }}
 
