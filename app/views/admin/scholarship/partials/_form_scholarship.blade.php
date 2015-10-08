@@ -63,14 +63,14 @@
 
 {{-- Minimum number of Recomendations --}}
 <div class="form-group">
-  {{ Form::label('num_recommendations_min', 'Minimum number of Recomendations: ') }}
+  {{ Form::label('num_recommendations_min', 'Minimum number of Recommendations: ') }}
   {{ Form::selectRange('num_recommendations_min', 1, 3, null, ['class' => 'form-control']); }}
   {{ errorsFor('num_recommendations_min', $errors); }}
 </div>
 
 {{-- Maximum number of Recomendations --}}
 <div class="form-group">
-  {{ Form::label('num_recommendations_max', ' Maximum number of Recomendations : ') }}
+  {{ Form::label('num_recommendations_max', ' Maximum number of Recommendations : ') }}
   {{ Form::selectRange('num_recommendations_max', 1, 4, null, ['class' => 'form-control']); }}
   {{ errorsFor('num_recommendations_max', $errors); }}
 </div>
@@ -87,7 +87,7 @@
 
 {{-- Accomplisments Label --}}
 <div class="form-group">
-  {{ Form::label('label_app_accomplishments', 'Accomplisments Label: ') }}
+  {{ Form::label('label_app_accomplishments', 'Accomplishments Label: ') }}
   {{ Form::text('label_app_accomplishments', null, ['class' => 'form-control']) }}
   {{ errorsFor('label_app_accomplishments', $errors); }}
 </div>
@@ -122,21 +122,21 @@
 
 {{-- Recomendation Rank Character Label --}}
 <div class="form-group">
-  {{ Form::label('label_rec_rank_character', 'Recomendation Rank Character Label: ') }}
+  {{ Form::label('label_rec_rank_character', 'Recommendation Rank Character Label: ') }}
   {{ Form::text('label_rec_rank_character', null, ['class' => 'form-control']) }}
   {{ errorsFor('label_rec_rank_character', $errors); }}
 </div>
 
 {{-- Recomendation Rank Additional Label --}}
 <div class="form-group">
-  {{ Form::label('label_rec_rank_additional', 'Recomendation Rank Additional Label: ') }}
+  {{ Form::label('label_rec_rank_additional', 'Recommendation Rank Additional Label: ') }}
   {{ Form::text('label_rec_rank_additional', null, ['class' => 'form-control']) }}
   {{ errorsFor('label_rec_rank_additional', $errors); }}
 </div>
 
 {{-- Recomendation Essay 1 Label --}}
 <div class="form-group">
-  {{ Form::label('label_rec_essay1', 'Recomendation Essay 1 Label: ') }}
+  {{ Form::label('label_rec_essay1', 'Recommendation Essay 1 Label: ') }}
   {{ Form::text('label_rec_essay1', null, ['class' => 'form-control']) }}
   {{ errorsFor('label_rec_essay1', $errors); }}
 </div>
@@ -148,7 +148,7 @@
   {{ errorsFor('display_optional_rec_question', $errors); }}
 </div>
 <div class="form-group">
-  {{ Form::label('label_rec_optional_question', 'Recomendation Optional Question Label: ') }}
+  {{ Form::label('label_rec_optional_question', 'Recommendation Optional Question Label: ') }}
   {{ Form::text('label_rec_optional_question', null, ['class' => 'form-control']) }}
   {{ errorsFor('label_rec_optional_question', $errors); }}
 </div>
