@@ -1,7 +1,7 @@
   {{-- Birthdate --}}
   <div class="field-group -dual -alpha {{ setInvalidClass('birthdate', $errors) }}">
     {{ Form::label('birthdate', 'Birthdate: ') }}
-    {{ Form::input('date', 'birthdate', null, ['placeholder' => 'MM/DD/YYYY']) }}
+    {{ Form::text('birthdate', null, ['placeholder' => 'MM/DD/YYYY']) }}
     {{ errorsFor('birthdate', $errors); }}
   </div>
 
