@@ -6,7 +6,7 @@ return [
   'DB_USERNAME'     => 'username',
   'DB_PASSWORD'     => 'password',
   'DB_NAME'         => 'db_name'
-  'MANDRILL_APIKEY' => 'key',
+  'MANDRILL_APIKEY' => 'U-something',
   'REDIS_QUEUE'     => 'default',
   'EMAIL_ADDRESS'   => 'example@example.com',
   'EMAIL_NAME'      => 'Example',
