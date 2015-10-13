@@ -46,17 +46,6 @@ class ManagerController extends \BaseController {
 		return Redirect::route('admin.manage.index')->with('flash_message', ['text' => '<strong>Success:</strong> Admin has been created!', 'class' => 'alert-success']);
 	}
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		return 'show admin info';
-	}
-
 
 	/**
 	 * Show the form for editing the specified resource.
