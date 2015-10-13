@@ -82,9 +82,9 @@ class ManagerController extends \BaseController {
 	{
 		$input = Input::all();
 
-   		$admin = User::whereId($id)->firstOrFail();
-    	$admin->fill($input);
-    	$admin->save();
+   	$admin = User::whereId($id)->firstOrFail();
+    $admin->fill($input);
+    $admin->save();
     	
 		return Redirect::route('admin.manage.index')->with('flash_message', ['text' => '<strong>Success:</strong> Admin has been updated!', 'class' => 'alert-success']);
 	}
