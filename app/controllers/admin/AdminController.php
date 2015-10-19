@@ -167,11 +167,12 @@ class AdminController extends \BaseController {
     $show_rating = FALSE;
     if ($app_id) {
       $recomendations = Recommendation::getUserRecs($app_id->id);
-
-      if (Application::isComplete($app_id->id))
-        $show_rating = TRUE;
-      $app_rating = Rating::getApplicationRating($app_id->id);
     }
+
+    if (Application::isComplete($app_id->id))
+        $show_rating = TRUE;
+    
+    $app_rating = Rating::getApplicationRating($app_id->id);
 
     $possible_ratings = Rating::getPossibleRatings();
 
@@ -195,7 +196,12 @@ class AdminController extends \BaseController {
 
     $recomendations = null;
     if ($app_id)
+    {
       $recomendations = Recommendation::getUserRecs($app_id->id);
+      $rank_values = Recommendation::getRankValues();
+    }
+    
+
 
     $show_rating = FALSE;
     if (Application::isComplete($app_id->id))
@@ -204,7 +210,7 @@ class AdminController extends \BaseController {
     $app_rating = Rating::getApplicationRating($app_id->id);
     $possible_ratings = Rating::getPossibleRatings();
 
-    return View::make('admin.applications.edit')->withUser($profile)->with(compact('id', 'application', 'app_id', 'user', 'user_info', 'profile', 'races', 'label', 'choices', 'recomendations', 'states', 'show_rating', 'possible_ratings', 'app_rating'));
+    return View::make('admin.applications.edit')->withUser($profile)->with(compact('id', 'application', 'app_id', 'user', 'user_info', 'profile', 'races', 'label', 'choices', 'recomendations', 'states', 'show_rating', 'possible_ratings', 'app_rating', 'rank_values'));
 
   }
 

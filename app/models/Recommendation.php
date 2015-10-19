@@ -66,7 +66,8 @@ class Recommendation extends \Eloquent {
 
   public static function getUserRecs($id)
   {
-    $fields = array('first_name',
+    $fields = array('id',
+                    'first_name',
                     'last_name',
                     'relationship',
                     'phone',

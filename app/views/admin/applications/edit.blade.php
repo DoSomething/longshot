@@ -30,6 +30,13 @@
             {{ Form::close() }}
           </div>
 
+          <h2>Recommender Responses</h2>
+          <div class="well well-lg">
+             @foreach ($recomendations as $rec)
+                  @include('admin/recommendations/edit', array('recommendation' => (object)$rec, 'label' => (object)$label))
+              @endforeach
+          </div>
+
         </div>
       </div>
 
