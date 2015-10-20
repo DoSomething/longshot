@@ -18,14 +18,14 @@
           {{-- Last Name --}}
           <div class="field-group -dual -beta">
             {{ Form::label('last_name', 'Your Last Name: ') }}
-            {{ Form::text('last_name', $recommendation->last_name, array('disabled'))  }}
+            {{ Form::text('last_name', $recommendation->last_name) }}
             {{ errorsFor('last_name', $errors); }}
           </div>
 
           {{-- Email --}}
           <div class="field-group -dual -alpha">
             {{ Form::label('email', 'Your Email: ') }}
-            {{ Form::email('email', $recommendation->email, array('disabled')) }}
+            {{ Form::email('email', $recommendation->email) }}
             {{ errorsFor('email', $errors); }}
           </div>
 
