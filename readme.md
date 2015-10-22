@@ -10,7 +10,7 @@
 1. Clone the repo
 2. Create a `.env.local.php` file from `default.env.local.php` and make sure your `.env.local.php` has the correct keys for your dev environment. Reach out to the tech team for the correct keys to use in your dev environments `.env.local.php` file.
 3. Edit your `Homestead.yml` file to include this new info. Making sure the `folders` and `sites` configuration is correct for your local set up.
-4. Add your app url (scholarship.dev) to your `etc/hosts` file i.e. `127.0.0.1 scholarship.dev`
+4. Add your app url (longshot.dev) to your `etc/hosts` file i.e. `127.0.0.1 longshot.dev`
 5. Manually create a `scholarship_app` database in Sequel Pro.
     - Open a `new connection` window and click on the `standard` connection tab
     - Name the connection 
