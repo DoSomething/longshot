@@ -1,4 +1,4 @@
-# Scholarship Application App
+# Longshot App
 
 ## Prerequisites
 1.  Composer
