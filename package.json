@@ -1,11 +1,11 @@
 {
   "name": "scholarship-application-app",
-  "description": "Tasks to run for the Scholarship Application App",
+  "description": "Tasks to run for the Scholarship Application App (AKA Longshot)",
   "version": "0.1.0",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/DoSomething/scholarship-applminimication-app"
+    "url": "https://github.com/DoSomething/longshot"
   },
   "browser": {},
   "browserify": {
