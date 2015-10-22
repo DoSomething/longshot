@@ -1,10 +1,11 @@
 {
   "name": "scholarship-application-app",
-  "description": "Tasks to run for the Scholarship Application App",
+  "description": "Tasks to run for the Scholarship Application App (AKA Longshot)",
   "version": "0.1.0",
+  "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/DoSomething/scholarship-application-app"
+    "url": "https://github.com/DoSomething/longshot"
   },
   "browser": {},
   "browserify": {
@@ -19,9 +20,8 @@
     "susy": "^2.2.2"
   },
   "devDependencies": {
-    "browser-sync": "^1.3.5",
-    "browserify": "^4.2.3",
-    "browserify-shim": "^3.6.0",
+    "browserify": "^11.2.0",
+    "browserify-shim": "^3.8.10",
     "gulp": "^3.8.8",
     "gulp-autoprefixer": "0.0.8",
     "gulp-changed": "^1.0.0",

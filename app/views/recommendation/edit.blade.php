@@ -50,7 +50,7 @@
           {{-- Rank Character --}}
           <div class="field-group">
             {{ Form::label('rank_character', $scholarship->label_rec_rank_character) }}
-            {{ Form::select('rank_characher', $rank_values); }}
+            {{ Form::select('rank_character', $rank_values); }}
             {{ errorsFor('rank_character', $errors); }}
           </div>
 
