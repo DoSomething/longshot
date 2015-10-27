@@ -34,6 +34,10 @@ class RecommendationController extends \BaseController {
 
     $vars = (object) $this->settings->getSpecifiedSettingsVars(['recommendation_create_help_text']);
 
+    if(!Auth::check()){
+      return Redirect::home()->with('flash_message', ['text' => 'You are not authorized to access that page!', 'class' => '-warning']);
+    }
+
     return View::make('recommendation.create', compact('num_recs', 'vars'));
   }
 
