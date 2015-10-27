@@ -18,6 +18,8 @@ class RecommendationController extends \BaseController {
     $this->beforeFilter('isClosed');
     // Check that the current user doesn't create many applications
     $this->beforeFilter('createdRec', ['only' => ['create']]);
+    // check that the user is logged in
+    $this->beforeFilter('auth');
   }
 
 
@@ -33,10 +35,6 @@ class RecommendationController extends \BaseController {
     $num_recs = Scholarship::getCurrentScholarship()->select('num_recommendations_max', 'num_recommendations_min')->firstOrFail()->toArray();
 
     $vars = (object) $this->settings->getSpecifiedSettingsVars(['recommendation_create_help_text']);
-
-    if(!Auth::check()){
-      return Redirect::home()->with('flash_message', ['text' => 'You are not authorized to access that page!', 'class' => '-warning']);
-    }
 
     return View::make('recommendation.create', compact('num_recs', 'vars'));
   }
