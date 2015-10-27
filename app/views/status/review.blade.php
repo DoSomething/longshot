@@ -35,7 +35,7 @@
             <dl>
               @foreach ($application as $key => $field)
                 {{-- did they have a value in the field --}}
-                @if (!empty($field))
+                @if (!empty($field) && !($key == 'scholarship_id'))
                   {{-- does the field have a better title in the scholarship? --}}
                   @if (isset($scholarship[$key]))
                     <dt><strong>{{ snakeCaseToTitleCase($scholarship[$key]) }} </strong></dt>
