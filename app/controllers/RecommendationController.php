@@ -18,6 +18,9 @@ class RecommendationController extends \BaseController {
     $this->beforeFilter('isClosed');
     // Check that the current user doesn't create many applications
     $this->beforeFilter('createdRec', ['only' => ['create']]);
+
+    // check that the user is logged in before allowing them to create a recommendation
+    $this->beforeFilter('auth', ['only' => 'create']);
   }
 
 

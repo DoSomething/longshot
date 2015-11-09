@@ -1,4 +1,4 @@
-{{-- Reecommendation Request --}}
+{{-- Recommendation Request --}}
 
 @extends('layouts.master')
 
