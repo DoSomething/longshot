@@ -155,9 +155,14 @@ class AdminController extends \BaseController {
     // would significantly reduce the number of SQL queries needed, as well
     // as the number of variables passed to the view.
     $application = Application::getUserApplication($id);
-    $profile = Profile::getUserProfile($id);
+    //only load the user profile if it has been filled out
+    if (Profile::where('user_id', '=', $id)->exists()) {
+      $profile = Profile::getUserProfile($id);
+    }
     $user = User::getUserInfo($id);
-    $scholarship = Scholarship::getScholarshipLabels($application['scholarship_id']);
+    if (Application::where('user_id', '=', $id)->exists()) {
+      $scholarship = Scholarship::getScholarshipLabels($application['scholarship_id']);
+    }
     $app_id = Application::getUserApplicationId($id);
     $prof_id = Profile::getUserProfileId($id);
     $races = Profile::getUserRace($prof_id);
@@ -169,10 +174,12 @@ class AdminController extends \BaseController {
       $recomendations = Recommendation::getUserRecs($app_id->id);
     }
 
-    if (Application::isComplete($app_id->id))
-        $show_rating = TRUE;
-    
-    $app_rating = Rating::getApplicationRating($app_id->id);
+    if (Application::where('user_id', '=', $id)->exists()) {
+      if (Application::isComplete($app_id->id)) {
+          $show_rating = TRUE;        
+      }
+      $app_rating = Rating::getApplicationRating($app_id->id);
+    }
 
     $possible_ratings = Rating::getPossibleRatings();
 

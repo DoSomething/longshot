@@ -15,25 +15,27 @@
 
           <hr>
 
-          <h2>Profile Information</h2>
-          <div class="details well well-lg">
-            @foreach ($profile as $key => $field)
-                @if (!empty($field))
-                  <div>
-                    <p><strong>{{ snakeCaseToTitleCase($key) }}:</strong> {{ $field }}</p>
-                  </div>
-                @endif
-            @endforeach
+          @if (isset($profile))
+            <h2>Profile Information</h2>
+            <div class="details well well-lg">
+              @foreach ($profile as $key => $field)
+                  @if (!empty($field))
+                    <div>
+                      <p><strong>{{ snakeCaseToTitleCase($key) }}:</strong> {{ $field }}</p>
+                    </div>
+                  @endif
+              @endforeach
 
-            <div>
-              <p><strong>Races:</strong></p>
-              <ul>
-                @foreach($races as $race)
-                <li> {{ $race['race']}} </li>
-                @endforeach
-              </ul>
+              <div>
+                <p><strong>Races:</strong></p>
+                <ul>
+                  @foreach($races as $race)
+                  <li> {{ $race['race']}} </li>
+                  @endforeach
+                </ul>
+              </div>
             </div>
-          </div>
+          @endif
 
           @if (!is_null($application))
             <h2>Application Responses</h2>
