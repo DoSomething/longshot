@@ -59,6 +59,7 @@ Route::group(['before' => 'role:administrator', 'prefix' => 'admin'], function()
   Route::get('applications/{id}/edit', ['as' => 'admin.application.edit', 'uses' => 'AdminController@applicationsEdit']);
 
   Route::post('application/rate', ['as' => 'applications.rate', 'uses' => 'AdminController@rate']);
+  Route::post('application/makeComplete', ['as' => 'applications.makeComplete', 'uses' => 'AdminController@makeComplete']);
 
   # Winners
   Route::resource('winner', 'WinnerController');

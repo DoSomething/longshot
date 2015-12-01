@@ -242,6 +242,16 @@ class AdminController extends \BaseController {
     return Redirect::to(Session::get('url.index'))->with('flash_message', ['text' => '<strong>Success:</strong> Awesome, we got that rated for you!', 'class' => 'alert-success']);
   }
 
+  public function makeComplete()
+  {
+    $app_id = Input::get('app_id');
+    $application = Application::whereId($app_id)->firstOrFail();
+    $application->completed = 1;
+    $application->save();
+
+    return Redirect::to('admin.applications');
+  }
+
   public function export()
   {
     return View::make('admin.reports.export');
