@@ -242,7 +242,7 @@ class AdminController extends \BaseController {
     return Redirect::to(Session::get('url.index'))->with('flash_message', ['text' => '<strong>Success:</strong> Awesome, we got that rated for you!', 'class' => 'alert-success']);
   }
 
-  public function makeComplete()
+  public function complete()
   {
     $app_id = Input::get('app_id');
     $application = Application::whereId($app_id)->firstOrFail();
