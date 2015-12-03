@@ -249,7 +249,7 @@ class AdminController extends \BaseController {
     $application->completed = 1;
     $application->save();
 
-    return Redirect::to('admin.applications');
+    return Redirect::route('applications.index');
   }
 
   public function export()
