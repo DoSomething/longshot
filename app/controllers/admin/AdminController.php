@@ -249,7 +249,7 @@ class AdminController extends \BaseController {
     $application->completed = 1;
     $application->save();
 
-    return Redirect::back();
+    return Redirect::to(Session::get('url.index'))->with('flash_message', ['text' => '<strong>Success:</strong> App marked as completed!', 'class' => 'alert-success']);
   }
 
   public function export()
