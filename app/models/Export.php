@@ -61,9 +61,12 @@ class Export extends Eloquent {
 
   public static function rec_requested_not_finished_query()
   {
-    $results = DB::select('SELECT first_name, last_name, relationship, phone, email
+    $results = DB::select('SELECT r.first_name, r.last_name, r.relationship, r.phone, r.email, concat("/recommendation/", r.id, "/edit?token=", rt.token) as link, u.first_name as applicant_first_name, u.last_name as applicant_last_name
                           FROM recommendations r
-                          WHERE rank_character is null');
+                          INNER JOIN recommendation_tokens rt on r.id = rt.recommendation_id
+                          INNER JOIN applications a on r.application_id = a.id
+                          INNER JOIN users u on a.user_id = u.id
+                          WHERE r.rank_character is null');
 
     return $results;
   }
