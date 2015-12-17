@@ -117,7 +117,7 @@
                 @endif
               </div>
             @endif
-            @else
+            @elseif (!is_null($application))
               {{ Form::open(['route' => 'applications.complete']) }}
               {{ Form::hidden('app_id', $app_id->id)}}
               {{ Form::submit(('Mark as complete'), ['class' => 'btn btn-default btn-md']) }}
