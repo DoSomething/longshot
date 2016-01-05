@@ -89,24 +89,19 @@ class StatusController extends \BaseController {
    */
   public function review($id)
   {
-    if($id == Auth::id())
-    {
-      // Get all the things.
-      $application = Application::getUserApplication($id);
-      $profile = Profile::getUserProfile($id);
-      $scholarship = Scholarship::getScholarshipLabels($application['scholarship_id']);
+    // Get all the things.
+    $application = Application::getUserApplication($id);
+    $profile = Profile::getUserProfile($id);
+    $scholarship = Scholarship::getScholarshipLabels($application['scholarship_id']);
 
-      $vars = (object) $this->settings->getSpecifiedSettingsVars(['application_submit_help_text']);
+    $vars = (object) $this->settings->getSpecifiedSettingsVars(['application_submit_help_text']);
 
-      $prof_complete = Profile::isComplete(Auth::user()->id);
-      if (!$prof_complete) {
-        return Redirect::route('status')->with('flash_message', ['text' => 'Please go back and answer all required questions in ' . link_to_route('profile.create', 'basic info.'), 'class' => '-warning']);
-      }
-
-      return View::make('status.review', compact('application', 'profile', 'scholarship', 'vars'));
+    $prof_complete = Profile::isComplete(Auth::user()->id);
+    if (!$prof_complete) {
+      return Redirect::route('status')->with('flash_message', ['text' => 'Please go back and answer all required questions in ' . link_to_route('profile.create', 'basic info.'), 'class' => '-warning']);
     }
-    else
-      return Redirect::home()->with('flash_message', ['text' => 'You are not authorized to access that page!', 'class' => '-warning']);
+
+    return View::make('status.review', compact('application', 'profile', 'scholarship', 'vars'));
   }
 
   /**
