@@ -53,7 +53,9 @@
 
            {{ Form::button('<i class="glyphicon glyphicon-download-alt"></i> Incomplete apps by first name and email', array('type' => 'submit', 'name' => 'incomplete_apps_by_first_and_email', 'class' => 'btn btn-default btn-lg')) }}
 
+          <br/>
 
+           {{ Form::button('<i class="glyphicon glyphicon-download-alt"></i> Applications marked yes', array('type' => 'submit', 'name' => 'yes_applicants', 'class' => 'btn btn-default btn-lg')) }}
         {{ Form::close() }}
 
        </div>
