@@ -1,17 +1,15 @@
 <?php
 
 use Scholarship\Forms\LoginForm;
-use Scholarship\Repositories\SettingRepository;
 
-class SessionsController extends \BaseController {
+class SessionsController extends \BaseController
+{
+    protected $loginForm;
 
-  protected $loginForm;
-
-  function __construct(LoginForm $loginForm)
-  {
-    $this->loginForm = $loginForm;
-  }
-
+    public function __construct(LoginForm $loginForm)
+    {
+        $this->loginForm = $loginForm;
+    }
 
   /**
    * Show the form for creating a new resource.
@@ -20,14 +18,12 @@ class SessionsController extends \BaseController {
    */
   public function create()
   {
-    if (Auth::check())
-    {
-      return Redirect::route('status');
-    }
+      if (Auth::check()) {
+          return Redirect::route('status');
+      }
 
-    return View::make('sessions.create');
+      return View::make('sessions.create');
   }
-
 
   /**
    * Store a newly created resource in storage.
@@ -36,36 +32,33 @@ class SessionsController extends \BaseController {
    */
   public function store()
   {
-    $input = Input::only('email', 'password');
+      $input = Input::only('email', 'password');
 
-    $this->loginForm->validate($input);
+      $this->loginForm->validate($input);
 
-    if (Auth::attempt($input))
-    {
-      if (Auth::user()->hasRole('administrator'))
-      {
-        return Redirect::route('admin');
+      if (Auth::attempt($input)) {
+          if (Auth::user()->hasRole('administrator')) {
+              return Redirect::route('admin');
+          }
+
+          return Redirect::intended('status')->with('flash_message', ['text' => 'You have been logged in!', 'class' => '-info']);
       }
+      $password_forgot = link_to('password/remind', 'forgotten your password');
 
-      return Redirect::intended('status')->with('flash_message', ['text' => 'You have been logged in!', 'class' => '-info']);
-    }
-    $password_forgot = link_to('password/remind', 'forgotten your password');
-    return Redirect::back()->withInput()->with('flash_message', ['text' => 'Sorry, unrecognized username or password. Have you '. $password_forgot . '?', 'class' => '-error']);
+      return Redirect::back()->withInput()->with('flash_message', ['text' => 'Sorry, unrecognized username or password. Have you '.$password_forgot.'?', 'class' => '-error']);
   }
-
 
   /**
    * Remove the specified resource from storage.
    *
    * @param  int  $id
+   *
    * @return Response
    */
   public function destroy($id = null)
   {
-    Auth::logout();
+      Auth::logout();
 
-    return Redirect::home()->with('flash_message', ['text' => 'You have been logged out!', 'class' => '-info']);
+      return Redirect::home()->with('flash_message', ['text' => 'You have been logged out!', 'class' => '-info']);
   }
-
-
 }

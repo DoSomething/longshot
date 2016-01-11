@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
 
   /*
   |--------------------------------------------------------------------------
@@ -54,7 +54,7 @@ return array(
   |
   */
 
-  'from' => array('address' => getenv('EMAIL_ADDRESS'), 'name' => getenv('EMAIL_NAME')),
+  'from' => ['address' => getenv('EMAIL_ADDRESS'), 'name' => getenv('EMAIL_NAME')],
 
   /*
   |--------------------------------------------------------------------------
@@ -121,4 +121,4 @@ return array(
 
   'pretend' => false,
 
-);
+];

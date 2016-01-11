@@ -1,17 +1,16 @@
 <?php
 
-class RolesTableSeeder extends Seeder {
-
-  /**
+class RolesTableSeeder extends Seeder
+{
+    /**
    * Seed the Roles table.
    *
    * @return void
    */
   public function run()
   {
-    Role::truncate();
+      Role::truncate();
 
-    Role::create(['name' => 'administrator']);
+      Role::create(['name' => 'administrator']);
   }
-
 }

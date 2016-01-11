@@ -4,9 +4,9 @@ namespace Scholarship\Forms;
 
 use Laracasts\Validation\FormValidator;
 
-class ApplicationForm extends FormValidator {
-
- /**
+class ApplicationForm extends FormValidator
+{
+    /**
   * @var array
   */
  protected $rules = [
@@ -20,7 +20,7 @@ class ApplicationForm extends FormValidator {
   'link'            => 'url',
  ];
 
-protected $messages = [
+    protected $messages = [
   'accomplishments.required' => 'This question is required.',
   'participation.required'   => 'This question is required.',
   'gpa.required'             => 'GPA is required.',
@@ -31,5 +31,4 @@ protected $messages = [
   'essay2.required'          => 'This essay is required.',
   'link.url'                 => 'Please enter a valid link.',
  ];
-
 }

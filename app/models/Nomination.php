@@ -1,7 +1,6 @@
 <?php
 
-class Nomination extends Eloquent {
-
-  protected $guarded = ['id'];
-
+class Nomination extends Eloquent
+{
+    protected $guarded = ['id'];
 }

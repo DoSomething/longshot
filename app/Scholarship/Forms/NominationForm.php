@@ -4,9 +4,9 @@ namespace Scholarship\Forms;
 
 use Laracasts\Validation\FormValidator;
 
-class NominationForm extends FormValidator {
-
- /**
+class NominationForm extends FormValidator
+{
+    /**
   * @var array
   */
  protected $rules = [
@@ -17,7 +17,7 @@ class NominationForm extends FormValidator {
 
  ];
 
- protected $messages = [
+    protected $messages = [
   'rec_name.required'   => 'Please enter your name.',
   'nom_name.required'   => 'Please enter the nominee\'s name.',
   'rec_email.required'  => 'Please enter an email.',
@@ -25,5 +25,4 @@ class NominationForm extends FormValidator {
   'rec_email.email'     => 'Please enter a valid email address',
   'nom_email.email'     => 'Please enter a valid email address',
  ];
-
 }
