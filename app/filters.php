@@ -183,14 +183,9 @@ Route::filter('submittedApp', function($route, $request)
 Route::filter('isOwner', function($route, $request)
 {
   $user_id = Auth::id();
-
-  //get requested id
-  if ($route->parameterNames('0')['0'] == 'id') {
-    $requested_id = $route->parameters('id')['id'];
-  } elseif ($route->parameterNames('0')['0'] == 'profile') {
-    $requested_id = $route->parameters('profile')['profile'];
-  } elseif ($route->parameterNames('0')['0'] == 'application') {
-    $requested_id = $route->parameters('application')['application'];
+  
+  if ($route->parameterNames('0')['0'] == 'profile' or 'id' or 'application') {
+    $requested_id = $route->parameters([$route->parameterNames('0')['0']])[$route->parameterNames('0')['0']];
   }
 
   if (!($user_id == $requested_id)) {
