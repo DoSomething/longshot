@@ -17,7 +17,7 @@ class ProfilesController extends \BaseController {
     $this->profileForm = $profileForm;
 
     $this->beforeFilter('isClosed');
-    $this->beforeFilter('isOwnerOrAdmin', ['only' => ['edit', 'update', 'show']]);
+    $this->beforeFilter('isOwner', ['only' => ['edit', 'update', 'show']]);
     $this->beforeFilter('startedProcess:profile', ['only' => ['create']]);
   }
 

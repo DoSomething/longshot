@@ -182,49 +182,18 @@ Route::filter('submittedApp', function($route, $request)
 
 Route::filter('isOwner', function($route, $request)
 {
-  $id = Auth::id();
+  $user_id = Auth::id();
 
   //get requested id
-  if($route->parameterNames('0')['0'] == 'id')
-  {
+  if ($route->parameterNames('0')['0'] == 'id') {
     $requested_id = $route->parameters('id')['id'];
-  }
-  elseif($route->parameterNames('0')['0'] == 'profile')
-  {
+  } elseif ($route->parameterNames('0')['0'] == 'profile') {
     $requested_id = $route->parameters('profile')['profile'];
-  }
-  elseif($route->parameterNames('0')['0'] == 'application')
-  {
+  } elseif ($route->parameterNames('0')['0'] == 'application') {
     $requested_id = $route->parameters('application')['application'];
   }
 
-  if(!($id == $requested_id))
-  {
-    return Redirect::home()->with('flash_message', ['text' => 'You are not authorized to access that page!', 'class' => '-warning']);
-  }
-});
-
-Route::filter('isOwnerOrAdmin', function($route, $request)
-{
-  $id = Auth::id();
-
-  //get requested id
-  if($route->parameterNames('0')['0'] == 'id')
-  {
-    $requested_id = $route->parameters('id')['id'];
-  }
-  elseif($route->parameterNames('0')['0'] == 'profile')
-  {
-    $requested_id = $route->parameters('profile')['profile'];
-  }
-  elseif($route->parameterNames('0')['0'] == 'application')
-  {
-    $requested_id = $route->parameters('application')['application'];
-  }
-
-  //not authorized if not owner and not admin
-  if(!($id == $requested_id) && !(Auth::user()->hasRole('administrator')))
-  {
+  if (!($user_id == $requested_id)) {
     return Redirect::home()->with('flash_message', ['text' => 'You are not authorized to access that page!', 'class' => '-warning']);
   }
 });
