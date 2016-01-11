@@ -3,19 +3,18 @@
 use Scholarship\Forms\SettingsForm;
 use Scholarship\Repositories\SettingRepository;
 
-class SettingsController extends \BaseController {
+class SettingsController extends \BaseController
+{
+    protected $settingsForm;
 
-  protected $settingsForm;
+    protected $settings;
 
-  protected $settings;
+    public function __construct(SettingsForm $settingsForm, SettingRepository $settings)
+    {
+        $this->settingsForm = $settingsForm;
 
-  function __construct(SettingsForm $settingsForm, SettingRepository $settings)
-  {
-    $this->settingsForm = $settingsForm;
-
-    $this->settings = $settings;
-  }
-
+        $this->settings = $settings;
+    }
 
   /**
    * Show the form for editing the specified resource.
@@ -24,11 +23,10 @@ class SettingsController extends \BaseController {
    */
   public function editAppearance()
   {
-    $settings_data = Setting::whereCategory('appearance')->get();
+      $settings_data = Setting::whereCategory('appearance')->get();
 
-    return View::make('admin.settings.appearance.edit')->with('settings', $settings_data);
+      return View::make('admin.settings.appearance.edit')->with('settings', $settings_data);
   }
-
 
   /**
    * Show the form for editing the specified resource.
@@ -37,11 +35,10 @@ class SettingsController extends \BaseController {
    */
   public function editGeneral()
   {
-    $settings_data = Setting::whereCategory('general')->get();
+      $settings_data = Setting::whereCategory('general')->get();
 
-    return View::make('admin.settings.general.edit')->with('settings', $settings_data);
+      return View::make('admin.settings.general.edit')->with('settings', $settings_data);
   }
-
 
   /**
    * Show the form for editing the specified resource.
@@ -50,11 +47,10 @@ class SettingsController extends \BaseController {
    */
   public function editMetaData()
   {
-    $settings_data = Setting::whereCategory('meta_data')->get();
+      $settings_data = Setting::whereCategory('meta_data')->get();
 
-    return View::make('admin.settings.meta-data.edit')->with('settings', $settings_data);
+      return View::make('admin.settings.meta-data.edit')->with('settings', $settings_data);
   }
-
 
   /**
    * Update the specified resource in storage.
@@ -63,7 +59,7 @@ class SettingsController extends \BaseController {
    */
   public function updateAppearance()
   {
-    $input = Input::only(
+      $input = Input::only(
       'primary_color',
       'primary_color_contrast',
       'primary_color_interaction',
@@ -74,9 +70,9 @@ class SettingsController extends \BaseController {
       'cap_color_contrast'
       );
 
-    $this->settingsForm->validate($input);
+      $this->settingsForm->validate($input);
 
-    $input = $this->settings->nullify($input);
+      $input = $this->settings->nullify($input);
 
     // Get specified category settings collection.
     $settings_data = Setting::whereCategory('appearance')->get();
@@ -90,19 +86,17 @@ class SettingsController extends \BaseController {
     // Create the custom stylesheet file from values in Appearance settings.
     createCustomStylesheet($input);
 
-    return Redirect::route('appearance.edit')->with('flash_message', ['text' => '<strong>Success:</strong> <em>Appearance</em> settings have been saved!', 'class' => 'alert-success']);
-
+      return Redirect::route('appearance.edit')->with('flash_message', ['text' => '<strong>Success:</strong> <em>Appearance</em> settings have been saved!', 'class' => 'alert-success']);
   }
 
-
-   /**
+  /**
    * Update the specified resource in storage.
    *
    * @return Response
    */
   public function updateGeneral()
   {
-    // @TODO: maybe collect the help_text related items via the $individualQueryItems SettingsRepository property?
+      // @TODO: maybe collect the help_text related items via the $individualQueryItems SettingsRepository property?
     $inputText = Input::only(
       'company_name',
       'company_url',
@@ -125,23 +119,23 @@ class SettingsController extends \BaseController {
       'official_rules_url'
       );
 
-    $inputImages = Input::only('header_logo', 'footer_logo', 'nominate_image');
+      $inputImages = Input::only('header_logo', 'footer_logo', 'nominate_image');
 
-    $this->settingsForm->validate($inputText);
-    $this->settingsForm->validate($inputImages);
+      $this->settingsForm->validate($inputText);
+      $this->settingsForm->validate($inputImages);
 
-    $defaultLogoPath = '/dist/images/tmi-logo.png';
+      $defaultLogoPath = '/dist/images/tmi-logo.png';
 
     // Uploaded Images
     foreach ($inputImages as $key => $image) {
-      if (Input::hasFile($key)) {
-        $inputImages[$key] = $this->settings->moveImage($key);
-      }
+        if (Input::hasFile($key)) {
+            $inputImages[$key] = $this->settings->moveImage($key);
+        }
     }
 
-    $input = array_merge($inputText, $inputImages);
+      $input = array_merge($inputText, $inputImages);
 
-    $input = $this->settings->nullify($input);
+      $input = $this->settings->nullify($input);
 
     // Get specified category settings collection.
     $settings_data = Setting::whereCategory('general')->get();
@@ -152,10 +146,8 @@ class SettingsController extends \BaseController {
     // Updated General Settings so clear the cache.
     Event::fire('settings.change', ['general']);
 
-    return Redirect::route('general.edit')->with('flash_message', ['text' => '<strong>Success:</strong> <em>General</em> settings have been saved!', 'class' => 'alert-success']);
-
+      return Redirect::route('general.edit')->with('flash_message', ['text' => '<strong>Success:</strong> <em>General</em> settings have been saved!', 'class' => 'alert-success']);
   }
-
 
   /**
    * Update the specified resource in storage.
@@ -164,28 +156,28 @@ class SettingsController extends \BaseController {
    */
   public function updateMetaData()
   {
-    $inputText = Input::only(
+      $inputText = Input::only(
       'open_graph_data_title',
       'open_graph_data_description',
       'open_graph_data_type',
       'open_graph_data_url'
     );
 
-    $inputImages = Input::only('open_graph_data_image', 'favicon');
+      $inputImages = Input::only('open_graph_data_image', 'favicon');
 
-    $this->settingsForm->validate($inputText);
-    $this->settingsForm->validate($inputImages);
+      $this->settingsForm->validate($inputText);
+      $this->settingsForm->validate($inputImages);
 
     // Uploaded Images
     foreach ($inputImages as $key => $image) {
-      if (Input::hasFile($key)) {
-        $inputImages[$key] = $this->settings->moveImage($key);
-      }
+        if (Input::hasFile($key)) {
+            $inputImages[$key] = $this->settings->moveImage($key);
+        }
     }
 
-    $input = array_merge($inputText, $inputImages);
+      $input = array_merge($inputText, $inputImages);
 
-    $input = $this->settings->nullify($input);
+      $input = $this->settings->nullify($input);
 
     // Get specified category settings collection.
     $settings_data = Setting::whereCategory('meta_data')->get();
@@ -196,7 +188,7 @@ class SettingsController extends \BaseController {
     // Updated General Settings so clear the cache.
     Event::fire('settings.change', ['meta_data']);
 
-    return Redirect::route('meta-data.edit')->with('flash_message', ['text' => '<strong>Success:</strong> <em>Meta Data</em> settings have been saved!', 'class' => 'alert-success']);
+      return Redirect::route('meta-data.edit')->with('flash_message', ['text' => '<strong>Success:</strong> <em>Meta Data</em> settings have been saved!', 'class' => 'alert-success']);
   }
 
   /**
@@ -206,13 +198,12 @@ class SettingsController extends \BaseController {
    */
   public function clearCache()
   {
-    Cache::flush();
+      Cache::flush();
 
     // Reset appearance settings after cache clear.
     $settings = new SettingRepository();
-    $settings->resetAppearanceSettings();
+      $settings->resetAppearanceSettings();
 
-    return Redirect::back()->with('flash_message', ['text' => '<strong>Success:</strong> Cache has been cleared!', 'class' => 'alert-success']);
+      return Redirect::back()->with('flash_message', ['text' => '<strong>Success:</strong> Cache has been cleared!', 'class' => 'alert-success']);
   }
-
 }

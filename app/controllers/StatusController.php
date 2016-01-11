@@ -1,73 +1,72 @@
 <?php
 
-use Scholarship\Repositories\SettingRepository;
 use Scholarship\Forms\ReviewForm;
+use Scholarship\Repositories\SettingRepository;
 
-class StatusController extends \BaseController {
+class StatusController extends \BaseController
+{
+    protected $reviewForm;
 
-  protected $reviewForm;
+    protected $settings;
 
-  protected $settings;
+    public function __construct(SettingRepository $settings, ReviewForm $reviewForm)
+    {
+        $this->settings = $settings;
 
-  function __construct(SettingRepository $settings, ReviewForm $reviewForm)
-  {
-    $this->settings = $settings;
-
-    $this->reviewForm = $reviewForm;
-  }
-
+        $this->reviewForm = $reviewForm;
+    }
 
   /**
    * User status page.
    * This page shows an overall glance of the status of the application.
    * Displays App, profile completeness as well as recs, if any.
    */
-  public function status() {
-    $user = Auth::user();
-    $app_filled_out = FALSE;
-    $prof_complete = FALSE;
-    $closed = Scholarship::isClosed();
+  public function status()
+  {
+      $user = Auth::user();
+      $app_filled_out = false;
+      $prof_complete = false;
+      $closed = Scholarship::isClosed();
     // @TODO: are these queries too heavy?
     // Get all info about application status.
     $application = Application::where('user_id', $user->id)->first();
-    if ($application) {
-      $app_filled_out = Application::isFilledOut($user->id);
-    }
+      if ($application) {
+          $app_filled_out = Application::isFilledOut($user->id);
+      }
 
     // Is the app complete & been submitted?
     if ($app_filled_out && $application->submitted) {
-      $status = 'Submitted. Waiting for recommendation...';
-      $help_text = $this->settings->getSpecifiedSettingsVars(['status_page_help_text_submitted'])['status_page_help_text_submitted'];
+        $status = 'Submitted. Waiting for recommendation...';
+        $help_text = $this->settings->getSpecifiedSettingsVars(['status_page_help_text_submitted'])['status_page_help_text_submitted'];
     } else {
-      $status = 'Incomplete';
-      $help_text = $this->settings->getSpecifiedSettingsVars(['status_page_help_text_incomplete'])['status_page_help_text_incomplete'];
+        $status = 'Incomplete';
+        $help_text = $this->settings->getSpecifiedSettingsVars(['status_page_help_text_incomplete'])['status_page_help_text_incomplete'];
     }
 
-    $profile = Profile::where('user_id', $user->id)->first();
-    if ($profile) {
-      $prof_complete = Profile::isComplete($user->id);
-    }
-    if ($application) {
-      // Get recommendations
+      $profile = Profile::where('user_id', $user->id)->first();
+      if ($profile) {
+          $prof_complete = Profile::isComplete($user->id);
+      }
+      if ($application) {
+          // Get recommendations
       $recommendations = Recommendation::where('application_id', $application->id)->get();
-      $max_recs = Scholarship::getCurrentScholarship()->pluck('num_recommendations_max');
-      if ($recommendations->count() < $max_recs) {
-        $add_rec_link = link_to_route('recommendation.create', 'Ask for another recommendation', null, ['class' => 'button -small']);
+          $max_recs = Scholarship::getCurrentScholarship()->pluck('num_recommendations_max');
+          if ($recommendations->count() < $max_recs) {
+              $add_rec_link = link_to_route('recommendation.create', 'Ask for another recommendation', null, ['class' => 'button -small']);
+          }
+          foreach ($recommendations as $rec) {
+              $rec->isRecommendationComplete($rec);
+              if ($rec->isComplete($rec->id) && isset($app_filled_out) && $application->submitted) {
+                  $status = 'Completed.';
+                  $help_text = $this->settings->getSpecifiedSettingsVars(['status_page_help_text_complete'])['status_page_help_text_complete'];
+              }
+          }
+          $recommendations = $recommendations->toArray();
       }
-      foreach($recommendations as $rec) {
-        $rec->isRecommendationComplete($rec);
-        if ($rec->isComplete($rec->id) && isset($app_filled_out) && $application->submitted) {
-          $status = 'Completed.';
-          $help_text = $this->settings->getSpecifiedSettingsVars(['status_page_help_text_complete'])['status_page_help_text_complete'];
-        }
-
-      }
-      $recommendations = $recommendations->toArray();
-    }
 
     // If both app & profile are complete add a link to review & submit.
     if ($app_filled_out && $prof_complete && !($application->submitted)) {
-      $submit = link_to_route('review', 'Review & Submit Application', [$user->id], ['class' => 'button -small']);
+        $submit = link_to_route('review', 'Review & Submit Application', [$user->id], ['class' => 'button -small']);
     }
 
     // @TODO: $help_text got removed from getting merged into $vars... find out why.
@@ -75,12 +74,11 @@ class StatusController extends \BaseController {
     // @TODO: find a better way of retrieving the timeline in case there are other blocks to that type.
     // Query cached for 2 hours.
     $timeline = Block::remember(120, 'query.block.timeline')->whereBlockType('timeline')->select('block_body_html')->first();
-    if ($timeline) {
-      $timeline = $timeline->block_body_html;
-    }
+      if ($timeline) {
+          $timeline = $timeline->block_body_html;
+      }
 
-    return View::make('status.index', compact('profile', 'application', 'recommendations', 'app_filled_out', 'prof_complete', 'submit', 'status', 'add_rec_link', 'timeline', 'help_text', 'closed'));
-
+      return View::make('status.index', compact('profile', 'application', 'recommendations', 'app_filled_out', 'prof_complete', 'submit', 'status', 'add_rec_link', 'timeline', 'help_text', 'closed'));
   }
 
   /**
@@ -89,19 +87,19 @@ class StatusController extends \BaseController {
    */
   public function review($id)
   {
-    // Get all the things.
+      // Get all the things.
     $application = Application::getUserApplication($id);
-    $profile = Profile::getUserProfile($id);
-    $scholarship = Scholarship::getScholarshipLabels($application['scholarship_id']);
+      $profile = Profile::getUserProfile($id);
+      $scholarship = Scholarship::getScholarshipLabels($application['scholarship_id']);
 
-    $vars = (object) $this->settings->getSpecifiedSettingsVars(['application_submit_help_text']);
+      $vars = (object) $this->settings->getSpecifiedSettingsVars(['application_submit_help_text']);
 
-    $prof_complete = Profile::isComplete(Auth::user()->id);
-    if (!$prof_complete) {
-      return Redirect::route('status')->with('flash_message', ['text' => 'Please go back and answer all required questions in ' . link_to_route('profile.create', 'basic info.'), 'class' => '-warning']);
-    }
+      $prof_complete = Profile::isComplete(Auth::user()->id);
+      if (!$prof_complete) {
+          return Redirect::route('status')->with('flash_message', ['text' => 'Please go back and answer all required questions in '.link_to_route('profile.create', 'basic info.'), 'class' => '-warning']);
+      }
 
-    return View::make('status.review', compact('application', 'profile', 'scholarship', 'vars'));
+      return View::make('status.review', compact('application', 'profile', 'scholarship', 'vars'));
   }
 
   /**
@@ -110,49 +108,49 @@ class StatusController extends \BaseController {
    */
   public function submit()
   {
-    $input = Input::all();
-    $this->reviewForm->validate($input);
-    $application = Application::where('user_id', Auth::user()->id)->firstorFail();
-    $application->submitted = 1;
-    $application->save();
-    $this->confirmationEmail();
-    $recommendations = Recommendation::where('application_id', $application->id)->get();
-    $max_recs = Scholarship::getCurrentScholarship()->pluck('num_recommendations_max');
-    foreach($recommendations as $rec) {
-      if ($rec->isComplete($rec->id)) {
-        return Redirect::route('status')->with('flash_message', ['text' => 'Sweet, you\'re all set!', 'class' => '-success']);
+      $input = Input::all();
+      $this->reviewForm->validate($input);
+      $application = Application::where('user_id', Auth::user()->id)->firstorFail();
+      $application->submitted = 1;
+      $application->save();
+      $this->confirmationEmail();
+      $recommendations = Recommendation::where('application_id', $application->id)->get();
+      $max_recs = Scholarship::getCurrentScholarship()->pluck('num_recommendations_max');
+      foreach ($recommendations as $rec) {
+          if ($rec->isComplete($rec->id)) {
+              return Redirect::route('status')->with('flash_message', ['text' => 'Sweet, you\'re all set!', 'class' => '-success']);
+          }
       }
-    }
-    if ($recommendations->count() == $max_recs) {
-      return Redirect::route('status')->with('flash_message', ['text' => 'Sweet, just waiting on your recommendations.', 'class' => '-info']);
-    }
-    return Redirect::route('recommendation.create')->with('flash_message', ['text' => 'Your application has been submitted. Submit a recommendation request below.', 'class' => '-success']);
+      if ($recommendations->count() == $max_recs) {
+          return Redirect::route('status')->with('flash_message', ['text' => 'Sweet, just waiting on your recommendations.', 'class' => '-info']);
+      }
+
+      return Redirect::route('recommendation.create')->with('flash_message', ['text' => 'Your application has been submitted. Submit a recommendation request below.', 'class' => '-success']);
   }
 
-  public function resendEmailRequest()
-  {
-    $rec_id = Input::get('id');
-    $recommendation = Recommendation::whereId($rec_id)->firstOrFail();
-    $token = $recommendation->generateRecToken($recommendation);
+    public function resendEmailRequest()
+    {
+        $rec_id = Input::get('id');
+        $recommendation = Recommendation::whereId($rec_id)->firstOrFail();
+        $token = $recommendation->generateRecToken($recommendation);
 
-    $link = link_to_route('recommendation.edit', "Please provide a recommendation", array($recommendation->id,'token' => $token));
-    $email = new Email;
-    $data = array(
-      'link' => $link,
-      'applicant_name' => Auth::user()->first_name .  " " . Auth::user()->last_name,
-      );
-    $email->sendEmail('request', 'recommender', $recommendation->email, $data);
+        $link = link_to_route('recommendation.edit', 'Please provide a recommendation', [$recommendation->id, 'token' => $token]);
+        $email = new Email();
+        $data = [
+      'link'           => $link,
+      'applicant_name' => Auth::user()->first_name.' '.Auth::user()->last_name,
+      ];
+        $email->sendEmail('request', 'recommender', $recommendation->email, $data);
 
-    return Redirect::route('status')->with('flash_message', ['text' => 'We sent another email!', 'class' => '-success']);
-  }
+        return Redirect::route('status')->with('flash_message', ['text' => 'We sent another email!', 'class' => '-success']);
+    }
 
   /**
    * Sends email to applicant saying the rec request has been sent.
    */
   public function confirmationEmail()
   {
-    $email = new Email;
-    $email->sendEmail('submitted', 'applicant', Auth::user()->email);
+      $email = new Email();
+      $email->sendEmail('submitted', 'applicant', Auth::user()->email);
   }
-
 }

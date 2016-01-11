@@ -1,48 +1,47 @@
 <?php
 
-class OpenGraphDataSettingsTableSeeder extends Seeder {
-
-  public function run()
-  {
-    Setting::insert([
+class OpenGraphDataSettingsTableSeeder extends Seeder
+{
+    public function run()
+    {
+        Setting::insert([
       'category'    => 'meta_data',
       'key'         => 'open_graph_data_title',
-      'value'       => NULL,
+      'value'       => null,
       'type'        => 'text',
-      'description' => 'Enter title text to share on social media.'
+      'description' => 'Enter title text to share on social media.',
     ]);
 
-    Setting::insert([
+        Setting::insert([
       'category'    => 'meta_data',
       'key'         => 'open_graph_data_description',
-      'value'       => NULL,
+      'value'       => null,
       'type'        => 'textarea',
-      'description' => 'Enter a one or two sentence description to share on social media.'
+      'description' => 'Enter a one or two sentence description to share on social media.',
     ]);
 
-    Setting::insert([
+        Setting::insert([
       'category'    => 'meta_data',
       'key'         => 'open_graph_data_type',
       'value'       => 'website',
       'type'        => 'text',
-      'description' => 'Enter the type of object (e.g. video, application, website, etc).'
+      'description' => 'Enter the type of object (e.g. video, application, website, etc).',
     ]);
 
-    Setting::insert([
+        Setting::insert([
       'category'    => 'meta_data',
       'key'         => 'open_graph_data_url',
-      'value'       => NULL,
+      'value'       => null,
       'type'        => 'text',
-      'description' => 'Enter site URL to share on social media.'
+      'description' => 'Enter site URL to share on social media.',
     ]);
 
-    Setting::insert([
+        Setting::insert([
       'category'    => 'meta_data',
       'key'         => 'open_graph_data_image',
-      'value'       => NULL,
+      'value'       => null,
       'type'        => 'image',
-      'description' => 'Upload a square thumbnail image to share on social media.'
+      'description' => 'Upload a square thumbnail image to share on social media.',
     ]);
-  }
-
+    }
 }

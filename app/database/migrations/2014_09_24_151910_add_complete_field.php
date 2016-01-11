@@ -1,19 +1,17 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddCompleteField extends Migration {
-
-  /**
+class AddCompleteField extends Migration
+{
+    /**
    * Run the migrations.
    *
    * @return void
    */
   public function up()
   {
-    Schema::table('applications', function($table)
-    {
+      Schema::table('applications', function ($table) {
       $table->tinyInteger('complete')->index()->nullable()->after('gpa');
     });
   }
@@ -25,10 +23,8 @@ class AddCompleteField extends Migration {
    */
   public function down()
   {
-    Schema::table('applications', function($table)
-    {
+      Schema::table('applications', function ($table) {
         $table->dropColumn('complete');
     });
   }
-
 }

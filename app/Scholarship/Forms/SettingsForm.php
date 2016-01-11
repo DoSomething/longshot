@@ -4,9 +4,9 @@ namespace Scholarship\Forms;
 
 use Laracasts\Validation\FormValidator;
 
-class SettingsForm extends FormValidator {
-
-  /**
+class SettingsForm extends FormValidator
+{
+    /**
    * @var array
    */
   protected $rules = [
@@ -28,5 +28,4 @@ class SettingsForm extends FormValidator {
     'open_graph_data_url'         => 'url',
     'official_rules_url'          => 'url',
   ];
-
 }

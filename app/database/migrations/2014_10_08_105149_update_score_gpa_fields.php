@@ -1,20 +1,18 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UpdateScoreGpaFields extends Migration {
-
-  /**
+class UpdateScoreGpaFields extends Migration
+{
+    /**
    * Run the migrations.
    *
    * @return void
    */
   public function up()
   {
-    DB::statement('ALTER TABLE `applications` MODIFY `test_score` INTEGER unsigned NULL;');
-    DB::statement('ALTER TABLE `applications` MODIFY `gpa` FLOAT NULL;');
-
+      DB::statement('ALTER TABLE `applications` MODIFY `test_score` INTEGER unsigned NULL;');
+      DB::statement('ALTER TABLE `applications` MODIFY `gpa` FLOAT NULL;');
   }
 
   /**
@@ -24,7 +22,6 @@ class UpdateScoreGpaFields extends Migration {
    */
   public function down()
   {
-    //
+      //
   }
-
 }

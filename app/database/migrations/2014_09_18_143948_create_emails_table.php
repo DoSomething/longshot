@@ -3,17 +3,16 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateEmailsTable extends Migration {
-
-  /**
+class CreateEmailsTable extends Migration
+{
+    /**
    * Run the migrations.
    *
    * @return void
    */
   public function up()
   {
-    Schema::create('emails', function(Blueprint $table)
-    {
+      Schema::create('emails', function (Blueprint $table) {
       $table->increments('id');
       $table->string('key')->index();
       $table->string('recipient')->index();
@@ -22,7 +21,6 @@ class CreateEmailsTable extends Migration {
     });
   }
 
-
   /**
    * Reverse the migrations.
    *
@@ -30,7 +28,6 @@ class CreateEmailsTable extends Migration {
    */
   public function down()
   {
-    Schema::drop('emails');
+      Schema::drop('emails');
   }
-
 }
