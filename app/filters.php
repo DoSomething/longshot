@@ -179,3 +179,16 @@ Route::filter('submittedApp', function($route, $request)
     }
   }
 });
+
+Route::filter('isOwner', function($route, $request)
+{
+  $user_id = Auth::id();
+  
+  if ($route->parameterNames('0')['0'] == 'profile' or 'id' or 'application') {
+    $requested_id = $route->parameters([$route->parameterNames('0')['0']])[$route->parameterNames('0')['0']];
+  }
+
+  if (!($user_id == $requested_id)) {
+    return Redirect::home()->with('flash_message', ['text' => 'You are not authorized to access that page!', 'class' => '-warning']);
+  }
+});

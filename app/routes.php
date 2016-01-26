@@ -34,7 +34,7 @@ Route::get('status', ['as' => 'status', 'uses' => 'StatusController@status', 'be
 Route::get('resend-email', ['as' => 'resend', 'uses' => 'StatusController@resendEmailRequest']);
 
 # Review
-Route::get('review/{id}', ['as' => 'review', 'uses' => 'StatusController@review', 'before' => 'auth|isClosed']);
+Route::get('review/{id}', ['as' => 'review', 'uses' => 'StatusController@review', 'before' => 'auth|isClosed|isOwner']);
 Route::post('review', ['as' => 'review.store', 'uses' => 'StatusController@submit', 'before' => 'auth']);
 
 # Recomendation

@@ -14,7 +14,7 @@ class ApplicationController extends \BaseController {
   {
     $this->applicationForm = $applicationForm;
 
-    $this->beforeFilter('currentUser', ['only' => ['edit', 'update']]);
+    $this->beforeFilter('isOwner', ['only' => ['edit', 'update', 'show']]);
 
     $this->beforeFilter('isClosed');
     // Check that the current user doesn't create many applications
