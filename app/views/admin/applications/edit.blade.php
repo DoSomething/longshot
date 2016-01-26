@@ -22,6 +22,7 @@
           {{ Form::close() }}
          </div>
 
+        @if (!is_null($application))
           <h2>Application</h2>
           <div class="details well well-lg">
             {{ Form::model($application, ['method' => 'PATCH', 'route' => ['application.update', $id], 'class' => 'form--application']) }}
@@ -29,13 +30,16 @@
               {{ Form::submit('Update info', ['class' => 'btn btn-primary', 'name' => 'complete']) }}
             {{ Form::close() }}
           </div>
+        @endif
 
+        @if (!is_null($recomendations) && count($recomendations) > 0)
           <h2>Recommender Responses</h2>
           <div class="well well-lg">
              @foreach ($recomendations as $rec)
                   @include('admin/recommendations/edit', array('recommendation' => (object)$rec, 'label' => (object)$label))
               @endforeach
           </div>
+        @endif
 
         </div>
       </div>

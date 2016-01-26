@@ -188,7 +188,9 @@ class AdminController extends \BaseController {
     $application = Application::getUserApplication($id);
     $user_info = User::getUserInfo($id);
     $profile = Profile::with('race')->whereUserId($id)->firstOrFail();
-    $label = Scholarship::getScholarshipLabels($application['scholarship_id']);
+    if (isset($application)) {
+      $label = Scholarship::getScholarshipLabels($application['scholarship_id']);
+    }
     $app_id = Application::getUserApplicationId($id);
     $races = Profile::getRaces();
     $states = Profile::getStates();
@@ -206,10 +208,11 @@ class AdminController extends \BaseController {
 
 
     $show_rating = FALSE;
-    if (Application::isComplete($app_id->id))
+    if (isset($application) && Application::isComplete($app_id->id)) {
       $show_rating = TRUE;
+      $app_rating = Rating::getApplicationRating($app_id->id);
+    }
 
-    $app_rating = Rating::getApplicationRating($app_id->id);
     $possible_ratings = Rating::getPossibleRatings();
 
     return View::make('admin.applications.edit')->withUser($profile)->with(compact('id', 'application', 'app_id', 'user', 'user_info', 'profile', 'races', 'label', 'choices', 'recomendations', 'states', 'show_rating', 'possible_ratings', 'app_rating', 'rank_values'));
