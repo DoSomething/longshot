@@ -84,6 +84,8 @@ Route::group(['before' => 'role:administrator', 'prefix' => 'admin'], function()
   Route::get('email', ['as' => 'emails', 'uses' => 'EmailController@index']);
   Route::post('email', ['as' => 'emails.update', 'uses' => 'EmailController@update']);
 
+  # Admin Management
+  Route::resource('manage', 'ManagerController');
 });
 
 
