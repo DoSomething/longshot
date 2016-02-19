@@ -63,7 +63,9 @@ class WipeDatabaseCommand extends Command {
 		Recommendation::truncate();
 		RecommendationToken::truncate();
 		User::truncate();
-		DB::table('failed_jobs')->truncate();
+		if((Schema::hasTable('failed_jobs'))) {
+			DB::table('failed_jobs')->truncate();
+		}
 		DB::table('password_reminders')->truncate();
 
 
