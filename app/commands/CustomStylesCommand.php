@@ -1,13 +1,11 @@
 <?php
 
 use Illuminate\Console\Command;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Input\InputArgument;
 use Scholarship\Repositories\SettingRepository;
 
-class CustomStylesCommand extends Command {
-
-  /**
+class CustomStylesCommand extends Command
+{
+    /**
    * The console command name.
    *
    * @var string
@@ -21,7 +19,6 @@ class CustomStylesCommand extends Command {
    */
   protected $description = 'Easily save out the latest appearance settings.';
 
-
   /**
    * Create a new command instance.
    *
@@ -29,7 +26,7 @@ class CustomStylesCommand extends Command {
    */
   public function __construct()
   {
-    parent::__construct();
+      parent::__construct();
   }
 
   /**
@@ -39,11 +36,10 @@ class CustomStylesCommand extends Command {
    */
   public function fire()
   {
-    $settings = new SettingRepository();
+      $settings = new SettingRepository();
 
-    $settings->resetAppearanceSettings();
+      $settings->resetAppearanceSettings();
 
-    $this->info('Custom settings have been saved to the cache.');
+      $this->info('Custom settings have been saved to the cache.');
   }
-
 }

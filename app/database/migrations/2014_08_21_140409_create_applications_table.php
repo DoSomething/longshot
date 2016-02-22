@@ -3,17 +3,16 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateApplicationsTable extends Migration {
-
- /**
+class CreateApplicationsTable extends Migration
+{
+    /**
   * Run the migrations.
   *
   * @return void
   */
  public function up()
  {
-  Schema::create('applications', function(Blueprint $table)
-  {
+     Schema::create('applications', function (Blueprint $table) {
    $table->increments('id');
    $table->integer('user_id')->index();
    $table->integer('scholarship_id')->index();
@@ -28,7 +27,6 @@ class CreateApplicationsTable extends Migration {
   });
  }
 
-
  /**
   * Reverse the migrations.
   *
@@ -36,7 +34,6 @@ class CreateApplicationsTable extends Migration {
   */
  public function down()
  {
-  Schema::drop('applications');
+     Schema::drop('applications');
  }
-
 }

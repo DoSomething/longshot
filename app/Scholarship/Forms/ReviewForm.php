@@ -4,9 +4,9 @@ namespace Scholarship\Forms;
 
 use Laracasts\Validation\FormValidator;
 
-class ReviewForm extends FormValidator {
-
- /**
+class ReviewForm extends FormValidator
+{
+    /**
   * @var array
   */
  protected $rules = [
@@ -16,11 +16,10 @@ class ReviewForm extends FormValidator {
   'rules'           => 'accepted',
  ];
 
-protected $messages = [
+    protected $messages = [
   'documentation.accepted'   => 'Please confirm you can provide one of these documents.',
   'factual.accepted'         => 'Please confirm everything in your application is true and factual.',
   'media_release.accepted'   => 'Please verify that you accept the media release.',
   'rules.accepted'           => 'Please verify that you accept the Official Rules.',
  ];
-
 }
