@@ -5,7 +5,7 @@ return [
   'DB_HOST'         => 'localhost|host',
   'DB_USERNAME'     => 'username',
   'DB_PASSWORD'     => 'password',
-  'DB_NAME'         => 'db_name'
+  'DB_NAME'         => 'db_name',
   'MANDRILL_APIKEY' => 'U-something',
   'REDIS_QUEUE'     => 'default',
   'EMAIL_ADDRESS'   => 'example@example.com',
