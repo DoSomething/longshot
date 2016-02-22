@@ -6,15 +6,15 @@ return [
 
     'connections' => [
 
-        'redis' => array(
+        'redis' => [
           'driver' => 'redis',
           'queue'  => getenv('REDIS_QUEUE'),
-        ),
+        ],
     ],
 
-    'failed' => array(
+    'failed' => [
 
       'database' => 'mysql', 'table' => 'failed_jobs',
 
-    ),
+    ],
 ];

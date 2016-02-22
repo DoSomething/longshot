@@ -3,17 +3,16 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateRecommendationTable extends Migration {
-
-  /**
+class CreateRecommendationTable extends Migration
+{
+    /**
    * Run the migrations.
    *
    * @return void
    */
   public function up()
   {
-    Schema::create('recommendations', function(Blueprint $table)
-    {
+      Schema::create('recommendations', function (Blueprint $table) {
       $table->increments('id');
       $table->integer('application_id')->index();
       $table->string('first_name');
@@ -28,7 +27,6 @@ class CreateRecommendationTable extends Migration {
     });
   }
 
-
   /**
    * Reverse the migrations.
    *
@@ -36,7 +34,6 @@ class CreateRecommendationTable extends Migration {
    */
   public function down()
   {
-    Schema::drop('recommendations');
+      Schema::drop('recommendations');
   }
-
 }

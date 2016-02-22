@@ -1,13 +1,13 @@
 <?php
 
-class Race extends Eloquent {
+class Race extends Eloquent
+{
+    protected $fillable = ['race'];
 
-  protected $fillable = ['race'];
+    public $timestamps = false;
 
-  public $timestamps = false;
-
-  public function profile()
-  {
-    return $this->belongsTo('Profile');
-  }
+    public function profile()
+    {
+        return $this->belongsTo('Profile');
+    }
 }

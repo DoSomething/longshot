@@ -7,51 +7,50 @@
 |
 */
 
-# Registration
+// Registration
 Route::get('register', ['as' => 'registration.create', 'uses' => 'RegistrationController@create'])->before('guest|isClosed');
 Route::post('register', ['as' => 'registration.store', 'uses' => 'RegistrationController@store']);
 
-# Authentication
+// Authentication
 Route::get('login', ['as' => 'login', 'uses' => 'SessionsController@create']);
 Route::get('logout', ['as' => 'logout', 'uses' => 'SessionsController@destroy']);
 Route::resource('sessions', 'SessionsController', ['only' => ['create', 'store', 'destroy']]);
 
-# Password Reminder
+// Password Reminder
 Route::controller('password', 'RemindersController');
 
-# Pages
+// Pages
 Route::get('/', ['as' => 'home', 'uses' => 'PagesController@home']);
 
-# Profile
+// Profile
 Route::resource('profile', 'ProfilesController', ['before' => 'auth']);
 
-# Application
+// Application
 Route::resource('application', 'ApplicationController', ['before' => 'auth']);
 
-# Status
+// Status
 Route::get('status', ['as' => 'status', 'uses' => 'StatusController@status', 'before' => 'auth']);
-# this should be a post.
+// this should be a post.
 Route::get('resend-email', ['as' => 'resend', 'uses' => 'StatusController@resendEmailRequest']);
 
-# Review
+// Review
 Route::get('review/{id}', ['as' => 'review', 'uses' => 'StatusController@review', 'before' => 'auth|isClosed']);
 Route::post('review', ['as' => 'review.store', 'uses' => 'StatusController@submit', 'before' => 'auth']);
 
-# Recomendation
+// Recomendation
 Route::resource('recommendation', 'RecommendationController');
 
-# Nomination
+// Nomination
 Route::post('nomination', ['as' => 'nomination.create', 'uses' => 'NominationController@store']);
 
-# Admin
-Route::group(['before' => 'role:administrator', 'prefix' => 'admin'], function()
-{
+// Admin
+Route::group(['before' => 'role:administrator', 'prefix' => 'admin'], function () {
   Route::get('/', ['as' => 'admin', 'uses' => 'AdminController@index']);
 
-  # Search
+  // Search
   Route::post('search', ['as' => 'search', 'uses' => 'AdminController@search']);
 
-  # Applications management
+  // Applications management
   Route::get('applications', ['as' => 'applications.index', 'uses' => 'AdminController@applicationsIndex']);
   Route::get('applications/export', ['as' => 'export', 'uses' => 'AdminController@export']);
   Route::post('applications/export', ['as' => 'export.csv', 'uses' => 'AdminController@export_results']);
@@ -61,16 +60,16 @@ Route::group(['before' => 'role:administrator', 'prefix' => 'admin'], function()
   Route::post('application/rate', ['as' => 'applications.rate', 'uses' => 'AdminController@rate']);
   Route::post('application/complete', ['as' => 'applications.complete', 'uses' => 'AdminController@complete']);
 
-  # Winners
+  // Winners
   Route::resource('winner', 'WinnerController');
 
-  # Scholarship management
+  // Scholarship management
   Route::resource('scholarship', 'ScholarshipController');
 
-  # Static Content Pages
+  // Static Content Pages
   Route::resource('page', 'PagesController');
 
-  # Settings
+  // Settings
   Route::get('settings', ['as' => 'settings', 'uses' => 'AdminController@settings']);
   Route::get('settings/general', ['as' => 'general.edit', 'uses' => 'SettingsController@editGeneral']);
   Route::post('settings/general', ['as' => 'general.update', 'uses' => 'SettingsController@updateGeneral']);
@@ -80,14 +79,13 @@ Route::group(['before' => 'role:administrator', 'prefix' => 'admin'], function()
   Route::post('settings/meta-data', ['as' => 'meta-data.update', 'uses' => 'SettingsController@updateMetaData']);
   Route::post('settings/clear-cache', ['as' => 'general.clear-cache', 'uses' => 'SettingsController@clearCache']);
 
-  # Emails
+  // Emails
   Route::get('email', ['as' => 'emails', 'uses' => 'EmailController@index']);
   Route::post('email', ['as' => 'emails.update', 'uses' => 'EmailController@update']);
 
 });
 
-
-# Pages
+// Pages
 // This route needs to be the last route in the list that is hit
 // because the wildcard catches anything after the root and routes
 // to the Pages controller for static pages.

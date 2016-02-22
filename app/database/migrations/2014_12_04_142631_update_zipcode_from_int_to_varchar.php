@@ -1,18 +1,17 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UpdateZipcodeFromIntToVarchar extends Migration {
-
-  /**
+class UpdateZipcodeFromIntToVarchar extends Migration
+{
+    /**
    * Run the migrations.
    *
    * @return void
    */
   public function up()
   {
-    DB::statement("ALTER TABLE profiles MODIFY zip VARCHAR(255);");
+      DB::statement('ALTER TABLE profiles MODIFY zip VARCHAR(255);');
   }
 
   /**
@@ -22,7 +21,6 @@ class UpdateZipcodeFromIntToVarchar extends Migration {
    */
   public function down()
   {
-    throw new Exception('Irreversible migration, sorry mate.');
+      throw new Exception('Irreversible migration, sorry mate.');
   }
-
 }

@@ -4,9 +4,9 @@ namespace Scholarship\Forms;
 
 use Laracasts\Validation\FormValidator;
 
-class ProfileForm extends FormValidator {
-
-  /**
+class ProfileForm extends FormValidator
+{
+    /**
    * @var array
    */
   protected $rules = [
@@ -19,7 +19,7 @@ class ProfileForm extends FormValidator {
     'school'          => 'required',
   ];
 
-  protected $messages = [
+    protected $messages = [
     'birthdate.required'       => 'Please enter your birthday in MM/DD/YYYY format.',
     'phone.required'           => 'Please enter a phone number.',
     'phone.numeric'            => 'Please enter a valid phone number.',
@@ -28,5 +28,4 @@ class ProfileForm extends FormValidator {
     'zip.required'             => 'Please enter your zip code.',
     'school.required'          => 'Please enter your current high school.',
   ];
-
 }
