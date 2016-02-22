@@ -1,16 +1,15 @@
 <?php
 
-class TrackingCodeSettingTableSeeder extends Seeder {
-
-  public function run()
-  {
-    Setting::insert([
+class TrackingCodeSettingTableSeeder extends Seeder
+{
+    public function run()
+    {
+        Setting::insert([
       'category'    => 'general',
       'key'         => 'tracking_code_id',
-      'value'       => NULL,
+      'value'       => null,
       'type'        => 'text',
-      'description' => 'Please enter your analytics tracking code id.'
+      'description' => 'Please enter your analytics tracking code id.',
     ]);
-  }
-
+    }
 }
