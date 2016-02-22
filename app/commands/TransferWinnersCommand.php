@@ -1,12 +1,10 @@
 <?php
 
 use Illuminate\Console\Command;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Input\InputArgument;
 
-class TransferWinnersCommand extends Command {
-
-  /**
+class TransferWinnersCommand extends Command
+{
+    /**
    * The console command name.
    *
    * @var string
@@ -27,7 +25,7 @@ class TransferWinnersCommand extends Command {
    */
   public function __construct()
   {
-    parent::__construct();
+      parent::__construct();
   }
 
   /**
@@ -37,29 +35,28 @@ class TransferWinnersCommand extends Command {
    */
   public function fire()
   {
-    try {
-      $users = (new Winner)->collectBiosForWinners();
+      try {
+          $users = (new Winner())->collectBiosForWinners();
 
-      foreach ($users as $user) {
-        $winner = Winner::where('user_id', $user->id)->firstOrFail();
+          foreach ($users as $user) {
+              $winner = Winner::where('user_id', $user->id)->firstOrFail();
 
-        $winner->setUserData($user);
+              $winner->setUserData($user);
 
-        $winner->save();
-      }
+              $winner->save();
+          }
 
       // Clear cache since scholarship winner's information was updated.
       $scholarship_ids = Scholarship::lists('id');
-      array_unshift($scholarship_ids, 0);
+          array_unshift($scholarship_ids, 0);
 
-      foreach ($scholarship_ids as $id) {
-        Event::fire('data.update', ['winners', $id]);
+          foreach ($scholarship_ids as $id) {
+              Event::fire('data.update', ['winners', $id]);
+          }
+
+          $this->info('Transfer completed, have a scholarly beer!');
+      } catch (Exception $error) {
+          $this->error($error->getMessage());
       }
-
-      $this->info('Transfer completed, have a scholarly beer!');
-    }
-    catch (Exception $error) {
-      $this->error($error->getMessage());
-    }
   }
 }

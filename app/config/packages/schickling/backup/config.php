@@ -1,15 +1,15 @@
 <?php
 
-return array(
+return [
 
-  'path' => storage_path() . '/dumps/',
+  'path' => storage_path().'/dumps/',
 
-  'mysql' => array(
-    'dump_command_path' => '/usr/bin/',
+  'mysql' => [
+    'dump_command_path'    => '/usr/bin/',
     'restore_command_path' => '/usr/bin/',
-    ),
+    ],
 
-  's3' => array(
+  's3' => [
     'path' => getenv('S3_PATH'),
-    ),
-  );
+    ],
+  ];

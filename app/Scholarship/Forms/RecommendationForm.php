@@ -4,9 +4,9 @@ namespace Scholarship\Forms;
 
 use Laracasts\Validation\FormValidator;
 
-class RecommendationForm extends FormValidator {
-
-  /**
+class RecommendationForm extends FormValidator
+{
+    /**
    * @var array
    */
   protected $rules = [
@@ -15,8 +15,7 @@ class RecommendationForm extends FormValidator {
     'essay1'          => 'required',
   ];
 
-  protected $messages = [
+    protected $messages = [
     'essay1.required'  => 'Please answer this question.',
   ];
-
 }

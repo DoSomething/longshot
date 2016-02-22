@@ -1,19 +1,18 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
-class AddAdditionalFieldsToWinnersTable extends Migration {
-
-  /**
+class AddAdditionalFieldsToWinnersTable extends Migration
+{
+    /**
    * Run the migrations.
    *
    * @return void
    */
   public function up()
   {
-    Schema::table('winners', function(Blueprint $table)
-    {
+      Schema::table('winners', function (Blueprint $table) {
       $table->string('first_name')->after('scholarship_id');
       $table->string('last_name')->after('first_name');
       $table->string('city')->after('last_name');
@@ -30,8 +29,7 @@ class AddAdditionalFieldsToWinnersTable extends Migration {
    */
   public function down()
   {
-    Schema::table('winners', function(Blueprint $table)
-    {
+      Schema::table('winners', function (Blueprint $table) {
       $table->dropColumn('first_name');
       $table->dropColumn('last_name');
       $table->dropColumn('city');
@@ -40,5 +38,4 @@ class AddAdditionalFieldsToWinnersTable extends Migration {
       $table->dropColumn('participation');
     });
   }
-
 }

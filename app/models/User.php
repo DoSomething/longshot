@@ -1,13 +1,13 @@
 <?php
 
-use Illuminate\Auth\UserTrait;
-use Illuminate\Auth\UserInterface;
-use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
+use Illuminate\Auth\Reminders\RemindableTrait;
+use Illuminate\Auth\UserInterface;
+use Illuminate\Auth\UserTrait;
 
-class User extends Eloquent implements UserInterface, RemindableInterface {
-
-  use UserTrait, RemindableTrait;
+class User extends Eloquent implements UserInterface, RemindableInterface
+{
+    use UserTrait, RemindableTrait;
 
   /**
    * The database table used by the model.
@@ -16,7 +16,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
    */
   protected $table = 'users';
 
-
   /**
    * Fillable fields.
    *
@@ -24,14 +23,12 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
    */
   protected $fillable = ['first_name', 'last_name', 'email', 'password', 'eligibility'];
 
-
   /**
    * The attributes excluded from the model's JSON form.
    *
    * @var array
    */
-  protected $hidden = array('password', 'remember_token');
-
+  protected $hidden = ['password', 'remember_token'];
 
   /**
    * Mutator to set password hashing.
@@ -40,116 +37,113 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
    */
   public function setPasswordAttribute($password)
   {
-    $this->attributes['password'] = Hash::make($password);
+      $this->attributes['password'] = Hash::make($password);
   }
-
 
   /**
    * Get the Profile for a User.
+   *
    * @return object
    */
   public function profile()
   {
-    return $this->hasOne('Profile');
+      return $this->hasOne('Profile');
   }
 
   /**
-   * Get the Profile for a User
+   * Get the Profile for a User.
+   *
    * @return object
    */
   public function application()
   {
-    return $this->hasOne('Application');
+      return $this->hasOne('Application');
   }
 
   /**
    * Get the Roles for a User.
+   *
    * @return object
    */
   public function roles()
   {
-    return $this->belongsToMany('Role');
+      return $this->belongsToMany('Role');
   }
 
-  public function winner()
-  {
-    return $this->hasOne('Winner');
-  }
-
+    public function winner()
+    {
+        return $this->hasOne('Winner');
+    }
 
   /**
    * Check to see if User has a Role.
+   *
    * @return object
    */
   public function hasRole($name)
   {
-    foreach ($this->roles as $role)
-    {
-      if ($role->name === $name) return true;
-    }
+      foreach ($this->roles as $role) {
+          if ($role->name === $name) {
+              return true;
+          }
+      }
 
-    return false;
+      return false;
   }
-
 
   /**
    * Assign a specific role to a User.
    */
   public function assignRole($role)
   {
-    return $this->roles()->attach($role);
+      return $this->roles()->attach($role);
   }
-
 
   /**
    * Remove a specific role from a User.
    */
   public function removeRole($role)
   {
-    return $this->roles()->detach($role);
+      return $this->roles()->detach($role);
   }
-
 
   /**
    * Check to see if the current User object is the currently authenticated user.
    */
   public function isCurrent()
   {
-    if (Auth::guest())
+      if (Auth::guest()) {
+          return false;
+      }
+
+      return Auth::user()->id === $this->id;
+  }
+
+    public static function getUserInfo($id)
     {
-      return false;
+        return $user = self::whereId($id)->select('first_name', 'last_name', 'email')->first()->toArray();
     }
-
-    return Auth::user()->id === $this->id;
-  }
-
-  public static function getUserInfo($id)
-  {
-    return $user = User::whereId($id)->select('first_name', 'last_name', 'email')->first()->toArray();
-  }
-
 
   /**
    * Get full public biography for user.
    * 
    * @param  int|array $ids  Single or multiple user ids.
+   *
    * @return object
    */
   public function getFullBios($ids)
   {
-    $fields = [
-      'profile' => function ($query) { $query->select('user_id', 'city', 'state'); },
+      $fields = [
+      'profile'     => function ($query) { $query->select('user_id', 'city', 'state'); },
       'application' => function ($query) { $query->select('user_id', 'scholarship_id', 'gpa', 'participation'); },
     ];
 
-    if (is_array($ids)) {
-      $data = User::with($fields)->whereIn('id', $ids)->get();
-    }
-    else {
-      $data = User::with($fields)->findOrFail($ids);
-    }
+      if (is_array($ids)) {
+          $data = self::with($fields)->whereIn('id', $ids)->get();
+      } else {
+          $data = self::with($fields)->findOrFail($ids);
+      }
 
-    return $data;
+      return $data;
   }
-
 }

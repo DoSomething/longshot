@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
 
   /*
   |--------------------------------------------------------------------------
@@ -14,18 +14,18 @@ return array(
   |
   */
 
-  'mailgun' => array(
+  'mailgun' => [
     'domain' => '',
     'secret' => '',
-  ),
+  ],
 
-  'mandrill' => array(
+  'mandrill' => [
     'secret' => getenv('MANDRILL_APIKEY'),
-  ),
+  ],
 
-  'stripe' => array(
+  'stripe' => [
     'model'  => 'User',
     'secret' => '',
-  ),
+  ],
 
-);
+];

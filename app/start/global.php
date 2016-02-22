@@ -11,7 +11,7 @@
 |
 */
 
-ClassLoader::addDirectories(array(
+ClassLoader::addDirectories([
 
   app_path().'/commands',
   app_path().'/controllers',
@@ -19,7 +19,7 @@ ClassLoader::addDirectories(array(
   app_path().'/database/seeds',
   app_path().'/validate',
 
-));
+]);
 
 /*
 |--------------------------------------------------------------------------
@@ -47,18 +47,15 @@ Log::useFiles(storage_path().'/logs/laravel.log');
 |
 */
 
-App::error(function(Exception $exception, $code)
-{
+App::error(function (Exception $exception, $code) {
   Log::error($exception);
 });
 
-App::error(function(Laracasts\Validation\FormValidationException $exception, $code)
-{
+App::error(function (Laracasts\Validation\FormValidationException $exception, $code) {
   return Redirect::back()->withInput()->withErrors($exception->getErrors());
 });
 
-App::error(function(Symfony\Component\HttpKernel\Exception\HttpException $exception, $code)
-{
+App::error(function (Symfony\Component\HttpKernel\Exception\HttpException $exception, $code) {
   //@TODO: Maybe change this to return a 403 View to the user, with links of where to go from there.
   return Redirect::home()->with('flash_message', ['text' => 'You are not authorized to access that page!', 'class' => '-warning']);
 });
@@ -74,9 +71,8 @@ App::error(function(Symfony\Component\HttpKernel\Exception\HttpException $except
 |
 */
 
-App::down(function()
-{
-  return Response::make("Be right back!", 503);
+App::down(function () {
+  return Response::make('Be right back!', 503);
 });
 
 /*
@@ -120,7 +116,6 @@ require app_path().'/composers.php';
 | where the input is an array of values.
 |
 */
-Validator::resolver(function($translator, $data, $rules, $messages)
-{
+Validator::resolver(function ($translator, $data, $rules, $messages) {
     return new ArrayValidation($translator, $data, $rules, $messages);
 });
