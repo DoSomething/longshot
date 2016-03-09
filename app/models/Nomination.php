@@ -1,6 +1,8 @@
-<?php
+<?php namespace App\Models;
 
-class Nomination extends Eloquent
+use Illuminate\Database\Eloquent\Model;
+
+class Nomination extends Model
 {
     protected $guarded = ['id'];
 }

@@ -1,17 +1,21 @@
-<?php
+<?php namespace App\Models;
 
-class Profile extends Eloquent
+use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
+use App\Models\Race;
+
+class Profile extends Model
 {
     protected $fillable = ['birthdate', 'phone', 'address_street', 'address_premise', 'city', 'state', 'zip', 'gender', 'race', 'school', 'grade'];
 
     public function user()
     {
-        return $this->belongsTo('User');
+        return $this->belongsTo('App\Models\User');
     }
 
     public function race()
     {
-        return $this->hasMany('Race');
+        return $this->hasMany('App\Models\Race');
     }
 
     public function setBirthdateAttribute($birthdate)

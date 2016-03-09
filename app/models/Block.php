@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 class Block extends Eloquent
 {
@@ -6,7 +6,7 @@ class Block extends Eloquent
 
     public function page()
     {
-        return $this->belongsTo('Page');
+        return $this->belongsTo('App\Models\Page');
     }
 
   /**

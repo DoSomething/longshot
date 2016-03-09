@@ -21,7 +21,6 @@ class PageComposer
         $page_vars = $this->settings->getPageSettingsVars();
 
         $vars = (object) array_merge($favicon, $ogd_vars, $page_vars);
-
         $view->with('global_vars', $vars);
     }
 }

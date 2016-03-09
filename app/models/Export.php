@@ -1,6 +1,9 @@
-<?php
+<?php namespace App\Models;
 
-class Export extends Eloquent
+use Illuminate\Database\Eloquent\Model;
+use DB;
+
+class Export extends Model
 {
     public static function submitted_blank_rec_query()
     {

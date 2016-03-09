@@ -1,6 +1,10 @@
-<?php
+<?php namespace App\Models;
 
-class Path extends \Eloquent
+use Cache;
+use Illuminate\Database\Eloquent\Model;
+
+
+class Path extends Model
 {
     protected $fillable = [];
 
@@ -8,7 +12,7 @@ class Path extends \Eloquent
 
     public function page()
     {
-        return $this->belongsTo('Page');
+        return $this->belongsTo('App\Models\Page');
     }
 
   /**
@@ -20,8 +24,12 @@ class Path extends \Eloquent
    */
   public static function getPageContent($pageRequest)
   {
-      $path = self::with('page', 'page.blocks')->whereUrl($pageRequest)->remember(120)->firstOrFail();
-
+      // We were caching this before but I can't get it to work, it just returns whichever one was 
+      // cached first
+      // $path = Cache::remember(120, 'page.blocks', function() use($pageRequest){
+      //   return self::with('page', 'page.blocks')->whereUrl($pageRequest)->firstOrFail();
+      // });
+      $path = self::with('page', 'page.blocks')->whereUrl($pageRequest)->firstOrFail();
       return $path->page;
   }
 }

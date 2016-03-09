@@ -1,6 +1,11 @@
-<?php
+<?php namespace App\Models;
 
-class Email extends Eloquent
+use Illuminate\Database\Eloquent\Model;
+use App\Models\Scholarship;
+use Config;
+use Mail;
+
+class Email extends Model
 {
     protected $fillable = ['subject', 'body'];
 

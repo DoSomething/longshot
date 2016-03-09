@@ -1,6 +1,8 @@
-<?php
+<?php namespace App\Models;
 
-class Race extends Eloquent
+use Illuminate\Database\Eloquent\Model;
+
+class Race extends Model
 {
     protected $fillable = ['race'];
 
@@ -8,6 +10,6 @@ class Race extends Eloquent
 
     public function profile()
     {
-        return $this->belongsTo('Profile');
+        return $this->belongsTo('App\Models\Profile');
     }
 }
