@@ -85,9 +85,9 @@
 
 {{-- @TODO: Make this a group! --}}
 
-{{-- Accomplisments Label --}}
+{{-- Accomplishments Label --}}
 <div class="form-group">
-  {!! Form::label('label_app_accomplishments', 'Accomplisments Label: ') !!}
+  {!! Form::label('label_app_accomplishments', 'Accomplishments Label: ') !!}
   {!! Form::text('label_app_accomplishments', null, ['class' => 'form-control']) !!}
   {!! errorsFor('label_app_accomplishments', $errors); !!}
 </div>
