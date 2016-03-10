@@ -6,6 +6,8 @@ use App\Models\Application;
 use App\Models\Profile;
 use App\Models\Recommendation;
 use App\Models\Email;
+use App\Models\Block;
+
 use Illuminate\Http\Request;
 
 class StatusController extends \Controller
@@ -87,10 +89,10 @@ class StatusController extends \Controller
     // @TODO: $help_text got removed from getting merged into $vars... find out why.
 
     // @TODO: find a better way of retrieving the timeline in case there are other blocks to that type.  
-      $timeline = Cache::remember(120, 'query.block.timeline', function() {
-         return Block::where('block_type', 'timeline')->select('block_body_html')->first();
-      });
-      
+      // $timeline = Cache::remember(120, 'query.block.timeline', function() {
+      //    return Block::where('block_type', 'timeline')->select('block_body_html')->first();
+      // });
+      $timeline = Block::where('block_type', 'timeline')->select('block_body_html')->first();
       if ($timeline) {
           $timeline = $timeline->block_body_html;
       }
