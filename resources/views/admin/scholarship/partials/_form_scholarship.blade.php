@@ -120,35 +120,35 @@
   {!! errorsFor('label_app_essay2', $errors); !!}
 </div>
 
-{{-- Recomendation Rank Character Label --}}
+{{-- Recommendation Rank Character Label --}}
 <div class="form-group">
-  {!! Form::label('label_rec_rank_character', 'Recomendation Rank Character Label: ') !!}
+  {!! Form::label('label_rec_rank_character', 'Recommendation Rank Character Label: ') !!}
   {!! Form::text('label_rec_rank_character', null, ['class' => 'form-control']) !!}
   {!! errorsFor('label_rec_rank_character', $errors); !!}
 </div>
 
-{{-- Recomendation Rank Additional Label --}}
+{{-- Recommendation Rank Additional Label --}}
 <div class="form-group">
-  {!! Form::label('label_rec_rank_additional', 'Recomendation Rank Additional Label: ') !!}
+  {!! Form::label('label_rec_rank_additional', 'Recommendation Rank Additional Label: ') !!}
   {!! Form::text('label_rec_rank_additional', null, ['class' => 'form-control']) !!}
   {!! errorsFor('label_rec_rank_additional', $errors); !!}
 </div>
 
-{{-- Recomendation Essay 1 Label --}}
+{{-- Recommendation Essay 1 Label --}}
 <div class="form-group">
-  {!! Form::label('label_rec_essay1', 'Recomendation Essay 1 Label: ') !!}
+  {!! Form::label('label_rec_essay1', 'Recommendation Essay 1 Label: ') !!}
   {!! Form::text('label_rec_essay1', null, ['class' => 'form-control']) !!}
   {!! errorsFor('label_rec_essay1', $errors); !!}
 </div>
 
-{{-- Recomendation Optional question --}}
+{{-- Recommendation Optional question --}}
 <div class="form-group">
   {!! Form::label('display_optional_rec_question', 'Display optional recommendation question? ') !!}
   {!! Form::checkbox('display_optional_rec_question', 1, ['class' => 'form-control']) !!}
   {!! errorsFor('display_optional_rec_question', $errors); !!}
 </div>
 <div class="form-group">
-  {!! Form::label('label_rec_optional_question', 'Recomendation Optional Question Label: ') !!}
+  {!! Form::label('label_rec_optional_question', 'Recommendation Optional Question Label: ') !!}
   {!! Form::text('label_rec_optional_question', null, ['class' => 'form-control']) !!}
   {!! errorsFor('label_rec_optional_question', $errors); !!}
 </div>

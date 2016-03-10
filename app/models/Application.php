@@ -31,7 +31,7 @@ class Application extends Model
   public static function formatChoices($choices)
   {
       $return = [''];
-      $choices = explode(',', $choices->all()[0]);
+      $choices = explode(',', $choices);
       foreach ($choices as $choice) {
           $return[$choice] = $choice;
       }

@@ -55,9 +55,8 @@ class ApplicationController extends \Controller
       //@TODO: need to figure out which scholarship is the current run.
       $current_scholarship_id = Scholarship::getCurrentScholarship()->id;
       $label = Scholarship::getScholarshipLabels($current_scholarship_id);
-      $hear_about = Scholarship::getCurrentScholarship()->pluck('hear_about_options');
+      $hear_about = Scholarship::getCurrentScholarship()->hear_about_options;
       $choices = Application::formatChoices($hear_about);
-
       $vars = (object) $this->settings->getSpecifiedSettingsVars(['application_create_help_text']);
 
       return view('application.create')->with(compact('label', 'choices', 'vars'));
