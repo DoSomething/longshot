@@ -93,7 +93,6 @@ class WinnerController extends \Controller
    */
   public function destroy()
   {
-      var_dump('*********in winner destroy************');
       $user_id = Input::get('user_id');
       $record = Winner::where('user_id', $user_id)->firstOrFail();
 

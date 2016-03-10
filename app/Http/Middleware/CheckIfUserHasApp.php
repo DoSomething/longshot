@@ -30,9 +30,7 @@ class CheckIfUserHasApp
     public function handle($request, Closure $next, $value)
     {
         $user = Auth::user();
-        // $thing = User::with($value)->whereId($user->id)->first();
         if ($user && !is_null($user->$value)) {
-            var_dump('USER HAS' . $value);
           return redirect()->route($value.'.edit', $user->id);
         }
 

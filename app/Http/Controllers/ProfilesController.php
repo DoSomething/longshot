@@ -51,7 +51,6 @@ class ProfilesController extends \Controller
    */
   public function create()
   {
-      var_dump('prof create');
       $states = Profile::getStates();
       $races = Profile::getRaces();
 

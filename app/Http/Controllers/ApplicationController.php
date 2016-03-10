@@ -56,7 +56,6 @@ class ApplicationController extends \Controller
       $current_scholarship_id = Scholarship::getCurrentScholarship()->id;
       $label = Scholarship::getScholarshipLabels($current_scholarship_id);
       $hear_about = Scholarship::getCurrentScholarship()->pluck('hear_about_options');
-      // var_dump($hear_about);
       $choices = Application::formatChoices($hear_about);
 
       $vars = (object) $this->settings->getSpecifiedSettingsVars(['application_create_help_text']);
@@ -73,8 +72,6 @@ class ApplicationController extends \Controller
   {
       $user = User::whereId(Auth::user()->id)->firstOrFail();
 
-      // $input = request::all();
-// var_dump($request::all()['complete']);
     // Only run validation on applications that were submitted
     // (do not run on those 'saved as draft')
     if (isset($request['complete'])) {

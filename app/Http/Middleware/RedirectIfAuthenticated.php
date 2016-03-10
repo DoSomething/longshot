@@ -31,18 +31,6 @@ class RedirectIfAuthenticated {
 	 * @param  \Closure  $next
 	 * @return mixed
 	 */
-	// public function handle($request, Closure $next)
-	// {
-	// 	var_dump('middle warin');
-	// 	if ($this->auth->check())
-	// 	{
-	// 		var_dump('checked out');
-	// 		return redirect()->route('home');
-	// 	}
-	// 	var_dump($next($request));
-	// 	return $next($request);
-	// }
-
 	public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
