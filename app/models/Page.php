@@ -13,7 +13,7 @@ class Page extends Model
 
     public function blocks()
     {
-        return $this->hasMany('Block');
+        return $this->hasMany('App\Models\Block');
     }
 
   /**

@@ -1,6 +1,8 @@
-<?php 
+<?php namespace App\Models;
 
-class Block extends Eloquent
+use Illuminate\Database\Eloquent\Model;
+
+class Block extends Model
 {
     protected $fillable = ['block_type', 'block_title', 'block_body'];
 

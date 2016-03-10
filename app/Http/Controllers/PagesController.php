@@ -6,6 +6,8 @@ use App\Models\Scholarship;
 use App\Models\Path;
 use App\Models\Page;
 use App\Models\Winner;
+use App\Models\Block;
+
 
 class PagesController extends \Controller
 {
