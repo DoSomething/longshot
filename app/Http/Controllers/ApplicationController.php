@@ -140,7 +140,7 @@ class ApplicationController extends \Controller
       $user = User::whereId($id)->firstOrFail();
       $application = Application::getUserApplication($id);
       $label = Scholarship::getScholarshipLabels($application['scholarship_id']);
-      $hear_about = Scholarship::getCurrentScholarship()->pluck('hear_about_options');
+      $hear_about = Scholarship::getCurrentScholarship()->hear_about_options;
       $choices = Application::formatChoices($hear_about);
 
       $vars = (object) $this->settings->getSpecifiedSettingsVars(['application_create_help_text']);

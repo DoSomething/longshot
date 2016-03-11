@@ -206,7 +206,7 @@ class AdminController extends \Controller
         $races = Profile::getRaces();
         $states = Profile::getStates();
 
-        $hear_about = Scholarship::getCurrentScholarship()->pluck('hear_about_options');
+        $hear_about = Scholarship::getCurrentScholarship()->hear_about_options;
         $choices = Application::formatChoices($hear_about);
 
         $recomendations = null;

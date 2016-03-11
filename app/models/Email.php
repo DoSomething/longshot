@@ -25,6 +25,8 @@ class Email extends Model
       $body = $email->body;
 
     // add another array of vars used in many emails.
+    // @TODO: in other places we had to get rid of pluck and just do something like ->table so
+    //        make sure this works
     $default_data = [
       'status_page' => link_to_route('status', 'status page'),
       'faq_page'    => link_to('faq', 'FAQ page'),
