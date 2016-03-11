@@ -44,8 +44,11 @@ class RecommendationController extends \Controller
   public function create()
   {
     // This will be seen by applicants only.
-    $num_recs = Scholarship::getCurrentScholarship()->select('num_recommendations_max', 'num_recommendations_min')->firstOrFail()->toArray();
-
+    // $num_recs = Scholarship::getCurrentScholarship()->select('num_recommendations_max', 'num_recommendations_min')->firstOrFail()->toArray();
+    // @TODO: is there a better way to do this? using select pulls from all scholarships
+    $rec_min = Scholarship::getCurrentScholarship()->num_recommendations_min;
+    $rec_max = Scholarship::getCurrentScholarship()->num_recommendations_max;
+    $num_recs = ['num_recommendations_max' => $rec_max, 'num_recommendations_min' => $rec_min];
     $vars = (object) $this->settings->getSpecifiedSettingsVars(['recommendation_create_help_text']);
 
     return view('recommendation.create', compact('num_recs', 'vars'));
