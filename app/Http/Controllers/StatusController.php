@@ -138,7 +138,7 @@ class StatusController extends \Controller
       $application->save();
       $this->confirmationEmail();
       $recommendations = Recommendation::where('application_id', $application->id)->get();
-      $max_recs = Scholarship::getCurrentScholarship()->pluck('num_recommendations_max');
+      $max_recs = Scholarship::getCurrentScholarship()->num_recommendations_max;
       foreach ($recommendations as $rec) {
           if ($rec->isComplete($rec->id)) {
               return redirect()->route('status')->with('flash_message', ['text' => 'Sweet, you\'re all set!', 'class' => '-success']);

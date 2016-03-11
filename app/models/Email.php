@@ -30,9 +30,10 @@ class Email extends Model
     $default_data = [
       'status_page' => link_to_route('status', 'status page'),
       'faq_page'    => link_to('faq', 'FAQ page'),
-      'home_page'   => link_to_route('home', Scholarship::getCurrentScholarship()->pluck('title')),
+      'home_page'   => link_to_route('home', Scholarship::getCurrentScholarship()->title),
       'email'       => link_to('mailto:'.Config::get('mail.from.address'), Config::get('mail.from.address')),
       ];
+      dd($default_data);
       $data = array_merge($data, $default_data);
       if (isset($data)) {
           // Replace all values in the body copy.

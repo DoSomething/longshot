@@ -231,8 +231,7 @@ class AdminController extends \Controller
    */
   public function settings()
   {
-      $scholarship_id = Scholarship::getCurrentScholarship()->pluck('id');
-
+      $scholarship_id = Scholarship::getCurrentScholarship()->id;
       return view('admin.settings.index', with(compact('scholarship_id')));
   }
 
