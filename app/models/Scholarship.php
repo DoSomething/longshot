@@ -24,6 +24,7 @@ class Scholarship extends Model
    */
   public static function getCurrentScholarship()
   {
+      // @TODO: make the cache work
       //laravel 5
       // $path = Cache::remember('scholarships', 120, function() {
       //   return self::orderBy('application_start', 'desc')->firstOrFail();
@@ -96,6 +97,7 @@ class Scholarship extends Model
    */
   public static function getPastScholarship($id)
   {
+      // @TODO: make the cache work
       // return self::whereId($id)->remember(120)->first();
       // return self::whereId($id)->first();
       // $path = Cache::remember('scholarships', 120, function() {
