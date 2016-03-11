@@ -3,7 +3,7 @@
 use Scholarship\Forms\SettingsForm;
 use Scholarship\Repositories\SettingRepository;
 use Illuminate\Http\Request;
-
+use App\Models\Setting;
 
 class SettingsController extends \Controller
 {
