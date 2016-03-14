@@ -24,13 +24,10 @@ class Path extends Model
    */
   public static function getPageContent($pageRequest)
   {
-      // @TODO: make the cache work
-      // We were caching this before but this code just returns whichever one was 
-      // cached first
-      // $path = Cache::remember(120, 'page.blocks', function() use($pageRequest){
-      //   return self::with('page', 'page.blocks')->whereUrl($pageRequest)->firstOrFail();
-      // });
-      $path = self::with('page', 'page.blocks')->whereUrl($pageRequest)->firstOrFail();
+      $path = Cache::remember('page.blocks' . $pageRequest, 120, function() use($pageRequest){
+        return self::with('page', 'page.blocks')->whereUrl($pageRequest)->firstOrFail();
+      });
+
       return $path->page;
   }
 }
