@@ -3,6 +3,7 @@
 use App\Models\Scholarship;
 use Closure;
 use Scholarship\Repositories\SettingRepository;
+use Auth;
 
 class RedirectIfScholarshipClosed
 {
