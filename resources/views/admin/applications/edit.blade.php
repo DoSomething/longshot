@@ -32,10 +32,10 @@
           </div>
         @endif
 
-        @if (!is_null($recomendations) && count($recomendations) > 0)
+        @if (!is_null($recommendations) && count($recommendations) > 0)
           <h2>Recommender Responses</h2>
           <div class="well well-lg">
-             @foreach ($recomendations as $rec)
+             @foreach ($recommendations as $rec)
                   @include('admin/recommendations/edit', array('recommendation' => (object)$rec, 'label' => (object)$label))
               @endforeach
           </div>

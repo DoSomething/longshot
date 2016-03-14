@@ -209,9 +209,9 @@ class AdminController extends \Controller
         $hear_about = Scholarship::getCurrentScholarship()->hear_about_options;
         $choices = Application::formatChoices($hear_about);
 
-        $recomendations = null;
+        $recommendations = null;
         if ($app_id) {
-            $recomendations = Recommendation::getUserRecs($app_id->id);
+            $recommendations = Recommendation::getUserRecs($app_id->id);
             $rank_values = Recommendation::getRankValues();
         }
 
@@ -223,7 +223,7 @@ class AdminController extends \Controller
 
         $possible_ratings = Rating::getPossibleRatings();
 
-        return view('admin.applications.edit')->withUser($profile)->with(compact('id', 'application', 'app_id', 'user', 'user_info', 'profile', 'races', 'label', 'choices', 'recomendations', 'states', 'show_rating', 'possible_ratings', 'app_rating', 'rank_values'));
+        return view('admin.applications.edit')->withUser($profile)->with(compact('id', 'application', 'app_id', 'user', 'user_info', 'profile', 'races', 'label', 'choices', 'recommendations', 'states', 'show_rating', 'possible_ratings', 'app_rating', 'rank_values'));
     }
 
   /**

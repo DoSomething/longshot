@@ -61,21 +61,21 @@
   {!! errorsFor('age_max', $errors); !!}
 </div>
 
-{{-- Minimum number of Recomendations --}}
+{{-- Minimum number of Recommendations --}}
 <div class="form-group">
-  {!! Form::label('num_recommendations_min', 'Minimum number of Recomendations: ') !!}
+  {!! Form::label('num_recommendations_min', 'Minimum number of Recommendations: ') !!}
   {!! Form::selectRange('num_recommendations_min', 1, 3, null, ['class' => 'form-control']); !!}
   {!! errorsFor('num_recommendations_min', $errors); !!}
 </div>
 
-{{-- Maximum number of Recomendations --}}
+{{-- Maximum number of Recommendations --}}
 <div class="form-group">
-  {!! Form::label('num_recommendations_max', ' Maximum number of Recomendations : ') !!}
+  {!! Form::label('num_recommendations_max', ' Maximum number of Recommendations : ') !!}
   {!! Form::selectRange('num_recommendations_max', 1, 4, null, ['class' => 'form-control']); !!}
   {!! errorsFor('num_recommendations_max', $errors); !!}
 </div>
 
-{{-- Maximum number of Recomendations --}}
+{{-- Maximum number of Recommendations --}}
 <div class="form-group">
   {!! Form::label('gpa_min', ' GPA Minimum : ') !!}
   {{-- @TODO: figure out how to put a float here --}}

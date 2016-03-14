@@ -27,7 +27,7 @@ Route::get('resend-email', ['as' => 'resend', 'uses' => 'StatusController@resend
 // Review
 Route::get('review/{id}', ['as' => 'review', 'uses' => 'StatusController@review'])->middleware(['auth', 'isClosed']);
 Route::post('review', ['as' => 'review.store', 'uses' => 'StatusController@submit', 'middleware' => 'auth']);
-// Recomendation
+// Recommendation
 Route::resource('recommendation', 'RecommendationController');
 // Nomination
 Route::post('nomination', ['as' => 'nomination.create', 'uses' => 'NominationController@store']);
