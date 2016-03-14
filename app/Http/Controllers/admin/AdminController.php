@@ -173,7 +173,11 @@ class AdminController extends \Controller
       }
       $app_id = Application::getUserApplicationId($id);
       $prof_id = Profile::getUserProfileId($id);
-      $races = Profile::getUserRace($prof_id);
+
+      if (isset($profile)) {
+        $races = Profile::getUserRace($prof_id);
+      }
+
       $is_winner = Winner::where('user_id', $id)->first() ? true : false;
 
       $recommendations = null;
