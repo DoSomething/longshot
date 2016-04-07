@@ -1,9 +1,11 @@
-<?php
+<?php namespace App\Models;
 
-class RecommendationToken extends \Eloquent
+use Illuminate\Database\Eloquent\Model;
+
+class RecommendationToken extends Model
 {
     public function recommendation()
     {
-        return $this->belongsTo('Recommendation');
+        return $this->belongsTo('App\Models\Recommendation');
     }
 }

@@ -1,6 +1,9 @@
-<?php
+<?php namespace App\Models;
 
-class Winner extends Eloquent
+use Illuminate\Database\Eloquent\Model;
+use Cache;
+
+class Winner extends Model
 {
     protected $guarded = ['id'];
 
@@ -8,12 +11,12 @@ class Winner extends Eloquent
 
     public function scholarship()
     {
-        return $this->belongsTo('Scholarship');
+        return $this->belongsTo('App\Models\Scholarship');
     }
 
     public function user()
     {
-        return $this->belongsTo('User');
+        return $this->belongsTo('App\Models\User');
     }
 
   /**

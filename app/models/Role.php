@@ -1,6 +1,8 @@
-<?php
+<?php namespace App\Models;
 
-class Role extends Eloquent
+use Illuminate\Database\Eloquent\Model;
+
+class Role extends Model
 {
     protected $fillable = ['name'];
 

@@ -1,17 +1,20 @@
-<?php
+<?php namespace App\Models;
 
-class Recommendation extends \Eloquent
+use Illuminate\Database\Eloquent\Model;
+use Hash;
+
+class Recommendation extends Model
 {
     protected $fillable = ['first_name', 'last_name', 'phone', 'email', 'relationship', 'rank_character', 'rank_additional', 'essay1', 'optional_question'];
 
     public function application()
     {
-        return $this->belongsTo('Application');
+        return $this->belongsTo('App\Models\Application');
     }
 
     public function recommendation_token()
     {
-        return $this->hasOne('RecommendationToken');
+        return $this->hasOne('App\Models\RecommendationToken');
     }
 
     public function generateRecToken($recommendation)

@@ -1,10 +1,10 @@
 <?php
 
 namespace Scholarship\Forms;
+use Illuminate\Contracts\Validation\Validator;
+// use Laracasts\Validation\FormValidator;
 
-use Laracasts\Validation\FormValidator;
-
-class RegistrationForm extends FormValidator
+class RegistrationForm extends Validator
 {
     /**
    * @var array

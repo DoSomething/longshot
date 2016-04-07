@@ -1,6 +1,8 @@
-<?php
+<?php namespace App\Models;
 
-class Setting extends Eloquent
+use Illuminate\Database\Eloquent\Model;
+
+class Setting extends Model
 {
     protected $fillable = ['value', 'description'];
 }

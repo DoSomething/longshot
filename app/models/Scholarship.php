@@ -1,6 +1,9 @@
-<?php
+<?php namespace App\Models;
 
-class Scholarship extends \Eloquent
+use Illuminate\Database\Eloquent\Model;
+use Cache;
+
+class Scholarship extends Model
 {
     protected $guarded = ['id'];
 
@@ -21,7 +24,11 @@ class Scholarship extends \Eloquent
    */
   public static function getCurrentScholarship()
   {
-      return self::orderBy('application_start', 'desc')->remember(120)->firstOrFail();
+      $path = Cache::remember('scholarships', 120, function() {
+        return self::orderBy('application_start', 'desc')->firstOrFail();
+      });
+
+      return $path;
   }
 
   /**
@@ -75,7 +82,6 @@ class Scholarship extends \Eloquent
                     'label_rec_essay1 as rec_essay1',
                     'label_rec_optional_question as rec_optional_question',
                     ];
-
       return self::where('id', '=', $id)->select($fields)->first()->toArray();
   }
 
@@ -88,7 +94,11 @@ class Scholarship extends \Eloquent
    */
   public static function getPastScholarship($id)
   {
-      return self::whereId($id)->remember(120)->first();
+      $path = Cache::remember('scholarships', 120, function() use ($id){
+        return self::whereId($id)->first();
+      });
+
+      return $path;
   }
 
   /**

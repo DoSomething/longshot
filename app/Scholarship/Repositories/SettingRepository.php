@@ -1,10 +1,8 @@
-<?php
-
-
-namespace Scholarship\Repositories;
+<?php namespace Scholarship\Repositories;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
+use Cache;
 
 class SettingRepository
 {
@@ -44,8 +42,13 @@ class SettingRepository
       if (!$keyname) {
           $keyname = implode('.', $items);
       }
+      // return DB::table('settings')->rememberForever('setting.'.$keyname)->whereIn('key', $items)->lists('value', 'key');
+      // return DB::table('settings')->whereIn('key', $items)->lists('value', 'key');
+      $vars = Cache::rememberForever('settings'.$keyname, function() use($items) {
+        return DB::table('settings')->whereIn('key', $items)->lists('value', 'key');
+      });
 
-      return DB::table('settings')->rememberForever('setting.'.$keyname)->whereIn('key', $items)->lists('value', 'key');
+      return $vars;
   }
 
   /**

@@ -1,13 +1,15 @@
-<?php
+<?php namespace App\Models;
 
-class Rating extends Eloquent
+use Illuminate\Database\Eloquent\Model;
+
+class Rating extends Model
 {
     protected $fillable = ['rating'];
     public $timestamps = false;
 
     public function application()
     {
-        return $this->belongsTo('Application');
+        return $this->belongsTo('App\Models\Application');
     }
 
     public static function getPossibleRatings()

@@ -1,6 +1,11 @@
-<?php
+<?php namespace App\Models;
 
-class Email extends Eloquent
+use Illuminate\Database\Eloquent\Model;
+use App\Models\Scholarship;
+use Config;
+use Mail;
+
+class Email extends Model
 {
     protected $fillable = ['subject', 'body'];
 
@@ -20,10 +25,12 @@ class Email extends Eloquent
       $body = $email->body;
 
     // add another array of vars used in many emails.
+    // @TODO: in other places we had to get rid of pluck and just do something like ->table so
+    //        make sure this works
     $default_data = [
       'status_page' => link_to_route('status', 'status page'),
       'faq_page'    => link_to('faq', 'FAQ page'),
-      'home_page'   => link_to_route('home', Scholarship::getCurrentScholarship()->pluck('title')),
+      'home_page'   => link_to_route('home', Scholarship::getCurrentScholarship()->title),
       'email'       => link_to('mailto:'.Config::get('mail.from.address'), Config::get('mail.from.address')),
       ];
       $data = array_merge($data, $default_data);

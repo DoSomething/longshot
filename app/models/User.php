@@ -1,13 +1,17 @@
-<?php
+<?php namespace App\Models;
 
-use Illuminate\Auth\Reminders\RemindableInterface;
-use Illuminate\Auth\Reminders\RemindableTrait;
-use Illuminate\Auth\UserInterface;
-use Illuminate\Auth\UserTrait;
+use Illuminate\Auth\Authenticatable;
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Illuminate\Database\Eloquent\Model;
+use App\Models\Application;
+use Hash;
 
-class User extends Eloquent implements UserInterface, RemindableInterface
+
+class User extends Model implements AuthenticatableContract, CanResetPasswordContract
 {
-    use UserTrait, RemindableTrait;
+  use Authenticatable, CanResetPassword;
 
   /**
    * The database table used by the model.
@@ -47,17 +51,17 @@ class User extends Eloquent implements UserInterface, RemindableInterface
    */
   public function profile()
   {
-      return $this->hasOne('Profile');
+      return $this->hasOne('App\Models\Profile');
   }
 
   /**
-   * Get the Profile for a User.
+   * Get the Application for a User.
    *
    * @return object
    */
   public function application()
   {
-      return $this->hasOne('Application');
+      return $this->hasOne('App\Models\Application');
   }
 
   /**
@@ -67,12 +71,12 @@ class User extends Eloquent implements UserInterface, RemindableInterface
    */
   public function roles()
   {
-      return $this->belongsToMany('Role');
+      return $this->belongsToMany('App\Models\Role');
   }
 
     public function winner()
     {
-        return $this->hasOne('Winner');
+        return $this->hasOne('App\Models\Winner');
     }
 
   /**

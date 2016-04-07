@@ -1,39 +1,40 @@
-<?php
+<?php namespace App\Models;
 
-class Application extends Eloquent
+use Illuminate\Database\Eloquent\Model;
+
+class Application extends Model
 {
     protected $fillable = ['accomplishments', 'gpa', 'test_type', 'test_score', 'activities', 'participation', 'essay1', 'essay2', 'link', 'hear_about'];
 
   /** Relationship definitions **/
   public function user()
   {
-      return $this->belongsTo('User');
+      return $this->belongsTo('App\Models\User');
   }
 
     public function scholarship()
     {
-        return $this->belongsTo('Scholarship');
+        return $this->belongsTo('App\Models\Scholarship');
     }
 
     public function recommendation()
     {
-        return $this->hasMany('Recommendation');
+        return $this->hasMany('App\Models\Recommendation');
     }
 
     public function rating()
     {
-        return $this->hasOne('Rating');
+        return $this->hasOne('App\Models\Rating');
     }
 
   /** End Relationships **/
   public static function formatChoices($choices)
   {
-      $return = [];
+      $return = [''];
       $choices = explode(',', $choices);
       foreach ($choices as $choice) {
           $return[$choice] = $choice;
       }
-
       return $return;
   }
 
