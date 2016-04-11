@@ -2,7 +2,6 @@
 
 namespace Scholarship\Forms;
 use Illuminate\Contracts\Validation\Validator;
-// use Laracasts\Validation\FormValidator;
 
 class RegistrationForm extends Validator
 {

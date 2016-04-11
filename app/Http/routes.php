@@ -5,9 +5,13 @@
 |--------------------------------------------------------------------------
 |
 */
+// @TODO: clean this way up
+
 // Registration
 Route::get('register', ['as' => 'registration.create', 'uses' => 'RegistrationController@create'])->middleware(['guest', 'isClosed']);
 Route::post('register', ['as' => 'registration.store', 'uses' => 'RegistrationController@store']);
+Route::put('register', ['as' => 'registration.update', 'uses' => 'RegistrationController@update']);
+Route::get('register/{id}/edit', ['as' => 'registration.edit', 'uses' => 'RegistrationController@edit']);
 // Authentication
 Route::get('login', ['as' => 'login', 'uses' => 'SessionsController@create']);
 Route::get('logout', ['as' => 'logout', 'uses' => 'SessionsController@destroy']);
