@@ -5,7 +5,6 @@
 |--------------------------------------------------------------------------
 |
 */
-// @TODO: clean this way up
 
 // Registration
 Route::get('register', ['as' => 'registration.create', 'uses' => 'RegistrationController@create'])->middleware(['guest', 'isClosed']);
