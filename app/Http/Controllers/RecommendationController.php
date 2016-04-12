@@ -163,21 +163,19 @@ class RecommendationController extends \Controller
    */
   public function update($id, Request $request)
   {
-      $input = Input::all();
-
     // If there is a hidden applicant value on the form call different update method.
     if (isset($request['app_id'])) {
-        return $this->updateUserRec($request);
+        return $this->updateUserRec($request->all());
     }
 
     // Hidden field to determine if an admin is making the update
-    if (isset($input['rec_id'])) {
-        return $this->updateAdmin($input);
+    if (isset($request['rec_id'])) {
+        return $this->updateAdmin($request->all());
     }
 
     $this->validate($request, $this->rules, $this->messages);
     $recommendation = Recommendation::whereId($id)->firstOrFail();
-    $recommendation->fill($input)->save();
+    $recommendation->fill($request->all())->save();
     $application = Application::whereId($recommendation->application_id)->firstOrFail();
     $application->completed = 1;
     $application->save();
