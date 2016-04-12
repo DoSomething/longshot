@@ -95,7 +95,7 @@ class StatusController extends \Controller
       if ($timeline) {
           $timeline = $timeline->block_body_html;
       }
-      return view('status.index', compact('profile', 'application', 'recommendations', 'app_filled_out', 'prof_complete', 'submit', 'status', 'add_rec_link', 'timeline', 'help_text', 'closed'));
+      return view('status.index', compact('profile', 'application', 'recommendations', 'app_filled_out', 'prof_complete', 'submit', 'status', 'add_rec_link', 'timeline', 'help_text', 'closed', 'user'));
   }
 
   /**
