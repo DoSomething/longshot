@@ -192,8 +192,7 @@ class RecommendationController extends \Controller
         $input['essay1'] = $input['rec_essay1'];
         $recommendation->fill($input)->save();
         // need to get ID of user associated with the rec
-        $app = Application::whereId($recommendation->application_id)->firstOrFail();
-        $user_id = $app->user_id;
+        $user_id = Application::whereId($recommendation->application_id)->firstOrFail()->user_id;
 
         return redirect()->route('admin.application.show', $user_id);
     }
