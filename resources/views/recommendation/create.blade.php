@@ -33,7 +33,7 @@
               {!! Form::label('rec['.$i.'][first_name]', 'First Name: ') !!}
               {!! Form::text('rec['.$i.'][first_name]') !!}
               {{-- @TODO: will need a different method of showing errors, since these fields are dynamic and we can't use the ValidationService --}}
-              {!! errorsFor('rec['.$i.'][first_name]', $errors); !!}
+              {!! errorsFor('rec['.$i.'][first_name]', $errors) !!}
             </div>
 
             {{-- Last Name --}}
@@ -41,7 +41,7 @@
               {!! Form::label('rec['.$i.'][last_name]', 'Last Name: ') !!}
               {!! Form::text('rec['.$i.'][last_name]') !!}
               {{-- @TODO: will need a different method of showing errors, since these fields are dynamic and we can't use the ValidationService --}}
-              {!! errorsFor('rec['.$i.'][last_name]', $errors); !!}
+              {!! errorsFor('rec['.$i.'][last_name]', $errors) !!}
             </div>
 
             {{-- Email --}}
@@ -49,7 +49,7 @@
               {!! Form::label('rec['.$i.'][email]', 'Email: ') !!}
               {!! Form::email('rec['.$i.'][email]') !!}
               {{-- @TODO: will need a different method of showing errors, since these fields are dynamic and we can't use the ValidationService --}}
-              {!! errorsFor('rec['.$i.'][email]', $errors); !!}
+              {!! errorsFor('rec['.$i.'][email]', $errors) !!}
             </div>
 
             {{-- Phone Number --}}
@@ -57,14 +57,14 @@
               {!! Form::label('rec['.$i.'][phone]', 'Phone Number: ') !!}
               {!! Form::text('rec['.$i.'][phone]') !!}
               {{-- @TODO: will need a different method of showing errors, since these fields are dynamic and we can't use the ValidationService --}}
-              {!! errorsFor('rec['.$i.'][phone]', $errors); !!}
+              {!! errorsFor('rec['.$i.'][phone]', $errors) !!}
             </div>
 
              {{-- Relationship --}}
             <div class="field-group -mono">
               {!! Form::label('rec['.$i.'][relationship]', 'Relationship to you: ') !!}
               {!! Form::text('rec['.$i.'][relationship]') !!}
-              {!! errorsFor('rec['.$i.'][relationship]', $errors); !!}
+              {!! errorsFor('rec['.$i.'][relationship]', $errors) !!}
             </div>
           @endfor
 

@@ -35,70 +35,70 @@
             <div class="field-group -dual -alpha">
               {{ Form::label('rec['.$i.'][first_name]', 'First Name: ') }}
               {{ Form::text('rec['.$i.'][first_name]', $recs[$i]['first_name']) }}
-              {{ errorsFor('rec['.$i.'][first_name]', $errors); }}
+              {{ errorsFor('rec['.$i.'][first_name]', $errors) }}
             </div>
 
             {{-- Last Name --}}
             <div class="field-group -dual -beta">
               {{ Form::label('rec['.$i.'][last_name]', 'Last Name: ') }}
               {{ Form::text('rec['.$i.'][last_name]', $recs[$i]['last_name']) }}
-              {{ errorsFor('rec['.$i.'][last_name]', $errors); }}
+              {{ errorsFor('rec['.$i.'][last_name]', $errors) }}
             </div>
 
             {{-- Email --}}
             <div class="field-group -dual -alpha">
               {{ Form::label('rec['.$i.'][email]', 'Email: ') }}
               {{ Form::email('rec['.$i.'][email]', $recs[$i]['email']) }}
-              {{ errorsFor('rec['.$i.'][email]', $errors); }}
+              {{ errorsFor('rec['.$i.'][email]', $errors) }}
             </div>
 
             {{-- Phone Number --}}
             <div class="field-group -dual -beta">
               {{ Form::label('rec['.$i.'][phone]', 'Phone Number: ') }}
               {{ Form::text('rec['.$i.'][phone]', $recs[$i]['phone']) }}
-              {{ errorsFor('rec['.$i.'][phone]', $errors); }}
+              {{ errorsFor('rec['.$i.'][phone]', $errors) }}
             </div>
 
              {{-- Relationship --}}
             <div class="field-group -mono">
               {{ Form::label('rec['.$i.'][relationship]', 'Relationship to you: ') }}
               {{ Form::text('rec['.$i.'][relationship]', $recs[$i]['relationship']) }}
-              {{ errorsFor('rec['.$i.'][relationship]', $errors); }}
+              {{ errorsFor('rec['.$i.'][relationship]', $errors) }}
             </div>
             @else
               {{-- First Name --}}
               <div class="field-group -dual -alpha">
                 {{ Form::label('rec['.$i.'][first_name]', 'First Name: ') }}
                 {{ Form::text('rec['.$i.'][first_name]') }}
-                {{ errorsFor('rec['.$i.'][first_name]', $errors); }}
+                {{ errorsFor('rec['.$i.'][first_name]', $errors) }}
               </div>
 
               {{-- Last Name --}}
               <div class="field-group -dual -beta">
                 {{ Form::label('rec['.$i.'][last_name]', 'Last Name: ') }}
                 {{ Form::text('rec['.$i.'][last_name]') }}
-                {{ errorsFor('rec['.$i.'][last_name]', $errors); }}
+                {{ errorsFor('rec['.$i.'][last_name]', $errors) }}
               </div>
 
               {{-- Email --}}
               <div class="field-group -dual -alpha">
                 {{ Form::label('rec['.$i.'][email]', 'Email: ') }}
                 {{ Form::email('rec['.$i.'][email]') }}
-                {{ errorsFor('rec['.$i.'][email]', $errors); }}
+                {{ errorsFor('rec['.$i.'][email]', $errors) }}
               </div>
 
               {{-- Phone Number --}}
               <div class="field-group -dual -beta">
                 {{ Form::label('rec['.$i.'][phone]', 'Phone Number: ') }}
                 {{ Form::text('rec['.$i.'][phone]') }}
-                {{ errorsFor('rec['.$i.'][phone]', $errors); }}
+                {{ errorsFor('rec['.$i.'][phone]', $errors) }}
               </div>
 
                {{-- Relationship --}}
               <div class="field-group -mono">
                 {{ Form::label('rec['.$i.'][relationship]', 'Relationship to you: ') }}
                 {{ Form::text('rec['.$i.'][relationship]') }}
-                {{ errorsFor('rec['.$i.'][relationship]', $errors); }}
+                {{ errorsFor('rec['.$i.'][relationship]', $errors) }}
               </div>
             @endif
 
