@@ -178,7 +178,7 @@ class ApplicationController extends \Controller
       $override = null;
 
       if (Auth::user()->hasRole('administrator') && stripos($_SERVER['HTTP_REFERER'], 'admin')) {
-          $override = 'applications.index';
+        return redirect()->route('admin.application.show', $id);
       }
 
       return $this->redirectAfterSave($input, $id, $override);
