@@ -32,27 +32,15 @@ class RegistrationController extends \Controller
 
         $this->middleware('currentUser', ['only' => ['edit', 'update']]);
 
-        if(Auth::user())
-        {
-          $this->rules = [
-            'first_name'  => 'required',
-            'last_name'   => 'required',
-            'email'       => 'required|email|unique:users,email,' . Auth::user()->id,
-            'password'    => 'required|confirmed|min:6',
-            'eligibility' => 'required|accepted',
-           ];
-        }
-        else
-        {
-          $this->rules = [
-            'first_name'  => 'required',
-            'last_name'   => 'required',
-            'email'       => 'required|email|unique:users,email',
-            'password'    => 'required|confirmed|min:6',
-            'eligibility' => 'required|accepted',
-           ];
-        }
-
+        $user = Auth::user();
+        $currentUserID = isset($user) ? $user->id : 'null';
+        $this->rules = [
+          'first_name'  => 'required',
+          'last_name'   => 'required',
+          'email'       => 'required|email|unique:users,email,' . $currentUserID,
+          'password'    => 'required|confirmed|min:6',
+          'eligibility' => 'required|accepted',
+         ];
     }
 
   /**
@@ -80,11 +68,9 @@ class RegistrationController extends \Controller
   public function store(Request $request)
   {
       $this->validate($request, $this->rules, $this->messages);
-      $input = $request->only('first_name', 'last_name', 'email', 'password', 'password_confirmation', 'eligibility');
-
+      $input = $request->only('first_name', 'last_name', 'email', 'password', 'password_confirmation');
 
       // We don't need to save this to the db.
-      unset($input['eligibility']);
       $user = User::create($input);
 
       Auth::login($user);
@@ -130,10 +116,8 @@ class RegistrationController extends \Controller
   {
       $this->validate($request, $this->rules, $this->messages);
 
-      $user =  User::whereId(Auth::user()->id)->firstOrFail();
-      $request = $request->all();
-      // Again, don't need to save this
-      unset($request['eligibility']);
+      $user =  Auth::user();
+      $request = $request->except('eligibility');
       $user->fill($request);
 
       $user->save();

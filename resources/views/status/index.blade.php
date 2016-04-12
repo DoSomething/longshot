@@ -17,11 +17,11 @@
     </div>
      <?php
         $app_status = NULL;
-        (isset($profile)) ? $prof_status = "edit" : $prof_status = "start";
+        (isset($profile)) ? $prof_status = 'edit' : $prof_status = 'start';
         if ((isset($application)) && !($application->submitted)) {
-          $app_status = "edit" ;
+          $app_status = 'edit';
         } else if(is_null($application) && !is_null($profile)) {
-          $app_status = "start";
+          $app_status = 'start';
         }
       ?>
     <section class="segment segment--checklist">
