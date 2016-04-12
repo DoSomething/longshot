@@ -263,8 +263,9 @@ class AdminController extends \Controller
         $application = Application::whereId($app_id)->firstOrFail();
         $application->completed = 1;
         $application->save();
+        $user_id = $application->user_id;
 
-        return redirect()->to(Session::get('url.index'))->with('flash_message', ['text' => 'Success: App marked as completed!', 'class' => 'alert-success']);
+        return redirect()->route('admin.application.show', $user_id);
     }
 
     public function export()
