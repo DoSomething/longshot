@@ -63,7 +63,7 @@ class RecommendationController extends \Controller
    *
    * @return Response
    */
-  public function store()
+  public function store(Request $request)
   {
       dd('storing');
       $input = Input::all();
