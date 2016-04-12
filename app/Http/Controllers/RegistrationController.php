@@ -118,6 +118,10 @@ class RegistrationController extends \Controller
       $request = $request->except('eligibility');
       $user->fill($request);
 
+      if($user->isDirty('email')) {
+        $this->sendRegistrationEmail($user);
+      }
+
       $user->save();
 
       return redirect()->route('status');
