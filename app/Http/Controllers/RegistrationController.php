@@ -5,8 +5,6 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Email;
 
-
-
 class RegistrationController extends \Controller
 {
     protected $registrationForm;
