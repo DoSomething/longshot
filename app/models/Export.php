@@ -1,7 +1,9 @@
-<?php namespace App\Models;
+<?php
 
-use Illuminate\Database\Eloquent\Model;
+namespace App\Models;
+
 use DB;
+use Illuminate\Database\Eloquent\Model;
 
 class Export extends Model
 {

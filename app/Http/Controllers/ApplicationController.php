@@ -1,10 +1,10 @@
 <?php
 
-use Scholarship\Repositories\SettingRepository;
-use Illuminate\Http\Request;
 use App\Models\Application;
 use App\Models\Scholarship;
 use App\Models\User;
+use Illuminate\Http\Request;
+use Scholarship\Repositories\SettingRepository;
 
 class ApplicationController extends \Controller
 {
@@ -144,6 +144,7 @@ class ApplicationController extends \Controller
       $choices = Application::formatChoices($hear_about);
 
       $vars = (object) $this->settings->getSpecifiedSettingsVars(['application_create_help_text']);
+
       return view('application.edit')->with(compact('user', 'label', 'choices', 'vars'));
   }
 
@@ -196,14 +197,14 @@ class ApplicationController extends \Controller
       //
   }
 
-  public function redirectAfterSave($input, $id, $override = null)
-  {
-      if (isset($override)) {
-          return redirect()->route($override)->with('flash_message', ['text' => 'Your profile has been updated', 'class' => '-success']);
-      } elseif (isset($input['complete'])) {
-          return redirect()->route('review', $id)->with('flash_message', ['text' => 'Application information has been saved!', 'class' => '-success']);
-      } else {
-          return redirect()->route('application.edit', $id)->with('flash_message', ['text' => 'Application information has been saved!', 'class' => '-success']);
-      }
-  }
+    public function redirectAfterSave($input, $id, $override = null)
+    {
+        if (isset($override)) {
+            return redirect()->route($override)->with('flash_message', ['text' => 'Your profile has been updated', 'class' => '-success']);
+        } elseif (isset($input['complete'])) {
+            return redirect()->route('review', $id)->with('flash_message', ['text' => 'Application information has been saved!', 'class' => '-success']);
+        } else {
+            return redirect()->route('application.edit', $id)->with('flash_message', ['text' => 'Application information has been saved!', 'class' => '-success']);
+        }
+    }
 }

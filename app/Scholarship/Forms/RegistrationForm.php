@@ -1,6 +1,7 @@
 <?php
 
 namespace Scholarship\Forms;
+
 use Illuminate\Contracts\Validation\Validator;
 
 class RegistrationForm extends Validator

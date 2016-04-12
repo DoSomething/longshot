@@ -1,13 +1,12 @@
 <?php
 
-use Scholarship\Repositories\SettingRepository;
-use Illuminate\Http\Request;
-use App\Models\Scholarship;
-use App\Models\Recommendation;
 use App\Models\Application;
-use App\Models\User;
 use App\Models\Email;
-
+use App\Models\Recommendation;
+use App\Models\Scholarship;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Scholarship\Repositories\SettingRepository;
 
 class RecommendationController extends \Controller
 {
@@ -25,9 +24,9 @@ class RecommendationController extends \Controller
 
     public function __construct(SettingRepository $settings)
     {
-      $this->settings = $settings;
+        $this->settings = $settings;
 
-      $this->middleware('isClosed');
+        $this->middleware('isClosed');
       // Check that the current user doesn't create many applications
       $this->middleware('createdRec', ['only' => ['create']]);
 
@@ -43,15 +42,15 @@ class RecommendationController extends \Controller
    */
   public function create()
   {
-    // This will be seen by applicants only.
+      // This will be seen by applicants only.
     // $num_recs = Scholarship::getCurrentScholarship()->select('num_recommendations_max', 'num_recommendations_min')->firstOrFail()->toArray();
     // @TODO: is there a better way to do this? using select pulls from all scholarships
     $rec_min = Scholarship::getCurrentScholarship()->num_recommendations_min;
-    $rec_max = Scholarship::getCurrentScholarship()->num_recommendations_max;
-    $num_recs = ['num_recommendations_max' => $rec_max, 'num_recommendations_min' => $rec_min];
-    $vars = (object) $this->settings->getSpecifiedSettingsVars(['recommendation_create_help_text']);
+      $rec_max = Scholarship::getCurrentScholarship()->num_recommendations_max;
+      $num_recs = ['num_recommendations_max' => $rec_max, 'num_recommendations_min' => $rec_min];
+      $vars = (object) $this->settings->getSpecifiedSettingsVars(['recommendation_create_help_text']);
 
-    return view('recommendation.create', compact('num_recs', 'vars'));
+      return view('recommendation.create', compact('num_recs', 'vars'));
   }
 
   /**
