@@ -69,48 +69,51 @@ class ApplicationController extends \Controller
    */
   public function store(Request $request)
   {
-      $user = User::whereId(Auth::user()->id)->firstOrFail();
+    $user = User::whereId(Auth::user()->id)->firstOrFail();
 
     // Only run validation on applications that were submitted
     // (do not run on those 'saved as draft')
+    // complete is just the word we send through if it was sumbitted (draft if saved as draft)
+    // these apps are actually submitted, NOT completed (that mechanic happens when recs are submitted)
+    // @TODO: we should probably standardize
     if (isset($request['complete'])) {
         $this->validate($request, $this->rules, $this->messages);
     }
 
     // @TODO: there's a better way of doing the following...
     $application = new Application();
-      $application->accomplishments = $request['accomplishments'];
+    $application->accomplishments = $request['accomplishments'];
 
-      if ($request['gpa'] != '') {
-          $application->gpa = $request['gpa'];
-      }
+    if ($request['gpa'] != '') {
+        $application->gpa = $request['gpa'];
+    }
 
-      if ($request['test_type'] == 'Prefer not to submit scores') {
-          $application->test_type = null;
-      } else {
-          $application->test_type = $request['test_type'];
-      }
+    if ($request['test_type'] == 'Prefer not to submit scores') {
+        $application->test_type = null;
+    } else {
+        $application->test_type = $request['test_type'];
+    }
 
-      if ($request['test_score'] != '') {
-          $application->test_score = $request['test_score'];
-      } else {
-          $application->test_score = null;
-      }
+    if ($request['test_score'] != '') {
+        $application->test_score = $request['test_score'];
+    } else {
+        $application->test_score = null;
+    }
 
-      $application->activities = $request['activities'];
-      $application->participation = $request['participation'];
-      $application->essay1 = $request['essay1'];
-      $application->essay2 = $request['essay2'];
-      if (isset($request['link'])) {
-          $application->link = $request['link'];
-      }
+    $application->activities = $request['activities'];
+    $application->participation = $request['participation'];
+    $application->essay1 = $request['essay1'];
+    $application->essay2 = $request['essay2'];
+    if (isset($request['link'])) {
+        $application->link = $request['link'];
+    }
 
-      $scholarship = Scholarship::getCurrentScholarship();
-      $application->scholarship()->associate($scholarship);
+    $scholarship = Scholarship::getCurrentScholarship();
+    $application->scholarship()->associate($scholarship);
 
-      $user->application()->save($application);
+    $user->application()->save($application);
 
-      return $this->redirectAfterSave($request, $user->id);
+    return $this->redirectAfterSave($request, $user->id);
   }
 
   /**

@@ -7,6 +7,7 @@ use App\Models\Profile;
 use App\Models\Recommendation;
 use App\Models\Email;
 use App\Models\Block;
+use App\Models\Rating;
 
 use Illuminate\Http\Request;
 
@@ -127,13 +128,13 @@ class StatusController extends \Controller
   {
       $this->validate($request, $this->rules);
 
-      // $input = Input::all();
       $input = $request;
-      // $this->reviewForm->validate($input);
 
       $application = Application::where('user_id', Auth::user()->id)->firstorFail();
       $application->submitted = 1;
       $application->save();
+      $this->checkGPA($application);
+
       $this->confirmationEmail();
       $recommendations = Recommendation::where('application_id', $application->id)->get();
       $max_recs = Scholarship::getCurrentScholarship()->num_recommendations_max;
@@ -173,5 +174,20 @@ class StatusController extends \Controller
   {
       $email = new Email();
       $email->sendEmail('submitted', 'applicant', Auth::user()->email);
+  }
+
+  /**
+   * When an app is submitted, automatically rates as 'no' if the GPA is too low
+   */
+  public function checkGPA($application)
+  {
+    $scholarship = Scholarship::getCurrentScholarship();
+
+    if($application->gpa < $scholarship->gpa_min) {
+          $rate = new Rating();
+          $rate->rating = 'no';
+          $rate->application()->associate($application);
+          $rate->save();
+        }
   }
 }
