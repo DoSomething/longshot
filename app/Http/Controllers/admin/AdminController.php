@@ -179,6 +179,7 @@ class AdminController extends \Controller
       }
 
       $is_winner = Winner::where('user_id', $id)->first() ? true : false;
+      $is_submitted = Application::isSubmitted($id);
 
       $recommendations = null;
       $show_rating = false;
@@ -195,7 +196,7 @@ class AdminController extends \Controller
 
       Session::put('url.index', URL::previous());
 
-      return view('admin.applications.show', compact('id', 'application', 'app_id', 'user', 'profile', 'races', 'scholarship', 'recommendations', 'show_rating', 'possible_ratings', 'app_rating', 'is_winner'));
+      return view('admin.applications.show', compact('id', 'application', 'app_id', 'user', 'profile', 'races', 'scholarship', 'recommendations', 'show_rating', 'possible_ratings', 'app_rating', 'is_winner', 'is_submitted'));
   }
 
     public function applicationsEdit($id)
@@ -263,8 +264,9 @@ class AdminController extends \Controller
         $application = Application::whereId($app_id)->firstOrFail();
         $application->completed = 1;
         $application->save();
+        $user_id = $application->user_id;
 
-        return redirect()->to(Session::get('url.index'))->with('flash_message', ['text' => 'Success: App marked as completed!', 'class' => 'alert-success']);
+        return redirect()->route('admin.application.show', $user_id);
     }
 
     public function export()

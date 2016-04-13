@@ -163,26 +163,25 @@ class RecommendationController extends \Controller
    */
   public function update($id, Request $request)
   {
-      // $input = Input::all();
-
     // If there is a hidden applicant value on the form call different update method.
     if (isset($request['app_id'])) {
-        return $this->updateUserRec($request);
+        return $this->updateUserRec($request->all());
     }
 
-      if (isset($input['rec_id'])) {
-          return $this->updateAdmin($input);
-      }
+    // Hidden field to determine if an admin is making the update
+    if (isset($request['rec_id'])) {
+        return $this->updateAdmin($request->all());
+    }
 
-      $this->validate($request);
-      $recommendation = Recommendation::whereId($id)->firstOrFail();
-      $recommendation->fill($input)->save();
-      $application = Application::whereId($recommendation->application_id)->firstOrFail();
-      $application->completed = 1;
-      $application->save();
-      $this->prepareRecReceivedEmail($recommendation);
+    $this->validate($request, $this->rules, $this->messages);
+    $recommendation = Recommendation::whereId($id)->firstOrFail();
+    $recommendation->fill($request->all())->save();
+    $application = Application::whereId($recommendation->application_id)->firstOrFail();
+    $application->completed = 1;
+    $application->save();
+    $this->prepareRecReceivedEmail($recommendation);
 
-      return redirect()->route('home')->with('flash_message', ['text' => 'Thanks, we got your recommendation!', 'class' => '-success']);
+    return redirect()->route('home')->with('flash_message', ['text' => 'Thanks, we got your recommendation!', 'class' => '-success']);
   }
 
     public function updateAdmin($input)
@@ -190,8 +189,10 @@ class RecommendationController extends \Controller
         $recommendation = Recommendation::whereId($input['rec_id'])->firstOrFail();
         $input['essay1'] = $input['rec_essay1'];
         $recommendation->fill($input)->save();
-    //Redirect::back()->with('flash_message', ['text' => 'updated.', 'class' => '-success']);
-    return redirect()->route('applications.index');
+        // need to get ID of user associated with the rec
+        $user_id = Application::whereId($recommendation->application_id)->firstOrFail()->user_id;
+
+        return redirect()->route('admin.application.show', $user_id);
     }
 
     public function updateUserRec($input)
