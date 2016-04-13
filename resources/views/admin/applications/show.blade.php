@@ -57,7 +57,8 @@
             </div>
           @endif
 
-
+// @TODO: decide logic for when "resend" button should show up
+// build button functionality (probably a new rec route?)
           @if (!is_null($recommendations) && count($recommendations) > 0)
             <h2>Recommender Responses</h2>
             <div class="details well well-lg">

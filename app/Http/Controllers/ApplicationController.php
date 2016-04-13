@@ -163,7 +163,6 @@ class ApplicationController extends \Controller
     if (isset($request['complete'])) {
         // $input = Input::all();
         $this->validate($request, $this->rules, $this->messages);
-      // @TODO: once we have validated, are we setting a 'complete' flag on the app to disable edits?
     }
       $application = Application::where('user_id', $id)->firstOrFail();
       $application->fill($input);
