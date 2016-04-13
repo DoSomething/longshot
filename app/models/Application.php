@@ -1,6 +1,8 @@
 <?php namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Scholarship;
+use App\Models\Rating;
 
 class Application extends Model
 {
@@ -86,5 +88,21 @@ class Application extends Model
         $fields = ['id'];
 
         return $application = self::where('user_id', $id)->select($fields)->first();
+    }
+
+    /**
+     * Call when an app is submitted to rate as 'no' if the GPA is too low
+     */
+    public function checkGPA($id)
+    {
+      $scholarship = Scholarship::getCurrentScholarship();
+      $application = self::where('id', $id)->firstOrFail();
+
+      if($this->gpa < $scholarship->gpa_min) {
+            $rate = new Rating();
+            $rate->rating = 'no';
+            $rate->application()->associate($application);
+            $rate->save();
+          }
     }
 }

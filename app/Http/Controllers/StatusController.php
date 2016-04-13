@@ -128,12 +128,10 @@ class StatusController extends \Controller
   {
       $this->validate($request, $this->rules);
 
-      $input = $request;
-
       $application = Application::where('user_id', Auth::user()->id)->firstorFail();
       $application->submitted = 1;
       $application->save();
-      $this->checkGPA($application);
+      $application->checkGPA($application->id);
 
       $this->confirmationEmail();
       $recommendations = Recommendation::where('application_id', $application->id)->get();
@@ -176,18 +174,5 @@ class StatusController extends \Controller
       $email->sendEmail('submitted', 'applicant', Auth::user()->email);
   }
 
-  /**
-   * When an app is submitted, automatically rates as 'no' if the GPA is too low
-   */
-  public function checkGPA($application)
-  {
-    $scholarship = Scholarship::getCurrentScholarship();
 
-    if($application->gpa < $scholarship->gpa_min) {
-          $rate = new Rating();
-          $rate->rating = 'no';
-          $rate->application()->associate($application);
-          $rate->save();
-        }
-  }
 }
