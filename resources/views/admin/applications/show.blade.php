@@ -72,9 +72,9 @@
                   </div>
                 @endforeach
                 {!! Form::open(['route' => 'admin.resend']) !!}
-                {!! Form::hidden('recommendation', $rec['id'])!!}
-                {!! Form::hidden('applicant', $id)!!}
-                {!! Form::submit(('Resend email to recommender'), ['class' => 'btn btn-default btn-md']) !!}
+                {!! Form::hidden('rec_id', $rec['id'])!!}
+                {!! Form::hidden('applicant_id', $id)!!}
+                {!! Form::submit(('Resend Email To Recommender'), ['class' => 'btn btn-default btn-md']) !!}
                 {!! Form::close() !!}
               @endforeach
             </div>

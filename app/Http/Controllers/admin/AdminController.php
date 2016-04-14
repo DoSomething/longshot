@@ -10,6 +10,7 @@ use App\Models\Rating;
 use App\Models\Nomination;
 use App\Models\Winner;
 use App\Models\Export;
+use App\Models\Email;
 
 use Scholarship\Repositories\SettingRepository;
 
@@ -312,15 +313,22 @@ class AdminController extends \Controller
       return $query;
   }
 
-  public function resendRecEmail($rec_id, $applicant)
+  public function resendRecEmail()
   {
+      // get rec info
+      $rec_id = Input::get('rec_id');
       $recommendation = Recommendation::whereId($rec_id)->firstOrFail();
-      $token = Recommendation::generateRecToken($recommendation);
+      $token = RecommendationToken::where('recommendation_id', $recommendation->id);
       $link = link_to_route('recommendation.edit', 'Please provide a recommendation', [$recommendation->id, 'token' => $token]);
+
+      // get applicant info
+      $applicant_id = Input::get('applicant_id');
+      $applicant = User::whereId($applicant_id)->firstOrFail();
+
+      // build and send email
       $email = new Email();
       $data = [
       'link'           => $link,
-      // need to get applicant name here
       'applicant_name' => $applicant->first_name.' '.$applicant->last_name,
       ];
       $email->sendEmail('request', 'recommender', $recommendation->email, $data);
