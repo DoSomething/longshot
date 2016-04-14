@@ -47,6 +47,7 @@ Route::group(['before' => 'role:administrator', 'prefix' => 'admin'], function (
   Route::get('applications/{id}/edit', ['as' => 'admin.application.edit', 'uses' => 'AdminController@applicationsEdit']);
   Route::post('application/rate', ['as' => 'applications.rate', 'uses' => 'AdminController@rate']);
   Route::post('application/complete', ['as' => 'applications.complete', 'uses' => 'AdminController@complete']);
+  Route::post('resend', ['as' => 'admin.resend', 'uses' => 'AdminController@resendRecEmail']);
   // Winners
   Route::resource('winner', 'WinnerController');
   // Scholarship management

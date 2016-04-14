@@ -5,6 +5,7 @@ use App\Models\Scholarship;
 use App\Models\Profile;
 use App\Models\User;
 use App\Models\Recommendation;
+use App\Models\RecommendationToken;
 use App\Models\Rating;
 use App\Models\Nomination;
 use App\Models\Winner;
@@ -309,5 +310,21 @@ class AdminController extends \Controller
           ->leftJoin('ratings', 'application_id', '=', 'applications.id');
 
       return $query;
+  }
+
+  public function resendRecEmail($rec_id, $applicant)
+  {
+      $recommendation = Recommendation::whereId($rec_id)->firstOrFail();
+      $token = Recommendation::generateRecToken($recommendation);
+      $link = link_to_route('recommendation.edit', 'Please provide a recommendation', [$recommendation->id, 'token' => $token]);
+      $email = new Email();
+      $data = [
+      'link'           => $link,
+      // need to get applicant name here
+      'applicant_name' => $applicant->first_name.' '.$applicant->last_name,
+      ];
+      $email->sendEmail('request', 'recommender', $recommendation->email, $data);
+
+      return redirect()->route('admin.application.show', $applicant->id)->with('flash_message', ['text' => 'Success: Email sent to recommender', 'class' => 'alert-success']);;
   }
 }

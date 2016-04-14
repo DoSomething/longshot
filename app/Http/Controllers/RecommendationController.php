@@ -4,6 +4,7 @@ use Scholarship\Repositories\SettingRepository;
 use Illuminate\Http\Request;
 use App\Models\Scholarship;
 use App\Models\Recommendation;
+use App\Models\RecommendationToken;
 use App\Models\Application;
 use App\Models\User;
 use App\Models\Email;
@@ -281,21 +282,5 @@ class RecommendationController extends \Controller
       'nominate_them'  => link_to_route('home', 'Nominate them'),
       ];
       $email->sendEmail('received', 'recommender', $recommendation->email, $data2);
-  }
-
-  /**
-   * Sends email to recommender upon admin action
-   */
-  public function prepareRecRequestEmail($recommendation)
-  {
-      // get rec token here
-      $link = link_to_route('recommendation.edit', 'Please provide a recommendation', [$recommendation->id, 'token' => $token]);
-      $email = new Email();
-      $data = [
-      'link'           => $link,
-      // need to get applicant name here
-      'applicant_name' => Auth::user()->first_name.' '.Auth::user()->last_name,
-      ];
-      $email->sendEmail('request', 'recommender', $recommendation->email, $data);
   }
 }

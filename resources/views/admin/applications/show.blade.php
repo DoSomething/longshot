@@ -57,8 +57,6 @@
             </div>
           @endif
 
-// @TODO: decide logic for when "resend" button should show up
-// build button functionality (probably a new rec route?)
           @if (!is_null($recommendations) && count($recommendations) > 0)
             <h2>Recommender Responses</h2>
             <div class="details well well-lg">
@@ -73,6 +71,11 @@
                       <p>{{ $field }}</p>
                   </div>
                 @endforeach
+                {!! Form::open(['route' => 'admin.resend']) !!}
+                {!! Form::hidden('recommendation', $rec['id'])!!}
+                {!! Form::hidden('applicant', $id)!!}
+                {!! Form::submit(('Resend email to recommender'), ['class' => 'btn btn-default btn-md']) !!}
+                {!! Form::close() !!}
               @endforeach
             </div>
           @endif
