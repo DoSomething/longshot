@@ -82,20 +82,20 @@ class ApplicationController extends \Controller
 
     // @TODO: there's a better way of doing the following...
     $application = new Application();
-      $application->accomplishments = $request['accomplishments'];
+      $application->accomplishments = Request::get('accomplishments');
 
-      if ($request['gpa'] != '') {
+      if (Request::get('gpa') != '') {
           $application->gpa = $request['gpa'];
       }
 
-      if ($request['test_type'] == 'Prefer not to submit scores') {
+      if (Request::get('test_type') == 'Prefer not to submit scores') {
           $application->test_type = null;
       } else {
-          $application->test_type = $request['test_type'];
+          $application->test_type = Request::get('test_type');
       }
 
-      if ($request['test_score'] != '') {
-          $application->test_score = $request['test_score'];
+      if (Request::get('test_score') != '') {
+          $application->test_score = Request::get('test_score');
       } else {
           $application->test_score = null;
       }
@@ -104,9 +104,18 @@ class ApplicationController extends \Controller
       $application->participation = $request['participation'];
       $application->essay1 = $request['essay1'];
       $application->essay2 = $request['essay2'];
-      if (isset($request['link'])) {
-          $application->link = $request['link'];
-      }
+      // if (isset($request['link'])) {
+      //     $application->link = $request['link'];
+      // }
+      // $file = Request::file('file');
+      // if (isset($request['file'])) {
+        $file = Request::file('file');
+        if (Request::hasFile('file')) {
+            $filename = $user->id;
+            $file->move(uploadedContentPath('uploads'), $filename);
+            $application->file = 'uploads/'.$filename;
+        }
+      // }
 
       $scholarship = Scholarship::getCurrentScholarship();
       $application->scholarship()->associate($scholarship);

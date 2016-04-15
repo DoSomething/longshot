@@ -57,14 +57,14 @@
     {!! errorsFor('essay2', $errors); !!}
   </div>
 
-    {{-- Link --}}
-  <div class="field-group {{ setInvalidClass('link', $errors) }}">
-    {!! Form::label('link', 'Links to photo or video albums (optional)') !!}
-    {!! Form::text('link',  NULL, ['placeholder' => 'http://youtube.com']) !!}
-    {!! errorsFor('link', $errors); !!}
+  {{-- Link --}}
+  <div class="field-group {{ setInvalidClass('file', $errors) }}">
+    {!! Form::label('file', 'Photo or video files (optional)') !!}
+    {!! Form::file('file') !!}
+    {!! errorsFor('file', $errors); !!}
   </div>
 
-    {{-- Hear About --}}
+  {{-- Hear About --}}
   <div class="field-group -mono {{ setInvalidClass('hear_about', $errors) }}">
     {!! Form::label('hear_about', 'How did you hear about this scholarship? (optional) ') !!}
     {!! Form::select('hear_about',  $choices); !!}

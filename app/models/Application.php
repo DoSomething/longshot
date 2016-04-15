@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Storage;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class Application extends Model
 {
@@ -82,12 +84,37 @@ class Application extends Model
         }
     }
 
-    public static function getUserApplicationId($id)
-    {
-        $fields = ['id'];
+  public static function getUserApplicationId($id)
+  {
+      $fields = ['id'];
 
-        return $application = self::where('user_id', $id)->select($fields)->first();
-    }
+      return $application = self::where('user_id', $id)->select($fields)->first();
+  }
+
+ /**
+   * Save a file and attach it to the model.
+   *
+   * @param mixed $file Input to Intervention\Image::make (such as Input::file)
+   * @see http://image.intervention.io/api/make
+   */
+  public function saveFile($file, $id)
+  {
+      // Create an uploads directory if it doesn't exist
+      if (!file_exists('uploads')) {
+        Storage::makeDirectory('uploads');
+      }
+
+      if ($file instanceof UploadedFile) {
+        $extension = $file->getClientOriginalExtension();
+      } else {
+          $extension = $file->getExtension();
+      }
+
+      $filename = $id.'.'.$extension;
+      $file->move($path, $filename);
+
+      $this->attributes['file'] = $filename;
+  }
 
     /**
      * Call when an app is submitted to rate as 'no' if the GPA is too low.
@@ -103,4 +130,5 @@ class Application extends Model
             $rate->save();
         }
     }
+
 }
