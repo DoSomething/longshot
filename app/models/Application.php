@@ -96,12 +96,11 @@ class Application extends Model
     public function checkGPA($id)
     {
       $scholarship = Scholarship::getCurrentScholarship();
-      $application = self::where('id', $id)->firstOrFail();
 
       if($this->gpa < $scholarship->gpa_min) {
             $rate = new Rating();
             $rate->rating = 'no';
-            $rate->application()->associate($application);
+            $rate->application()->associate($this);
             $rate->save();
           }
     }
