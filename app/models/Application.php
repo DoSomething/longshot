@@ -93,7 +93,7 @@ class Application extends Model
     /**
      * Call when an app is submitted to rate as 'no' if the GPA is too low
      */
-    public function checkGPA($id)
+    public function checkGPA()
     {
       $scholarship = Scholarship::getCurrentScholarship();
 

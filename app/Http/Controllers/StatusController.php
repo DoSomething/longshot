@@ -131,7 +131,7 @@ class StatusController extends \Controller
       $application = Application::where('user_id', Auth::user()->id)->firstorFail();
       $application->submitted = 1;
       $application->save();
-      $application->checkGPA($application->id);
+      $application->checkGPA();
 
       $this->confirmationEmail();
       $recommendations = Recommendation::where('application_id', $application->id)->get();
