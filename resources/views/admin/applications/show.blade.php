@@ -57,7 +57,6 @@
             </div>
           @endif
 
-
           @if (!is_null($recommendations) && count($recommendations) > 0)
             <h2>Recommender Responses</h2>
             <div class="details well well-lg">
@@ -72,6 +71,11 @@
                       <p>{{ $field }}</p>
                   </div>
                 @endforeach
+                {!! Form::open(['route' => 'admin.resend']) !!}
+                {!! Form::hidden('rec_id', $rec['id'])!!}
+                {!! Form::hidden('applicant_id', $id)!!}
+                {!! Form::submit(('Resend Email To Recommender'), ['class' => 'btn btn-default btn-md']) !!}
+                {!! Form::close() !!}
               @endforeach
             </div>
           @endif

@@ -4,6 +4,7 @@ use Scholarship\Repositories\SettingRepository;
 use Illuminate\Http\Request;
 use App\Models\Scholarship;
 use App\Models\Recommendation;
+use App\Models\RecommendationToken;
 use App\Models\Application;
 use App\Models\User;
 use App\Models\Email;
