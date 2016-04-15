@@ -161,7 +161,6 @@ class ApplicationController extends \Controller
     // Only run validation on applications that were submitted
     // (do not run on those 'saved as draft')
     if (isset($request['complete'])) {
-        // $input = Input::all();
         $this->validate($request, $this->rules, $this->messages);
     }
       $application = Application::where('user_id', $id)->firstOrFail();

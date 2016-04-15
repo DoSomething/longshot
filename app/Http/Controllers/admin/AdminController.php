@@ -328,8 +328,8 @@ class AdminController extends \Controller
       // build and send email
       $email = new Email();
       $data = [
-      'link'           => $link,
-      'applicant_name' => $applicant->first_name.' '.$applicant->last_name,
+        'link'           => $link,
+        'applicant_name' => $applicant->first_name.' '.$applicant->last_name,
       ];
       $email->sendEmail('request', 'recommender', $recommendation->email, $data);
 
