@@ -100,10 +100,10 @@ class ApplicationController extends \Controller
           $application->test_score = null;
       }
 
-      $application->activities = $request['activities'];
-      $application->participation = $request['participation'];
-      $application->essay1 = $request['essay1'];
-      $application->essay2 = $request['essay2'];
+      $application->activities = Request::get('activities');
+      $application->participation = Request::get('participation');
+      $application->essay1 = Request::get('essay1');
+      $application->essay2 = Request::get('essay2');
       // if (isset($request['link'])) {
       //     $application->link = $request['link'];
       // }
