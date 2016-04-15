@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Scholarship\Composers;
 
 use Scholarship\Repositories\SettingRepository;

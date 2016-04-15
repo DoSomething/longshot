@@ -1,4 +1,6 @@
-<?php namespace App\Models;
+<?php
+
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -35,6 +37,7 @@ class Application extends Model
       foreach ($choices as $choice) {
           $return[$choice] = $choice;
       }
+
       return $return;
   }
 
@@ -77,8 +80,6 @@ class Application extends Model
         if ($application) {
             return $application->toArray();
         }
-
-        return;
     }
 
     public static function getUserApplicationId($id)

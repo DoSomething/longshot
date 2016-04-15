@@ -1,15 +1,12 @@
 <?php
 
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Scholarship\Repositories\SettingRepository;
-use Illuminate\Http\Request;
-use App\Models\User;
-use App\Models\Scholarship;
 use App\Models\Application;
 use App\Models\Profile;
 use App\Models\Race;
-use App\Models\Role;
-
+use App\Models\User;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Request;
+use Scholarship\Repositories\SettingRepository;
 
 class ProfilesController extends \Controller
 {

@@ -1,8 +1,9 @@
-<?php namespace App\Models;
+<?php
 
-use Illuminate\Database\Eloquent\Model;
-use App\Models\Scholarship;
+namespace App\Models;
+
 use Config;
+use Illuminate\Database\Eloquent\Model;
 use Mail;
 
 class Email extends Model
