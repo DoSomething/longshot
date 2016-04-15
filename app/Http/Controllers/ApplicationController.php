@@ -96,10 +96,10 @@ class ApplicationController extends \Controller
           $application->test_score = null;
       }
 
-      $application->activities = $request['activities'];
-      $application->participation = $request['participation'];
-      $application->essay1 = $request['essay1'];
-      $application->essay2 = $request['essay2'];
+      $application->activities = Request::get('activities');
+      $application->participation = Request::get('participation');
+      $application->essay1 = Request::get('essay1');
+      $application->essay2 = Request::get('essay2');
       // if (isset($request['link'])) {
       //     $application->link = $request['link'];
       // }
@@ -168,7 +168,7 @@ class ApplicationController extends \Controller
 
     // Only run validation on applications that were submitted
     // (do not run on those 'saved as draft')
-    if (isset($request['complete'])) {
+    if (Request::get('complete')) {
         // $input = Input::all();
         $this->validate($request, $this->rules, $this->messages);
       // @TODO: once we have validated, are we setting a 'complete' flag on the app to disable edits?
@@ -204,11 +204,11 @@ class ApplicationController extends \Controller
       //
   }
 
-  public function redirectAfterSave($input, $id, $override = null)
+  public function redirectAfterSave($request, $id, $override = null)
   {
       if (isset($override)) {
           return redirect()->route($override)->with('flash_message', ['text' => 'Your profile has been updated', 'class' => '-success']);
-      } elseif (isset($input['complete'])) {
+      } elseif (Request::get('complete')) {
           return redirect()->route('review', $id)->with('flash_message', ['text' => 'Application information has been saved!', 'class' => '-success']);
       } else {
           return redirect()->route('application.edit', $id)->with('flash_message', ['text' => 'Application information has been saved!', 'class' => '-success']);
