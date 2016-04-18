@@ -4,6 +4,11 @@ use Scholarship\Repositories\SettingRepository;
 use App\Models\Application;
 use App\Models\Scholarship;
 use App\Models\User;
+// use Symfony\Component\HttpFoundation\File\UploadedFile;
+// use Illuminate\Http\Request;
+// use Illuminate\Http\UploadedFile;
+use Illuminate\Filesystem\Filesystem;
+
 
 class ApplicationController extends \Controller
 {
@@ -72,45 +77,51 @@ class ApplicationController extends \Controller
 
     // Only run validation on applications that were submitted
     // (do not run on those 'saved as draft')
-    if (Request::get('complete')) {
-        $this->validate($request, $this->rules, $this->messages);
-    }
+      // if ($request->get('complete')) {
+      //     $this->validate($request, $this->rules, $this->messages);
+      // }
 
-    // @TODO: there's a better way of doing the following...
-    $application = new Application();
-      $application->accomplishments = Request::get('accomplishments');
+      // // @TODO: there's a better way of doing the following...
+      // $application = new Application();
+      //   $application->accomplishments = $request->get('accomplishments');
 
-      if (Request::get('gpa') != '') {
-          $application->gpa = $request['gpa'];
-      }
+      //   if ($request->get('gpa') != '') {
+      //       $application->gpa = $request['gpa'];
+      //   }
 
-      if (Request::get('test_type') == 'Prefer not to submit scores') {
-          $application->test_type = null;
-      } else {
-          $application->test_type = Request::get('test_type');
-      }
+      //   if ($request->get('test_type') == 'Prefer not to submit scores') {
+      //       $application->test_type = null;
+      //   } else {
+      //       $application->test_type = $request->get('test_type');
+      //   }
 
-      if (Request::get('test_score') != '') {
-          $application->test_score = Request::get('test_score');
-      } else {
-          $application->test_score = null;
-      }
+      //   if ($request->get('test_score') != '') {
+      //       $application->test_score = $request->get('test_score');
+      //   } else {
+      //       $application->test_score = null;
+      //   }
 
-      $application->activities = Request::get('activities');
-      $application->participation = Request::get('participation');
-      $application->essay1 = Request::get('essay1');
-      $application->essay2 = Request::get('essay2');
+      //   $application->activities = $request->get('activities');
+      //   $application->participation = $request->get('participation');
+      //   $application->essay1 = $request->get('essay1');
+      //   $application->essay2 = $request->get('essay2');
       // if (isset($request['link'])) {
       //     $application->link = $request['link'];
       // }
       // $file = Request::file('file');
       // if (isset($request['file'])) {
-        $file = Request::file('file');
-        if (Request::hasFile('file')) {
-            $filename = $user->id;
-            $file->move(uploadedContentPath('uploads'), $filename);
-            $application->file = 'uploads/'.$filename;
-        }
+      // $file = Request::get('file');
+      // dd($request->get('file'));
+      
+      // dd($file);
+      
+      dd(Request::hasFile('file'));
+      if ($request->file('file')) {
+          $file = $request->file('file');
+          $filename = $user->id;
+          $file->move(uploadedContentPath('uploads'), $filename);
+          $application->file = 'uploads/'.$filename;
+      }
       // }
 
       $scholarship = Scholarship::getCurrentScholarship();
@@ -168,7 +179,7 @@ class ApplicationController extends \Controller
 
     // Only run validation on applications that were submitted
     // (do not run on those 'saved as draft')
-    if (Request::get('complete')) {
+    if ($request->get('complete')) {
         // $input = Input::all();
         $this->validate($request, $this->rules, $this->messages);
       // @TODO: once we have validated, are we setting a 'complete' flag on the app to disable edits?
@@ -208,7 +219,7 @@ class ApplicationController extends \Controller
   {
       if (isset($override)) {
           return redirect()->route($override)->with('flash_message', ['text' => 'Your profile has been updated', 'class' => '-success']);
-      } elseif (Request::get('complete')) {
+      } elseif ($request->get('complete')) {
           return redirect()->route('review', $id)->with('flash_message', ['text' => 'Application information has been saved!', 'class' => '-success']);
       } else {
           return redirect()->route('application.edit', $id)->with('flash_message', ['text' => 'Application information has been saved!', 'class' => '-success']);

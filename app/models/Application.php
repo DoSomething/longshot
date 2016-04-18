@@ -74,7 +74,7 @@ class Application extends Model
 
   public static function getUserApplication($id)
   {
-      $fields = ['scholarship_id', 'accomplishments', 'activities', 'participation', 'essay1', 'essay2', 'hear_about as how_did_you_hear_about_this', 'link', 'test_type', 'test_score', 'gpa'];
+      $fields = ['scholarship_id', 'accomplishments', 'activities', 'participation', 'essay1', 'essay2', 'hear_about as how_did_you_hear_about_this', 'file', 'test_type', 'test_score', 'gpa'];
       $application = self::where('user_id', $id)->select($fields)->first();
       if ($application) {
           return $application->toArray();
