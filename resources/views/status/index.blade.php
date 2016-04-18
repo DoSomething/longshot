@@ -17,9 +17,9 @@
     </div>
      <?php
         $app_status = NULL;
-        (isset($profile)) ? $prof_status = "edit" : $prof_status = 'start';
+        (isset($profile)) ? $prof_status = 'edit' : $prof_status = 'start';
         if ((isset($application)) && !($application->submitted)) {
-          $app_status = "edit" ;
+          $app_status = 'edit';
         } else if(is_null($application) && !is_null($profile)) {
           $app_status = 'start';
         }
@@ -29,6 +29,12 @@
         <h1 class="heading -gamma">Progress</h1>
 
         <ul class="media-list media-list--status">
+          <li class="{{ $prof_complete ? 'complete' : '-incomplete' }}">
+            <span class="icon icon-status" data-icon="&#x2713"></span>Account Information
+            @if (!$closed)
+              <a class="button -link" href=" {{ URL::route('registration.edit', [$user]) }} "> edit <span class="icon icon-edit"></span></a>
+            @endif
+          </li>
           <li class="{{ $prof_complete ? 'complete' : '-incomplete' }}">
             <span class="icon icon-status" data-icon="&#x2713"></span>Basic Information
             @if ($prof_status && !$closed)

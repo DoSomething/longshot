@@ -5,10 +5,12 @@ use App\Models\Scholarship;
 use App\Models\Profile;
 use App\Models\User;
 use App\Models\Recommendation;
+use App\Models\RecommendationToken;
 use App\Models\Rating;
 use App\Models\Nomination;
 use App\Models\Winner;
 use App\Models\Export;
+use App\Models\Email;
 
 use Scholarship\Repositories\SettingRepository;
 
@@ -179,6 +181,7 @@ class AdminController extends \Controller
       }
 
       $is_winner = Winner::where('user_id', $id)->first() ? true : false;
+      $is_submitted = Application::isSubmitted($id);
 
       $recommendations = null;
       $show_rating = false;
@@ -195,7 +198,7 @@ class AdminController extends \Controller
 
       Session::put('url.index', URL::previous());
 
-      return view('admin.applications.show', compact('id', 'application', 'app_id', 'user', 'profile', 'races', 'scholarship', 'recommendations', 'show_rating', 'possible_ratings', 'app_rating', 'is_winner'));
+      return view('admin.applications.show', compact('id', 'application', 'app_id', 'user', 'profile', 'races', 'scholarship', 'recommendations', 'show_rating', 'possible_ratings', 'app_rating', 'is_winner', 'is_submitted'));
   }
 
     public function applicationsEdit($id)
@@ -263,8 +266,9 @@ class AdminController extends \Controller
         $application = Application::whereId($app_id)->firstOrFail();
         $application->completed = 1;
         $application->save();
+        $user_id = $application->user_id;
 
-        return redirect()->to(Session::get('url.index'))->with('flash_message', ['text' => 'Success: App marked as completed!', 'class' => 'alert-success']);
+        return redirect()->route('admin.application.show', $user_id);
     }
 
     public function export()
@@ -309,5 +313,28 @@ class AdminController extends \Controller
           ->leftJoin('ratings', 'application_id', '=', 'applications.id');
 
       return $query;
+  }
+
+  public function resendRecEmail()
+  {
+      // get rec info
+      $rec_id = Input::get('rec_id');
+      $recommendation = Recommendation::whereId($rec_id)->firstOrFail();
+      $token = RecommendationToken::where('recommendation_id', $recommendation->id);
+      $link = link_to_route('recommendation.edit', 'Please provide a recommendation', [$recommendation->id, 'token' => $token]);
+
+      // get applicant info
+      $applicant_id = Input::get('applicant_id');
+      $applicant = User::whereId($applicant_id)->firstOrFail();
+
+      // build and send email
+      $email = new Email();
+      $data = [
+        'link' => $link,
+        'applicant_name' => $applicant->first_name.' '.$applicant->last_name,
+      ];
+      $email->sendEmail('request', 'recommender', $recommendation->email, $data);
+
+      return redirect()->route('admin.application.show', $applicant->id)->with('flash_message', ['text' => 'Success: Email sent to recommender', 'class' => 'alert-success']);;
   }
 }

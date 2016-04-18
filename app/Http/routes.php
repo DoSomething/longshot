@@ -5,9 +5,12 @@
 |--------------------------------------------------------------------------
 |
 */
+
 // Registration
 Route::get('register', ['as' => 'registration.create', 'uses' => 'RegistrationController@create'])->middleware(['guest', 'isClosed']);
 Route::post('register', ['as' => 'registration.store', 'uses' => 'RegistrationController@store']);
+Route::put('register', ['as' => 'registration.update', 'uses' => 'RegistrationController@update']);
+Route::get('register/{id}/edit', ['as' => 'registration.edit', 'uses' => 'RegistrationController@edit']);
 // Authentication
 Route::get('login', ['as' => 'login', 'uses' => 'SessionsController@create']);
 Route::get('logout', ['as' => 'logout', 'uses' => 'SessionsController@destroy']);
@@ -44,6 +47,7 @@ Route::group(['before' => 'role:administrator', 'prefix' => 'admin'], function (
   Route::get('applications/{id}/edit', ['as' => 'admin.application.edit', 'uses' => 'AdminController@applicationsEdit']);
   Route::post('application/rate', ['as' => 'applications.rate', 'uses' => 'AdminController@rate']);
   Route::post('application/complete', ['as' => 'applications.complete', 'uses' => 'AdminController@complete']);
+  Route::post('resend', ['as' => 'admin.resend', 'uses' => 'AdminController@resendRecEmail']);
   // Winners
   Route::resource('winner', 'WinnerController');
   // Scholarship management
