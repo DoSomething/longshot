@@ -8,9 +8,6 @@ use App\Models\RecommendationToken;
 use App\Models\Application;
 use App\Models\User;
 use App\Models\Email;
-use App\Models\RecommendationToken;
-
-
 
 class RecommendationController extends \Controller
 {
@@ -20,6 +17,8 @@ class RecommendationController extends \Controller
       'rank_character'  => 'required',
       'rank_additional' => 'required',
       'essay1'          => 'required',
+      
+
     ];
 
     protected $messages = [
@@ -66,8 +65,8 @@ class RecommendationController extends \Controller
    */
   public function store(Request $request)
   {
-      dd('storing');
       $input = Input::all();
+      // @TODO: figure out what is going on with validation and make it make more sense
       // These aren't the real rules, it's just needed to call the array validation class
       $rules = ['first_name' => 'required'];
       $data = ['first_name' => $input['rec']];
@@ -89,8 +88,8 @@ class RecommendationController extends \Controller
                   $recommendation->save();
 
                   $token = $recommendation->generateRecToken($recommendation);
-                  $this->prepareRecRequestConfirmationEmail($recommendation);
-                  $this->prepareRecRequestEmail($recommendation, $token);
+                  // $this->prepareRecRequestConfirmationEmail($recommendation);
+                  // $this->prepareRecRequestEmail($recommendation, $token);
               }
           }
 
@@ -183,7 +182,7 @@ class RecommendationController extends \Controller
     $application = Application::whereId($recommendation->application_id)->firstOrFail();
     $application->completed = 1;
     $application->save();
-    $this->prepareRecReceivedEmail($recommendation);
+    // $this->prepareRecReceivedEmail($recommendation);
 
     return redirect()->route('home')->with('flash_message', ['text' => 'Thanks, we got your recommendation!', 'class' => '-success']);
   }
@@ -201,13 +200,17 @@ class RecommendationController extends \Controller
 
     public function updateUserRec($input)
     {
-      // @TODO: figure out what is happening here
+      // @TODO: 
       //        validate  - if any fields of a rec are filled in, all must be
       //                  - okay if all fields are blank
-      //        for now, always resend email
 
       // These aren't the real rules, it's just needed to call the array validation class
-      // $rules = ['first_name' => 'required|TextFieldArray'];
+      $rules = ['first_name'      => 'required', 
+                'last_name'       => 'required', 
+                'relationship'    => 'required',
+                'phone'           => 'required',
+                'email'           => 'required',
+                ];
       // $data = ['first_name' => $input['rec']];
       // Calls the class that goes through and checks the real rules.
       // $v = Validator::make($data, $rules);
@@ -217,25 +220,43 @@ class RecommendationController extends \Controller
       // } else {
           $recs = $input['rec'];
           foreach ($recs as $rec) {
-            // If editing an existing rec
+            // If rec already exists, update existing rec
             if (isset($rec['id'])) {
+              $v = Validator::make($rec, $rules);
+              if($v->fails())
+              {
+                return  redirect()->back()->with('flash_message', ['text' => 'You must fill out all fields for the recommendations that you are requesting.', 'class' => '-error'])->withInput();
+              }
               $currentRec = Recommendation::whereId($rec['id'])->firstOrFail();
               $currentRec->fill($rec);
+              // Only resend and email to the recommender if the email address was changed
+              if($currentRec->isDirty('email'))
+              {
+                $token = RecommendationToken::where('recommendation_id', $rec['id'])->pluck('token');
+                // $this->prepareRecRequestEmail($currentRec, $token);
+                // $this->prepareRecRequestConfirmationEmail($currentRec);
+              }
               $currentRec->save();
-              $token = RecommendationToken::where('recommendation_id', $rec['id'])->pluck('token');
-              $this->prepareRecRequestEmail($currentRec, $token);
-              $this->prepareRecRequestConfirmationEmail($currentRec);
+
             } else {
-              // If creating a new rec
-                if (!empty($rec['email'])) {
+              // If creating a new rec - currently only bothers validating this and creating a rec if they entered an email
+              // should probably validate if anything at all filled in
+              // dd(array_values(array_values($rec)));
+                if (!in_array('', $rec) ) {
+                  // $this->validate($rec, $this->rules, $this->messages);
+                  $v = Validator::make($rec, $rules);
+                  if($v->fails())
+                  {
+                    return  redirect()->back()->with('flash_message', ['text' => 'You must fill out all fields for the recommendations that you are requesting.', 'class' => '-error'])->withInput();
+                  }
                   $newRec = new Recommendation();
                   $application = Auth::user()->application;
                   $newRec->application()->associate($application);
                   $newRec->fill($rec);
                   $newRec->save();
                   $token = $newRec->generateRecToken($newRec);
-                  $this->prepareRecRequestConfirmationEmail($newRec);
-                  $this->prepareRecRequestEmail($newRec, $token);
+                  // $this->prepareRecRequestConfirmationEmail($newRec);
+                  // $this->prepareRecRequestEmail($newRec, $token);
                 }
             }
           }

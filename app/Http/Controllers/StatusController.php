@@ -70,7 +70,7 @@ class StatusController extends \Controller
       $recommendations = Recommendation::where('application_id', $application->id)->get();
           $max_recs = Scholarship::getCurrentScholarship()->value('num_recommendations_max');
           if ($recommendations->count() < $max_recs) {
-              $add_rec_link = link_to_route('recommendation.create', 'Ask for another recommendation', null, ['class' => 'button -small']);
+              $add_rec_link = link_to_route('recommendation.create', 'Edit Or Add Recommendation Request', null, ['class' => 'button -small']);
           }
           foreach ($recommendations as $rec) {
               $rec->isRecommendationComplete($rec);

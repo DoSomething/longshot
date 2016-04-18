@@ -107,7 +107,7 @@
 
           {{-- Submit Button --}}
           <div class="field-group">
-            {{ Form::submit('Resend Request!', ['class' => 'button -default']) }}
+            {{ Form::submit('Update Requests!', ['class' => 'button -default']) }}
           </div>
 
         {{ Form::close() }}
