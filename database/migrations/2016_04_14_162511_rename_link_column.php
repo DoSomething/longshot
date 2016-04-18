@@ -1,9 +1,8 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class DropLinkColumn extends Migration
+class RenameLinkColumn extends Migration
 {
     /**
      * Run the migrations.

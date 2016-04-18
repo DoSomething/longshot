@@ -72,6 +72,7 @@ class WinnerController extends \Controller
       $winner = Winner::with('user')->where('id', $id)->firstOrFail();
       $winner->fill($input);
 
+      // @TODO: does the order of variable set and then if make sense here?
       $image = Request::file('photo');
       if (Request::hasFile('photo')) {
           $filename = time().'-'.stringtoKebabCase($image->getClientOriginalName());

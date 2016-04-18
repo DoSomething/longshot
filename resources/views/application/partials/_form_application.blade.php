@@ -57,11 +57,11 @@
     {!! errorsFor('essay2', $errors); !!}
   </div>
 
-  {{-- Link --}}
-  <div class="field-group {{ setInvalidClass('file', $errors) }}">
+  {{-- File --}}
+  <div class="field-group">
     {!! Form::label('file', 'Photo or video files (optional)') !!}
     {!! Form::file('file') !!}
-    {!! errorsFor('file', $errors); !!}
+
   </div>
 
   {{-- Hear About --}}
