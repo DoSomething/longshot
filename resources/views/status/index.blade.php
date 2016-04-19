@@ -72,7 +72,6 @@
 
                 @if ($rec['complete'] !== 'Recommendation received!' && !$closed)
                   {!! '<a class="button -link" href="' . URL::route('resend', array('id' => $rec['id'])) . '">Resend<span class="icon icon-send"></span></a>' !!}
-                  {!! '<a class="button -link" href="' . URL::route('recommendation.edit', array('id' => $rec['id'])) . '">Edit<span class="icon icon-edit"></span></a>' !!}
                 @endif
               </li>
             @endforeach

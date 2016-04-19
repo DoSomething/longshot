@@ -67,11 +67,10 @@ class StatusController extends \Controller
     }
     if ($application) {
         // Get recommendations
-    $recommendations = Recommendation::where('application_id', $application->id)->get();
-        $max_recs = Scholarship::getCurrentScholarship()->value('num_recommendations_max');
-        if ($recommendations->count() < $max_recs) {
-            $add_rec_link = link_to_route('recommendation.create', 'Ask for another recommendation', null, ['class' => 'button -small']);
-        }
+        $recommendations = Recommendation::where('application_id', $application->id)->get();
+        $max_recs = Scholarship::getCurrentScholarship()->num_recommendations_max;
+        $add_rec_link = link_to_route('recommendation.create', 'Add or Update Recommendations', null, ['class' => 'button -small']);
+
         foreach ($recommendations as $rec) {
             $rec->isRecommendationComplete($rec);
             if ($rec->isComplete($rec->id) && isset($app_filled_out) && $application->submitted) {
@@ -157,9 +156,9 @@ class StatusController extends \Controller
         $link = link_to_route('recommendation.edit', 'Please provide a recommendation', [$recommendation->id, 'token' => $token]);
         $email = new Email();
         $data = [
-      'link'           => $link,
-      'applicant_name' => Auth::user()->first_name.' '.Auth::user()->last_name,
-      ];
+          'link'           => $link,
+          'applicant_name' => Auth::user()->first_name.' '.Auth::user()->last_name,
+        ];
         $email->sendEmail('request', 'recommender', $recommendation->email, $data);
 
         return redirect()->route('status')->with('flash_message', ['text' => 'We sent another email!', 'class' => '-success']);

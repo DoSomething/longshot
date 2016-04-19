@@ -85,11 +85,6 @@
           </div>
         @endif
 
-          {{-- Submit Button --}}
-          <div class="field-group">
-            {!! Form::submit('Update Recommendation', ['class' => 'button -default']) !!}
-          </div>
-
         {!! Form::close() !!}
 
       </div>

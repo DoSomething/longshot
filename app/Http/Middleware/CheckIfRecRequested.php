@@ -6,8 +6,6 @@ use App\Models\User;
 use App\Models\Application;
 use App\Models\Recommendation;
 use Illuminate\Database\Eloquent\Model;
-
-
 use Auth;
 
 class CheckIfRecRequested
