@@ -12,6 +12,20 @@
   {!! errorsFor('description', $errors); !!}
 </div>
 
+{{-- From Email Address --}}
+<div class="form-group">
+  {!! Form::label('email_from_address', 'Address emails are sent from: ') !!}
+  {!! Form::text('email_from_address', null, ['class' => 'form-control']) !!}
+  {!! errorsFor('email_from_address', $errors); !!}
+</div>
+
+{{-- From Email Name --}}
+<div class="form-group">
+  {!! Form::label('email_from_name', 'Name emails are sent from: ') !!}
+  {!! Form::text('email_from_name', null, ['class' => 'form-control']) !!}
+  {!! errorsFor('email_from_name', $errors); !!}
+</div>
+
 {{-- Scholarship Amount --}}
 <div class="form-group">
   {!! Form::label('amount_scholarship', 'Scholarship Amount $: ') !!}
