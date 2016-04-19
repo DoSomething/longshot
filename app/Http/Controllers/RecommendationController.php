@@ -85,8 +85,8 @@ class RecommendationController extends \Controller
               $recommendation->save();
 
               $token = $recommendation->generateRecToken($recommendation);
-              // $this->prepareRecRequestConfirmationEmail($recommendation);
-              // $this->prepareRecRequestEmail($recommendation, $token);
+              $this->prepareRecRequestConfirmationEmail($recommendation);
+              $this->prepareRecRequestEmail($recommendation, $token);
             }
           }
 
@@ -190,7 +190,7 @@ class RecommendationController extends \Controller
     $application = Application::whereId($recommendation->application_id)->firstOrFail();
     $application->completed = 1;
     $application->save();
-    // $this->prepareRecReceivedEmail($recommendation);
+    $this->prepareRecReceivedEmail($recommendation);
 
     return redirect()->route('home')->with('flash_message', ['text' => 'Thanks, we got your recommendation!', 'class' => '-success']);
   }
@@ -232,8 +232,8 @@ class RecommendationController extends \Controller
             if($currentRec->isDirty('email'))
             {
               $token = RecommendationToken::where('recommendation_id', $rec['id'])->pluck('token');
-              // $this->prepareRecRequestEmail($currentRec, $token);
-              // $this->prepareRecRequestConfirmationEmail($currentRec);
+              $this->prepareRecRequestEmail($currentRec, $token);
+              $this->prepareRecRequestConfirmationEmail($currentRec);
             }
             $currentRec->save();
         } else {
@@ -250,8 +250,8 @@ class RecommendationController extends \Controller
               $newRec->fill($rec);
               $newRec->save();
               $token = $newRec->generateRecToken($newRec);
-              // $this->prepareRecRequestConfirmationEmail($newRec);
-              // $this->prepareRecRequestEmail($newRec, $token);
+              $this->prepareRecRequestConfirmationEmail($newRec);
+              $this->prepareRecRequestEmail($newRec, $token);
             }
         }
       }
