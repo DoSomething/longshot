@@ -46,6 +46,8 @@ class RecommendationController extends \Controller
    */
   public function create()
   {
+    dd('in rec create');
+
     // This will be seen by applicants only.
     // $num_recs = Scholarship::getCurrentScholarship()->select('num_recommendations_max', 'num_recommendations_min')->firstOrFail()->toArray();
     // @TODO: is there a better way to do this? using select pulls from all scholarships
@@ -53,7 +55,6 @@ class RecommendationController extends \Controller
     $rec_max = Scholarship::getCurrentScholarship()->num_recommendations_max;
     $num_recs = ['num_recommendations_max' => $rec_max, 'num_recommendations_min' => $rec_min];
     $vars = (object) $this->settings->getSpecifiedSettingsVars(['recommendation_create_help_text']);
-
     return view('recommendation.create', compact('num_recs', 'vars'));
   }
 
@@ -77,20 +78,20 @@ class RecommendationController extends \Controller
           return  redirect()->back()->with('flash_message', ['text' => 'All fields are required.', 'class' => '-error'])->withInput();
       } else {
           foreach ($input['rec'] as $input) {
-              if (!empty($input['email'])) {
-                  $recommendation = new Recommendation();
+            if (!empty($input['email'])) {
+              $recommendation = new Recommendation();
 
-                  foreach ($input as $key => $field) {
-                      $recommendation->$key = $field;
-                  }
-                  $application = Auth::user()->application;
-                  $recommendation->application()->associate($application);
-                  $recommendation->save();
-
-                  $token = $recommendation->generateRecToken($recommendation);
-                  // $this->prepareRecRequestConfirmationEmail($recommendation);
-                  // $this->prepareRecRequestEmail($recommendation, $token);
+              foreach ($input as $key => $field) {
+                  $recommendation->$key = $field;
               }
+              $application = Auth::user()->application;
+              $recommendation->application()->associate($application);
+              $recommendation->save();
+
+              $token = $recommendation->generateRecToken($recommendation);
+              // $this->prepareRecRequestConfirmationEmail($recommendation);
+              // $this->prepareRecRequestEmail($recommendation, $token);
+            }
           }
 
           return redirect()->route('status')->with('flash_message', ['text' => 'Your recommendation request has been submitted!', 'class' => '-success']);
@@ -120,10 +121,14 @@ class RecommendationController extends \Controller
    */
   public function edit($id)
   {
-    // Make sure this person has the right token in the url.
-    $correct_token = RecommendationToken::where('recommendation_id', $id)->pluck('token');
+      // Make sure this person has the right token in the url.
+      $correct_token = RecommendationToken::where('recommendation_id', $id)->pluck('token');
 
       $vars = (object) $this->settings->getSpecifiedSettingsVars(['recommendation_update_help_text']);
+
+      $recommendation = Recommendation::whereId($id)->firstOrFail();
+      $scholarship = Scholarship::getCurrentScholarship();
+
 
       if (isset($_GET['token']) && $_GET['token'] == $correct_token) {
           $recommendation = Recommendation::whereId($id)->firstOrFail();
@@ -139,21 +144,27 @@ class RecommendationController extends \Controller
 
               return redirect()->route('home')->with('flash_message', ['text' => 'You already submitted your recommendation for '.$name.'. Thanks again for your recommendation!', 'class' => '-warning']);
           }
-          $scholarship = Scholarship::getCurrentScholarship();
           $rank_values = Recommendation::getRankValues();
 
           return view('recommendation.edit')->with(compact('recommendation', 'scholarship', 'rank_values', 'vars'));
       }
-    // The user wants to add more recs.
-    elseif (isset($_GET['app_id'])) {
-        $num_recs = Scholarship::getCurrentScholarship()->select('num_recommendations_max', 'num_recommendations_min')->firstOrFail()->toArray();
-        $recs = Recommendation::where('application_id', $_GET['app_id'])->get()->toArray();
-        $user = Auth::user();
+      // The user wants to add more recs.
+      elseif (isset($_GET['app_id'])) {
+          $num_recs = Scholarship::getCurrentScholarship()->select('num_recommendations_max', 'num_recommendations_min')->firstOrFail()->toArray();
+          $recs = Recommendation::where('application_id', $_GET['app_id'])->get()->toArray();
+          $user = Auth::user();
 
-        return view('recommendation.applicant_edit')->with(compact('num_recs', 'recs', 'user', 'vars'));
-    } else {
-        return App::abort(403, 'Access denied');
-    }
+          return view('recommendation.applicant_edit')->with(compact('num_recs', 'recs', 'user', 'vars'));
+      } 
+      // If is user associated with rec, let them edit certain fields
+      elseif ($recommendation->application_id == Application::where('user_id', Auth::user()->id)->value('id')) {
+          return view('recommendation.edit')->with(compact('recommendation', 'scholarship', 'vars'));
+
+      }
+
+      else {
+          return App::abort(403, 'Access denied');
+      }
   }
 
   /**

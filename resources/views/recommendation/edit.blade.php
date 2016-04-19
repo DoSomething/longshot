@@ -9,34 +9,35 @@
     <div class="segment -compact">
       <div class="wrapper">
 
+      @if(isset($rank_values))
         {{-- This will be seen by the recommender --}}
         <p>Please fill all fields with information regarding the applicant.</p>
 
         @if (isset($vars->recommendation_update_help_text))
           <p>{{ $vars->recommendation_update_help_text }}</p>
         @endif
-
+      @endif
 
         {!! Form::model($recommendation, ['method' => 'PATCH', 'route' => ['recommendation.update', $recommendation->id]]) !!}
 
           {{-- First Name --}}
           <div class="field-group -dual -alpha">
             {!! Form::label('first_name', 'Your First Name: ') !!}
-            {!! Form::text('first_name', $recommendation->first_name, array('disabled')) !!}
+            {!! Form::text('first_name', $recommendation->first_name) !!}
             {!! errorsFor('first_name', $errors); !!}
           </div>
 
           {{-- Last Name --}}
           <div class="field-group -dual -beta">
             {!! Form::label('last_name', 'Your Last Name: ') !!}
-            {!! Form::text('last_name', $recommendation->last_name, array('disabled'))  !!}
+            {!! Form::text('last_name', $recommendation->last_name) !!}
             {!! errorsFor('last_name', $errors); !!}
           </div>
 
           {{-- Email --}}
           <div class="field-group -dual -alpha">
             {!! Form::label('email', 'Your Email: ') !!}
-            {!! Form::email('email', $recommendation->email, array('disabled')) !!}
+            {!! Form::email('email', $recommendation->email) !!}
             {!! errorsFor('email', $errors); !!}
           </div>
 
@@ -44,9 +45,10 @@
           <div class="field-group -dual -beta">
             {!! Form::label('phone', 'Your Phone Number: ') !!}
             {!! Form::text('phone') !!}
-            {!! errorsFor('phone', $errors); !!}
+            {!! errorsFor('phone', $errors) !!}
           </div>
 
+        @if(isset($rank_values))
           {{-- Rank Character --}}
           <div class="field-group">
             {!! Form::label('rank_character', $scholarship->label_rec_rank_character) !!}
@@ -77,12 +79,15 @@
           </div>
           @endif
 
-
-
-
           {{-- Submit Button --}}
           <div class="field-group">
             {!! Form::submit('Submit Recommendation', ['class' => 'button -default']) !!}
+          </div>
+        @endif
+
+          {{-- Submit Button --}}
+          <div class="field-group">
+            {!! Form::submit('Update Recommendation', ['class' => 'button -default']) !!}
           </div>
 
         {!! Form::close() !!}

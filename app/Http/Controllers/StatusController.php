@@ -61,26 +61,26 @@ class StatusController extends \Controller
         $help_text = $this->settings->getSpecifiedSettingsVars(['status_page_help_text_incomplete'])['status_page_help_text_incomplete'];
     }
 
-      $profile = Profile::where('user_id', $user->id)->first();
-      if ($profile) {
-          $prof_complete = Profile::isComplete($user->id);
-      }
-      if ($application) {
-          // Get recommendations
-      $recommendations = Recommendation::where('application_id', $application->id)->get();
-          $max_recs = Scholarship::getCurrentScholarship()->value('num_recommendations_max');
-          if ($recommendations->count() < $max_recs) {
-              $add_rec_link = link_to_route('recommendation.create', 'Edit Or Add Recommendation Request', null, ['class' => 'button -small']);
-          }
-          foreach ($recommendations as $rec) {
-              $rec->isRecommendationComplete($rec);
-              if ($rec->isComplete($rec->id) && isset($app_filled_out) && $application->submitted) {
-                  $status = 'Completed.';
-                  $help_text = $this->settings->getSpecifiedSettingsVars(['status_page_help_text_complete'])['status_page_help_text_complete'];
-              }
-          }
-          $recommendations = $recommendations->toArray();
-      }
+    $profile = Profile::where('user_id', $user->id)->first();
+    if ($profile) {
+        $prof_complete = Profile::isComplete($user->id);
+    }
+    if ($application) {
+        // Get recommendations
+    $recommendations = Recommendation::where('application_id', $application->id)->get();
+        $max_recs = Scholarship::getCurrentScholarship()->value('num_recommendations_max');
+        if ($recommendations->count() < $max_recs) {
+            $add_rec_link = link_to_route('recommendation.create', 'Ask for another recommendation', null, ['class' => 'button -small']);
+        }
+        foreach ($recommendations as $rec) {
+            $rec->isRecommendationComplete($rec);
+            if ($rec->isComplete($rec->id) && isset($app_filled_out) && $application->submitted) {
+                $status = 'Completed.';
+                $help_text = $this->settings->getSpecifiedSettingsVars(['status_page_help_text_complete'])['status_page_help_text_complete'];
+            }
+        }
+        $recommendations = $recommendations->toArray();
+    }
 
     // If both app & profile are complete add a link to review & submit.
     if ($app_filled_out && $prof_complete && !($application->submitted)) {
