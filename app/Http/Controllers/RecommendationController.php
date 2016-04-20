@@ -17,8 +17,14 @@ class RecommendationController extends \Controller
       'rank_character'  => 'required',
       'rank_additional' => 'required',
       'essay1'          => 'required',
-      
+    ];
 
+    protected $applicant_rules = [
+      'first_name'      => 'required',
+      'last_name'       => 'required',
+      'relationship'    => 'required',
+      'phone'           => 'required',
+      'email'           => 'required',
     ];
 
     protected $messages = [
@@ -63,35 +69,28 @@ class RecommendationController extends \Controller
    */
   public function store(Request $request)
   {
-      $input = Input::all();
-      // These aren't the real rules, it's just needed to call the array validation class
-      $rules = ['first_name' => 'required'];
-      $data = ['first_name' => $input['rec']];
-      // Calls the class that goes through and checks the real rules.
-      $v = Validator::make($data, $rules);
+      $request = $request->all();
+      $recs = $request['rec'];
+      foreach ($recs as $rec) {
+        $v = Validator::make($rec, $this->applicant_rules);
 
-      if ($v->fails()) {
-          return  redirect()->back()->with('flash_message', ['text' => 'All fields are required.', 'class' => '-error'])->withInput();
-      } else {
-          foreach ($input['rec'] as $input) {
-            if (!empty($input['email'])) {
-              $recommendation = new Recommendation();
+        if($v->fails()) {
+          return  redirect()->back()->with('flash_message', ['text' => 'You must fill out all fields for the recommendations that you are requesting.', 'class' => '-error'])->withInput();
+        } else {
+            $recommendation = new Recommendation();
+            $recommendation->fill($rec);
 
-              foreach ($input as $key => $field) {
-                  $recommendation->$key = $field;
-              }
-              $application = Auth::user()->application;
-              $recommendation->application()->associate($application);
-              $recommendation->save();
+            $application = Auth::user()->application;
+            $recommendation->application()->associate($application);
+            $recommendation->save();
 
-              $token = $recommendation->generateRecToken($recommendation);
-              $this->prepareRecRequestConfirmationEmail($recommendation);
-              $this->prepareRecRequestEmail($recommendation, $token);
-            }
-          }
+            $token = $recommendation->generateRecToken($recommendation);
+            $this->prepareRecRequestConfirmationEmail($recommendation);
+            $this->prepareRecRequestEmail($recommendation, $token);
 
-          return redirect()->route('status')->with('flash_message', ['text' => 'Your recommendation request has been submitted!', 'class' => '-success']);
-      }
+            return redirect()->route('status')->with('flash_message', ['text' => 'Your recommendation request has been submitted!', 'class' => '-success']);
+        }
+    }
   }
 
   /**
@@ -146,7 +145,7 @@ class RecommendationController extends \Controller
         $rec_min = Scholarship::getCurrentScholarship()->num_recommendations_min;
         $rec_max = Scholarship::getCurrentScholarship()->num_recommendations_max;
         $num_recs = ['num_recommendations_max' => $rec_max, 'num_recommendations_min' => $rec_min];
-        $recs = Recommendation::where('application_id', $_GET['app_id'])->get()->toArray();
+        $recs = Recommendation::where('application_id', $_GET['app_id'])->get();
         $complete_recs = [];
         foreach($recs as $rec)
         {
@@ -208,19 +207,14 @@ class RecommendationController extends \Controller
 
     public function updateUserRec($input)
     {
-      $rules = ['first_name'      => 'required', 
-                'last_name'       => 'required', 
-                'relationship'    => 'required',
-                'phone'           => 'required',
-                'email'           => 'required',
-                ];
+
       $recs = $input['rec'];
       foreach ($recs as $rec) {
         // If rec already exists, update existing rec
         if (isset($rec['id'])) {
           // Do not validate completed recs
           if (!Recommendation::isComplete($rec['id'])) {
-            $v = Validator::make($rec, $rules);
+            $v = Validator::make($rec, $this->applicant_rules);
             if($v->fails())
             {
               return  redirect()->back()->with('flash_message', ['text' => 'You must fill out all fields for the recommendations that you are requesting.', 'class' => '-error'])->withInput();
@@ -239,7 +233,7 @@ class RecommendationController extends \Controller
         } else {
           // True if any fields are filled in
             if (array_filter($rec) ) {
-              $v = Validator::make($rec, $rules);
+              $v = Validator::make($rec, $this->applicant_rules);
               if($v->fails())
               {
                 return  redirect()->back()->with('flash_message', ['text' => 'You must fill out all fields for the recommendations that you are requesting.', 'class' => '-error'])->withInput();

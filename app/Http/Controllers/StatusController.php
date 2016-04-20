@@ -78,7 +78,6 @@ class StatusController extends \Controller
                 $help_text = $this->settings->getSpecifiedSettingsVars(['status_page_help_text_complete'])['status_page_help_text_complete'];
             }
         }
-        $recommendations = $recommendations->toArray();
     }
 
     // If both app & profile are complete add a link to review & submit.

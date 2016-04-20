@@ -29,7 +29,7 @@
                 @endif
               </h2>
             @endif
-            @if (in_array($recs[$i]['id'], $complete_recs))
+            @if (in_array(isset($recs[$i]) && $recs[$i]['id'], $complete_recs))
             {{ Form::hidden('rec['.$i.'][id]', $recs[$i]['id']) }}
             {{-- First Name --}}
             <div class="field-group -dual -alpha">
