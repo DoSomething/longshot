@@ -1,0 +1,89 @@
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// SASS VARIABLES
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// COLOR VARIABLES
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+// ---
+// Best to prefix with project name.
+// Example: $project-name_color-value;
+// ---
+$app_background: #404040;
+$app_primary: #00d4b5;
+$app_light_gray: #d1d1d1;
+$app_lightest_gray: #e1e1e1;
+$app_green: #3CB371;
+$app_red: #e74646;
+$app_yellow: #edf09c;
+$app_orange: #e4b04b;
+
+$app_highlight: $app_yellow;
+$app_info: $app_yellow;
+$app_warning: $app_orange;
+$app_error: $app_red;
+$app_success: $app_green;
+
+// @TODO: change to use class maps for the variations of tones (variations of gray).
+
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// TYPOGRAPHY VARIABLES
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+$font_proxima_nova_regular: 'ProximaNovaRegular', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$font_proxima_nova_bold: 'ProximaNovaBold', 'ProximaNovaRegular', Helvetica, Arial, sans-serif;
+
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// BASE VARIABLES
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+$base_font_size: 16;
+$base_font_color:   #000;
+
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// SITE VARIABLES
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+$site_global_accent: white;
+$site_global_link_color: $site_global_accent;
+
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// MEDIA QUERY SIZE VARIABLES
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+// ---
+// Flint is a mobile first kit, so the smallest size experience would
+// technically be the mobile first, default styles. The media query sizes
+// below account for any devices sizes moving up from the default.
+// Only use the media queries you need!
+// ---
+
+$extra_small: 20em; // 320px
+$small: 30em; // 480px
+$medium: 48em; // 768px
+$large: 60em; // 960px
+$extra_large: 67.5em; // 1080px
+
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// BASE64 ENCODED IMAGE VARIABLES
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+// ---
+// Example: $some_image: "data:image/svg+xml;base64,LongAssBase64StringGoesHere";
+//
+// Best to only data-encode images that are repeated on numerous pages across
+// a web site, since it will be cached in the css.
+// ---

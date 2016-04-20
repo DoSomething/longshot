@@ -1,0 +1,40 @@
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// HEADING STYLES
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.heading {
+
+  &.-alt { color: #fff; }
+
+  &.-alpha { font-family: $font_proxima_nova_bold; font-size: 2rem; font-weight: normal; line-height: 1; margin-bottom: 0.5em; text-align: center; text-transform: uppercase; }
+
+  &.-beta { font-family: $font_proxima_nova_bold; font-size: 1.5rem; font-weight: normal; line-height: 1; text-align: center; text-transform: uppercase; }
+
+  &.-gamma { font-family: $font_proxima_nova_bold; font-size: 1.2rem; font-weight: normal; line-height: 1.1; text-transform: uppercase; }
+
+  &.-delta { font-family: $font_proxima_nova_bold; font-size: 1.2rem; font-weight: normal; line-height: 1; text-transform: uppercase; }
+
+}
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// MEDIA QUERIES
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+@media only screen and (min-width: $medium) {
+
+  .heading {
+
+    &.-alpha { @include rem(72); }
+
+    &.-beta { @include rem(48); }
+
+    &.-gamma { @include rem(32); }
+
+    &.-delta { @include rem(24); }
+
+  }
+
+}

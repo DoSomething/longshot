@@ -1,0 +1,98 @@
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// GALLERY STYLES
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+.gallery { @include list_reset(); @include clearfix(); margin-bottom: pxcalc(20);
+
+  > li + li { margin-top: 1.5em; }
+
+}
+
+
+
+// JS ENABLED
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.js {
+
+  .gallery {
+
+    > li {
+      @include with-layout($gallery_duo) {
+        @include gallery(4 of 8);
+        margin-bottom: gutter();
+      }
+    }
+
+    > li + li { margin-top: 0; }
+    
+  }
+  
+}
+
+
+
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// MEDIA QUERIES
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+@media only screen and (min-width: $small) {
+
+  // JS ENABLED
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  
+  .js {
+  
+    .gallery {
+
+      > li {
+        @include with-layout($gallery_quartet) {
+          @include gallery(3 of 12);
+          margin-bottom: gutter();
+        }
+      }
+
+    }
+  
+  }
+
+}
+
+
+@media only screen and (min-width: $large) {
+
+  .gallery {
+
+    > li:nth-child(2) { margin-top: 0; }
+
+    > li:nth-child(odd) { @include span(first 10 of 20 1.5); clear: left; }
+    > li:nth-child(even) { @include span(10 of 20 1.5); }
+
+  }
+
+
+
+  // JS ENABLED
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  .js {
+
+    .gallery {
+
+      > li {
+        @include with-layout($gallery_quintet) {
+          @include gallery(4 of 20);
+          margin-bottom: gutter();
+        }
+      }
+
+    }
+
+  }
+
+}

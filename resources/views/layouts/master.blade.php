@@ -11,7 +11,7 @@
 
     <link rel="icon" type="image/ico" href="{{ $global_vars->favicon or '/favicon.ico' }}"/>
     <script src="/dist/js/modernizr.js"></script>
-    <link rel="stylesheet" href="/dist/css/main.css"/>
+    <link rel="stylesheet" href="/css/main.css"/>
 
     @if (Cache::has('custom.styles'))
       {{ '<style>' . Cache::get('custom.styles') . '</style>' }}

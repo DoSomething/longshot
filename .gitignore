@@ -14,8 +14,10 @@ Thumbs.db
 .sass-cache
 /app/assets/bower_components/
 /node_modules
+public/css/
 public/dist/
 public/pages/
 public/content/images/*
 app/views/layouts/partials/custom-styles.blade.php
 app/storage/logs/*
+resources/assets/bower_components/

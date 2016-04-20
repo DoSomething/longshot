@@ -1,0 +1,52 @@
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// SEGMENT STYLES
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+.segment { @include container(95%); padding: pxcalc(20) 0;
+
+  .fragment + .fragment { padding-top: 1.5em; }
+
+}
+
+.banner + .segment { border-bottom: 1px solid $app_primary; }
+
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// MEDIA QUERIES
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+@media only screen and (min-width: $medium) {
+
+  .segment { @include container($wide); padding: pxcalc(35) 0;
+    > .wrapper { @include push(2 of 24); width: span(20 of 24); }
+
+    &.-compact {
+      > .wrapper { @include push(2 of 12); width: span(8 of 12); }
+
+      .field-group {
+        &.-mono { width: span(4); }
+
+        &.-dual {
+          &.-alpha { @include span(first 4); }
+          &.-beta { @include span(4); }
+        }
+      }
+    }
+
+  }
+
+
+  // SECTION SPECIFIC
+  .section--faq {
+
+    .segment {
+      > .wrapper { @include push(3 of 24); width: span(18 of 24); }
+    }
+
+  }
+
+}
