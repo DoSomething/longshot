@@ -236,7 +236,7 @@ class RecommendationController extends \Controller
               $v = Validator::make($rec, $this->applicant_rules);
               if($v->fails())
               {
-                return  redirect()->back()->with('flash_message', ['text' => 'You must fill out all fields for the recommendations that you are requesting.', 'class' => '-error'])->withInput();
+                return redirect()->back()->with('flash_message', ['text' => 'You must fill out all fields for the recommendations that you are requesting.', 'class' => '-error'])->withInput();
               }
               $newRec = new Recommendation();
               $application = Auth::user()->application;
