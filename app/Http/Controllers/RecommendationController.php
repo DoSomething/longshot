@@ -13,22 +13,21 @@ class RecommendationController extends \Controller
 {
     protected $settings;
 
-    protected $recommender_rules = [
+    protected $rules = [
       'first_name'      => 'alpha|required',
       'last_name'       => 'alpha|required',
       'phone'           => 'numeric|required',
       'email'           => 'email|required',
+    ];
+
+    protected $recommender_rules = [
       'rank_character'  => 'required',
       'rank_additional' => 'required',
       'essay1'          => 'required',
     ];
 
     protected $applicant_rules = [
-      'first_name'      => 'alpha|required',
-      'last_name'       => 'alpha|required',
       'relationship'    => 'alpha|required',
-      'phone'           => 'numeric|required',
-      'email'           => 'email|required',
     ];
 
     protected $messages = [
@@ -76,8 +75,9 @@ class RecommendationController extends \Controller
   {
       $request = $request->all();
       $recs = $request['rec'];
+      $rules = array_merge($this->rules, $this->applicant_rules);
       foreach ($recs as $rec) {
-        $v = Validator::make($rec, $this->applicant_rules);
+        $v = Validator::make($rec, $rules);
 
         if($v->fails()) {
           return redirect()->back()->with('flash_message', ['text' => 'There is an error in your submission. ' . $v->errors()->all()[0], 'class' => '-error'])->withInput();
@@ -189,7 +189,8 @@ class RecommendationController extends \Controller
     }
 
     // Else, the recommender is the one making the update
-    $this->validate($request, $this->recommender_rules, $this->messages);
+    $rules = array_merge($this->rules, $this->recommender_rules);
+    $this->validate($request, $rules, $this->messages);
     $recommendation = Recommendation::whereId($id)->firstOrFail();
     $recommendation->fill($request->all())->save();
     $application = Application::whereId($recommendation->application_id)->firstOrFail();
@@ -213,14 +214,14 @@ class RecommendationController extends \Controller
 
     public function updateUserRec($input)
     {
-
       $recs = $input['rec'];
+      $rules = array_merge($this->rules, $this->applicant_rules);
       foreach ($recs as $rec) {
         // If rec already exists, update existing rec
         if (isset($rec['id'])) {
           // Do not validate completed recs
           if (!Recommendation::isComplete($rec['id'])) {
-            $v = Validator::make($rec, $this->applicant_rules);
+            $v = Validator::make($rec, $rules);
             if($v->fails())
             {
               return redirect()->back()->with('flash_message', ['text' => 'There is an error in your submission. ' . $v->errors()->all()[0], 'class' => '-error'])->withInput();
@@ -239,7 +240,7 @@ class RecommendationController extends \Controller
         } else {
           // True if any fields are filled in
             if (array_filter($rec) ) {
-              $v = Validator::make($rec, $this->applicant_rules);
+              $v = Validator::make($rec, $rules);
               if($v->fails())
               {
                 return redirect()->back()->with('flash_message', ['text' => 'There is an error in your submission. ' . $v->errors()->all()[0], 'class' => '-error'])->withInput();
