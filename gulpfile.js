@@ -18,4 +18,7 @@ elixir(function(mix) {
 	mix.copy('resources/assets/fonts', 'public/assets/fonts');
 	mix.copy('resources/assets/images', 'public/assets/images');
 	mix.copy('resources/assets/bower_components/jquery/dist', 'public/dist/js');
+	mix.copy('resources/assets/bower_components/chartjs', 'public/dist/js');
+	mix.copy('resources/assets/bower_components/bootstrap/dist/js', 'public/dist/js');
+	mix.copy('resources/assets/js/libs', 'public/dist/js');
 });
