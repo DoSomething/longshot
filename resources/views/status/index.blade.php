@@ -59,9 +59,9 @@
           <ul class="media-list media-list--status">
             @foreach($recommendations as $index => $rec)
               @if($rec['complete'] !== 'Recommendation received!')
-              <li class="-incomplete">
+                <li class="-incomplete">
               @else
-              <li class="complete">
+                <li class="complete">
               @endif
                 <span class="icon icon-status" data-icon="&#x2713"></span>Recommendation
                 <ul>
