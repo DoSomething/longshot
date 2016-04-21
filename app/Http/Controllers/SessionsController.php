@@ -50,9 +50,8 @@ class SessionsController extends \Controller
 
           return redirect()->intended('status')->with('flash_message', ['text' => 'You have been logged in!', 'class' => '-info']);
       }
-      $password_forgot = link_to('password/remind', 'forgotten your password');
 
-      return redirect()->back()->withInput()->with('flash_message', ['text' => 'Sorry, unrecognized username or password. Have you '.$password_forgot.'?', 'class' => '-error']);
+      return redirect()->back()->withInput()->with('flash_message', ['text' => 'Sorry, unrecognized username or password. Have you forgotten your password?', 'class' => '-error']);
   }
 
   /**
