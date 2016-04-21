@@ -20,6 +20,7 @@
 
         {!! Form::model($recommendation, ['method' => 'PATCH', 'route' => ['recommendation.update', $recommendation->id]]) !!}
 
+        <div class="clearfix">
           {{-- First Name --}}
           <div class="field-group -dual -alpha">
             {!! Form::label('first_name', 'Your First Name: ') !!}
@@ -33,7 +34,9 @@
             {!! Form::text('last_name', $recommendation->last_name) !!}
             {!! errorsFor('last_name', $errors); !!}
           </div>
+        </div>
 
+        <div class="clearfix">
           {{-- Email --}}
           <div class="field-group -dual -alpha">
             {!! Form::label('email', 'Your Email: ') !!}
@@ -47,6 +50,7 @@
             {!! Form::text('phone') !!}
             {!! errorsFor('phone', $errors) !!}
           </div>
+        </div>
 
         @if(isset($rank_values))
           {{-- Rank Character --}}

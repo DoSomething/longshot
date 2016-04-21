@@ -13,18 +13,22 @@ class RecommendationController extends \Controller
 {
     protected $settings;
 
-    protected $rules = [
+    protected $recommender_rules = [
+      'first_name'      => 'alpha|required',
+      'last_name'       => 'alpha|required',
+      'phone'           => 'numeric|required',
+      'email'           => 'email|required',
       'rank_character'  => 'required',
       'rank_additional' => 'required',
       'essay1'          => 'required',
     ];
 
     protected $applicant_rules = [
-      'first_name'      => 'required',
-      'last_name'       => 'required',
-      'relationship'    => 'required',
-      'phone'           => 'required',
-      'email'           => 'required',
+      'first_name'      => 'alpha|required',
+      'last_name'       => 'alpha|required',
+      'relationship'    => 'alpha|required',
+      'phone'           => 'numeric|required',
+      'email'           => 'email|required',
     ];
 
     protected $messages = [
@@ -58,6 +62,7 @@ class RecommendationController extends \Controller
     $rec_max = Scholarship::getCurrentScholarship()->num_recommendations_max;
     $num_recs = ['num_recommendations_max' => $rec_max, 'num_recommendations_min' => $rec_min];
     $vars = (object) $this->settings->getSpecifiedSettingsVars(['recommendation_create_help_text']);
+
     return view('recommendation.create', compact('num_recs', 'vars'));
   }
 
@@ -75,7 +80,7 @@ class RecommendationController extends \Controller
         $v = Validator::make($rec, $this->applicant_rules);
 
         if($v->fails()) {
-          return  redirect()->back()->with('flash_message', ['text' => 'You must fill out all fields for the recommendations that you are requesting.', 'class' => '-error'])->withInput();
+          return redirect()->back()->with('flash_message', ['text' => 'There is an error in your submission. ' . $v->errors()->all()[0], 'class' => '-error'])->withInput();
         } else {
             $recommendation = new Recommendation();
             $recommendation->fill($rec);
@@ -173,7 +178,7 @@ class RecommendationController extends \Controller
    */
   public function update($id, Request $request)
   {
-    // If there is a hidden applicant value on the form call different update method.
+    // Hidden field to determine if the applicant is making the update
     if (isset($request['app_id'])) {
         return $this->updateUserRec($request->all());
     }
@@ -183,7 +188,8 @@ class RecommendationController extends \Controller
         return $this->updateAdmin($request->all());
     }
 
-    $this->validate($request, $this->rules, $this->messages);
+    // Else, the recommender is the one making the update
+    $this->validate($request, $this->recommender_rules, $this->messages);
     $recommendation = Recommendation::whereId($id)->firstOrFail();
     $recommendation->fill($request->all())->save();
     $application = Application::whereId($recommendation->application_id)->firstOrFail();
@@ -217,7 +223,7 @@ class RecommendationController extends \Controller
             $v = Validator::make($rec, $this->applicant_rules);
             if($v->fails())
             {
-              return  redirect()->back()->with('flash_message', ['text' => 'You must fill out all fields for the recommendations that you are requesting.', 'class' => '-error'])->withInput();
+              return redirect()->back()->with('flash_message', ['text' => 'There is an error in your submission. ' . $v->errors()->all()[0], 'class' => '-error'])->withInput();
             }
           }
             $currentRec = Recommendation::whereId($rec['id'])->firstOrFail();
@@ -236,7 +242,7 @@ class RecommendationController extends \Controller
               $v = Validator::make($rec, $this->applicant_rules);
               if($v->fails())
               {
-                return redirect()->back()->with('flash_message', ['text' => 'You must fill out all fields for the recommendations that you are requesting.', 'class' => '-error'])->withInput();
+                return redirect()->back()->with('flash_message', ['text' => 'There is an error in your submission. ' . $v->errors()->all()[0], 'class' => '-error'])->withInput();
               }
               $newRec = new Recommendation();
               $application = Auth::user()->application;
