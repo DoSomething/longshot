@@ -1,0 +1,34 @@
+$susy: (
+  flow: ltr,
+  math: fluid,
+  output: float,
+  gutter-position: before,
+  container: auto,
+  container-position: center,
+  columns: 8,
+  gutters: .25,
+  column-width: false,
+  global-box-sizing: border-box,
+  last-flow: to,
+  debug: (
+    image: hide,
+    color: rgba(#66f, .25),
+    output: background,
+    toggle: top right,
+  ),
+  use-custom: (
+    background-image: false,
+    background-options: false,
+    box-sizing: false,
+    clearfix: true,
+    rem: false,
+  )
+);
+
+
+$wide: layout(1080px 24);
+$triad: layout(1080px 18 1.6);
+
+$gallery_duo: layout(8 .75);
+$gallery_quartet: layout(12 .75);
+$gallery_quintet: layout(20 1);

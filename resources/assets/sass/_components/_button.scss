@@ -1,0 +1,68 @@
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// BUTTON STYLES
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+.button { border: 0 none; text-decoration: none;
+
+  // @TODO: decide on min-width approach for buttons...
+  &.-default { @include rem(22); background-color: $app_primary; border-radius: 3px; color: #fff; display: inline-block; min-width: 200px; padding: 0.5em 1em;
+    &:hover,
+    &:active { background-color: darken($app_primary, 5%); }
+  }
+
+  &.-small { @include rem(16); background-color: $app_primary; border-radius: 3px; color: #fff; display: inline-block; min-width: 150px; padding: 0.5em 1em;
+    &:hover,
+    &:active { background-color: darken($app_primary, 5%); }
+  }
+
+  &.-link { @include rem(16); background-color: transparent; color: $app_primary; display: block; line-height: 1; text-transform: uppercase;
+    > .icon { padding-left: pxcalc(5); position: relative; top: 1px; }
+  }
+
+  &.icon { @include rem(30); }
+
+}
+
+.button--close { background-color: $app_background; border-radius: 3px; color: #fff; height: 45px; line-height: 45px; padding: 0; text-align: center; width: 45px;
+  &:focus { outline: none; }
+
+  .icon { @include rem(22); line-height: 45px; }
+}
+
+.button--control { color: #fff; background-color: $app_background; padding: 0;
+  &:focus { outline: none; }
+  &.is-disabled { cursor: not-allowed; opacity: 0.2; }
+
+  .icon { @include rem(40); }
+}
+
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// MEDIA QUERIES
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+@media only screen and (min-width: $small) {
+
+  .button--close,
+  .button--control { background-color: transparent;
+    .icon { text-shadow: 0 0 5px rgba(0,0,0,0.5); }
+  }
+
+}
+
+
+@media only screen and (min-width: $large) {
+
+  .button {
+
+    &.-default { @include rem(32); padding: 0.3em 1em; }
+
+    &.-small { @include rem(22); padding: 0.3em 1em; }
+
+  }
+
+}

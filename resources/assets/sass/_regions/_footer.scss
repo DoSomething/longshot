@@ -1,0 +1,44 @@
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// FOOTER STYLES
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+[role="contentinfo"] { @include container(95%); color: #eee; padding: pxcalc(20) 0 pxcalc(50); text-align: center;
+
+  .__partner {
+    span,
+    img { display: inline-block; }
+
+    span { bottom: pxcalc(5); line-height: 1; margin: pxcalc(15) pxcalc(5) 0 0; vertical-align: top; }
+
+    img { max-height: 50px; max-width: 150px; }
+  }
+
+  .__copyright { padding-top: 1.5em; }
+
+  .__message { clear: both; display: block; padding-top: 2em; }
+
+}
+
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// MEDIA QUERIES
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+@media only screen and (min-width: $medium) {
+
+  [role="contentinfo"] { @include container($wide);
+    > .wrapper { @include push(1 of 24); width: span(22 of 24); }
+
+    .__partner { float: left; text-align: left; }
+
+    .__copyright { float: right; line-height: 1; margin-top: pxcalc(15); padding-top: 0; }
+
+    .__message { display: table; margin: 0 auto; max-width: 60%; padding-top: 2.5em; }
+
+  }
+
+}

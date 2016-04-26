@@ -1,0 +1,115 @@
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// CARD STYLES
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+.card {
+  > .wrapper { margin-bottom: 1em; }
+
+  figure { clear: both; float: left; margin: 0 1em 0.5em 0; width: 25%;
+    > img { margin: 0 auto; }
+  }
+  figcaption { background-color: $app_primary; color: #fff; display: none; margin-top: pxcalc(5); padding: pxcalc(5); text-align: center; }
+
+  .__title { margin-bottom: 0.5em; text-align: center; }
+
+}
+
+
+// JS ENABLED
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.js {
+
+  .segment--gallery {
+    .card { cursor: pointer;
+      figure { float: none; margin: 0; width: auto;
+        > img { width: 100%; }
+      }
+      figcaption { display: block; }
+
+      > .wrapper,
+      .__body { display: none; }
+    }
+  }
+
+}
+
+.slideshow {
+
+  .card { padding: pxcalc(20) pxcalc(10);
+    .__title { padding-right: 40px; text-align: left; }
+  }
+
+}
+
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// MEDIA QUERIES
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+@media only screen and (min-width: $small) {
+
+  .card {
+    > .wrapper { @include span(last 6); }
+
+    figure { @include span(first 2); clear: none; margin: 0 0 1em;
+      > img { width: 100%; }
+    }
+
+    .__title { text-align: left; }
+    .__body { clear: both; }
+  }
+
+
+  // JS ENABLED
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  .slideshow {
+
+    .card { background-color: #fff; border-radius: 5px; box-shadow: 0 0 10px rgba(0,0,0,0.3); }
+
+  }
+
+}
+
+
+@media only screen and (min-width: $medium) {
+
+  .card {
+    > .wrapper { @include span(last 5); }
+
+    figure { @include span(first 3); }
+  }
+
+
+  // JS ENABLED
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  .slideshow {
+
+    .card {
+      > .wrapper { @include span(last 6); }
+
+      figure { @include span(first 2); }
+    }
+
+  }
+
+}
+
+
+
+@media only screen and (min-width: $large) {
+
+  // JS ENABLED
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  .slideshow {
+
+    .card { padding: pxcalc(20); }
+
+  }
+
+}
