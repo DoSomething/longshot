@@ -5,13 +5,16 @@ build:
       # A custom script step, name value is used in the UI
       # and the code value contains the command that get executed
       - script:
-        name: install mysql
-        code: |-
-          export DEBIAN_FRONTEND=noninteractive
-          sudo -E apt-get -q -y install mysql-server
-          mysqladmin -u root password root
-          mysql -u root -proot -e "CREATE USER 'homestead'@'localhost' IDENTIFIED BY 'secret';"
-          mysql -u root -proot -e "GRANT ALL PRIVILEGES ON *.* TO 'homestead'@'localhost' WITH GRANT OPTION;"
+          name: Update apt
+          code: sudo apt-get update
+      - script:
+          name: install mysql
+          code: |-
+            export DEBIAN_FRONTEND=noninteractive
+            sudo -E apt-get -q -y install mysql-server
+            mysqladmin -u root password root
+            mysql -u root -proot -e "CREATE USER 'homestead'@'localhost' IDENTIFIED BY 'secret';"
+            mysql -u root -proot -e "GRANT ALL PRIVILEGES ON *.* TO 'homestead'@'localhost' WITH GRANT OPTION;"
       - script:
           name: Update Composer
           code: sudo composer self-update
