@@ -1,20 +1,26 @@
 <?php
 
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+
+
 class TestCase extends Illuminate\Foundation\Testing\TestCase
 {
+
+  use DatabaseTransactions;
+
   protected $baseUrl = 'http://localhost';
 
-    /**
+  /**
    * Creates the application.
    *
-   * @return \Symfony\Component\HttpKernel\HttpKernelInterface
+   * @return \Illuminate\Foundation\Application
    */
   public function createApplication()
   {
-      $unitTesting = true;
+      $app = require __DIR__.'/../bootstrap/app.php';
 
-      $testEnvironment = 'testing';
+      $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
 
-      return require __DIR__.'/../bootstrap/app.php';
+      return $app;
   }
 }
