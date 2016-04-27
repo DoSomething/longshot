@@ -5,9 +5,23 @@ build:
       # A custom script step, name value is used in the UI
       # and the code value contains the command that get executed
       - script:
+        name: install mysql
+        code: |-
+          export DEBIAN_FRONTEND=noninteractive
+          sudo -E apt-get -q -y install mysql-server
+          mysqladmin -u root password root
+          mysql -u root -proot -e "CREATE USER 'homestead'@'localhost' IDENTIFIED BY 'secret';"
+          mysql -u root -proot -e "GRANT ALL PRIVILEGES ON *.* TO 'homestead'@'localhost' WITH GRANT OPTION;"
+      - script:
           name: Update Composer
           code: sudo composer self-update
       - leipert/composer-install@0.0.1
+      - script:
+          name: phpunit
+          code: |-
+              cp .env.example .env
+              mysql -u homestead -psecret -e "CREATE DATABASE longshot_testing;"
+              vendor/bin/phpunit
       - script:
           name: npm install
           code: sudo npm install
