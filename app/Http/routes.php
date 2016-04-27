@@ -35,7 +35,7 @@ Route::resource('recommendation', 'RecommendationController');
 // Nomination
 Route::post('nomination', ['as' => 'nomination.create', 'uses' => 'NominationController@store']);
 // Admin
-Route::group(['before' => 'role:administrator', 'prefix' => 'admin'], function () {
+Route::group(['middleware' => 'isAdmin', 'prefix' => 'admin'], function () {
   Route::get('/', ['as' => 'admin', 'uses' => 'AdminController@index']);
   // Search
   Route::post('search', ['as' => 'search', 'uses' => 'AdminController@search']);
@@ -66,8 +66,10 @@ Route::group(['before' => 'role:administrator', 'prefix' => 'admin'], function (
   Route::get('email', ['as' => 'emails', 'uses' => 'EmailController@index']);
   Route::post('email', ['as' => 'emails.update', 'uses' => 'EmailController@update']);
 });
+Route::get('storage/uploads/{user_id}/{filename}', ['as' => 'uploads.show', 'uses' => 'UploadController@show']);
 // Pages
 // This route needs to be the last route in the list that is hit
 // because the wildcard catches anything after the root and routes
 // to the Pages controller for static pages.
 Route::get('{page}', 'PagesController@show');
+

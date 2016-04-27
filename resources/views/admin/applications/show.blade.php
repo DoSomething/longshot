@@ -50,13 +50,23 @@
                     @else
                       <p><strong>{{ snakeCaseToTitleCase($key) }}</strong></p>
                     @endif
+                    @if ($key == 'file')
+                     @if (!is_null($files))
+                        @foreach ($files as $upload)
+                          <div class="image-holder">
+                            <img src="/storage/uploads/{{$user->id}}/{{$upload}}" alt="uploaded image">
+                          </div>
+                          <br>
+                        @endforeach
+                      @endif
+                    @else
                       <p>{{ $field }}</p>
+                    @endif
                   @endif
                 </div>
               @endforeach
             </div>
           @endif
-
 
           @if (!is_null($recommendations) && count($recommendations) > 0)
             <h2>Recommender Responses</h2>

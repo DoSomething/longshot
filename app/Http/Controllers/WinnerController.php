@@ -4,17 +4,18 @@ use Illuminate\Filesystem\Filesystem;
 use App\Models\Scholarship;
 use App\Models\User;
 use App\Models\Winner;
+use Illuminate\Http\Request;
 
 class WinnerController extends \Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $filter_by = Request::get('filter_by');
+        $filter_by = $request->get('filter_by');
 
         $query = DB::table('winners');
 
         if ($filter_by) {
-            $query->where('winners.scholarship_id', '=', $filter_by);
+          $query->where('winners.scholarship_id', '=', $filter_by);
         }
 
         $winners = $query->get();
@@ -73,11 +74,12 @@ class WinnerController extends \Controller
       $winner->fill($input);
 
       // @TODO: does the order of variable set and then if make sense here?
-      $image = Request::file('photo');
-      if (Request::hasFile('photo')) {
-          $filename = time().'-'.stringtoKebabCase($image->getClientOriginalName());
-          $image->move(uploadedContentPath('images').'/winners/', $filename);
-          $winner->photo = '/content/images/winners/'.$filename;
+      $image = $request->file('photo');
+      if ($request->hasFile('photo')) {
+        $filename = time().'-'.stringtoKebabCase($image->getClientOriginalName());
+        $image->move(uploadedContentPath('images').'/winners/', $filename);
+        // dd($image->getPathname());
+        $winner->photo = '/content/images/winners/'.$filename;
       }
 
       $winner->save();

@@ -5,7 +5,7 @@ use App\Models\Application;
 use App\Models\Scholarship;
 use App\Models\User;
 // use Symfony\Component\HttpFoundation\File\UploadedFile;
-// use Illuminate\Http\Request;
+use Illuminate\Http\Request;
 // use Illuminate\Http\UploadedFile;
 use Illuminate\Filesystem\Filesystem;
 
@@ -20,7 +20,6 @@ class ApplicationController extends \Controller
     'activities'      => 'required',
     'essay1'          => 'required',
     'essay2'          => 'required',
-    'link'            => 'url',
    ];
 
     protected $messages = [
@@ -32,7 +31,6 @@ class ApplicationController extends \Controller
     'activities.required'      => 'This question is required.',
     'essay1.required'          => 'This essay is required.',
     'essay2.required'          => 'This essay is required.',
-    'link.url'                 => 'Please enter a valid link.',
    ];
     protected $settings;
 
@@ -77,52 +75,41 @@ class ApplicationController extends \Controller
 
     // Only run validation on applications that were submitted
     // (do not run on those 'saved as draft')
-      // if ($request->get('complete')) {
-      //     $this->validate($request, $this->rules, $this->messages);
-      // }
-
-      // // @TODO: there's a better way of doing the following...
-      // $application = new Application();
-      //   $application->accomplishments = $request->get('accomplishments');
-
-      //   if ($request->get('gpa') != '') {
-      //       $application->gpa = $request['gpa'];
-      //   }
-
-      //   if ($request->get('test_type') == 'Prefer not to submit scores') {
-      //       $application->test_type = null;
-      //   } else {
-      //       $application->test_type = $request->get('test_type');
-      //   }
-
-      //   if ($request->get('test_score') != '') {
-      //       $application->test_score = $request->get('test_score');
-      //   } else {
-      //       $application->test_score = null;
-      //   }
-
-      //   $application->activities = $request->get('activities');
-      //   $application->participation = $request->get('participation');
-      //   $application->essay1 = $request->get('essay1');
-      //   $application->essay2 = $request->get('essay2');
-      // if (isset($request['link'])) {
-      //     $application->link = $request['link'];
-      // }
-      // $file = Request::file('file');
-      // if (isset($request['file'])) {
-      // $file = Request::get('file');
-      // dd($request->get('file'));
-      
-      // dd($file);
-      
-      dd(Request::hasFile('file'));
-      if ($request->file('file')) {
-          $file = $request->file('file');
-          $filename = $user->id;
-          $file->move(uploadedContentPath('uploads'), $filename);
-          $application->file = 'uploads/'.$filename;
+      if ($request->get('complete')) {
+          $this->validate($request, $this->rules, $this->messages);
       }
-      // }
+
+      // @TODO: there's a better way of doing the following...
+      $application = new Application();
+        $application->accomplishments = $request->get('accomplishments');
+
+        if ($request->get('gpa') != '') {
+            $application->gpa = $request['gpa'];
+        }
+
+        if ($request->get('test_type') == 'Prefer not to submit scores') {
+            $application->test_type = null;
+        } else {
+            $application->test_type = $request->get('test_type');
+        }
+
+        if ($request->get('test_score') != '') {
+            $application->test_score = $request->get('test_score');
+        } else {
+            $application->test_score = null;
+        }
+
+        $application->activities = $request->get('activities');
+        $application->participation = $request->get('participation');
+        $application->essay1 = $request->get('essay1');
+        $application->essay2 = $request->get('essay2');
+
+      $file = $request->file('file');
+      if ($request->hasFile('file')) {
+          $filename = $file->getClientOriginalName();
+          $file->move('storage/uploads/'.$user->id.'/', $filename);
+          $application->file = 'storage/uploads/'.$user->id.'/'.$filename;
+      }
 
       $scholarship = Scholarship::getCurrentScholarship();
       $application->scholarship()->associate($scholarship);
@@ -161,9 +148,16 @@ class ApplicationController extends \Controller
       $label = Scholarship::getScholarshipLabels($application['scholarship_id']);
       $hear_about = Scholarship::getCurrentScholarship()->hear_about_options;
       $choices = Application::formatChoices($hear_about);
-
+      if ($application['file'])
+      {
+        $files = explode(',', $application['file']);
+      }
+      else
+      {
+        $files = null;
+      }
       $vars = (object) $this->settings->getSpecifiedSettingsVars(['application_create_help_text']);
-      return view('application.edit')->with(compact('user', 'label', 'choices', 'vars'));
+      return view('application.edit')->with(compact('user', 'label', 'choices', 'vars', 'files'));
   }
 
   /**
@@ -192,6 +186,32 @@ class ApplicationController extends \Controller
         unset($application->test_type);
         unset($application->test_score);
     }
+
+    // If there is not already a file proceed like this
+      $file = $request->file('file');
+      if ($request->hasFile('file') && empty($application->file)) {
+        $filename = $file->getClientOriginalName();
+        $file->move(base_path('storage/uploads/'.$application->user_id.'/'), $filename);
+        $application->file = $filename;
+        // dd($application->file);
+      }
+      // If there is already a file - add file and append to list in db
+      elseif ($request->hasFile('file')) {
+        $filename = $file->getClientOriginalName();
+        $file->move(base_path('storage/uploads/'.$application->user_id.'/'), $filename);
+        $application->file = $application->file . ',' . $filename;
+      }
+
+      // Remove deleted files
+      if ($request->get('remove'))
+      {
+        $uploads = explode(',',$application->file);
+        $uploads = array_diff($uploads, $request->get('remove'));
+        $application->file = implode(',', $uploads);
+        // dd('storage/uploads/'.$application->user_id.'/'.$request->get('remove')[0]);
+        // @TODO: make delete work
+        // \Storage::delete('/storage/uploads/'.$application->user_id.'/'.$request->get('remove')[0]);
+      }
       $application->save();
 
       $override = null;
@@ -200,7 +220,7 @@ class ApplicationController extends \Controller
         return redirect()->route('admin.application.show', $id);
       }
 
-      return $this->redirectAfterSave($input, $id, $override);
+      return $this->redirectAfterSave($request, $id, $override);
   }
 
   /**
@@ -215,7 +235,7 @@ class ApplicationController extends \Controller
       //
   }
 
-  public function redirectAfterSave($request, $id, $override = null)
+  public function redirectAfterSave(Request $request, $id, $override = null)
   {
       if (isset($override)) {
           return redirect()->route($override)->with('flash_message', ['text' => 'Your profile has been updated', 'class' => '-success']);
@@ -224,6 +244,11 @@ class ApplicationController extends \Controller
       } else {
           return redirect()->route('application.edit', $id)->with('flash_message', ['text' => 'Application information has been saved!', 'class' => '-success']);
       }
+  }
+
+  public function removeFile($upload)
+  {
+    var_dump($upload);
   }
 
 

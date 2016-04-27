@@ -57,12 +57,27 @@
     {!! errorsFor('essay2', $errors); !!}
   </div>
 
-  {{-- File --}}
-  <div class="field-group">
-    {!! Form::label('file', 'Photo or video files (optional)') !!}
-    {!! Form::file('file') !!}
-
-  </div>
+  {{-- Upload --}}
+  @if (isset($files) && !is_null($files))
+    <p>Uploaded Images</p>
+    @foreach ($files as $upload)
+      <div class="image-holder">
+        <img src="/storage/uploads/{{$user->id}}/{{$upload}}" alt="uploaded image">
+        <p>Remove?</p>
+        {!! Form::checkbox('remove[]', $upload) !!}
+      </div>
+      <br>
+    @endforeach
+    <div class="field-group">
+      {!! Form::label('file', 'Additional photos (optional)') !!}
+      {!! Form::file('file') !!}
+    </div>
+  @else
+    <div class="field-group">
+      {!! Form::label('file', 'Photos (optional)') !!}
+      {!! Form::file('file') !!}
+    </div>
+  @endif
 
   {{-- Hear About --}}
   <div class="field-group -mono {{ setInvalidClass('hear_about', $errors) }}">
