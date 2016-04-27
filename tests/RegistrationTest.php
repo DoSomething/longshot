@@ -14,5 +14,6 @@ class RegistrationTest extends TestCase
     public function testCreateAccount()
     {
     	$this->visit(route('registration.create'))
+    		->
     }
 }
