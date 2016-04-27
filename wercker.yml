@@ -21,11 +21,6 @@ build:
       - script:
           name: build assets
           code: gulp build
-    after-steps:
-        - hipchat-notify:
-            token: $HIPCHAT_TOKEN
-            room-id: 710526
-            from-name: wercker
 deploy:
   steps:
     - bundle-install
@@ -41,8 +36,3 @@ deploy:
           export CAP_PRIVATE_KEY=`mktemp`
           echo -e $WERCKER_APP_KEY_PRIVATE > $CAP_PRIVATE_KEY
     - cap
-  after-steps:
-      - hipchat-notify:
-          token: $HIPCHAT_TOKEN
-          room-id: 710526
-          from-name: wercker
