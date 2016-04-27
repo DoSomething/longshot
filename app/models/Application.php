@@ -4,11 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Storage;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
+// use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class Application extends Model
 {
-    protected $fillable = ['accomplishments', 'gpa', 'test_type', 'test_score', 'activities', 'participation', 'essay1', 'essay2', 'link', 'hear_about'];
+    protected $fillable = ['accomplishments', 'gpa', 'test_type', 'test_score', 'activities', 'participation', 'essay1', 'essay2', 'fuckkaa', 'hear_about'];
 
   /** Relationship definitions **/
   public function user()
@@ -46,7 +46,7 @@ class Application extends Model
   // Given a user id, returns bool if all required fields are
   public static function isFilledOut($id)
   {
-      $optional = ['test_score', 'link', 'hear_about', 'completed', 'submitted'];
+      $optional = ['test_score', 'file', 'hear_about', 'completed', 'submitted'];
       $fields = self::where('user_id', $id)->firstOrFail()->toArray();
 
       return fieldsAreComplete($fields, $optional);
@@ -91,30 +91,30 @@ class Application extends Model
       return $application = self::where('user_id', $id)->select($fields)->first();
   }
 
- /**
-   * Save a file and attach it to the model.
-   *
-   * @param mixed $file Input to Intervention\Image::make (such as Input::file)
-   * @see http://image.intervention.io/api/make
-   */
-  public function saveFile($file, $id)
-  {
-      // Create an uploads directory if it doesn't exist
-      if (!file_exists('uploads')) {
-        Storage::makeDirectory('uploads');
-      }
+ // /**
+ //   * Save a file and attach it to the model.
+ //   *
+ //   * @param mixed $file Input to Intervention\Image::make (such as Input::file)
+ //   * @see http://image.intervention.io/api/make
+ //   */
+ //  public function saveFile($file, $id)
+ //  {
+ //      // Create an uploads directory if it doesn't exist
+ //      if (!file_exists('uploads')) {
+ //        Storage::makeDirectory('uploads');
+ //      }
 
-      if ($file instanceof UploadedFile) {
-        $extension = $file->getClientOriginalExtension();
-      } else {
-          $extension = $file->getExtension();
-      }
+ //      if ($file instanceof UploadedFile) {
+ //        $extension = $file->getClientOriginalExtension();
+ //      } else {
+ //          $extension = $file->getExtension();
+ //      }
 
-      $filename = $id.'.'.$extension;
-      $file->move($path, $filename);
+ //      $filename = $id.'.'.$extension;
+ //      $file->move($path, $filename);
 
-      $this->attributes['file'] = $filename;
-  }
+ //      $this->attributes['file'] = $filename;
+ //  }
 
     /**
      * Call when an app is submitted to rate as 'no' if the GPA is too low.
