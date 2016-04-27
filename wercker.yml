@@ -20,7 +20,7 @@ build:
           code: bower install
       - script:
           name: build assets
-          code: gulp build
+          code: gulp
 deploy:
   steps:
     - bundle-install
