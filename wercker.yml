@@ -16,6 +16,11 @@ build:
             mysql -u root -proot -e "CREATE USER 'homestead'@'localhost' IDENTIFIED BY 'secret';"
             mysql -u root -proot -e "GRANT ALL PRIVILEGES ON *.* TO 'homestead'@'localhost' WITH GRANT OPTION;"
       - script:
+          name: install php extensions
+          code: |-
+            sudo apt-get install php5-mysql
+            sudo apt-get install php5-gd
+      - script:
           name: Update Composer
           code: sudo composer self-update
       - leipert/composer-install@0.0.1
