@@ -1,9 +1,9 @@
 <?php
 
-use Illuminate\Filesystem\Filesystem;
 use App\Models\Scholarship;
 use App\Models\User;
 use App\Models\Winner;
+use Illuminate\Filesystem\Filesystem;
 
 class WinnerController extends \Controller
 {
@@ -26,7 +26,7 @@ class WinnerController extends \Controller
 
   /**
    * Store a single winnner record.
-   * 
+   *
    * @return Response
    */
   public function store()
@@ -62,7 +62,7 @@ class WinnerController extends \Controller
 
   /**
    * Update the specified resource.
-   * 
+   *
    * @return Response
    */
   public function update($id)
@@ -88,7 +88,7 @@ class WinnerController extends \Controller
 
   /**
    * Delete a single winner record.
-   * 
+   *
    * @return Response
    */
   public function destroy()

@@ -1,9 +1,9 @@
 <?php
 
-use Scholarship\Repositories\SettingRepository;
-use Illuminate\Http\Request;
-use App\Models\User;
 use App\Models\Email;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Scholarship\Repositories\SettingRepository;
 
 class RegistrationController extends \Controller
 {
@@ -35,7 +35,7 @@ class RegistrationController extends \Controller
         $this->rules = [
           'first_name'  => 'required',
           'last_name'   => 'required',
-          'email'       => 'required|email|unique:users,email,' . $currentUserID,
+          'email'       => 'required|email|unique:users,email,'.$currentUserID,
           'password'    => 'required|confirmed|min:6',
           'eligibility' => 'required|accepted',
          ];
@@ -78,15 +78,15 @@ class RegistrationController extends \Controller
       return redirect()->route('profile.create')->with('flash_message', ['text' => 'Thanks for creating your account.', 'class' => '-success']);
   }
 
-  public function sendRegistrationEmail($user)
-  {
-      $email = new Email();
-      $data = [
+    public function sendRegistrationEmail($user)
+    {
+        $email = new Email();
+        $data = [
         'first_name' => $user->first_name,
         'last_name'  => $user->last_name,
       ];
-      $email->sendEmail('welcome', 'applicant', $user->email, $data);
-  }
+        $email->sendEmail('welcome', 'applicant', $user->email, $data);
+    }
 
   /**
    * Show the form for editing the specified resource.
@@ -108,18 +108,19 @@ class RegistrationController extends \Controller
    *
    * @param Request $request
    * @param Page $page
+   *
    * @return \Illuminate\Http\RedirectResponse
    */
   public function update(Request $request, User $user)
   {
       $this->validate($request, $this->rules, $this->messages);
 
-      $user =  Auth::user();
+      $user = Auth::user();
       $request = $request->except('eligibility');
       $user->fill($request);
 
-      if($user->isDirty('email')) {
-        $this->sendRegistrationEmail($user);
+      if ($user->isDirty('email')) {
+          $this->sendRegistrationEmail($user);
       }
 
       $user->save();
