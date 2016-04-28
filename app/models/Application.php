@@ -1,8 +1,8 @@
-<?php namespace App\Models;
+<?php
+
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Scholarship;
-use App\Models\Rating;
 
 class Application extends Model
 {
@@ -37,6 +37,7 @@ class Application extends Model
       foreach ($choices as $choice) {
           $return[$choice] = $choice;
       }
+
       return $return;
   }
 
@@ -79,8 +80,6 @@ class Application extends Model
         if ($application) {
             return $application->toArray();
         }
-
-        return;
     }
 
     public static function getUserApplicationId($id)
@@ -91,17 +90,17 @@ class Application extends Model
     }
 
     /**
-     * Call when an app is submitted to rate as 'no' if the GPA is too low
+     * Call when an app is submitted to rate as 'no' if the GPA is too low.
      */
     public function checkGPA()
     {
-      $scholarship = Scholarship::getCurrentScholarship();
+        $scholarship = Scholarship::getCurrentScholarship();
 
-      if($this->gpa < $scholarship->gpa_min) {
+        if ($this->gpa < $scholarship->gpa_min) {
             $rate = new Rating();
             $rate->rating = 'no';
             $rate->application()->associate($this);
             $rate->save();
-          }
+        }
     }
 }

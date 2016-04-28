@@ -1,13 +1,13 @@
 <?php
 
-use Scholarship\Repositories\SettingRepository;
-use Illuminate\Http\Request;
-use App\Models\Scholarship;
+use App\Models\Application;
+use App\Models\Email;
 use App\Models\Recommendation;
 use App\Models\RecommendationToken;
-use App\Models\Application;
+use App\Models\Scholarship;
 use App\Models\User;
-use App\Models\Email;
+use Illuminate\Http\Request;
+use Scholarship\Repositories\SettingRepository;
 
 class RecommendationController extends \Controller
 {
@@ -36,9 +36,9 @@ class RecommendationController extends \Controller
 
     public function __construct(SettingRepository $settings)
     {
-      $this->settings = $settings;
+        $this->settings = $settings;
 
-      $this->middleware('isClosed');
+        $this->middleware('isClosed');
 
       // Check that the current user doesn't create many applications
       $this->middleware('createdRec', ['only' => ['create']]);
@@ -55,14 +55,14 @@ class RecommendationController extends \Controller
    */
   public function create()
   {
-    // This will be seen by applicants only.
+      // This will be seen by applicants only.
     // @TODO: is there a better way to do this? using select pulls from all scholarships
     $rec_min = Scholarship::getCurrentScholarship()->num_recommendations_min;
-    $rec_max = Scholarship::getCurrentScholarship()->num_recommendations_max;
-    $num_recs = ['num_recommendations_max' => $rec_max, 'num_recommendations_min' => $rec_min];
-    $vars = (object) $this->settings->getSpecifiedSettingsVars(['recommendation_create_help_text']);
+      $rec_max = Scholarship::getCurrentScholarship()->num_recommendations_max;
+      $num_recs = ['num_recommendations_max' => $rec_max, 'num_recommendations_min' => $rec_min];
+      $vars = (object) $this->settings->getSpecifiedSettingsVars(['recommendation_create_help_text']);
 
-    return view('recommendation.create', compact('num_recs', 'vars'));
+      return view('recommendation.create', compact('num_recs', 'vars'));
   }
 
   /**
@@ -77,25 +77,25 @@ class RecommendationController extends \Controller
       $recs = $request['rec'];
       $rules = array_merge($this->rules, $this->applicant_rules);
       foreach ($recs as $rec) {
-        $v = Validator::make($rec, $rules);
+          $v = Validator::make($rec, $rules);
 
-        if($v->fails()) {
-          return redirect()->back()->with('flash_message', ['text' => 'There is an error in your submission. ' . $v->errors()->all()[0], 'class' => '-error'])->withInput();
-        } else {
-            $recommendation = new Recommendation();
-            $recommendation->fill($rec);
+          if ($v->fails()) {
+              return redirect()->back()->with('flash_message', ['text' => 'There is an error in your submission. '.$v->errors()->all()[0], 'class' => '-error'])->withInput();
+          } else {
+              $recommendation = new Recommendation();
+              $recommendation->fill($rec);
 
-            $application = Auth::user()->application;
-            $recommendation->application()->associate($application);
-            $recommendation->save();
+              $application = Auth::user()->application;
+              $recommendation->application()->associate($application);
+              $recommendation->save();
 
-            $token = $recommendation->generateRecToken($recommendation);
-            $this->prepareRecRequestConfirmationEmail($recommendation);
-            $this->prepareRecRequestEmail($recommendation, $token);
+              $token = $recommendation->generateRecToken($recommendation);
+              $this->prepareRecRequestConfirmationEmail($recommendation);
+              $this->prepareRecRequestEmail($recommendation, $token);
 
-            return redirect()->route('status')->with('flash_message', ['text' => 'Your recommendation request has been submitted!', 'class' => '-success']);
-        }
-    }
+              return redirect()->route('status')->with('flash_message', ['text' => 'Your recommendation request has been submitted!', 'class' => '-success']);
+          }
+      }
   }
 
   /**
@@ -147,23 +147,20 @@ class RecommendationController extends \Controller
       }
       // The user wants to add more recs.
       elseif (isset($_GET['app_id'])) {
-        $rec_min = Scholarship::getCurrentScholarship()->num_recommendations_min;
-        $rec_max = Scholarship::getCurrentScholarship()->num_recommendations_max;
-        $num_recs = ['num_recommendations_max' => $rec_max, 'num_recommendations_min' => $rec_min];
-        $recs = Recommendation::where('application_id', $_GET['app_id'])->get();
-        $complete_recs = [];
-        foreach($recs as $rec)
-        {
-          if(Recommendation::isComplete($rec['id']))
-          {
-            array_push($complete_recs, $rec['id']);
+          $rec_min = Scholarship::getCurrentScholarship()->num_recommendations_min;
+          $rec_max = Scholarship::getCurrentScholarship()->num_recommendations_max;
+          $num_recs = ['num_recommendations_max' => $rec_max, 'num_recommendations_min' => $rec_min];
+          $recs = Recommendation::where('application_id', $_GET['app_id'])->get();
+          $complete_recs = [];
+          foreach ($recs as $rec) {
+              if (Recommendation::isComplete($rec['id'])) {
+                  array_push($complete_recs, $rec['id']);
+              }
           }
-        }
-        $user = Auth::user();
+          $user = Auth::user();
 
-        return view('recommendation.applicant_edit')->with(compact('num_recs', 'recs', 'user', 'vars', 'complete_recs'));
-      } 
-      else {
+          return view('recommendation.applicant_edit')->with(compact('num_recs', 'recs', 'user', 'vars', 'complete_recs'));
+      } else {
           return App::abort(403, 'Access denied');
       }
   }
@@ -178,7 +175,7 @@ class RecommendationController extends \Controller
    */
   public function update($id, Request $request)
   {
-    // Hidden field to determine if the applicant is making the update
+      // Hidden field to determine if the applicant is making the update
     if (isset($request['app_id'])) {
         return $this->updateUserRec($request->all());
     }
@@ -190,15 +187,15 @@ class RecommendationController extends \Controller
 
     // Else, the recommender is the one making the update
     $rules = array_merge($this->rules, $this->recommender_rules);
-    $this->validate($request, $rules, $this->messages);
-    $recommendation = Recommendation::whereId($id)->firstOrFail();
-    $recommendation->fill($request->all())->save();
-    $application = Application::whereId($recommendation->application_id)->firstOrFail();
-    $application->completed = 1;
-    $application->save();
-    $this->prepareRecReceivedEmail($recommendation);
+      $this->validate($request, $rules, $this->messages);
+      $recommendation = Recommendation::whereId($id)->firstOrFail();
+      $recommendation->fill($request->all())->save();
+      $application = Application::whereId($recommendation->application_id)->firstOrFail();
+      $application->completed = 1;
+      $application->save();
+      $this->prepareRecReceivedEmail($recommendation);
 
-    return redirect()->route('home')->with('flash_message', ['text' => 'Thanks, we got your recommendation!', 'class' => '-success']);
+      return redirect()->route('home')->with('flash_message', ['text' => 'Thanks, we got your recommendation!', 'class' => '-success']);
   }
 
     public function updateAdmin($input)
@@ -214,52 +211,48 @@ class RecommendationController extends \Controller
 
     public function updateUserRec($input)
     {
-      $recs = $input['rec'];
-      $rules = array_merge($this->rules, $this->applicant_rules);
-      foreach ($recs as $rec) {
-        // If rec already exists, update existing rec
+        $recs = $input['rec'];
+        $rules = array_merge($this->rules, $this->applicant_rules);
+        foreach ($recs as $rec) {
+            // If rec already exists, update existing rec
         if (isset($rec['id'])) {
-          // Do not validate completed recs
+            // Do not validate completed recs
           if (!Recommendation::isComplete($rec['id'])) {
-            $v = Validator::make($rec, $rules);
-            if($v->fails())
-            {
-              return redirect()->back()->with('flash_message', ['text' => 'There is an error in your submission. ' . $v->errors()->all()[0], 'class' => '-error'])->withInput();
-            }
+              $v = Validator::make($rec, $rules);
+              if ($v->fails()) {
+                  return redirect()->back()->with('flash_message', ['text' => 'There is an error in your submission. '.$v->errors()->all()[0], 'class' => '-error'])->withInput();
+              }
           }
             $currentRec = Recommendation::whereId($rec['id'])->firstOrFail();
             $currentRec->fill($rec);
             // Only resend and email to the recommender if the email address was changed
-            if($currentRec->isDirty('email'))
-            {
-              $token = RecommendationToken::where('recommendation_id', $rec['id'])->pluck('token');
-              $this->prepareRecRequestEmail($currentRec, $token);
-              $this->prepareRecRequestConfirmationEmail($currentRec);
+            if ($currentRec->isDirty('email')) {
+                $token = RecommendationToken::where('recommendation_id', $rec['id'])->pluck('token');
+                $this->prepareRecRequestEmail($currentRec, $token);
+                $this->prepareRecRequestConfirmationEmail($currentRec);
             }
             $currentRec->save();
         } else {
-          // True if any fields are filled in
-            if (array_filter($rec) ) {
-              $v = Validator::make($rec, $rules);
-              if($v->fails())
-              {
-                return redirect()->back()->with('flash_message', ['text' => 'There is an error in your submission. ' . $v->errors()->all()[0], 'class' => '-error'])->withInput();
-              }
-              $newRec = new Recommendation();
-              $application = Auth::user()->application;
-              $newRec->application()->associate($application);
-              $newRec->fill($rec);
-              $newRec->save();
-              $token = $newRec->generateRecToken($newRec);
-              $this->prepareRecRequestConfirmationEmail($newRec);
-              $this->prepareRecRequestEmail($newRec, $token);
+            // True if any fields are filled in
+            if (array_filter($rec)) {
+                $v = Validator::make($rec, $rules);
+                if ($v->fails()) {
+                    return redirect()->back()->with('flash_message', ['text' => 'There is an error in your submission. '.$v->errors()->all()[0], 'class' => '-error'])->withInput();
+                }
+                $newRec = new Recommendation();
+                $application = Auth::user()->application;
+                $newRec->application()->associate($application);
+                $newRec->fill($rec);
+                $newRec->save();
+                $token = $newRec->generateRecToken($newRec);
+                $this->prepareRecRequestConfirmationEmail($newRec);
+                $this->prepareRecRequestEmail($newRec, $token);
             }
         }
-      }
+        }
 
-      return redirect()->route('status')->with('flash_message', ['text' => 'Everything updated!', 'class' => '-success']);
+        return redirect()->route('status')->with('flash_message', ['text' => 'Everything updated!', 'class' => '-success']);
     }
-
 
   /**
    * Sends email to applicant saying the rec request has been sent.

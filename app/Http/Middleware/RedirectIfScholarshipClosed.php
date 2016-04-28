@@ -1,9 +1,11 @@
-<?php namespace App\Http\Middleware;
+<?php
+
+namespace App\Http\Middleware;
 
 use App\Models\Scholarship;
+use Auth;
 use Closure;
 use Scholarship\Repositories\SettingRepository;
-use Auth;
 
 class RedirectIfScholarshipClosed
 {
@@ -16,11 +18,13 @@ class RedirectIfScholarshipClosed
     {
         $this->settings = $settings;
     }
+
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure                 $next
+     *
      * @return mixed
      */
     public function handle($request, Closure $next)
@@ -32,10 +36,10 @@ class RedirectIfScholarshipClosed
                 return redirect()->home()->with('flash_message', ['text' => 'Applications have closed for the year!', 'class' => '-error']);
             }
         }
+
         return $next($request);
     }
 }
-
 
         // /*
         //  * This filter checks to see if the scholarhsip is closed
