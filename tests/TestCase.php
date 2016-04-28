@@ -2,7 +2,6 @@
 
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-
 class TestCase extends Illuminate\Foundation\Testing\TestCase
 {
 
@@ -22,5 +21,19 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
       $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
 
       return $app;
+  }
+
+  /**
+   * Mock a class, and register with the IoC container.
+   *
+   * @param $class String - Class name to mock
+   * @return \Mockery\MockInterface
+   */
+  public function mock($class)
+  {
+      $mock = Mockery::mock($class);
+      $this->app->instance($class, $mock);
+
+      return $mock;
   }
 }
