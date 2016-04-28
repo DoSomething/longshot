@@ -1,15 +1,13 @@
 <?php
 
-use Scholarship\Forms\NominationForm;
 use Illuminate\Http\Request;
-
+use Scholarship\Forms\NominationForm;
 
 class NominationController extends \Controller
 {
     /**
    * @var nominationForm
    */
-
   protected $rules = [
   'rec_name'   => 'required',
   'rec_email'  => 'required|email',
@@ -17,7 +15,7 @@ class NominationController extends \Controller
   'nom_email'  => 'required|email',
   ];
 
-  protected $messages = [
+    protected $messages = [
   'rec_name.required'   => 'Please enter your name.',
   'nom_name.required'   => 'Please enter the nominee\'s name.',
   'rec_email.required'  => 'Please enter an email.',
@@ -28,7 +26,6 @@ class NominationController extends \Controller
 
     public function __construct()
     {
-
     }
 
     public function store(Request $request)

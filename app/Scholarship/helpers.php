@@ -47,8 +47,6 @@ function setInvalidClass($attribute, $errors)
     if ($errors->has($attribute)) {
         return '-invalid';
     }
-
-    return;
 }
 
 /**
@@ -188,9 +186,6 @@ function stringtoKebabCase($text)
     return $text;
 }
 
-/**
- *
- */
 function fieldsAreComplete($fields, $optional = [])
 {
     // Are all fields filled out?

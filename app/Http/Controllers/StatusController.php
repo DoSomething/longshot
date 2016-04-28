@@ -1,15 +1,13 @@
 <?php
 
-use Scholarship\Repositories\SettingRepository;
-use App\Models\Scholarship;
 use App\Models\Application;
+use App\Models\Block;
+use App\Models\Email;
 use App\Models\Profile;
 use App\Models\Recommendation;
-use App\Models\Email;
-use App\Models\Block;
-use App\Models\Rating;
-
+use App\Models\Scholarship;
 use Illuminate\Http\Request;
+use Scholarship\Repositories\SettingRepository;
 
 class StatusController extends \Controller
 {
@@ -41,16 +39,16 @@ class StatusController extends \Controller
    */
   public function status()
   {
-    $user = Auth::user();
-    $app_filled_out = false;
-    $prof_complete = false;
-    $closed = Scholarship::isClosed();
+      $user = Auth::user();
+      $app_filled_out = false;
+      $prof_complete = false;
+      $closed = Scholarship::isClosed();
     // @TODO: are these queries too heavy?
     // Get all info about application status.
     $application = Application::where('user_id', $user->id)->first();
-    if ($application) {
-        $app_filled_out = Application::isFilledOut($user->id);
-    }
+      if ($application) {
+          $app_filled_out = Application::isFilledOut($user->id);
+      }
 
     // Is the app complete & been submitted?
     if ($app_filled_out && $application->submitted) {
@@ -61,24 +59,24 @@ class StatusController extends \Controller
         $help_text = $this->settings->getSpecifiedSettingsVars(['status_page_help_text_incomplete'])['status_page_help_text_incomplete'];
     }
 
-    $profile = Profile::where('user_id', $user->id)->first();
-    if ($profile) {
-        $prof_complete = Profile::isComplete($user->id);
-    }
-    if ($application) {
-        // Get recommendations
+      $profile = Profile::where('user_id', $user->id)->first();
+      if ($profile) {
+          $prof_complete = Profile::isComplete($user->id);
+      }
+      if ($application) {
+          // Get recommendations
         $recommendations = Recommendation::where('application_id', $application->id)->get();
-        $max_recs = Scholarship::getCurrentScholarship()->num_recommendations_max;
-        $add_rec_link = link_to_route('recommendation.create', 'Add or Update Recommendations', null, ['class' => 'button -small']);
+          $max_recs = Scholarship::getCurrentScholarship()->num_recommendations_max;
+          $add_rec_link = link_to_route('recommendation.create', 'Add or Update Recommendations', null, ['class' => 'button -small']);
 
-        foreach ($recommendations as $rec) {
-            $rec->isRecommendationComplete($rec);
-            if ($rec->isComplete($rec->id) && isset($app_filled_out) && $application->submitted) {
-                $status = 'Completed.';
-                $help_text = $this->settings->getSpecifiedSettingsVars(['status_page_help_text_complete'])['status_page_help_text_complete'];
-            }
-        }
-    }
+          foreach ($recommendations as $rec) {
+              $rec->isRecommendationComplete($rec);
+              if ($rec->isComplete($rec->id) && isset($app_filled_out) && $application->submitted) {
+                  $status = 'Completed.';
+                  $help_text = $this->settings->getSpecifiedSettingsVars(['status_page_help_text_complete'])['status_page_help_text_complete'];
+              }
+          }
+      }
 
     // If both app & profile are complete add a link to review & submit.
     if ($app_filled_out && $prof_complete && !($application->submitted)) {
@@ -87,13 +85,14 @@ class StatusController extends \Controller
 
     // @TODO: $help_text got removed from getting merged into $vars... find out why.
 
-    // @TODO: find a better way of retrieving the timeline in case there are other blocks to that type.  
-      $timeline = Cache::remember(120, 'query.block.timeline', function() {
+    // @TODO: find a better way of retrieving the timeline in case there are other blocks to that type.
+      $timeline = Cache::remember(120, 'query.block.timeline', function () {
          return Block::where('block_type', 'timeline')->select('block_body_html')->first();
       });
       if ($timeline) {
           $timeline = $timeline->block_body_html;
       }
+
       return view('status.index', compact('profile', 'application', 'recommendations', 'app_filled_out', 'prof_complete', 'submit', 'status', 'add_rec_link', 'timeline', 'help_text', 'closed', 'user'));
   }
 
@@ -171,6 +170,4 @@ class StatusController extends \Controller
       $email = new Email();
       $email->sendEmail('submitted', 'applicant', Auth::user()->email);
   }
-
-
 }

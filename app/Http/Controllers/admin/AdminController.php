@@ -1,18 +1,16 @@
 <?php
 
 use App\Models\Application;
-use App\Models\Scholarship;
+use App\Models\Email;
+use App\Models\Export;
+use App\Models\Nomination;
 use App\Models\Profile;
-use App\Models\User;
+use App\Models\Rating;
 use App\Models\Recommendation;
 use App\Models\RecommendationToken;
-use App\Models\Rating;
-use App\Models\Nomination;
+use App\Models\Scholarship;
+use App\Models\User;
 use App\Models\Winner;
-use App\Models\Export;
-use App\Models\Email;
-
-use Scholarship\Repositories\SettingRepository;
 
 class AdminController extends \Controller
 {
@@ -87,26 +85,23 @@ class AdminController extends \Controller
       return view('admin.index', compact('user', 'count'));
   }
 
-  /**
-   *
-   */
-  public function applicationsIndex()
-  {
-      $sort_by = Request::get('sort_by');
-      $filter_by = Request::get('filter_by');
-      $direction = Request::get('direction');
+    public function applicationsIndex()
+    {
+        $sort_by = Request::get('sort_by');
+        $filter_by = Request::get('filter_by');
+        $direction = Request::get('direction');
 
-      $query = DB::table('users');
+        $query = DB::table('users');
 
-      $query = $this->applicantBaseQuery($query);
-      $query->leftJoin('role_user', 'users.id', '=', 'role_user.user_id')
+        $query = $this->applicantBaseQuery($query);
+        $query->leftJoin('role_user', 'users.id', '=', 'role_user.user_id')
                   ->whereNull('role_user.role_id');
 
-      if ($sort_by) {
-          $query->orderBy($sort_by, $direction);
-      }
-      if ($filter_by) {
-          switch ($filter_by) {
+        if ($sort_by) {
+            $query->orderBy($sort_by, $direction);
+        }
+        if ($filter_by) {
+            switch ($filter_by) {
         case 'submitted':
             $query->where('applications.submitted', '=', 1)
                   ->where('applications.completed', '=', null);
@@ -138,12 +133,12 @@ class AdminController extends \Controller
                   });
           break;
         }
-      }
+        }
 
-      $applicants = $query->paginate(25)->appends(Input::all());
+        $applicants = $query->paginate(25)->appends(Input::all());
 
-      return view('admin.applications.index', compact('applicants'));
-  }
+        return view('admin.applications.index', compact('applicants'));
+    }
 
     public function search()
     {
@@ -177,7 +172,7 @@ class AdminController extends \Controller
       $prof_id = Profile::getUserProfileId($id);
 
       if (isset($profile)) {
-        $races = Profile::getUserRace($prof_id);
+          $races = Profile::getUserRace($prof_id);
       }
 
       $is_winner = Winner::where('user_id', $id)->first() ? true : false;
@@ -233,14 +228,12 @@ class AdminController extends \Controller
         return view('admin.applications.edit')->withUser($profile)->with(compact('id', 'application', 'app_id', 'user', 'user_info', 'profile', 'races', 'label', 'choices', 'recommendations', 'states', 'show_rating', 'possible_ratings', 'app_rating', 'rank_values'));
     }
 
-  /**
-   *
-   */
-  public function settings()
-  {
-      $scholarship_id = Scholarship::getCurrentScholarship()->id;
-      return view('admin.settings.index', with(compact('scholarship_id')));
-  }
+    public function settings()
+    {
+        $scholarship_id = Scholarship::getCurrentScholarship()->id;
+
+        return view('admin.settings.index', with(compact('scholarship_id')));
+    }
 
     public function rate()
     {
@@ -315,26 +308,26 @@ class AdminController extends \Controller
       return $query;
   }
 
-  public function resendRecEmail()
-  {
-      // get rec info
+    public function resendRecEmail()
+    {
+        // get rec info
       $rec_id = Input::get('rec_id');
-      $recommendation = Recommendation::whereId($rec_id)->firstOrFail();
-      $token = RecommendationToken::where('recommendation_id', $recommendation->id);
-      $link = link_to_route('recommendation.edit', 'Please provide a recommendation', [$recommendation->id, 'token' => $token]);
+        $recommendation = Recommendation::whereId($rec_id)->firstOrFail();
+        $token = RecommendationToken::where('recommendation_id', $recommendation->id);
+        $link = link_to_route('recommendation.edit', 'Please provide a recommendation', [$recommendation->id, 'token' => $token]);
 
       // get applicant info
       $applicant_id = Input::get('applicant_id');
-      $applicant = User::whereId($applicant_id)->firstOrFail();
+        $applicant = User::whereId($applicant_id)->firstOrFail();
 
       // build and send email
       $email = new Email();
-      $data = [
-        'link' => $link,
+        $data = [
+        'link'           => $link,
         'applicant_name' => $applicant->first_name.' '.$applicant->last_name,
       ];
-      $email->sendEmail('request', 'recommender', $recommendation->email, $data);
+        $email->sendEmail('request', 'recommender', $recommendation->email, $data);
 
-      return redirect()->route('admin.application.show', $applicant->id)->with('flash_message', ['text' => 'Success: Email sent to recommender', 'class' => 'alert-success']);;
-  }
+        return redirect()->route('admin.application.show', $applicant->id)->with('flash_message', ['text' => 'Success: Email sent to recommender', 'class' => 'alert-success']);
+    }
 }

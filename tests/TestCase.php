@@ -2,13 +2,11 @@
 
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-
 class TestCase extends Illuminate\Foundation\Testing\TestCase
 {
+    use DatabaseTransactions;
 
-  use DatabaseTransactions;
-
-  protected $baseUrl = 'http://localhost';
+    protected $baseUrl = 'http://localhost';
 
   /**
    * Creates the application.
