@@ -24,6 +24,7 @@ build:
           name: Update Composer
           code: sudo composer self-update
       - leipert/composer-install@0.0.1
+      - wercker/bundle-install@1.1.1
       - script:
           name: phpunit
           code: |-
@@ -33,7 +34,6 @@ build:
       - script:
           name: npm install
           code: sudo npm install
-      - wercker/bundle-install@1.1.1
       - script:
           name: change permissions
           code: sudo chown -R ubuntu:ubuntu ./
