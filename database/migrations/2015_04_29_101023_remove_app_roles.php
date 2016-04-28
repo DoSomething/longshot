@@ -5,10 +5,10 @@ use Illuminate\Database\Migrations\Migration;
 class RemoveAppRoles extends Migration
 {
     /**
-    * Run the migrations.
-    *
-    * @return void
-    */
+     * Run the migrations.
+     *
+     * @return void
+     */
     public function up()
     {
         // if the applicant role is in the db, remove it and all corresponding role_user records
@@ -21,6 +21,6 @@ class RemoveAppRoles extends Migration
 
     public function down()
     {
-      // Reversing this wouldn't make any sense and might be impossible
+       // Reversing this wouldn't make any sense and might be impossible
     }
 }
