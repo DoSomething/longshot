@@ -1,17 +1,17 @@
-<?php namespace App\Models;
+<?php
 
+namespace App\Models;
+
+use Hash;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Application;
-use Hash;
-
 
 class User extends Model implements AuthenticatableContract, CanResetPasswordContract
 {
-  use Authenticatable, CanResetPassword;
+    use Authenticatable, CanResetPassword;
 
   /**
    * The database table used by the model.
@@ -130,7 +130,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
   /**
    * Get full public biography for user.
-   * 
+   *
    * @param  int|array $ids  Single or multiple user ids.
    *
    * @return object

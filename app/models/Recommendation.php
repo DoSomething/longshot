@@ -1,7 +1,9 @@
-<?php namespace App\Models;
+<?php
 
-use Illuminate\Database\Eloquent\Model;
+namespace App\Models;
+
 use Hash;
+use Illuminate\Database\Eloquent\Model;
 
 class Recommendation extends Model
 {
@@ -80,7 +82,5 @@ class Recommendation extends Model
         if ($recommendations) {
             return $recommendations->toArray();
         }
-
-        return;
     }
 }

@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class AddEmailFromAddressToScholarship extends Migration
@@ -14,7 +13,7 @@ class AddEmailFromAddressToScholarship extends Migration
     {
         Schema::table('scholarships', function ($table) {
             $table->string('email_from_address')->after('description');
-        });    
+        });
     }
 
     /**

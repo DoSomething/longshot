@@ -1,8 +1,8 @@
-<?php namespace App\Models;
+<?php
+
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\User;
-use App\Models\Race;
 
 class Profile extends Model
 {
@@ -128,8 +128,6 @@ class Profile extends Model
       if (self::where('user_id', '=', $id)->exists()) {
           return $profile = self::where('user_id', $id)->select($fields)->first()->toArray();
       }
-
-      return;
   }
 
     public static function getUserProfileId($id)

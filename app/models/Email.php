@@ -1,8 +1,9 @@
-<?php namespace App\Models;
+<?php
 
-use Illuminate\Database\Eloquent\Model;
-use App\Models\Scholarship;
+namespace App\Models;
+
 use Config;
+use Illuminate\Database\Eloquent\Model;
 use Mail;
 
 class Email extends Model
@@ -28,21 +29,21 @@ class Email extends Model
     // @TODO: in other places we had to get rid of pluck and just do something like ->table so
     //        make sure this works
     $default_data = [
-    'status_page' => link_to_route('status', 'status page'),
+    'status_page'   => link_to_route('status', 'status page'),
       'faq_page'    => link_to('faq', 'FAQ page'),
       'home_page'   => link_to_route('home', Scholarship::getCurrentScholarship()->title),
       'email'       => link_to('mailto:'.Config::get('mail.from.address'), Config::get('mail.from.address')),
     ];
-    $data = array_merge($data, $default_data);
-    if (isset($data)) {
-        // Replace all values in the body copy.
+      $data = array_merge($data, $default_data);
+      if (isset($data)) {
+          // Replace all values in the body copy.
       foreach ($data as $find => $replace) {
-        $subject = str_replace('['.$find.']', $replace, $subject);
-        $body = str_replace('['.$find.']', $replace, $body);
+          $subject = str_replace('['.$find.']', $replace, $subject);
+          $body = str_replace('['.$find.']', $replace, $body);
       }
-    }
+      }
 
-    $email_data = [
+      $email_data = [
     'to'      => $to,
     'body'    => $body,
     'subject' => $subject,

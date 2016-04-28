@@ -4,10 +4,9 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class TestCase extends Illuminate\Foundation\Testing\TestCase
 {
+    use DatabaseTransactions;
 
-  use DatabaseTransactions;
-
-  protected $baseUrl = 'http://localhost';
+    protected $baseUrl = 'http://localhost';
 
   /**
    * Creates the application.
@@ -27,6 +26,7 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
    * Mock a class, and register with the IoC container.
    *
    * @param $class String - Class name to mock
+   *
    * @return \Mockery\MockInterface
    */
   public function mock($class)

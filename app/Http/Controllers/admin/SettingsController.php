@@ -1,9 +1,9 @@
 <?php
 
+use App\Models\Setting;
+use Illuminate\Http\Request;
 use Scholarship\Forms\SettingsForm;
 use Scholarship\Repositories\SettingRepository;
-use Illuminate\Http\Request;
-use App\Models\Setting;
 
 class SettingsController extends \Controller
 {
@@ -114,7 +114,7 @@ class SettingsController extends \Controller
    */
   public function updateGeneral(Request $request)
   {
-    $this->validate($request, $this->rules);
+      $this->validate($request, $this->rules);
 
       // @TODO: maybe collect the help_text related items via the $individualQueryItems SettingsRepository property?
     $inputText = Input::only(
