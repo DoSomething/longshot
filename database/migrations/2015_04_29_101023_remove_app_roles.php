@@ -21,6 +21,6 @@ class RemoveAppRoles extends Migration
 
     public function down()
     {
-       // Reversing this wouldn't make any sense and might be impossible
+        // Reversing this wouldn't make any sense and might be impossible
     }
 }

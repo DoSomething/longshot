@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 
 class RemoveEmptyRecRows extends Migration
 {
-  /**
+    /**
    * Run the migrations.
    *
    * @return void
@@ -17,8 +17,8 @@ class RemoveEmptyRecRows extends Migration
                    WHERE r.first_name LIKE '';");
   }
 
-  public function down()
-  {
-    // Irreversible!
-  }
+    public function down()
+    {
+        // Irreversible!
+    }
 }
