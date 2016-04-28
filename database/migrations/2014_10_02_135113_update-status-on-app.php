@@ -30,7 +30,7 @@ class UpdateStatusOnApp extends Migration
   public function down()
   {
       Schema::table('applications', function ($table) {
-      $table->renameColumn('complete', 'submitted');
+      $table->renameColumn('submitted', 'complete');
     });
       Schema::table('applications', function ($table) {
         $table->dropColumn('completed');

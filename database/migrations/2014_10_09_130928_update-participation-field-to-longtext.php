@@ -13,4 +13,9 @@ class UpdateParticipationFieldToLongtext extends Migration
   {
       DB::statement('ALTER TABLE `applications` MODIFY COLUMN `participation` LONGTEXT');
   }
+
+  public function down()
+  {
+      DB::statement('ALTER TABLE `applications` MODIFY COLUMN `participation` VARCHAR(255)');
+  }
 }

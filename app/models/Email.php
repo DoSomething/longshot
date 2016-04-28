@@ -8,7 +8,7 @@ use Mail;
 
 class Email extends Model
 {
-    protected $fillable = ['subject', 'body'];
+    protected $fillable = ['key', 'recipient', 'subject', 'body'];
 
     public $timestamps = false;
 

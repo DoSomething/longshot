@@ -16,4 +16,9 @@ class RemoveEmptyRecRows extends Migration
                    INNER JOIN recommendation_tokens rt on rt.recommendation_id = r.id
                    WHERE r.first_name LIKE '';");
   }
+
+  public function down()
+  {
+    // Irreversible!
+  }
 }

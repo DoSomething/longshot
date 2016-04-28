@@ -13,4 +13,9 @@ class UpdateProfileAddIndexToUserId extends Migration
   {
       DB::statement('CREATE INDEX user_id ON profiles (user_id)');
   }
+
+  public function down()
+  {
+      DB::statement('ALTER TABLE profiles DROP INDEX user_id');
+  }
 }

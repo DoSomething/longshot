@@ -13,4 +13,9 @@ class UpdateWinnerDescField extends Migration
   {
       DB::statement('ALTER TABLE `winners` MODIFY COLUMN `description` TEXT');
   }
+
+  public function down()
+  {
+      DB::statement('ALTER TABLE `winners` MODIFY COLUMN `description` VARCHAR(255)');
+  }
 }
