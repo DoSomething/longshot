@@ -50,11 +50,11 @@
                     @else
                       <p><strong>{{ snakeCaseToTitleCase($key) }}</strong></p>
                     @endif
-                    @if ($key == 'file')
-                     @if (!is_null($files))
-                        @foreach ($files as $upload)
+                    @if ($key == 'upload')
+                     @if (!is_null($uploads))
+                        @foreach ($uploads as $upload)
                           <div class="image-holder">
-                            <img src="/storage/uploads/{{$user->id}}/{{$upload}}" alt="uploaded image">
+                            <img src="/storage/app/uploads/{{$id}}/{{$upload}}" alt="uploaded image">
                           </div>
                           <br>
                         @endforeach
