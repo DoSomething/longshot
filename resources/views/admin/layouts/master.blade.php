@@ -8,10 +8,10 @@
 
     <title>Scholarship Application Administration</title>
     <link rel="icon" type="image/ico" href="/favicon.ico?v1"/>
-    <link rel="stylesheet" href="/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.css">
     <script src="/dist/js/jquery.min.js"></script>
     @section('styles')
-      <link rel="stylesheet" href="/dist/css/admin.css"/>
+      <link rel="stylesheet" href="/css/admin.css"/>
     @show
   </head>
 

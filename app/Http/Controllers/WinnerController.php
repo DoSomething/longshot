@@ -4,6 +4,7 @@ use App\Models\Scholarship;
 use App\Models\User;
 use App\Models\Winner;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Http\Request;
 
 class WinnerController extends \Controller
 {
