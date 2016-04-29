@@ -58,24 +58,26 @@
   </div>
 
   {{-- Upload --}}
-  @if (isset($files) && !is_null($files))
+  @if (isset($uploads) && !is_null($uploads))
     <p>Uploaded Images</p>
-    @foreach ($files as $upload)
+    @foreach ($uploads as $upload)
       <div class="image-holder">
-        <img src="/storage/uploads/{{$user->id}}/{{$upload}}" alt="uploaded image">
+        <img src="/storage/app/uploads/{{$user->id}}/{{$upload}}" alt="uploaded image">
         <p>Remove?</p>
         {!! Form::checkbox('remove[]', $upload) !!}
       </div>
       <br>
     @endforeach
     <div class="field-group">
-      {!! Form::label('file', 'Additional photos (optional)') !!}
-      {!! Form::file('file') !!}
+      {!! Form::label('upload', 'Additional photos (optional)') !!}
+      {!! Form::file('upload') !!}
+      {!! errorsFor('upload', $errors); !!}
     </div>
   @else
     <div class="field-group">
-      {!! Form::label('file', 'Photos (optional)') !!}
-      {!! Form::file('file') !!}
+      {!! Form::label('upload', 'Photos (optional)') !!}
+      {!! Form::file('upload') !!}
+      {!! errorsFor('upload', $errors); !!}
     </div>
   @endif
 

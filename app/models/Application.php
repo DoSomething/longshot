@@ -74,7 +74,7 @@ class Application extends Model
 
   public static function getUserApplication($id)
   {
-      $fields = ['scholarship_id', 'accomplishments', 'activities', 'participation', 'essay1', 'essay2', 'hear_about as how_did_you_hear_about_this', 'file', 'test_type', 'test_score', 'gpa'];
+      $fields = ['scholarship_id', 'accomplishments', 'activities', 'participation', 'essay1', 'essay2', 'hear_about as how_did_you_hear_about_this', 'upload', 'test_type', 'test_score', 'gpa'];
       $application = self::where('user_id', $id)->select($fields)->first();
       if ($application) {
           return $application->toArray();
@@ -89,30 +89,4 @@ class Application extends Model
 
       return $application = self::where('user_id', $id)->select($fields)->first();
   }
-
- // /**
- //   * Save a file and attach it to the model.
- //   *
- //   * @param mixed $file Input to Intervention\Image::make (such as Input::file)
- //   * @see http://image.intervention.io/api/make
- //   */
- //  public function saveFile($file, $id)
- //  {
- //      // Create an uploads directory if it doesn't exist
- //      if (!file_exists('uploads')) {
- //        Storage::makeDirectory('uploads');
- //      }
-
- //      if ($file instanceof UploadedFile) {
- //        $extension = $file->getClientOriginalExtension();
- //      } else {
- //          $extension = $file->getExtension();
- //      }
-
- //      $filename = $id.'.'.$extension;
- //      $file->move($path, $filename);
-
- //      $this->attributes['file'] = $filename;
- //  }
-
 }

@@ -4,11 +4,8 @@ use Scholarship\Repositories\SettingRepository;
 use App\Models\Application;
 use App\Models\Scholarship;
 use App\Models\User;
-// use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Illuminate\Http\Request;
-// use Illuminate\Http\UploadedFile;
 use Illuminate\Filesystem\Filesystem;
-
 
 class ApplicationController extends \Controller
 {
@@ -20,6 +17,7 @@ class ApplicationController extends \Controller
     'activities'      => 'required',
     'essay1'          => 'required',
     'essay2'          => 'required',
+    'upload'          => 'image',
    ];
 
     protected $messages = [
@@ -31,6 +29,7 @@ class ApplicationController extends \Controller
     'activities.required'      => 'This question is required.',
     'essay1.required'          => 'This essay is required.',
     'essay2.required'          => 'This essay is required.',
+    'upload.image'             => 'The uploaded file must be an image.',
    ];
     protected $settings;
 
@@ -104,11 +103,11 @@ class ApplicationController extends \Controller
         $application->essay1 = $request->get('essay1');
         $application->essay2 = $request->get('essay2');
 
-      $file = $request->file('file');
-      if ($request->hasFile('file')) {
-          $filename = $file->getClientOriginalName();
-          $file->move('storage/uploads/'.$user->id.'/', $filename);
-          $application->file = 'storage/uploads/'.$user->id.'/'.$filename;
+      $upload = $request->file('upload');
+      if ($request->hasFile('upload')) {
+          $filename = $upload->getClientOriginalName();
+          $upload->move('/storage/uploads/'.$user->id.'/', $filename);
+          $application->upload = '/storage/uploads/'.$user->id.'/'.$filename;
       }
 
       $scholarship = Scholarship::getCurrentScholarship();
@@ -148,16 +147,19 @@ class ApplicationController extends \Controller
       $label = Scholarship::getScholarshipLabels($application['scholarship_id']);
       $hear_about = Scholarship::getCurrentScholarship()->hear_about_options;
       $choices = Application::formatChoices($hear_about);
-      if ($application['file'])
+
+      // We have to pass uploads to the view, so set null if there aren't any
+      if ($application['upload'])
       {
-        $files = explode(',', $application['file']);
+        $uploads = explode(',', $application['upload']);
       }
       else
       {
-        $files = null;
+        $uploads = null;
       }
+
       $vars = (object) $this->settings->getSpecifiedSettingsVars(['application_create_help_text']);
-      return view('application.edit')->with(compact('user', 'label', 'choices', 'vars', 'files'));
+      return view('application.edit')->with(compact('user', 'label', 'choices', 'vars', 'uploads'));
   }
 
   /**
@@ -168,13 +170,13 @@ class ApplicationController extends \Controller
    * @return Response
    */
   public function update($id, Request $request)
-  { //figure out validation logic with request etc.
+  {
+    // @TODO: figure out validation logic with request etc.
       $input = Input::except('documentation', 'factual', 'media_release', 'rules');
 
     // Only run validation on applications that were submitted
     // (do not run on those 'saved as draft')
     if ($request->get('complete')) {
-        // $input = Input::all();
         $this->validate($request, $this->rules, $this->messages);
       // @TODO: once we have validated, are we setting a 'complete' flag on the app to disable edits?
     }
@@ -187,30 +189,34 @@ class ApplicationController extends \Controller
         unset($application->test_score);
     }
 
-    // If there is not already a file proceed like this
-      $file = $request->file('file');
-      if ($request->hasFile('file') && empty($application->file)) {
-        $filename = $file->getClientOriginalName();
-        $file->move(base_path('storage/uploads/'.$application->user_id.'/'), $filename);
-        $application->file = $filename;
-        // dd($application->file);
+    // If there is not already a file, just throw the name in the uploads column
+      $upload = $request->file('upload');
+      if ($request->hasFile('upload') && empty($application->upload)) {
+        $filename = $upload->getClientOriginalName();
+        $upload->move(base_path('/storage/app/uploads/'.$application->user_id.'/'), $filename);
+        $application->upload = $filename;
       }
       // If there is already a file - add file and append to list in db
-      elseif ($request->hasFile('file')) {
-        $filename = $file->getClientOriginalName();
-        $file->move(base_path('storage/uploads/'.$application->user_id.'/'), $filename);
-        $application->file = $application->file . ',' . $filename;
+      elseif ($request->hasFile('upload')) {
+        $filename = $upload->getClientOriginalName();
+        $upload->move(base_path('/storage/app/uploads/'.$application->user_id.'/'), $filename);
+        $application->upload = $application->upload . ',' . $filename;
       }
 
       // Remove deleted files
       if ($request->get('remove'))
       {
+        // Remove file from application's list of files
         $uploads = explode(',',$application->file);
         $uploads = array_diff($uploads, $request->get('remove'));
-        $application->file = implode(',', $uploads);
-        // dd('storage/uploads/'.$application->user_id.'/'.$request->get('remove')[0]);
-        // @TODO: make delete work
-        // \Storage::delete('/storage/uploads/'.$application->user_id.'/'.$request->get('remove')[0]);
+        $application->upload = implode(',', $uploads);
+
+        // Delete actual files from storage
+        foreach($request->get('remove') as $deletedUpload)
+        {
+          $path = 'uploads/'.$application->user_id.'/'.$deletedUpload;
+          Storage::delete($path);
+        }
       }
       $application->save();
 
