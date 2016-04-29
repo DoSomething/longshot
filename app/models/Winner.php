@@ -1,7 +1,9 @@
-<?php namespace App\Models;
+<?php
 
-use Illuminate\Database\Eloquent\Model;
+namespace App\Models;
+
 use Cache;
+use Illuminate\Database\Eloquent\Model;
 
 class Winner extends Model
 {
@@ -51,7 +53,7 @@ class Winner extends Model
 
   /**
    * Collects all current winners and their full biographies.
-   * 
+   *
    * @throws Exception If the database migration has not been run, then missing required columns.
    *
    * @return object
@@ -71,7 +73,7 @@ class Winner extends Model
 
   /**
    * When passed a User object, sets user data to corresponding properties on Winner object.
-   * 
+   *
    * @param  User $user  Instance of user class with specified data.
    *
    * @return void

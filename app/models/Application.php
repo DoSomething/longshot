@@ -1,7 +1,9 @@
-<?php namespace App\Models;
+<?php
+
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Storage;
+
 // use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class Application extends Model
@@ -37,6 +39,7 @@ class Application extends Model
       foreach ($choices as $choice) {
           $return[$choice] = $choice;
       }
+
       return $return;
   }
 
@@ -72,21 +75,19 @@ class Application extends Model
       return false;
   }
 
-  public static function getUserApplication($id)
-  {
-      $fields = ['scholarship_id', 'accomplishments', 'activities', 'participation', 'essay1', 'essay2', 'hear_about as how_did_you_hear_about_this', 'upload', 'test_type', 'test_score', 'gpa'];
-      $application = self::where('user_id', $id)->select($fields)->first();
-      if ($application) {
-          return $application->toArray();
-      }
+    public static function getUserApplication($id)
+    {
+        $fields = ['scholarship_id', 'accomplishments', 'activities', 'participation', 'essay1', 'essay2', 'hear_about as how_did_you_hear_about_this', 'upload', 'test_type', 'test_score', 'gpa'];
+        $application = self::where('user_id', $id)->select($fields)->first();
+        if ($application) {
+            return $application->toArray();
+        }
+    }
 
-      return;
-  }
+    public static function getUserApplicationId($id)
+    {
+        $fields = ['id'];
 
-  public static function getUserApplicationId($id)
-  {
-      $fields = ['id'];
-
-      return $application = self::where('user_id', $id)->select($fields)->first();
-  }
+        return $application = self::where('user_id', $id)->select($fields)->first();
+    }
 }

@@ -1,16 +1,14 @@
 <?php
 
 use App\Models\Application;
-use App\Models\Scholarship;
-use App\Models\Profile;
-use App\Models\User;
-use App\Models\Recommendation;
-use App\Models\Rating;
-use App\Models\Nomination;
-use App\Models\Winner;
 use App\Models\Export;
-
-use Scholarship\Repositories\SettingRepository;
+use App\Models\Nomination;
+use App\Models\Profile;
+use App\Models\Rating;
+use App\Models\Recommendation;
+use App\Models\Scholarship;
+use App\Models\User;
+use App\Models\Winner;
 
 class AdminController extends \Controller
 {
@@ -85,26 +83,23 @@ class AdminController extends \Controller
       return view('admin.index', compact('user', 'count'));
   }
 
-  /**
-   *
-   */
-  public function applicationsIndex()
-  {
-      $sort_by = Request::get('sort_by');
-      $filter_by = Request::get('filter_by');
-      $direction = Request::get('direction');
+    public function applicationsIndex()
+    {
+        $sort_by = Request::get('sort_by');
+        $filter_by = Request::get('filter_by');
+        $direction = Request::get('direction');
 
-      $query = DB::table('users');
+        $query = DB::table('users');
 
-      $query = $this->applicantBaseQuery($query);
-      $query->leftJoin('role_user', 'users.id', '=', 'role_user.user_id')
+        $query = $this->applicantBaseQuery($query);
+        $query->leftJoin('role_user', 'users.id', '=', 'role_user.user_id')
                   ->whereNull('role_user.role_id');
 
-      if ($sort_by) {
-          $query->orderBy($sort_by, $direction);
-      }
-      if ($filter_by) {
-          switch ($filter_by) {
+        if ($sort_by) {
+            $query->orderBy($sort_by, $direction);
+        }
+        if ($filter_by) {
+            switch ($filter_by) {
         case 'submitted':
             $query->where('applications.submitted', '=', 1)
                   ->where('applications.completed', '=', null);
@@ -136,12 +131,12 @@ class AdminController extends \Controller
                   });
           break;
         }
-      }
+        }
 
-      $applicants = $query->paginate(25)->appends(Input::all());
+        $applicants = $query->paginate(25)->appends(Input::all());
 
-      return view('admin.applications.index', compact('applicants'));
-  }
+        return view('admin.applications.index', compact('applicants'));
+    }
 
     public function search()
     {
@@ -175,7 +170,7 @@ class AdminController extends \Controller
       $prof_id = Profile::getUserProfileId($id);
 
       if (isset($profile)) {
-        $races = Profile::getUserRace($prof_id);
+          $races = Profile::getUserRace($prof_id);
       }
 
       $is_winner = Winner::where('user_id', $id)->first() ? true : false;
@@ -188,9 +183,8 @@ class AdminController extends \Controller
       }
 
       $files = null;
-      if ($application['file'])
-      {
-        $files = explode(',', $application['file']);
+      if ($application['file']) {
+          $files = explode(',', $application['file']);
       }
 
       if (isset($application) && Application::isComplete($app_id->id)) {
@@ -237,14 +231,12 @@ class AdminController extends \Controller
         return view('admin.applications.edit')->withUser($profile)->with(compact('id', 'application', 'app_id', 'user', 'user_info', 'profile', 'races', 'label', 'choices', 'recommendations', 'states', 'show_rating', 'possible_ratings', 'app_rating', 'rank_values'));
     }
 
-  /**
-   *
-   */
-  public function settings()
-  {
-      $scholarship_id = Scholarship::getCurrentScholarship()->id;
-      return view('admin.settings.index', with(compact('scholarship_id')));
-  }
+    public function settings()
+    {
+        $scholarship_id = Scholarship::getCurrentScholarship()->id;
+
+        return view('admin.settings.index', with(compact('scholarship_id')));
+    }
 
     public function rate()
     {

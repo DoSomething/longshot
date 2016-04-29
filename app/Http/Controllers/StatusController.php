@@ -1,14 +1,13 @@
 <?php
 
-use Scholarship\Repositories\SettingRepository;
-use App\Models\Scholarship;
 use App\Models\Application;
+use App\Models\Block;
+use App\Models\Email;
 use App\Models\Profile;
 use App\Models\Recommendation;
-use App\Models\Email;
-use App\Models\Block;
-
+use App\Models\Scholarship;
 use Illuminate\Http\Request;
+use Scholarship\Repositories\SettingRepository;
 
 class StatusController extends \Controller
 {
@@ -40,16 +39,16 @@ class StatusController extends \Controller
    */
   public function status()
   {
-    $user = Auth::user();
-    $app_filled_out = false;
-    $prof_complete = false;
-    $closed = Scholarship::isClosed();
+      $user = Auth::user();
+      $app_filled_out = false;
+      $prof_complete = false;
+      $closed = Scholarship::isClosed();
     // @TODO: are these queries too heavy?
     // Get all info about application status.
     $application = Application::where('user_id', $user->id)->first();
-    if ($application) {
-        $app_filled_out = Application::isFilledOut($user->id);
-    }
+      if ($application) {
+          $app_filled_out = Application::isFilledOut($user->id);
+      }
 
     // Is the app complete & been submitted?
     if ($app_filled_out && $application->submitted) {
@@ -88,13 +87,14 @@ class StatusController extends \Controller
 
     // @TODO: $help_text got removed from getting merged into $vars... find out why.
 
-    // @TODO: find a better way of retrieving the timeline in case there are other blocks to that type.  
-      $timeline = Cache::remember(120, 'query.block.timeline', function() {
+    // @TODO: find a better way of retrieving the timeline in case there are other blocks to that type.
+      $timeline = Cache::remember(120, 'query.block.timeline', function () {
          return Block::where('block_type', 'timeline')->select('block_body_html')->first();
       });
       if ($timeline) {
           $timeline = $timeline->block_body_html;
       }
+
       return view('status.index', compact('profile', 'application', 'recommendations', 'app_filled_out', 'prof_complete', 'submit', 'status', 'add_rec_link', 'timeline', 'help_text', 'closed', 'user'));
   }
 
