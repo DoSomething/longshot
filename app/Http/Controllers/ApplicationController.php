@@ -77,26 +77,26 @@ class ApplicationController extends \Controller
     // complete is just the word we send through if it was sumbitted (draft if saved as draft)
     // these apps are actually submitted, NOT completed (that mechanic happens when recs are submitted)
     // @TODO: we should probably standardize
-    if (isset($request['complete'])) {
+    if ($request->get('complete')) {
         $this->validate($request, $this->rules, $this->messages);
     }
 
     // @TODO: there's a better way of doing the following...
     $application = new Application();
-      $application->accomplishments = Request::get('accomplishments');
+      $application->accomplishments = $request->get('accomplishments');
 
-      if (Request::get('gpa') != '') {
-          $application->gpa = $request['gpa'];
+      if ($request->get('gpa') != '') {
+          $application->gpa = $request->get('gpa');
       }
 
-      if (Request::get('test_type') == 'Prefer not to submit scores') {
+      if ($request->get('test_type') == 'Prefer not to submit scores') {
           $application->test_type = null;
       } else {
-          $application->test_type = Request::get('test_type');
+          $application->test_type = $request->get('test_type');
       }
 
-      if (Request::get('test_score') != '') {
-          $application->test_score = Request::get('test_score');
+      if ($request->get('test_score') != '') {
+          $application->test_score = $request->get('test_score');
       } else {
           $application->test_score = null;
       }
@@ -104,8 +104,8 @@ class ApplicationController extends \Controller
       $upload = $request->file('upload');
       if ($request->hasFile('upload')) {
           $filename = $upload->getClientOriginalName();
-          $upload->move('/storage/uploads/'.$user->id.'/', $filename);
-          $application->upload = '/storage/uploads/'.$user->id.'/'.$filename;
+          $upload->move(base_path('/storage/app/uploads/'.$user->id.'/'), $filename);
+          $application->upload = $filename;
       }
 
       $scholarship = Scholarship::getCurrentScholarship();
@@ -147,12 +147,9 @@ class ApplicationController extends \Controller
       $choices = Application::formatChoices($hear_about);
 
       // We have to pass uploads to the view, so set null if there aren't any
-      if ($application['upload'])
-      {
+      if ($application['upload']) {
         $uploads = explode(',', $application['upload']);
-      }
-      else
-      {
+      } else {
         $uploads = null;
       }
 
@@ -170,7 +167,7 @@ class ApplicationController extends \Controller
    */
   public function update($id, Request $request)
   {
-    // @TODO: figure out validation logic with request etc.
+      // @TODO: figure out validation logic with request etc.
       $input = Input::except('documentation', 'factual', 'media_release', 'rules');
 
     // Only run validation on applications that were submitted
@@ -190,30 +187,28 @@ class ApplicationController extends \Controller
     // If there is not already a file, just throw the name in the uploads column
       $upload = $request->file('upload');
       if ($request->hasFile('upload') && empty($application->upload)) {
-        $filename = $upload->getClientOriginalName();
-        $upload->move(base_path('/storage/app/uploads/'.$application->user_id.'/'), $filename);
-        $application->upload = $filename;
+          $filename = $upload->getClientOriginalName();
+          $upload->move(base_path('/storage/app/uploads/'.$application->user_id.'/'), $filename);
+          $application->upload = $filename;
       }
       // If there is already a file - add file and append to list in db
       elseif ($request->hasFile('upload')) {
-        $filename = $upload->getClientOriginalName();
-        $upload->move(base_path('/storage/app/uploads/'.$application->user_id.'/'), $filename);
-        $application->upload = $application->upload . ',' . $filename;
+          $filename = $upload->getClientOriginalName();
+          $upload->move(base_path('/storage/app/uploads/'.$application->user_id.'/'), $filename);
+          $application->upload = $application->upload . ',' . $filename;
       }
 
       // Remove deleted files
-      if ($request->get('remove'))
-      {
-        // Remove file from application's list of files
-        $uploads = explode(',',$application->file);
-        $uploads = array_diff($uploads, $request->get('remove'));
-        $application->upload = implode(',', $uploads);
+      if ($request->get('remove')) {
+          // Remove file from application's list of files
+          $uploads = explode(',',$application->file);
+          $uploads = array_diff($uploads, $request->get('remove'));
+          $application->upload = implode(',', $uploads);
 
         // Delete actual files from storage
-        foreach($request->get('remove') as $deletedUpload)
-        {
-          $path = 'uploads/'.$application->user_id.'/'.$deletedUpload;
-          Storage::delete($path);
+        foreach($request->get('remove') as $deletedUpload) {
+            $path = 'uploads/'.$application->user_id.'/'.$deletedUpload;
+            Storage::delete($path);
         }
       }
       $application->save();

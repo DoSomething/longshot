@@ -15,7 +15,7 @@ class WinnerController extends \Controller
         $query = DB::table('winners');
 
         if ($filter_by) {
-          $query->where('winners.scholarship_id', '=', $filter_by);
+            $query->where('winners.scholarship_id', '=', $filter_by);
         }
 
         $winners = $query->get();
@@ -68,7 +68,6 @@ class WinnerController extends \Controller
    */
   public function update($id, Request $request)
   {
-      
       $input = Input::except('photo');
       $winner = Winner::with('user')->where('id', $id)->firstOrFail();
       $winner->fill($input);
@@ -76,10 +75,9 @@ class WinnerController extends \Controller
       // @TODO: does the order of variable set and then if make sense here?
       $image = $request->file('photo');
       if ($request->hasFile('photo')) {
-        $filename = time().'-'.stringtoKebabCase($image->getClientOriginalName());
-        $image->move(uploadedContentPath('images').'/winners/', $filename);
-        // dd($image->getPathname());
-        $winner->photo = '/content/images/winners/'.$filename;
+          $filename = time().'-'.stringtoKebabCase($image->getClientOriginalName());
+          $image->move(uploadedContentPath('images').'/winners/', $filename);
+          $winner->photo = '/content/images/winners/'.$filename;
       }
 
       $winner->save();

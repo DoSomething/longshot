@@ -73,4 +73,3 @@ Route::get('storage/app/uploads/{user_id}/{filename}', ['as' => 'uploads.show', 
 // because the wildcard catches anything after the root and routes
 // to the Pages controller for static pages.
 Route::get('{page}', 'PagesController@show');
-

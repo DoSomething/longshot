@@ -185,9 +185,8 @@ class AdminController extends \Controller
       }
 
       $uploads = null;
-      if ($application['upload'])
-      {
-        $uploads = explode(',', $application['upload']);
+      if ($application['upload']) {
+          $uploads = explode(',', $application['upload']);
       }
 
       if (isset($application) && Application::isComplete($app_id->id)) {

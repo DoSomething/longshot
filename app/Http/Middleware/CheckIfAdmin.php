@@ -1,8 +1,10 @@
-<?php namespace App\Http\Middleware;
+<?php 
 
+namespace App\Http\Middleware;
+
+use Auth;
 use Closure;
 use Scholarship\Repositories\SettingRepository;
-use Auth;
 
 class CheckIfAdmin
 {
@@ -18,8 +20,8 @@ class CheckIfAdmin
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param \Illuminate\Http\Request  $request
+     * @param \Closure  $next
      * @return mixed
      */
     public function handle($request, Closure $next)
@@ -28,6 +30,7 @@ class CheckIfAdmin
         if (!Auth::user() || !Auth::user()->hasRole('administrator')) {
             return redirect()->home()->with('flash_message', ['text' => 'You are not authorized to view that page.', 'class' => '-error']);
         }
+
         return $next($request);
     }
 }
