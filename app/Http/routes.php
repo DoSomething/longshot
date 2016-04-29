@@ -67,7 +67,7 @@ Route::group(['middleware' => 'isAdmin', 'prefix' => 'admin'], function () {
   Route::get('email', ['as' => 'emails', 'uses' => 'EmailController@index']);
   Route::post('email', ['as' => 'emails.update', 'uses' => 'EmailController@update']);
 });
-Route::get('storage/uploads/{user_id}/{filename}', ['as' => 'uploads.show', 'uses' => 'UploadController@show']);
+Route::get('storage/app/uploads/{user_id}/{filename}', ['as' => 'uploads.show', 'uses' => 'UploadController@show']);
 // Pages
 // This route needs to be the last route in the list that is hit
 // because the wildcard catches anything after the root and routes

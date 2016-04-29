@@ -12,7 +12,7 @@ class RenameLinkColumn extends Migration
     public function up()
     {
         Schema::table('applications', function ($table) {
-            $table->renameColumn('link', 'file');
+            $table->renameColumn('link', 'upload');
         });        
     }
 
@@ -24,7 +24,7 @@ class RenameLinkColumn extends Migration
     public function down()
     {
         Schema::table('applications', function ($table) {
-            $table->renameColumn('file', 'link');
+            $table->renameColumn('upload', 'link');
         });
     }
 }
