@@ -184,24 +184,24 @@ class ApplicationController extends \Controller
         unset($application->test_score);
     }
 
-    // If there is not already a file, just throw the name in the uploads column
       $upload = $request->file('upload');
-      if ($request->hasFile('upload') && empty($application->upload)) {
+      if ($request->hasFile('upload')) {
           $filename = $upload->getClientOriginalName();
           $upload->move(base_path('/storage/app/uploads/'.$application->user_id.'/'), $filename);
-          $application->upload = $filename;
-      }
-      // If there is already a file - add file and append to list in db
-      elseif ($request->hasFile('upload')) {
-          $filename = $upload->getClientOriginalName();
-          $upload->move(base_path('/storage/app/uploads/'.$application->user_id.'/'), $filename);
-          $application->upload = $application->upload . ',' . $filename;
+
+          // If there is not already a file, just throw the name in the uploads column
+          if (empty($application->upload)) {
+              $application->upload = $filename;
+          } else {
+              // If there is already a file - add file and append to list in db
+              $application->upload = $application->upload . ',' . $filename;
+          }
       }
 
       // Remove deleted files
       if ($request->get('remove')) {
           // Remove file from application's list of files
-          $uploads = explode(',',$application->file);
+          $uploads = explode(',',$application->upload);
           $uploads = array_diff($uploads, $request->get('remove'));
           $application->upload = implode(',', $uploads);
 
