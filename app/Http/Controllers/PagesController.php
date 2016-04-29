@@ -1,13 +1,12 @@
 <?php
 
+use App\Models\Block;
+use App\Models\Page;
+use App\Models\Path;
+use App\Models\Scholarship;
+use App\Models\Winner;
 use Michelf\MarkdownExtra;
 use Scholarship\Repositories\SettingRepository;
-use App\Models\Scholarship;
-use App\Models\Path;
-use App\Models\Page;
-use App\Models\Winner;
-use App\Models\Block;
-
 
 class PagesController extends \Controller
 {
@@ -176,6 +175,7 @@ class PagesController extends \Controller
       $page->path->disabled = 'true';
       $blocks = Block::where('page_id', $id)->get();
       $types = Block::getTypes();
+
       return view('admin.page.edit')->with(compact('page', 'blocks', 'types'));
   }
 

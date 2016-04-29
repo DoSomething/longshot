@@ -1,9 +1,9 @@
 <?php
 
-use Illuminate\Filesystem\Filesystem;
 use App\Models\Scholarship;
 use App\Models\User;
 use App\Models\Winner;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\Request;
 
 class WinnerController extends \Controller
@@ -15,7 +15,7 @@ class WinnerController extends \Controller
         $query = DB::table('winners');
 
         if ($filter_by) {
-          $query->where('winners.scholarship_id', '=', $filter_by);
+            $query->where('winners.scholarship_id', '=', $filter_by);
         }
 
         $winners = $query->get();
@@ -27,7 +27,7 @@ class WinnerController extends \Controller
 
   /**
    * Store a single winnner record.
-   * 
+   *
    * @return Response
    */
   public function store()
@@ -63,12 +63,11 @@ class WinnerController extends \Controller
 
   /**
    * Update the specified resource.
-   * 
+   *
    * @return Response
    */
   public function update($id, Request $request)
   {
-      
       $input = Input::except('photo');
       $winner = Winner::with('user')->where('id', $id)->firstOrFail();
       $winner->fill($input);
@@ -76,8 +75,8 @@ class WinnerController extends \Controller
       // @TODO: does the order of variable set and then if make sense here?
       $image = $request->file('photo');
       if ($request->hasFile('photo')) {
-        $filename = time().'-'.stringtoKebabCase($image->getClientOriginalName());
-        $image->move(uploadedContentPath('images').'/winners/', $filename);
+          $filename = time().'-'.stringtoKebabCase($image->getClientOriginalName());
+          $image->move(uploadedContentPath('images').'/winners/', $filename);
         // dd($image->getPathname());
         $winner->photo = '/content/images/winners/'.$filename;
       }
@@ -93,7 +92,7 @@ class WinnerController extends \Controller
 
   /**
    * Delete a single winner record.
-   * 
+   *
    * @return Response
    */
   public function destroy()
