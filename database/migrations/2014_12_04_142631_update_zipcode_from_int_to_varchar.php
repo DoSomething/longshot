@@ -21,6 +21,6 @@ class UpdateZipcodeFromIntToVarchar extends Migration
    */
   public function down()
   {
-      throw new Exception('Irreversible migration, sorry mate.');
+      // Irreversible migration, sorry mate
   }
 }
