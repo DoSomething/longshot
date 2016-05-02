@@ -1,10 +1,11 @@
 <?php
 
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class TestCase extends Illuminate\Foundation\Testing\TestCase
 {
-    use DatabaseTransactions;
+    use DatabaseMigrations, DatabaseTransactions;
 
     protected $baseUrl = 'http://localhost';
 

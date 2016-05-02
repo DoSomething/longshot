@@ -82,9 +82,10 @@ class RegistrationController extends \Controller
     {
         $email = new Email();
         $data = [
-        'first_name' => $user->first_name,
-        'last_name'  => $user->last_name,
-      ];
+          'first_name' => $user->first_name,
+          'last_name'  => $user->last_name,
+        ];
+
         $email->sendEmail('welcome', 'applicant', $user->email, $data);
     }
 
