@@ -80,8 +80,6 @@ class Application extends Model
         if ($application) {
             return $application->toArray();
         }
-
-        return;
     }
 
     public static function getUserApplicationId($id)
@@ -90,6 +88,7 @@ class Application extends Model
 
         return $application = self::where('user_id', $id)->select($fields)->first();
     }
+
     /**
      * Call when an app is submitted to rate as 'no' if the GPA is too low.
      */
@@ -104,5 +103,4 @@ class Application extends Model
             $rate->save();
         }
     }
-
 }

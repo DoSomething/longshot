@@ -5,7 +5,6 @@ use App\Models\Scholarship;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Scholarship\Repositories\SettingRepository;
-use Illuminate\Filesystem\Filesystem;
 
 class ApplicationController extends \Controller
 {
@@ -148,9 +147,9 @@ class ApplicationController extends \Controller
 
       // We have to pass uploads to the view, so set null if there aren't any
       if ($application['upload']) {
-        $uploads = explode(',', $application['upload']);
+          $uploads = explode(',', $application['upload']);
       } else {
-        $uploads = null;
+          $uploads = null;
       }
 
       $vars = (object) $this->settings->getSpecifiedSettingsVars(['application_create_help_text']);
@@ -194,19 +193,19 @@ class ApplicationController extends \Controller
               $application->upload = $filename;
           } else {
               // If there is already a file - add file and append to list in db
-              $application->upload = $application->upload . ',' . $filename;
+              $application->upload = $application->upload.','.$filename;
           }
       }
 
       // Remove deleted files
       if ($request->get('remove')) {
           // Remove file from application's list of files
-          $uploads = explode(',',$application->upload);
+          $uploads = explode(',', $application->upload);
           $uploads = array_diff($uploads, $request->get('remove'));
           $application->upload = implode(',', $uploads);
 
         // Delete actual files from storage
-        foreach($request->get('remove') as $deletedUpload) {
+        foreach ($request->get('remove') as $deletedUpload) {
             $path = 'uploads/'.$application->user_id.'/'.$deletedUpload;
             Storage::delete($path);
         }

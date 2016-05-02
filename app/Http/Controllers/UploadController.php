@@ -11,11 +11,10 @@ class UploadController extends \Controller
 
     public function show($user_id, $filename, Request $request)
     {
-         if((Auth::user()->id == $user_id || Auth::user()->hasRole('administrator')))
-         {
+        if ((Auth::user()->id == $user_id || Auth::user()->hasRole('administrator'))) {
             return response()->download(storage_path('app/uploads/'.$user_id.'/'.$filename), null, [], 'inline');
-         }
+        }
 
-         return redirect()->home()->with('flash_message', ['text' => 'You are not authorized to view that page.', 'class' => '-error']);
+        return redirect()->home()->with('flash_message', ['text' => 'You are not authorized to view that page.', 'class' => '-error']);
     }
 }

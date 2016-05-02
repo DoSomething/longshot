@@ -13,7 +13,7 @@ class RenameLinkColumn extends Migration
     {
         Schema::table('applications', function ($table) {
             $table->renameColumn('link', 'upload');
-        });        
+        });
     }
 
     /**
