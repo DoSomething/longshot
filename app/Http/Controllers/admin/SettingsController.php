@@ -158,9 +158,9 @@ class SettingsController extends \Controller
 
       $input = $this->settings->nullify($input);
 
-    if ($request->get('remove_background_image')) {
-        $input['background_image'] = '';
-    }
+      if ($request->get('remove_background_image')) {
+          $input['background_image'] = '';
+      }
 
     // Get specified category settings collection.
     $settings_data = Setting::whereCategory('general')->get();
