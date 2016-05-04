@@ -95,5 +95,12 @@ class SettingsTableSeeder extends Seeder
       'value'     => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque facilis, explicabo quidem ea dolore fugit.',
       'type'      => 'textarea',
     ]);
+
+      Setting::create([
+      'category'  => 'general',
+      'key'       => 'background_image',
+      'value'     => '',
+      'type'      => 'image',
+    ]);
   }
 }
