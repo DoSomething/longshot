@@ -54,6 +54,10 @@
         <div class="image-holder">
           <img src="{{ $setting->value }}" alt="uploaded image">
         </div>
+        @if ($setting->key === 'background_image')
+          {!! Form::label('Remove?') !!}
+          {!! Form::checkbox('remove_background_image') !!}
+        @endif
       @endif
 
       {!! Form::file($setting->key) !!}

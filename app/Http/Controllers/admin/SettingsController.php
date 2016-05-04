@@ -25,6 +25,7 @@ class SettingsController extends \Controller
       'favicon'                     => 'mimes:ico',
       'open_graph_data_url'         => 'url',
       'official_rules_url'          => 'url',
+      'background_image'            => 'image|mimes:png,jpeg',
     ];
 
     protected $settings;
@@ -139,7 +140,7 @@ class SettingsController extends \Controller
       'official_rules_url'
       );
 
-      $inputImages = Input::only('header_logo', 'footer_logo', 'nominate_image');
+      $inputImages = Input::only('header_logo', 'footer_logo', 'nominate_image', 'background_image');
 
       // $this->settingsForm->validate($inputText);
       // $this->settingsForm->validate($inputImages);
@@ -157,6 +158,10 @@ class SettingsController extends \Controller
 
       $input = $this->settings->nullify($input);
 
+    if ($request->get('remove_background_image')) {
+        $input['background_image'] = '';
+    }
+
     // Get specified category settings collection.
     $settings_data = Setting::whereCategory('general')->get();
 
@@ -164,6 +169,7 @@ class SettingsController extends \Controller
     $this->settings->saveSettings($settings_data, $input);
 
     // Updated General Settings so clear the cache.
+    // @TODO: cache is not clearing
     Event::fire('settings.change', ['general']);
 
       return redirect()->route('general.edit')->with('flash_message', ['text' => 'Success: General settings have been saved!', 'class' => 'alert-success']);

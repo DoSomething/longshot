@@ -24,7 +24,11 @@
     @endif
   </head>
 
-  <body class="{{ bodyClass() }}">
+    @if ($global_vars->background_image)
+      <body class="{{ bodyClass() }}" background="{{ $global_vars->background_image }}">
+    @else
+      <body class="{{ bodyClass() }}">
+    @endif
     <div id="container" class="container">
 
       <div class="panel panel--main">
