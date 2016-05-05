@@ -57,14 +57,31 @@
     {!! errorsFor('essay2', $errors); !!}
   </div>
 
-    {{-- Link --}}
-  <div class="field-group {{ setInvalidClass('link', $errors) }}">
-    {!! Form::label('link', 'Links to photo or video albums (optional)') !!}
-    {!! Form::text('link',  NULL, ['placeholder' => 'http://youtube.com']) !!}
-    {!! errorsFor('link', $errors); !!}
-  </div>
+  {{-- Upload --}}
+  @if (isset($uploads) && !is_null($uploads))
+    <p>Uploaded Images</p>
+    @foreach ($uploads as $upload)
+      <div class="image-holder">
+        <img src="/storage/app/uploads/{{$user->id}}/{{$upload}}" alt="uploaded image">
+        <p>Remove?</p>
+        {!! Form::checkbox('remove[]', $upload) !!}
+      </div>
+      <br>
+    @endforeach
+    <div class="field-group">
+      {!! Form::label('upload', 'Additional photos (optional)') !!}
+      {!! Form::file('upload') !!}
+      {!! errorsFor('upload', $errors); !!}
+    </div>
+  @else
+    <div class="field-group">
+      {!! Form::label('upload', 'Photos (optional)') !!}
+      {!! Form::file('upload') !!}
+      {!! errorsFor('upload', $errors); !!}
+    </div>
+  @endif
 
-    {{-- Hear About --}}
+  {{-- Hear About --}}
   <div class="field-group -mono {{ setInvalidClass('hear_about', $errors) }}">
     {!! Form::label('hear_about', 'How did you hear about this scholarship? (optional) ') !!}
     {!! Form::select('hear_about',  $choices); !!}

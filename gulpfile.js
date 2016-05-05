@@ -12,13 +12,16 @@ var elixir = require('laravel-elixir');
  */
 
 elixir(function(mix) {
-	mix.less('admin.less');
-	mix.sass('main.scss');
+	mix.less('bootstrap.less');
 
-	mix.copy('resources/assets/fonts', 'public/assets/fonts');
-	mix.copy('resources/assets/images', 'public/assets/images');
+	mix.sass('main.scss');
+	mix.sass('admin.scss');
+
+	mix.copy('resources/assets/fonts', 'public/dist/fonts');
+	mix.copy('resources/assets/images', 'public/dist/images');
 	mix.copy('resources/assets/bower_components/jquery/dist', 'public/dist/js');
 	mix.copy('resources/assets/bower_components/chartjs', 'public/dist/js');
 	mix.copy('resources/assets/bower_components/bootstrap/dist/js', 'public/dist/js');
+	mix.copy('resources/assets/bower_components/bootstrap/dist/css', 'public/dist/css');
 	mix.copy('resources/assets/js/libs', 'public/dist/js');
 });

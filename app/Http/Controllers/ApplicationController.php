@@ -16,7 +16,7 @@ class ApplicationController extends \Controller
     'activities'      => 'required',
     'essay1'          => 'required',
     'essay2'          => 'required',
-    'link'            => 'url',
+    'upload'          => 'image',
    ];
 
     protected $messages = [
@@ -28,7 +28,7 @@ class ApplicationController extends \Controller
     'activities.required'      => 'This question is required.',
     'essay1.required'          => 'This essay is required.',
     'essay2.required'          => 'This essay is required.',
-    'link.url'                 => 'Please enter a valid link.',
+    'upload.image'             => 'The uploaded file must be an image.',
    ];
     protected $settings;
 
@@ -76,36 +76,35 @@ class ApplicationController extends \Controller
     // complete is just the word we send through if it was sumbitted (draft if saved as draft)
     // these apps are actually submitted, NOT completed (that mechanic happens when recs are submitted)
     // @TODO: we should probably standardize
-    if (isset($request['complete'])) {
+    if ($request->input('complete')) {
         $this->validate($request, $this->rules, $this->messages);
     }
 
     // @TODO: there's a better way of doing the following...
     $application = new Application();
-      $application->accomplishments = $request['accomplishments'];
+      $application->accomplishments = $request->input('accomplishments');
 
-      if ($request['gpa'] != '') {
-          $application->gpa = $request['gpa'];
+      if ($request->input('gpa') != '') {
+          $application->gpa = $request->input('gpa');
       }
 
-      if ($request['test_type'] == 'Prefer not to submit scores') {
+      if ($request->input('test_type') == 'Prefer not to submit scores') {
           $application->test_type = null;
       } else {
-          $application->test_type = $request['test_type'];
+          $application->test_type = $request->input('test_type');
       }
 
-      if ($request['test_score'] != '') {
-          $application->test_score = $request['test_score'];
+      if ($request->input('test_score') != '') {
+          $application->test_score = $request->input('test_score');
       } else {
           $application->test_score = null;
       }
 
-      $application->activities = $request['activities'];
-      $application->participation = $request['participation'];
-      $application->essay1 = $request['essay1'];
-      $application->essay2 = $request['essay2'];
-      if (isset($request['link'])) {
-          $application->link = $request['link'];
+      $upload = $request->file('upload');
+      if ($request->hasFile('upload')) {
+          $filename = $upload->getClientOriginalName();
+          $upload->move(base_path('/storage/app/uploads/'.$user->id.'/'), $filename);
+          $application->upload = $filename;
       }
 
       $scholarship = Scholarship::getCurrentScholarship();
@@ -146,9 +145,15 @@ class ApplicationController extends \Controller
       $hear_about = Scholarship::getCurrentScholarship()->hear_about_options;
       $choices = Application::formatChoices($hear_about);
 
+      // We have to pass uploads to the view, so set null unless there is one
+      $uploads = null;
+      if ($application['upload']) {
+          $uploads = explode(',', $application['upload']);
+      }
+
       $vars = (object) $this->settings->getSpecifiedSettingsVars(['application_create_help_text']);
 
-      return view('application.edit')->with(compact('user', 'label', 'choices', 'vars'));
+      return view('application.edit')->with(compact('user', 'label', 'choices', 'vars', 'uploads'));
   }
 
   /**
@@ -159,12 +164,13 @@ class ApplicationController extends \Controller
    * @return Response
    */
   public function update($id, Request $request)
-  { //figure out validation logic with request etc.
+  {
+      // @TODO: figure out validation logic with request etc.
       $input = Input::except('documentation', 'factual', 'media_release', 'rules');
 
     // Only run validation on applications that were submitted
     // (do not run on those 'saved as draft')
-    if (isset($request['complete'])) {
+    if ($request->input('complete')) {
         $this->validate($request, $this->rules, $this->messages);
     }
       $application = Application::where('user_id', $id)->firstOrFail();
@@ -175,6 +181,34 @@ class ApplicationController extends \Controller
         unset($application->test_type);
         unset($application->test_score);
     }
+
+      $upload = $request->file('upload');
+      if ($request->hasFile('upload')) {
+          $filename = $upload->getClientOriginalName();
+          $upload->move(base_path('/storage/app/uploads/'.$application->user_id.'/'), $filename);
+
+          // If there is not already a file, just throw the name in the uploads column
+          if (empty($application->upload)) {
+              $application->upload = $filename;
+          } else {
+              // If there is already a file - add file and append to list in db
+              $application->upload = $application->upload.','.$filename;
+          }
+      }
+
+      // Remove deleted files
+      if ($request->input('remove')) {
+          // Remove file from application's list of files
+          $uploads = explode(',', $application->upload);
+          $uploads = array_diff($uploads, $request->input('remove'));
+          $application->upload = implode(',', $uploads);
+
+        // Delete actual files from storage
+        foreach ($request->input('remove') as $deletedUpload) {
+            $path = 'uploads/'.$application->user_id.'/'.$deletedUpload;
+            Storage::delete($path);
+        }
+      }
       $application->save();
 
       $override = null;
@@ -183,7 +217,7 @@ class ApplicationController extends \Controller
           return redirect()->route('admin.application.show', $id);
       }
 
-      return $this->redirectAfterSave($input, $id, $override);
+      return $this->redirectAfterSave($request, $id, $override);
   }
 
   /**

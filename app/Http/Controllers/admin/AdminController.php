@@ -184,6 +184,11 @@ class AdminController extends \Controller
           $recommendations = Recommendation::getUserRecs($app_id->id);
       }
 
+      $uploads = null;
+      if ($application['upload']) {
+          $uploads = explode(',', $application['upload']);
+      }
+
       if (isset($application) && Application::isComplete($app_id->id)) {
           $show_rating = true;
           $app_rating = Rating::getApplicationRating($app_id->id);
@@ -193,7 +198,7 @@ class AdminController extends \Controller
 
       Session::put('url.index', URL::previous());
 
-      return view('admin.applications.show', compact('id', 'application', 'app_id', 'user', 'profile', 'races', 'scholarship', 'recommendations', 'show_rating', 'possible_ratings', 'app_rating', 'is_winner', 'is_submitted'));
+      return view('admin.applications.show', compact('id', 'application', 'app_id', 'user', 'profile', 'races', 'scholarship', 'recommendations', 'show_rating', 'possible_ratings', 'app_rating', 'is_winner', 'is_submitted', 'uploads'));
   }
 
     public function applicationsEdit($id)

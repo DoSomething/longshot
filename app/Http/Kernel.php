@@ -34,5 +34,6 @@ class Kernel extends HttpKernel
         'submittedApp'   => \App\Http\Middleware\CheckIfAppSubmitted::class,
         'currentUser'    => \App\Http\Middleware\CheckIfCurrentUser::class,
         'createdRec'     => \App\Http\Middleware\CheckIfRecRequested::class,
+        'isAdmin'        => \App\Http\Middleware\CheckIfAdmin::class,
     ];
 }

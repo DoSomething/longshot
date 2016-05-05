@@ -50,7 +50,18 @@
                     @else
                       <p><strong>{{ snakeCaseToTitleCase($key) }}</strong></p>
                     @endif
+                    @if ($key == 'upload')
+                     @if (!is_null($uploads))
+                        @foreach ($uploads as $upload)
+                          <div class="image-holder">
+                            <img src="/storage/app/uploads/{{$id}}/{{$upload}}" alt="uploaded image">
+                          </div>
+                          <br>
+                        @endforeach
+                      @endif
+                    @else
                       <p>{{ $field }}</p>
+                    @endif
                   @endif
                 </div>
               @endforeach

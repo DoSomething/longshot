@@ -11,7 +11,7 @@
 
         <p>{{ $vars->application_create_help_text or 'All fields are required, unless (optional) is written next to it.' }}</p>
 
-        {!! Form::model($user->application, ['method' => 'PATCH', 'route' => ['application.update', $user->id], 'class' => 'form--application']) !!}
+        {!! Form::model($user->application, ['method' => 'PATCH', 'route' => ['application.update', $user->id], 'files' => TRUE,'class' => 'form--application']) !!}
 
           @include('application/partials/_form_application')
 

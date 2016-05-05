@@ -4,12 +4,13 @@ use App\Models\Scholarship;
 use App\Models\User;
 use App\Models\Winner;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Http\Request;
 
 class WinnerController extends \Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $filter_by = Request::get('filter_by');
+        $filter_by = $request->get('filter_by');
 
         $query = DB::table('winners');
 
@@ -40,8 +41,8 @@ class WinnerController extends \Controller
 
       $winner->save();
 
-    // Clear cache since scholarship winner's information was updated.
-    Event::fire('data.update', ['winners', $winner->scholarship_id]);
+      // Clear cache since scholarship winner's information was updated.
+      Event::fire('data.update', ['winners', $winner->scholarship_id]);
 
       return redirect()->back()->with('flash_message', ['text' => 'Success: Awesome, we got that person as a winner for you!', 'class' => 'alert-success']);
   }
@@ -65,14 +66,15 @@ class WinnerController extends \Controller
    *
    * @return Response
    */
-  public function update($id)
+  public function update($id, Request $request)
   {
       $input = Input::except('photo');
       $winner = Winner::with('user')->where('id', $id)->firstOrFail();
       $winner->fill($input);
 
-      $image = Input::file('photo');
-      if (Input::hasFile('photo')) {
+      // @TODO: does the order of variable set and then if make sense here?
+      $image = $request->file('photo');
+      if ($request->hasFile('photo')) {
           $filename = time().'-'.stringtoKebabCase($image->getClientOriginalName());
           $image->move(uploadedContentPath('images').'/winners/', $filename);
           $winner->photo = '/content/images/winners/'.$filename;
@@ -81,6 +83,7 @@ class WinnerController extends \Controller
       $winner->save();
 
     // Clear cache since scholarship winner's information was updated.
+      // @TODO: this is not clearing the cache
     Event::fire('data.update', ['winners', $winner->scholarship_id]);
 
       return redirect()->back()->with('flash_message', ['text' => 'Success: BAM, that\'s saved!', 'class' => 'alert-success']);
