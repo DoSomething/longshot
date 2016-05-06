@@ -320,23 +320,18 @@ class AdminController extends \Controller
 
         $email = new Email();
 
-        // Define all tokens that do not depend on information in each row of query
-        $scholarship = Scholarship::getCurrentScholarship();
-        $scholarship_name = $scholarship->title;
-        $tokens = [
-            ':scholarship:' => $scholarship_name
-        ];
-
         // For each result, construct and send the email
+        $tokens = [];
         foreach ($query_result as $row) {
           $send_to = $row->email;
+
+          // Define row specific tokens
           if (isset($row->first_name)) {
               $tokens[':first_name:'] = $row->first_name;
           }
           if (isset($row->last_name)) {
               $tokens[':last_name:'] = $row->last_name;
           }
-          // Define row specific tokens and append to $tokens - we will have to check if these are set in the row for each of them I think? :(
 
           // send it by passing in key, recipient, to, and extra tokens
           $email->sendEmail($key, 'group', $send_to, $tokens);
