@@ -11,6 +11,7 @@ use App\Models\RecommendationToken;
 use App\Models\Scholarship;
 use App\Models\User;
 use App\Models\Winner;
+use Illuminate\Http\Request;
 
 class AdminController extends \Controller
 {
@@ -274,27 +275,74 @@ class AdminController extends \Controller
         return view('admin.reports.export');
     }
 
-    public function export_results()
+    /**
+     * Called from admin/applications/export to download csvs
+     */
+    public function export_results(Request $request)
     {
-        $request = key(Input::except('_token'));
-        $function = $request.'_query';
+        // Get the name of the function that runs the selected query
+        // @TODO: see if there is a better way to pass this from the form
+        $filename = array_search('',$request->toArray());
+        $export_function = $filename.'_query';
+
+        // Create an export object to run the query on
         $export = new Export();
-        $ex = $export->$function();
+        $query_result = $export->$export_function();
+
+        // Process the results of the query
         $output = '';
-        foreach ($ex as $row) {
-            foreach ($row as $key => $person) {
-                $output .= $person;
-                $output .= ',';
-            }
-            $output .= "\n";
+        foreach ($query_result as $row) {
+          $output .= implode(',', array_values(get_object_vars($row))) . "\n";
         }
-        $filename = $request.'-'.time().'.csv';
+
+        // Build the csv
+        $filename = $filename.'-'.time().'.csv';
         $headers = [
-        'Content-Type'        => 'text/csv',
-        'Content-Disposition' => 'attachment; filename="'.$filename.'"',
-    ];
+          'Content-Type'        => 'text/csv',
+          'Content-Disposition' => 'attachment; filename="'.$filename.'"',
+        ];
 
         return response(rtrim($output, "\n"), 200, $headers);
+    }
+
+    /**
+     * Called from admin/applications/export to send emails to groups
+     */
+    public function email_group(Request $request)
+    {
+        // Get the name of the function that runs the selected query
+        $key = array_search('',$request->toArray());
+        $export_function = $key.'_query';
+
+         // Create an export object to run the query on
+        $export = new Export();
+        $query_result = $export->$export_function();
+
+        $email = new Email();
+
+        // Define all tokens that do not depend on information in each row of query
+        $scholarship = Scholarship::getCurrentScholarship();
+        $scholarship_name = $scholarship->title;
+        $tokens = [
+            ':scholarship:' => $scholarship_name
+        ];
+
+        // For each result, construct and send the email
+        foreach ($query_result as $row) {
+          $send_to = $row->email;
+          if (isset($row->first_name)) {
+              $tokens[':first_name:'] = $row->first_name;
+          }
+          if (isset($row->last_name)) {
+              $tokens[':last_name:'] = $row->last_name;
+          }
+          // Define row specific tokens and append to $tokens - we will have to check if these are set in the row for each of them I think? :(
+
+          // send it by passing in key, recipient, to, and extra tokens
+          $email->sendEmail($key, 'group', $send_to, $tokens);
+        }
+
+        return redirect()->route('export')->with('flash_message', ['text' => 'Got an email sent to everyone!', 'class' => '-success']);;
     }
 
   /**
