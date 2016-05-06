@@ -11,6 +11,7 @@ class Email extends Model
     protected $fillable = ['key', 'recipient', 'subject', 'body'];
 
     public $timestamps = false;
+
   /**
    * @param $key - the key of which email to look for
    * @param $recipient - who is this email going to
@@ -54,24 +55,4 @@ class Email extends Model
           $message->from(Scholarship::getCurrentScholarship()->email_from_address, Scholarship::getCurrentScholarship()->email_from_name);
       });
   }
-
-  // @TODO: keep this in here and call on emails from within foreach in the controller
-  // after this is called you can sendEmail()
-  public function processEmail($email, $user)
-  {
-      //define tokens here, might need to be a separate function?
-    $tokens = [
-        ':first_name:'  => $user->first_name
-    ];
-
-    $email->body = replaceTokens($tokens, $email->body);
-
-    return $email;
-  }
-
-  public function replaceTokens($tokens, $body)
-  {
-      return str_replace(array_keys($tokens), array_values($tokens), $body);
-  }
-
 }

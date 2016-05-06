@@ -16,7 +16,6 @@ class EmailController extends \Controller
       $recommender_emails = Email::where('recipient', '=', 'recommender')->get()->toArray();
       $group_emails = Email::where('recipient', '=', 'group')->get()->toArray();
 
-
       return view('admin.settings.emails.edit')->with(compact('applicant_emails', 'recommender_emails', 'group_emails'));
   }
 

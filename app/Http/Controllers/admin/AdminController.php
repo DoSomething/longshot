@@ -276,13 +276,13 @@ class AdminController extends \Controller
     }
 
     /**
-     * Called from admin/applications/export to download csvs
+     * Called from admin/applications/export to download csvs.
      */
     public function export_results(Request $request)
     {
         // Get the name of the function that runs the selected query
         // @TODO: see if there is a better way to pass this from the form
-        $filename = array_search('',$request->toArray());
+        $filename = array_search('', $request->toArray());
         $export_function = $filename.'_query';
 
         // Create an export object to run the query on
@@ -292,7 +292,7 @@ class AdminController extends \Controller
         // Process the results of the query
         $output = '';
         foreach ($query_result as $row) {
-          $output .= implode(',', array_values(get_object_vars($row))) . "\n";
+            $output .= implode(',', array_values(get_object_vars($row)))."\n";
         }
 
         // Build the csv
@@ -306,12 +306,12 @@ class AdminController extends \Controller
     }
 
     /**
-     * Called from admin/applications/export to send emails to groups
+     * Called from admin/applications/export to send emails to groups.
      */
     public function email_group(Request $request)
     {
         // Get the name of the function that runs the selected query
-        $key = array_search('',$request->toArray());
+        $key = array_search('', $request->toArray());
         $export_function = $key.'_query';
 
          // Create an export object to run the query on
@@ -323,21 +323,21 @@ class AdminController extends \Controller
         // For each result, construct and send the email
         $tokens = [];
         foreach ($query_result as $row) {
-          $send_to = $row->email;
+            $send_to = $row->email;
 
-          // Define row specific tokens
-          if (isset($row->first_name)) {
-              $tokens[':first_name:'] = $row->first_name;
-          }
-          if (isset($row->last_name)) {
-              $tokens[':last_name:'] = $row->last_name;
-          }
+            // Define row specific tokens
+            if (isset($row->first_name)) {
+                $tokens[':first_name:'] = $row->first_name;
+            }
+            if (isset($row->last_name)) {
+                $tokens[':last_name:'] = $row->last_name;
+            }
 
-          // send it by passing in key, recipient, to, and extra tokens
-          $email->sendEmail($key, 'group', $send_to, $tokens);
+            // send it by passing in key, recipient, to, and extra tokens
+            $email->sendEmail($key, 'group', $send_to, $tokens);
         }
 
-        return redirect()->route('export')->with('flash_message', ['text' => 'Got an email sent to everyone!', 'class' => '-success']);;
+        return redirect()->route('export')->with('flash_message', ['text' => 'Got an email sent to everyone!', 'class' => '-success']);
     }
 
   /**
