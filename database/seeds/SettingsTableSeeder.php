@@ -102,5 +102,19 @@ class SettingsTableSeeder extends Seeder
           'value'     => '',
           'type'      => 'image',
         ]);
+
+        Setting::create([
+          'category'  => 'appearance',
+          'key'       => 'custom_font_embed',
+          'value'     => '',
+          'type'      => 'textarea',
+        ]);
+
+        Setting::create([
+          'category'  => 'appearance',
+          'key'       => 'custom_font_name',
+          'value'     => '',
+          'type'      => 'text',
+        ]);
     }
 }
