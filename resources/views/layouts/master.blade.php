@@ -6,8 +6,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    @if (isset($global_vars->custom_font_embed) || isset($global_vars->custom_font_name))
-      {!! $global_vars->custom_font_embed !!}
+    @if (isset($global_vars->custom_font_kit_id) || isset($global_vars->custom_font_name))
+      <script src="https://use.typekit.net/{{ $global_vars->custom_font_kit_id }}.js"></script>
+      <script>try{Typekit.load({ async: true });}catch(e){}</script>
       <style type="text/css"> * { font-family: "{{ $global_vars->custom_font_name }}"; } .heading { font-family: "{{ $global_vars->custom_font_name }}" !IMPORTANT; font-weight:700 !IMPORTANT;}</style>
     @endif
 

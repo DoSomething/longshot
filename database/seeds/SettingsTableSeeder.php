@@ -105,9 +105,9 @@ class SettingsTableSeeder extends Seeder
 
         Setting::create([
           'category'  => 'appearance',
-          'key'       => 'custom_font_embed',
+          'key'       => 'custom_font_kit_id',
           'value'     => '',
-          'type'      => 'textarea',
+          'type'      => 'text',
         ]);
 
         Setting::create([

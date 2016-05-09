@@ -89,7 +89,7 @@ class SettingsController extends \Controller
       'secondary_color_interaction',
       'cap_color',
       'cap_color_contrast',
-      'custom_font_embed',
+      'custom_font_kit_id',
       'custom_font_name'
       ]);
 
