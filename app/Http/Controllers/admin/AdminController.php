@@ -273,18 +273,18 @@ class AdminController extends \Controller
     public function export()
     {
         $export_options = [
-          'submitted_blank_rec',
-          'submitted_no_rec',
-          'incomplete_apps',
-          'nominated_no_app',
-          'completed_apps',
-          'rec_requested_not_finished',
-          'nominators',
-          'nominees',
-          'recommenders',
-          'completed_apps_by_first_and_email',
-          'incomplete_apps_by_first_and_email',
-          'yes_applicants',
+          'submitted_blank_rec' => 'Submitted Apps, no completed recs',
+          'submitted_no_rec' => 'Submitted Apps, no requested recs',
+          'incomplete_apps' => 'Incomplete Apps',
+          'nominated_no_app' => 'Nominated, no app',
+          'completed_apps' => 'Completed apps',
+          'rec_requested_not_finished' => 'Requested Recs, not complete',
+          'nominators' => 'Nominators',
+          'nominees' => 'Nominees',
+          'recommenders' => 'Recommenders',
+          'completed_apps_by_first_and_email' => 'Completed apps by first name and email',
+          'incomplete_apps_by_first_and_email' => 'Incomplete apps by first name and email',
+          'yes_applicants' => 'Applications marked yes',
         ];
 
         return view('admin.reports.export', compact('export_options'));
