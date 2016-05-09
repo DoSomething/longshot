@@ -29,7 +29,7 @@
     @endif
   </head>
 
-    @if ($global_vars->background_image)
+    @if (!empty($global_vars->background_image))
       <body class="{{ bodyClass() }}" background="{{ $global_vars->background_image }}">
     @else
       <body class="{{ bodyClass() }}">
