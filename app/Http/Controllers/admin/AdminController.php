@@ -86,11 +86,11 @@ class AdminController extends \Controller
       return view('admin.index', compact('user', 'count'));
   }
 
-    public function applicationsIndex()
+    public function applicationsIndex(Request $request)
     {
-        $sort_by = Request::get('sort_by');
-        $filter_by = Request::get('filter_by');
-        $direction = Request::get('direction');
+        $sort_by = $request->input('sort_by');
+        $filter_by = $request->input('filter_by');
+        $direction = $request->input('direction');
 
         $query = DB::table('users');
 
@@ -272,7 +272,22 @@ class AdminController extends \Controller
 
     public function export()
     {
-        return view('admin.reports.export');
+        $export_options = [
+          'submitted_blank_rec',
+          'submitted_no_rec',
+          'incomplete_apps',
+          'nominated_no_app',
+          'completed_apps',
+          'rec_requested_not_finished',
+          'nominators',
+          'nominees',
+          'recommenders',
+          'completed_apps_by_first_and_email',
+          'incomplete_apps_by_first_and_email',
+          'yes_applicants',
+        ];
+
+        return view('admin.reports.export', compact('export_options'));
     }
 
     /**
