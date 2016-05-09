@@ -14,8 +14,9 @@ class EmailController extends \Controller
       // Get all the emails.
       $applicant_emails = Email::where('recipient', '=', 'applicant')->get()->toArray();
       $recommender_emails = Email::where('recipient', '=', 'recommender')->get()->toArray();
+      $group_emails = Email::where('recipient', '=', 'group')->get()->toArray();
 
-      return view('admin.settings.emails.edit')->with(compact('applicant_emails', 'recommender_emails'));
+      return view('admin.settings.emails.edit')->with(compact('applicant_emails', 'recommender_emails', 'group_emails'));
   }
 
     public function update()

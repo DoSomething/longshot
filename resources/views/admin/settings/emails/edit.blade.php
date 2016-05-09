@@ -38,6 +38,19 @@
             </div>
           </div>
 
+          <div class="panel-group" id="accordion">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title">Group Emails</h4>
+              </div>
+              <div class="panel-body">
+                @foreach($group_emails as $key => $email)
+                   @include('admin.settings.emails.partials._form_emails', array('class' => 'group'))
+                @endforeach
+              </div>
+            </div>
+          </div>
+
           <div>
             {!! Form::submit('Update Email Settings', ['class' => 'btn btn-default']) !!}
           </div>

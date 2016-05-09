@@ -18,43 +18,41 @@ class Email extends Model
    * @param $to - the email address to send the email to
    * @param $data - (optional) array of things to search and replace in the body of email.
    */
-  public static function sendEmail($key, $recipient, $to, $data = [])
+  public static function sendEmail($key, $recipient, $to, $extra_tokens = [])
   {
       // Find the correct email.
-    $email = self::where('key', '=', $key)->where('recipient', '=', $recipient)->firstOrFail();
+      $email = self::where('key', '=', $key)->where('recipient', '=', $recipient)->firstOrFail();
+
+      // should we just put all the tokens in here?
+      // add another array of vars used in many emails.
+      // @TODO: in other places we had to get rid of pluck and just do something like ->table so
+      //        make sure this works
+      $tokens = [
+        ':status_page:' => link_to_route('status', 'status page'),
+        ':faq_page:'    => link_to('faq', 'FAQ page'),
+        ':home_page:'   => link_to_route('home', Scholarship::getCurrentScholarship()->title),
+        ':email:'       => link_to('mailto:'.Config::get('mail.from.address'), Config::get('mail.from.address')),
+      ];
+
+      $tokens = array_merge($tokens, $extra_tokens);
+
       $subject = $email->subject;
       $body = $email->body;
 
-    // add another array of vars used in many emails.
-    // @TODO: in other places we had to get rid of pluck and just do something like ->table so
-    //        make sure this works
-    $default_data = [
-    'status_page'   => link_to_route('status', 'status page'),
-      'faq_page'    => link_to('faq', 'FAQ page'),
-      'home_page'   => link_to_route('home', Scholarship::getCurrentScholarship()->title),
-      'email'       => link_to('mailto:'.Config::get('mail.from.address'), Config::get('mail.from.address')),
-    ];
-      $data = array_merge($data, $default_data);
-      if (isset($data)) {
-          // Replace all values in the body copy.
-      foreach ($data as $find => $replace) {
-          $subject = str_replace('['.$find.']', $replace, $subject);
-          $body = str_replace('['.$find.']', $replace, $body);
-      }
+      if ($recipient === 'group') {
+          $body = str_replace(array_keys($tokens), array_values($tokens), $body);
       }
 
       $email_data = [
-    'to'      => $to,
-    'body'    => $body,
-    'subject' => $subject,
-    ];
+        'to'      => $to,
+        'body'    => $body,
+        'subject' => $subject,
+      ];
 
-    // Send off the message.
-    Mail::queue('emails.email', $email_data, function ($message) use ($email_data) {
-      $message->to($email_data['to'])->subject($email_data['subject']);
-
-      $message->from(Scholarship::getCurrentScholarship()->email_from_address, Scholarship::getCurrentScholarship()->email_from_name);
-
-    });
+      // Send off the message.
+      Mail::queue('emails.email', $email_data, function ($message) use ($email_data) {
+          $message->to($email_data['to'])->subject($email_data['subject']);
+          $message->from(Scholarship::getCurrentScholarship()->email_from_address, Scholarship::getCurrentScholarship()->email_from_name);
+      });
   }
 }
