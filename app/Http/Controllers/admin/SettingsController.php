@@ -80,7 +80,7 @@ class SettingsController extends \Controller
   {
       $this->validate($request, $this->rules);
 
-      $input = Input::only(
+      $input = $request->only([
       'primary_color',
       'primary_color_contrast',
       'primary_color_interaction',
@@ -91,7 +91,7 @@ class SettingsController extends \Controller
       'cap_color_contrast',
       'custom_font_embed',
       'custom_font_name'
-      );
+      ]);
 
       $input = $this->settings->nullify($input);
 
