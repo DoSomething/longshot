@@ -139,6 +139,7 @@ class SettingRepository
   {
       $settings_data = $this->getCategorySettingsVars('appearance');
 
-      createCustomStylesheet($settings_data);
+      // @TODO: this is a temporary bandaid
+      // createCustomStylesheet($settings_data);
   }
 }
