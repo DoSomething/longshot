@@ -21,22 +21,20 @@ default_run_options[:shell] = '/bin/bash'
 namespace :deploy do
   folders = %w{logs dumps system}
 
-  task :backup_db, :on_error => :continue do
-    bucket = ENV["S3_BUCKET"]
-    run "cd #{release_path} && php artisan db:backup --upload-s3 #{bucket}"
-  end
-
   task :link_folders do
-    run "ln -nfs #{shared_path}/.env.php #{release_path}/"
-    run "ln -nfs #{shared_path}/content #{release_path}/public"
-    run "ln -nfs #{shared_path}/pages #{release_path}/public/pages"
+    run "ln -nfs #{shared_path}/.env #{release_path}/"
     folders.each do |folder|
-      run "ln -nfs #{shared_path}/#{folder} #{release_path}/app/storage/#{folder}"
+      run "rm -rf #{release_path}/storage/#{folder}"
+      run "ln -nfs #{shared_path}/#{folder} #{release_path}/storage/#{folder}"
     end
   end
 
   task :artisan_migrate do
     run "cd #{release_path} && php artisan migrate --force"
+  end
+
+  task :artisan_cache_clear do
+    run "cd #{release_path} && php artisan cache:clear"
   end
 
   task :artisan_custom_styles do
@@ -51,5 +49,4 @@ end
 
 after "deploy:update", "deploy:cleanup"
 after "deploy:symlink", "deploy:link_folders"
-before "deploy:artisan_migrate", "deploy:backup_db"
 after "deploy:link_folders", "deploy:restart_queue_worker", "deploy:artisan_migrate", "deploy:artisan_custom_styles"
