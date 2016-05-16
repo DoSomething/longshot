@@ -153,7 +153,7 @@ class PagesController extends \Controller
     }
 
       $winners = (new Winner())->getWinners($winners_scholarship_id);
-      $page = Path::getPageContent('/');  //this is coming up null
+      $page = Path::getPageContent('/');
       $url = 'home';
 
       $vars = (object) $this->settings->getSpecifiedSettingsVars(['nominate_text', 'nominate_image']);
