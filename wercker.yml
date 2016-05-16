@@ -8,6 +8,11 @@ build:
           name: Update apt
           code: sudo apt-get update
       - script:
+          name: update node
+          code: |-
+            curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
+            sudo apt-get install -y nodejs
+      - script:
           name: install mysql
           code: |-
             export DEBIAN_FRONTEND=noninteractive
