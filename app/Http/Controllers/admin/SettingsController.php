@@ -80,7 +80,7 @@ class SettingsController extends \Controller
   {
       $this->validate($request, $this->rules);
 
-      $input = Reqeust::only(
+      $input = $request->only([
       'primary_color',
       'primary_color_contrast',
       'primary_color_interaction',
@@ -88,8 +88,10 @@ class SettingsController extends \Controller
       'secondary_color_contrast',
       'secondary_color_interaction',
       'cap_color',
-      'cap_color_contrast'
-      );
+      'cap_color_contrast',
+      'custom_font_kit_id',
+      'custom_font_name',
+      ]);
 
       $input = $this->settings->nullify($input);
 
@@ -105,7 +107,7 @@ class SettingsController extends \Controller
     // Create the custom stylesheet file from values in Appearance settings.
     createCustomStylesheet($input);
 
-      return redirect('appearance.edit')->with('flash_message', ['text' => 'Success: Appearance settings have been saved!', 'class' => 'alert-success']);
+      return redirect()->route('appearance.edit')->with('flash_message', ['text' => 'Success: Appearance settings have been saved!', 'class' => 'alert-success']);
   }
 
   /**
