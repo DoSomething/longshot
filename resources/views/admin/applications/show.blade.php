@@ -15,21 +15,23 @@
 
           <hr>
 
-          <div class="floating-menu" data-spy="affix" data-offset-top="10">
-            {!! Form::open(['route' => 'applications.rate']) !!}
-              {!! Form::hidden('app_id', $app_id->id)!!}
-              <p><strong>Application rating:</strong></p>
-              <div class="btn-group" role="group">
-                @foreach($possible_ratings as $rating)
-                  @if ($app_rating == $rating)
-                    {!! Form::submit(ucfirst($rating), ['class' => 'btn btn-default btn-md active', 'name' => 'rating']) !!}
-                  @else
-                    {!! Form::submit(ucfirst($rating), ['class' => 'btn btn-default btn-md', 'name' => 'rating']) !!}
-                  @endif
-                @endforeach
-              </div>
-            {!! Form::close() !!}
-          </div>
+          @if ($show_rating)
+            <div class="floating-menu" data-spy="affix" data-offset-top="10">
+              {!! Form::open(['route' => 'applications.rate']) !!}
+                {!! Form::hidden('app_id', $app_id->id)!!}
+                <p><strong>Application rating:</strong></p>
+                <div class="btn-group" role="group">
+                  @foreach($possible_ratings as $rating)
+                    @if ($app_rating == $rating)
+                      {!! Form::submit(ucfirst($rating), ['class' => 'btn btn-default btn-md active', 'name' => 'rating']) !!}
+                    @else
+                      {!! Form::submit(ucfirst($rating), ['class' => 'btn btn-default btn-md', 'name' => 'rating']) !!}
+                    @endif
+                  @endforeach
+                </div>
+              {!! Form::close() !!}
+            </div>
+          @endif
 
           @if (isset($profile))
             <h2>Profile Information</h2>
@@ -107,9 +109,7 @@
             </div>
           @endif
 
-
           @if ($show_rating)
-
             @if ($app_rating && $app_rating == 'yes')
               <hr>
               <h2>Review</h2>
@@ -131,11 +131,11 @@
                 @endif
               </div>
             @endif
-            @elseif (!is_null($application) && $is_submitted)
-              {!! Form::open(['route' => 'applications.complete']) !!}
-              {!! Form::hidden('app_id', $app_id->id)!!}
-              {!! Form::submit(('Mark as complete'), ['class' => 'btn btn-default btn-md']) !!}
-              {!! Form::close() !!}
+          @elseif (!is_null($application) && $is_submitted)
+            {!! Form::open(['route' => 'applications.complete']) !!}
+            {!! Form::hidden('app_id', $app_id->id)!!}
+            {!! Form::submit(('Mark as complete'), ['class' => 'btn btn-default btn-md']) !!}
+            {!! Form::close() !!}
           @endif
 
 
