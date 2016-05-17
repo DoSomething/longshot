@@ -14,8 +14,8 @@ class RecommendationController extends \Controller
     protected $settings;
 
     protected $rules = [
-      'first_name'      => 'alpha|required',
-      'last_name'       => 'alpha|required',
+      'first_name'      => 'required',
+      'last_name'       => 'required',
       'phone'           => 'numeric|required',
       'email'           => 'email|required',
     ];
@@ -27,7 +27,7 @@ class RecommendationController extends \Controller
     ];
 
     protected $applicant_rules = [
-      'relationship'    => 'alpha|required',
+      'relationship'    => 'required',
     ];
 
     protected $messages = [
