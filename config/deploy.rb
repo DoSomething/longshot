@@ -29,15 +29,15 @@ namespace :deploy do
     end
   end
 
-  task :artisan_migrate, :on_error => :continue do
+  task :artisan_migrate do
     run "cd #{release_path} && php artisan migrate --force"
   end
 
-  task :artisan_cache_clear, :on_error => :continue do
+  task :artisan_cache_clear do
     run "cd #{release_path} && php artisan cache:clear"
   end
 
-  task :artisan_custom_styles, :on_error => :continue do
+  task :artisan_custom_styles do
     run "cd #{release_path} && php artisan custom-styles"
   end
 
