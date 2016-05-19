@@ -33,11 +33,11 @@ namespace :deploy do
     run "cd #{release_path} && php artisan migrate --force"
   end
 
-  task :artisan_cache_clear do
+  task :artisan_cache_clear, :on_error => :continue do
     run "cd #{release_path} && php artisan cache:clear"
   end
 
-  task :artisan_custom_styles do
+  task :artisan_custom_styles, :on_error => :continue do
     run "cd #{release_path} && php artisan custom-styles"
   end
 
