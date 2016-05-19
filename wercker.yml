@@ -50,9 +50,6 @@ deploy:
         name: Change owner and group
         code: chown -R ubuntu:ubuntu ./node_modules
     - script:
-        name: Make all files readable
-        code: find . -type f -exec chmod 644 {} \;
-    - script:
         name: write private key env var
         code: |-
           export CAP_PRIVATE_KEY=`mktemp`
