@@ -29,7 +29,7 @@ namespace :deploy do
     end
   end
 
-  task :artisan_migrate do, :on_error => :continue do
+  task :artisan_migrate, :on_error => :continue do
     run "cd #{release_path} && php artisan migrate --force"
   end
 
