@@ -1,12 +1,12 @@
 # config/deploy.rb file
 require 'bundler/capistrano'
 
-set :application, "scholarship-application-app"
+set :application, "longshot"
 set :deploy_to, ENV["DEPLOY_PATH"]
 server  ENV["SERVER_NAME"], :app, :web
 
-set :user, "ubuntu"
-set :group, "ubuntu"
+set :user, "dosomething"
+set :group, "dosomething"
 set :use_sudo, false
 
 set :repository, "."
@@ -48,5 +48,7 @@ namespace :deploy do
 end
 
 after "deploy:update", "deploy:cleanup"
-after "deploy:symlink", "deploy:link_folders"
-after "deploy:link_folders", "deploy:restart_queue_worker", "deploy:artisan_migrate", "deploy:artisan_custom_styles"
+after "deploy:create_symlink", "deploy:link_folders"
+after "deploy:link_folders", "deploy:restart_queue_worker"
+after "deploy:restart_queue_worker", "deploy:artisan_migrate"
+after "deploy:artisan_migrate", "deploy:artisan_custom_styles"

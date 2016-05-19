@@ -1,4 +1,4 @@
-box: blisteringherb/scholarship@0.0.6
+box: blisteringherb/scholarship@0.0.8
 build:
     # The steps that will be executed on build
     steps:
@@ -51,12 +51,6 @@ build:
 deploy:
   steps:
     - bundle-install
-    - script:
-        name: Change owner and group
-        code: chown -R ubuntu:ubuntu ./node_modules
-    - script:
-        name: Make all files readable
-        code: find . -type f -exec chmod 644 {} \;
     - script:
         name: write private key env var
         code: |-
