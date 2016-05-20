@@ -8,9 +8,9 @@
 
 ## Local Development Setup
 1. Clone the repo
-2. Create a `.env.local.php` file from `default.env.local.php` and make sure your `.env.local.php` has the correct keys for your dev environment. Reach out to the tech team for the correct keys to use in your dev environments `.env.local.php` file.
-3. Edit your `Homestead.yml` file to include this new info. Making sure the `folders` and `sites` configuration is correct for your local set up.
-4. Add your app url (scholarship.dev) to your `etc/hosts` file i.e. `127.0.0.1 scholarship.dev`
+2. Create a `.env` file from `.env.example` and make sure your `.env.local.php` has the correct keys for your dev environment. Reach out to the tech team for the correct keys to use in your dev environments `.env.local.php` file.
+3. Edit your `Homestead.yml` file to include this new info. Making sure the `folders` and `sites` configuration is correct for your local set up. You might need to run `vagrant provision` after you make this update.
+4. Add your app url (longshot.dev) to your `etc/hosts` file i.e. `127.0.0.1 longshot.dev`
 5. Manually create a `scholarship_app` database in Sequel Pro.
     - Open a `new connection` window and click on the `standard` connection tab
     - Name the connection 
@@ -21,35 +21,28 @@
     - Hit `connect`
     - In the `choose database` dropdown select `add database`
     - Name the database `scholarship_app` with UTF-8 encoding.
-6. ssh into your Vagrant VM (`vagrant ssh`) and navigate to your project directory.
-7. Run `php artisan migrate` to create the database
-8. Visit scholarship.dev:8000
+    - In order to run tests, make another database called `longshot_testing`
+6. One you finish the rest of the setup below, you can see the whole pretty site at `longshot.dev:8000`
 
 ### Composer
 
 Before doing anything else, you need to install all the project's dependencies with `composer`. 
 
-Within the directory for the project in the Vagrant VM (`vagrant ssh`), run:
+Within the directory for the project in the Vagrant VM ([instructions here](https://github.com/DoSomething/ds-homestead#ssh-into-virtual-machine)), run:
 
     $ composer install
 
 ### Back-end
 
-To begin the migrations and setup your database, run:
+To run the migrations to setup your database and then immediately seed it, run (also from the project directory in vagrant):
 
-    $ php artisan migrate
-
-After the migrations run and set the database up, seed the database by running:
-
-    $ php artisan db:seed
-
+    $ php artisan migrate && php artisan db:seed
 
 ### Front-end
-Development uses a typical **Homestead** setup for a virtual machine. Once the machine is up and running run `vagrant ssh` and change directories into the laravel project directory.
 
-The following commands need to be run from within the root directory for the project on the virtual machine.
+The following commands need to be run from within the root directory for the project on the virtual machine (get comfy in there).
 
-To install the required NPM modules, by running:
+To install the required NPM modules, run:
 
     $ npm install
 
@@ -59,9 +52,15 @@ To install the required Bower front-end packages, run:
 
 To build the Front-end assets which will be added to a **/public/dist/** directory, run:
 
-    $ gulp build
+    $ gulp
 
+Whenever you need to edit anything in **/resources/assets/** you will need to `gulp` again. To have that happen automatically, run `gulp watch` to keep watching for changes :eyes:
 
+### Testing
+
+In order to run tests, you need to have created the `longshot_testing` database. Then, go to the project directory in vagrant and run `vendor/bin/phpunit`. Tests run automatically on PRs as well.
+
+Pro-tip: If you are debugging tests and crash in the middle, the tests will not get to the step where they roll back all the migrations on the testing database. Not rolling back means that if you try to run the tests again, it will crash because there are unexpected tables in there. So, if you crash during a test, you will need to manually drop those tables before running again :runner:
 
 ***
 
