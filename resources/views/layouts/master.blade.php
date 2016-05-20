@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="/css/main.css"/>
 
     @if (Cache::has('custom.styles'))
-      {{ '<style>' . Cache::get('custom.styles') . '</style>' }}
+      {!! '<style>' . Cache::get('custom.styles') . '</style>' !!}
     @endif
 
     @include('layouts.partials.open-graph-data')
