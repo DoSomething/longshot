@@ -13,7 +13,7 @@
         <p>Please fill all fields with information for the recommender.</p>
 
         @if (isset($vars->recommendation_create_help_text))
-          <p>{{ $vars->recommendation_create_help_text }}</p>
+          <p>{!! $vars->recommendation_create_help_text !!}</p>
         @endif
 
         {!! Form::open(['route' => 'recommendation.store']) !!}

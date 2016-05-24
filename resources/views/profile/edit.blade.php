@@ -9,7 +9,7 @@
     <div class="segment -compact">
       <div class="wrapper">
 
-        <p>{{ $vars->basic_info_help_text or 'All fields are required, unless (optional) is written next to it.' }}</p>
+        <p>{!! $vars->basic_info_help_text or 'All fields are required, unless (optional) is written next to it.' !!}</p>
 
         {!! Form::model($user, ['method' => 'PATCH', 'route' => ['profile.update', $user->user_id]]) !!}
 
