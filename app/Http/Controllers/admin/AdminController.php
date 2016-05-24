@@ -141,9 +141,9 @@ class AdminController extends \Controller
         return view('admin.applications.index', compact('applicants'));
     }
 
-    public function search()
+    public function search(Request $request)
     {
-        $name = Request::get('search');
+        $name = $request->input('search');
 
         $query = DB::table('users');
         $query = $this->applicantBaseQuery($query);
