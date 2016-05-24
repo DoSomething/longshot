@@ -11,7 +11,7 @@
 
         <div class="progress"><strong>Step 2 of 2</strong></div>
 
-        <p>{{ $vars->application_create_help_text or 'All fields are required, unless (optional) is written next to it.' }}</p>
+        <p>{!! $vars->application_create_help_text or 'All fields are required, unless (optional) is written next to it.' !!}</p>
 
         {!! Form::open(['route' => 'application.store', 'files' => TRUE, 'class' => 'form--application']) !!}
 

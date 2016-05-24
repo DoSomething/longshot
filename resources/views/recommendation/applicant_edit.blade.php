@@ -13,7 +13,7 @@
         <p>Please fill all fields with information for the recommender.</p>
 
         @if (isset($vars->recommendation_update_help_text))
-          <p>{{ $vars->recommendation_update_help_text }}</p>
+          <p>{!! $vars->recommendation_update_help_text !!}</p>
         @endif
 
         {{ Form::model($recs, ['method' => 'PATCH', 'route' => ['recommendation.update', $user->id]]) }}

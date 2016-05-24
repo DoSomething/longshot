@@ -14,7 +14,7 @@
         <p>Please fill all fields with information regarding the applicant.</p>
 
         @if (isset($vars->recommendation_update_help_text))
-          <p>{{ $vars->recommendation_update_help_text }}</p>
+          <p>{!! $vars->recommendation_update_help_text !!}</p>
         @endif
       @endif
 
