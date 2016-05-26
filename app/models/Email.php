@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Config;
 use Illuminate\Database\Eloquent\Model;
 use Mail;
 
@@ -31,7 +30,7 @@ class Email extends Model
         ':status_page:' => link_to_route('status', 'status page'),
         ':faq_page:'    => link_to('faq', 'FAQ page'),
         ':home_page:'   => link_to_route('home', Scholarship::getCurrentScholarship()->title),
-        ':email:'       => link_to('mailto:'.Config::get('mail.from.address'), Config::get('mail.from.address')),
+        ':email:'       => link_to('mailto:'.Scholarship::getCurrentScholarship()->email_from_address, Scholarship::getCurrentScholarship()->email_from_address),
       ];
 
       $tokens = array_merge($tokens, $extra_tokens);
@@ -39,9 +38,8 @@ class Email extends Model
       $subject = $email->subject;
       $body = $email->body;
 
-      if ($recipient === 'group') {
-          $body = str_replace(array_keys($tokens), array_values($tokens), $body);
-      }
+      // Replace all the tokens
+      $body = str_replace(array_keys($tokens), array_values($tokens), $body);
 
       $email_data = [
         'to'      => $to,
