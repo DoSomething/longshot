@@ -15,8 +15,6 @@ Route::get('register/{id}/edit', ['as' => 'registration.edit', 'uses' => 'Regist
 Route::get('login', ['as' => 'login', 'uses' => 'SessionsController@create']);
 Route::get('logout', ['as' => 'logout', 'uses' => 'SessionsController@destroy']);
 Route::resource('sessions', 'SessionsController', ['only' => ['create', 'store', 'destroy']]);
-// Password Reminder
-Route::controller('password', 'RemindersController');
 // Pages
 Route::get('/', ['as' => 'home', 'uses' => 'PagesController@home']);
 // Profile
@@ -69,6 +67,8 @@ Route::group(['middleware' => 'isAdmin', 'prefix' => 'admin'], function () {
   Route::post('email', ['as' => 'emails.update', 'uses' => 'EmailController@update']);
 });
 Route::get('storage/app/uploads/{user_id}/{filename}', ['as' => 'uploads.show', 'uses' => 'UploadController@show']);
+
+Route::controller('password', 'PasswordController');
 // Pages
 // This route needs to be the last route in the list that is hit
 // because the wildcard catches anything after the root and routes

@@ -26,7 +26,7 @@
 
         <ul class="media-list">
           <li>{!! link_to_route('registration.create', 'Create an account') !!}</li>
-          <li><a href="/password/remind">Forgot Password</a></li>
+          <li><a href="/password/reset">Forgot Password</a></li>
         </ul>
 
       </div>
