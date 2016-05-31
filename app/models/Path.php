@@ -26,7 +26,7 @@ class Path extends Model
   public static function getPageContent($pageRequest)
   {
       $path = Cache::remember('page.blocks'.$pageRequest, 120, function () use ($pageRequest) {
-        return self::with('page', 'page.blocks')->whereUrl($pageRequest)->firstOrFail();
+          return self::with('page', 'page.blocks')->whereUrl($pageRequest)->firstOrFail();
       });
 
       return $path->page;

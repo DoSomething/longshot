@@ -13,10 +13,10 @@ class CreateRacesTable extends Migration
   public function up()
   {
       Schema::create('races', function (Blueprint $table) {
-      $table->increments('id');
-      $table->integer('profile_id');
-      $table->string('race');
-    });
+          $table->increments('id');
+          $table->integer('profile_id');
+          $table->string('race');
+      });
   }
 
   /**

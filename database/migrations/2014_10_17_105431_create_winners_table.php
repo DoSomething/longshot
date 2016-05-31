@@ -13,13 +13,13 @@ class CreateWinnersTable extends Migration
   public function up()
   {
       Schema::create('winners', function (Blueprint $table) {
-      $table->increments('id');
-      $table->integer('user_id')->unique;
-      $table->integer('scholarship_id');
-      $table->string('description');
-      $table->string('college');
-      $table->string('photo');
-    });
+          $table->increments('id');
+          $table->integer('user_id')->unique;
+          $table->integer('scholarship_id');
+          $table->string('description');
+          $table->string('college');
+          $table->string('photo');
+      });
   }
 
   /**

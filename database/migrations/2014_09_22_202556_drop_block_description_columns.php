@@ -13,8 +13,8 @@ class DropBlockDescriptionColumns extends Migration
   public function up()
   {
       Schema::table('blocks', function (Blueprint $table) {
-      $table->dropColumn(['block_description', 'block_description_html']);
-    });
+          $table->dropColumn(['block_description', 'block_description_html']);
+      });
   }
 
   /**
@@ -25,8 +25,8 @@ class DropBlockDescriptionColumns extends Migration
   public function down()
   {
       Schema::table('blocks', function (Blueprint $table) {
-      $table->longtext('block_description');
-      $table->longtext('block_description_html');
-    });
+          $table->longtext('block_description');
+          $table->longtext('block_description_html');
+      });
   }
 }

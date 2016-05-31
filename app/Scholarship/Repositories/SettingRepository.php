@@ -47,7 +47,7 @@ class SettingRepository
       // return DB::table('settings')->rememberForever('setting.'.$keyname)->whereIn('key', $items)->lists('value', 'key');
       // return DB::table('settings')->whereIn('key', $items)->lists('value', 'key');
       $vars = Cache::rememberForever('settings'.$keyname, function () use ($items) {
-        return DB::table('settings')->whereIn('key', $items)->lists('value', 'key');
+          return DB::table('settings')->whereIn('key', $items)->lists('value', 'key');
       });
 
       return $vars;
@@ -120,14 +120,14 @@ class SettingRepository
   public function saveSettings($settings_data, $input)
   {
       $settings_data->each(function ($setting) use ($input) {
-      // If setting is an image type but no new image uploaded skip it.
+          // If setting is an image type but no new image uploaded skip it.
       if ($setting->type === 'image' && $input[$setting->key] === null) {
           return;
       }
 
-      $setting->value = $input[$setting->key];
-      $setting->save();
-    });
+          $setting->value = $input[$setting->key];
+          $setting->save();
+      });
   }
 
   /**

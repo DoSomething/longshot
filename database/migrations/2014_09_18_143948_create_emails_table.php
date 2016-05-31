@@ -13,12 +13,12 @@ class CreateEmailsTable extends Migration
   public function up()
   {
       Schema::create('emails', function (Blueprint $table) {
-      $table->increments('id');
-      $table->string('key')->index();
-      $table->string('recipient')->index();
-      $table->string('subject');
-      $table->longText('body');
-    });
+          $table->increments('id');
+          $table->string('key')->index();
+          $table->string('recipient')->index();
+          $table->string('subject');
+          $table->longText('body');
+      });
   }
 
   /**

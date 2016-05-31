@@ -13,10 +13,10 @@ class CreateRatingsTable extends Migration
   public function up()
   {
       Schema::create('ratings', function (Blueprint $table) {
-      $table->increments('id');
-      $table->integer('application_id')->index();
-      $table->enum('rating', ['yes', 'no', 'maybe']);
-    });
+          $table->increments('id');
+          $table->integer('application_id')->index();
+          $table->enum('rating', ['yes', 'no', 'maybe']);
+      });
   }
 
   /**

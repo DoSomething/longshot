@@ -27,7 +27,7 @@ class Scholarship extends Model
   public static function getCurrentScholarship()
   {
       $path = Cache::remember('scholarships', 120, function () {
-        return self::orderBy('application_start', 'desc')->firstOrFail();
+          return self::orderBy('application_start', 'desc')->firstOrFail();
       });
 
       return $path;
@@ -98,7 +98,7 @@ class Scholarship extends Model
   public static function getPastScholarship($id)
   {
       $path = Cache::remember('scholarships', 120, function () use ($id) {
-        return self::whereId($id)->first();
+          return self::whereId($id)->first();
       });
 
       return $path;
