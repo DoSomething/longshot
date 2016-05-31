@@ -115,8 +115,8 @@ class PagesController extends \Controller
       $pageRequest = stringtoKebabCase($path);
       $url = $pageRequest;
 
-      if($path === 'home') {
-        return redirect()->route('home');
+      if ($path === 'home') {
+          return redirect()->route('home');
       }
 
       if (!in_array($pageRequest, $pathList)) {

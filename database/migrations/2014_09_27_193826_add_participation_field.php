@@ -12,20 +12,20 @@ class AddParticipationField extends Migration
   public function up()
   {
       Schema::table('applications', function ($table) {
-        $table->string('participation')->nullable()->after('activities');
-    });
+          $table->string('participation')->nullable()->after('activities');
+      });
       Schema::table('scholarships', function ($table) {
-        $table->text('label_app_participation')->after('label_app_activities');
-    });
+          $table->text('label_app_participation')->after('label_app_activities');
+      });
   }
 
     public function down()
     {
         Schema::table('applications', function ($table) {
-        $table->dropColumn('participation');
-    });
+            $table->dropColumn('participation');
+        });
         Schema::table('scholarships', function ($table) {
-        $table->dropColumn('label_app_participation');
-    });
+            $table->dropColumn('label_app_participation');
+        });
     }
 }

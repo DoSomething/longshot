@@ -13,11 +13,11 @@ class CreatePathsTable extends Migration
   public function up()
   {
       Schema::create('paths', function (Blueprint $table) {
-      $table->increments('id');
-      $table->integer('page_id')->index();
-      $table->string('url')->index();
-      $table->string('link_text');
-    });
+          $table->increments('id');
+          $table->integer('page_id')->index();
+          $table->string('url')->index();
+          $table->string('link_text');
+      });
   }
 
   /**

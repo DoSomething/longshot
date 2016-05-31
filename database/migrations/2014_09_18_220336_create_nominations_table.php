@@ -13,13 +13,13 @@ class CreateNominationsTable extends Migration
   public function up()
   {
       Schema::create('nominations', function (Blueprint $table) {
-      $table->increments('id');
-      $table->string('rec_email');
-      $table->string('rec_name');
-      $table->string('nom_email')->index();
-      $table->string('nom_name');
-      $table->timestamps();
-    });
+          $table->increments('id');
+          $table->string('rec_email');
+          $table->string('rec_name');
+          $table->string('nom_email')->index();
+          $table->string('nom_name');
+          $table->timestamps();
+      });
   }
 
   /**

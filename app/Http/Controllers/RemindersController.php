@@ -20,8 +20,8 @@ class RemindersController extends \Controller
   public function postRemind()
   {
       switch ($response = Password::remind(Input::only('email'), function ($message) {
-      $message->subject('Scholarship Application Password Reset');
-    })) {
+          $message->subject('Scholarship Application Password Reset');
+      })) {
       case Password::INVALID_USER:
         return redirect()->back()->with('flash_message', ['text' => Lang::get($response), 'class' => '-error']);
 
@@ -58,11 +58,11 @@ class RemindersController extends \Controller
     );
 
       $response = Password::reset($credentials, function ($user, $password) {
-      // Password is automatically hashed using mutator in User model.
+          // Password is automatically hashed using mutator in User model.
       $user->password = $password;
 
-      $user->save();
-    });
+          $user->save();
+      });
 
       switch ($response) {
       case Password::INVALID_PASSWORD:

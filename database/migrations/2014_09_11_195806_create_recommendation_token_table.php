@@ -13,11 +13,11 @@ class CreateRecommendationTokenTable extends Migration
   public function up()
   {
       Schema::create('recommendation_tokens', function (Blueprint $table) {
-      $table->increments('id');
-      $table->integer('recommendation_id');
-      $table->string('token')->index();
-      $table->timestamps();
-    });
+          $table->increments('id');
+          $table->integer('recommendation_id');
+          $table->string('token')->index();
+          $table->timestamps();
+      });
   }
 
   /**

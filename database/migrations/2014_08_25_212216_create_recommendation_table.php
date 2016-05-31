@@ -13,18 +13,18 @@ class CreateRecommendationTable extends Migration
   public function up()
   {
       Schema::create('recommendations', function (Blueprint $table) {
-      $table->increments('id');
-      $table->integer('application_id')->index();
-      $table->string('first_name');
-      $table->string('last_name');
-      $table->string('relationship');
-      $table->string('phone');
-      $table->string('email')->unique;
-      $table->string('rank_character');
-      $table->string('rank_additional');
-      $table->longtext('essay1');
-      $table->timestamps();
-    });
+          $table->increments('id');
+          $table->integer('application_id')->index();
+          $table->string('first_name');
+          $table->string('last_name');
+          $table->string('relationship');
+          $table->string('phone');
+          $table->string('email')->unique;
+          $table->string('rank_character');
+          $table->string('rank_additional');
+          $table->longtext('essay1');
+          $table->timestamps();
+      });
   }
 
   /**

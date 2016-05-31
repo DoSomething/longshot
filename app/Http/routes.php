@@ -34,19 +34,19 @@ Route::resource('recommendation', 'RecommendationController');
 Route::post('nomination', ['as' => 'nomination.create', 'uses' => 'NominationController@store']);
 // Admin
 Route::group(['middleware' => 'isAdmin', 'prefix' => 'admin'], function () {
-  Route::get('/', ['as' => 'admin', 'uses' => 'AdminController@index']);
+    Route::get('/', ['as' => 'admin', 'uses' => 'AdminController@index']);
   // Search
   Route::post('search', ['as' => 'search', 'uses' => 'AdminController@search']);
   // Applications management
   Route::get('applications', ['as' => 'applications.index', 'uses' => 'AdminController@applicationsIndex']);
-  Route::get('applications/export', ['as' => 'export', 'uses' => 'AdminController@export']);
-  Route::post('applications/export', ['as' => 'export.csv', 'uses' => 'AdminController@export_results']);
-  Route::post('applications/export/send', ['as' => 'email.group', 'uses' => 'AdminController@email_group']);
-  Route::get('applications/{id}', ['as' => 'admin.application.show', 'uses' => 'AdminController@applicationsShow']);
-  Route::get('applications/{id}/edit', ['as' => 'admin.application.edit', 'uses' => 'AdminController@applicationsEdit']);
-  Route::post('application/rate', ['as' => 'applications.rate', 'uses' => 'AdminController@rate']);
-  Route::post('application/complete', ['as' => 'applications.complete', 'uses' => 'AdminController@complete']);
-  Route::post('resend', ['as' => 'admin.resend', 'uses' => 'AdminController@resendRecEmail']);
+    Route::get('applications/export', ['as' => 'export', 'uses' => 'AdminController@export']);
+    Route::post('applications/export', ['as' => 'export.csv', 'uses' => 'AdminController@export_results']);
+    Route::post('applications/export/send', ['as' => 'email.group', 'uses' => 'AdminController@email_group']);
+    Route::get('applications/{id}', ['as' => 'admin.application.show', 'uses' => 'AdminController@applicationsShow']);
+    Route::get('applications/{id}/edit', ['as' => 'admin.application.edit', 'uses' => 'AdminController@applicationsEdit']);
+    Route::post('application/rate', ['as' => 'applications.rate', 'uses' => 'AdminController@rate']);
+    Route::post('application/complete', ['as' => 'applications.complete', 'uses' => 'AdminController@complete']);
+    Route::post('resend', ['as' => 'admin.resend', 'uses' => 'AdminController@resendRecEmail']);
   // Winners
   Route::resource('winner', 'WinnerController');
   // Scholarship management
@@ -55,16 +55,16 @@ Route::group(['middleware' => 'isAdmin', 'prefix' => 'admin'], function () {
   Route::resource('page', 'PagesController');
   // Settings
   Route::get('settings', ['as' => 'settings', 'uses' => 'AdminController@settings']);
-  Route::get('settings/general', ['as' => 'general.edit', 'uses' => 'SettingsController@editGeneral']);
-  Route::post('settings/general', ['as' => 'general.update', 'uses' => 'SettingsController@updateGeneral']);
-  Route::get('settings/appearance', ['as' => 'appearance.edit', 'uses' => 'SettingsController@editAppearance']);
-  Route::post('settings/appearance', ['as' => 'appearance.update', 'uses' => 'SettingsController@updateAppearance']);
-  Route::get('settings/meta-data', ['as' => 'meta-data.edit', 'uses' => 'SettingsController@editMetaData']);
-  Route::post('settings/meta-data', ['as' => 'meta-data.update', 'uses' => 'SettingsController@updateMetaData']);
-  Route::post('settings/clear-cache', ['as' => 'general.clear-cache', 'uses' => 'SettingsController@clearCache']);
+    Route::get('settings/general', ['as' => 'general.edit', 'uses' => 'SettingsController@editGeneral']);
+    Route::post('settings/general', ['as' => 'general.update', 'uses' => 'SettingsController@updateGeneral']);
+    Route::get('settings/appearance', ['as' => 'appearance.edit', 'uses' => 'SettingsController@editAppearance']);
+    Route::post('settings/appearance', ['as' => 'appearance.update', 'uses' => 'SettingsController@updateAppearance']);
+    Route::get('settings/meta-data', ['as' => 'meta-data.edit', 'uses' => 'SettingsController@editMetaData']);
+    Route::post('settings/meta-data', ['as' => 'meta-data.update', 'uses' => 'SettingsController@updateMetaData']);
+    Route::post('settings/clear-cache', ['as' => 'general.clear-cache', 'uses' => 'SettingsController@clearCache']);
   // Emails
   Route::get('email', ['as' => 'emails', 'uses' => 'EmailController@index']);
-  Route::post('email', ['as' => 'emails.update', 'uses' => 'EmailController@update']);
+    Route::post('email', ['as' => 'emails.update', 'uses' => 'EmailController@update']);
 });
 Route::get('storage/app/uploads/{user_id}/{filename}', ['as' => 'uploads.show', 'uses' => 'UploadController@show']);
 

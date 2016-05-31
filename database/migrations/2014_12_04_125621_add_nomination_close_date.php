@@ -12,8 +12,8 @@ class AddNominationCloseDate extends Migration
   public function up()
   {
       Schema::table('scholarships', function ($table) {
-        $table->date('nomination_end')->after('application_end');
-    });
+          $table->date('nomination_end')->after('application_end');
+      });
   }
 
   /**
@@ -24,7 +24,7 @@ class AddNominationCloseDate extends Migration
   public function down()
   {
       Schema::table('scholarships', function ($table) {
-      $table->dropColumn('nomination_end');
-    });
+          $table->dropColumn('nomination_end');
+      });
   }
 }

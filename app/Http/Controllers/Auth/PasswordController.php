@@ -1,9 +1,8 @@
 <?php
 
-use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
-
+use Illuminate\Support\Str;
 
 class PasswordController extends \Controller
 {
@@ -37,14 +36,15 @@ class PasswordController extends \Controller
      * Reset the given user's password. Overrides the trait's resetPassword()
      * since we hash passwords as a mutator on the model.
      *
-     * @param  \Illuminate\Contracts\Auth\CanResetPassword  $user
-     * @param  string  $password
+     * @param \Illuminate\Contracts\Auth\CanResetPassword $user
+     * @param string                                      $password
+     *
      * @return void
      */
     protected function resetPassword($user, $password)
     {
         $user->forceFill([
-            'password' => $password,
+            'password'       => $password,
             'remember_token' => Str::random(60),
         ]);
 

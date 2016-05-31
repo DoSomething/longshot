@@ -12,8 +12,8 @@ class AddCompleteField extends Migration
   public function up()
   {
       Schema::table('applications', function ($table) {
-      $table->tinyInteger('complete')->index()->nullable()->after('gpa');
-    });
+          $table->tinyInteger('complete')->index()->nullable()->after('gpa');
+      });
   }
 
   /**
@@ -24,7 +24,7 @@ class AddCompleteField extends Migration
   public function down()
   {
       Schema::table('applications', function ($table) {
-        $table->dropColumn('complete');
-    });
+          $table->dropColumn('complete');
+      });
   }
 }

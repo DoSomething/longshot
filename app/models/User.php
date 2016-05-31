@@ -138,8 +138,12 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
   public function getFullBios($ids)
   {
       $fields = [
-      'profile'     => function ($query) { $query->select('user_id', 'city', 'state'); },
-      'application' => function ($query) { $query->select('user_id', 'scholarship_id', 'gpa', 'participation'); },
+      'profile'     => function ($query) {
+          $query->select('user_id', 'city', 'state');
+      },
+      'application' => function ($query) {
+          $query->select('user_id', 'scholarship_id', 'gpa', 'participation');
+      },
     ];
 
       if (is_array($ids)) {
