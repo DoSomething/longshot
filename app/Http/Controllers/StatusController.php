@@ -54,16 +54,16 @@ class StatusController extends \Controller
           $app_finished = Application::isComplete($application->id);
       }
 
-    if ($app_finished) {
-        $status = 'Completed.';
-        $help_text = $this->settings->getSpecifiedSettingsVars(['status_page_help_text_complete'])['status_page_help_text_complete'];
-    } elseif ($app_filled_out && $application->submitted) {
-        $status = 'Submitted. Waiting for recommendation...';
-        $help_text = $this->settings->getSpecifiedSettingsVars(['status_page_help_text_submitted'])['status_page_help_text_submitted'];
-    } else {
-        $status = 'Incomplete';
-        $help_text = $this->settings->getSpecifiedSettingsVars(['status_page_help_text_incomplete'])['status_page_help_text_incomplete'];
-    }
+      if ($app_finished) {
+          $status = 'Completed.';
+          $help_text = $this->settings->getSpecifiedSettingsVars(['status_page_help_text_complete'])['status_page_help_text_complete'];
+      } elseif ($app_filled_out && $application->submitted) {
+          $status = 'Submitted. Waiting for recommendation...';
+          $help_text = $this->settings->getSpecifiedSettingsVars(['status_page_help_text_submitted'])['status_page_help_text_submitted'];
+      } else {
+          $status = 'Incomplete';
+          $help_text = $this->settings->getSpecifiedSettingsVars(['status_page_help_text_incomplete'])['status_page_help_text_incomplete'];
+      }
 
       $profile = Profile::where('user_id', $user->id)->first();
       if ($profile) {

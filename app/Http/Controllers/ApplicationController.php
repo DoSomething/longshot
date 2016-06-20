@@ -106,7 +106,7 @@ class ApplicationController extends \Controller
       $application->essay2 = $request->input('essay2');
 
       if (isset($input['link'])) {
-        $application->link = $input['link'];
+          $application->link = $input['link'];
       }
 
       $upload = $request->file('upload');

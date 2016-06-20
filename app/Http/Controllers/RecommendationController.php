@@ -195,7 +195,7 @@ class RecommendationController extends \Controller
       $recs_have = $recommendation->numRecsForApp($recommendation->application_id);
       $recs_need = Scholarship::getCurrentScholarship()->num_recommendations_min;
       if ($recs_have >= $recs_need) {
-        $application->completed = 1;
+          $application->completed = 1;
       }
       $application->save();
       $this->prepareRecReceivedEmail($recommendation);
