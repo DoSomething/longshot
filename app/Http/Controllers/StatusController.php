@@ -42,6 +42,7 @@ class StatusController extends \Controller
       $user = Auth::user();
       $app_filled_out = false;
       $app_submitted = false;
+      $app_finished = false;
       $prof_complete = false;
       $closed = Scholarship::isClosed();
     // @TODO: are these queries too heavy?
@@ -50,10 +51,14 @@ class StatusController extends \Controller
       if ($application) {
           $app_filled_out = Application::isFilledOut($user->id);
           $app_submitted = Application::isSubmitted($user->id);
+          $app_finished = Application::isComplete($application->id);
       }
 
-    // Is the app complete & been submitted?
-    if ($app_filled_out && $application->submitted) {
+    if($app_finished)
+    {
+        $status = 'Completed.';
+        $help_text = $this->settings->getSpecifiedSettingsVars(['status_page_help_text_complete'])['status_page_help_text_complete'];
+    } elseif ($app_filled_out && $application->submitted) {
         $status = 'Submitted. Waiting for recommendation...';
         $help_text = $this->settings->getSpecifiedSettingsVars(['status_page_help_text_submitted'])['status_page_help_text_submitted'];
     } else {
@@ -68,15 +73,11 @@ class StatusController extends \Controller
       if ($application) {
           // Get recommendations
         $recommendations = Recommendation::where('application_id', $application->id)->get();
-          $max_recs = Scholarship::getCurrentScholarship()->num_recommendations_max;
           $add_rec_link = link_to_route('recommendation.create', 'Add or Update Recommendations', null, ['class' => 'button -small']);
 
+          // Set the status of the recs as complete or not
           foreach ($recommendations as $rec) {
               $rec->isRecommendationComplete($rec);
-              if ($rec->isComplete($rec->id) && isset($app_filled_out) && $application->submitted) {
-                  $status = 'Completed.';
-                  $help_text = $this->settings->getSpecifiedSettingsVars(['status_page_help_text_complete'])['status_page_help_text_complete'];
-              }
           }
       }
 

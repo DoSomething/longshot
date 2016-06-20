@@ -191,7 +191,13 @@ class RecommendationController extends \Controller
       $recommendation = Recommendation::whereId($id)->firstOrFail();
       $recommendation->fill($request->all())->save();
       $application = Application::whereId($recommendation->application_id)->firstOrFail();
-      $application->completed = 1;
+      // We should only be marking the app as complete if they have the minimum number of recommendations
+      $recs_have = $recommendation->numRecsForApp($recommendation->application_id);
+      $recs_need = Scholarship::getCurrentScholarship()->num_recommendations_min;
+      if($recs_have >= $recs_need)
+      {
+        $application->completed = 1;
+      }
       $application->save();
       $this->prepareRecReceivedEmail($recommendation);
 

@@ -37,11 +37,18 @@ class Recommendation extends Model
     public function isRecommendationComplete($rec)
     {
         // Set an attribute of if it's finished or not.
-    if (!empty($rec->rank_character) && !empty($rec->rank_additional) && !empty($rec->essay1)) {
-        $rec->complete = 'Recommendation received!';
-    } else {
-        $rec->complete = 'Still waiting';
+      if (!empty($rec->rank_character) && !empty($rec->rank_additional) && !empty($rec->essay1)) {
+          $rec->complete = 'Recommendation received!';
+      } else {
+          $rec->complete = 'Still waiting';
+      }
     }
+
+    public function numRecsForApp($app_id)
+    {
+      $recs = self::where('application_id', $app_id)->get();
+
+      return count($recs);
     }
 
   // Given a rec id, returns bool if all required fields are filled out.
