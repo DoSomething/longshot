@@ -100,6 +100,16 @@ class ApplicationController extends \Controller
           $application->test_score = null;
       }
 
+      $application->activities = $request->input('activities');
+      $application->participation = $request->input('participation');
+      $application->essay1 = $request->input('essay1');
+      $application->essay2 = $request->input('essay2');
+
+      if (isset($input['link']))
+      {
+        $application->link = $input['link'];
+      }
+
       $upload = $request->file('upload');
       if ($request->hasFile('upload')) {
           $filename = $upload->getClientOriginalName();
