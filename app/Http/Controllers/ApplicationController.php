@@ -105,8 +105,7 @@ class ApplicationController extends \Controller
       $application->essay1 = $request->input('essay1');
       $application->essay2 = $request->input('essay2');
 
-      if (isset($input['link']))
-      {
+      if (isset($input['link'])) {
         $application->link = $input['link'];
       }
 

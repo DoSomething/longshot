@@ -194,8 +194,7 @@ class RecommendationController extends \Controller
       // We should only be marking the app as complete if they have the minimum number of recommendations
       $recs_have = $recommendation->numRecsForApp($recommendation->application_id);
       $recs_need = Scholarship::getCurrentScholarship()->num_recommendations_min;
-      if($recs_have >= $recs_need)
-      {
+      if ($recs_have >= $recs_need) {
         $application->completed = 1;
       }
       $application->save();

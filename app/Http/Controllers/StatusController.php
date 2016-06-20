@@ -54,8 +54,7 @@ class StatusController extends \Controller
           $app_finished = Application::isComplete($application->id);
       }
 
-    if($app_finished)
-    {
+    if ($app_finished) {
         $status = 'Completed.';
         $help_text = $this->settings->getSpecifiedSettingsVars(['status_page_help_text_complete'])['status_page_help_text_complete'];
     } elseif ($app_filled_out && $application->submitted) {

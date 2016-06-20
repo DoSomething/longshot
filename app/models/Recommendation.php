@@ -46,9 +46,9 @@ class Recommendation extends Model
 
     public function numRecsForApp($app_id)
     {
-      $recs = self::where('application_id', $app_id)->get();
+        $recs = self::where('application_id', $app_id)->get();
 
-      return count($recs);
+        return count($recs);
     }
 
   // Given a rec id, returns bool if all required fields are filled out.
