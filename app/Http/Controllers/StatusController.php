@@ -41,6 +41,7 @@ class StatusController extends \Controller
   {
       $user = Auth::user();
       $app_filled_out = false;
+      $app_submitted = false;
       $prof_complete = false;
       $closed = Scholarship::isClosed();
     // @TODO: are these queries too heavy?
@@ -48,6 +49,7 @@ class StatusController extends \Controller
     $application = Application::where('user_id', $user->id)->first();
       if ($application) {
           $app_filled_out = Application::isFilledOut($user->id);
+          $app_submitted = Application::isSubmitted($user->id);
       }
 
     // Is the app complete & been submitted?
@@ -93,7 +95,7 @@ class StatusController extends \Controller
           $timeline = $timeline->block_body_html;
       }
 
-      return view('status.index', compact('profile', 'application', 'recommendations', 'app_filled_out', 'prof_complete', 'submit', 'status', 'add_rec_link', 'timeline', 'help_text', 'closed', 'user'));
+      return view('status.index', compact('profile', 'application', 'recommendations', 'app_filled_out', 'app_submitted', 'prof_complete', 'submit', 'status', 'add_rec_link', 'timeline', 'help_text', 'closed', 'user'));
   }
 
   /**
