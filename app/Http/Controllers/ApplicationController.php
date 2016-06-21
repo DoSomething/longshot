@@ -82,31 +82,12 @@ class ApplicationController extends \Controller
 
     // @TODO: there's a better way of doing the following...
     $application = new Application();
-      $application->accomplishments = $request->input('accomplishments');
+    $application->fill($request->all());
 
-      if ($request->input('gpa') != '') {
-          $application->gpa = $request->input('gpa');
-      }
-
-      if ($request->input('test_type') == 'Prefer not to submit scores') {
+      // We aren't saving the test type without a score elsewhere
+      if (!$request->has('test_score')) {
           $application->test_type = null;
-      } else {
-          $application->test_type = $request->input('test_type');
-      }
-
-      if ($request->input('test_score') != '') {
-          $application->test_score = $request->input('test_score');
-      } else {
           $application->test_score = null;
-      }
-
-      $application->activities = $request->input('activities');
-      $application->participation = $request->input('participation');
-      $application->essay1 = $request->input('essay1');
-      $application->essay2 = $request->input('essay2');
-
-      if (isset($input['link'])) {
-          $application->link = $input['link'];
       }
 
       $upload = $request->file('upload');
@@ -175,7 +156,7 @@ class ApplicationController extends \Controller
   public function update($id, Request $request)
   {
       // @TODO: figure out validation logic with request etc.
-      $input = Input::except('documentation', 'factual', 'media_release', 'rules');
+      $input = $request->except('documentation', 'factual', 'media_release', 'rules');
 
     // Only run validation on applications that were submitted
     // (do not run on those 'saved as draft')
@@ -191,6 +172,7 @@ class ApplicationController extends \Controller
         unset($application->test_score);
     }
 
+      // Add initial or additional files
       $upload = $request->file('upload');
       if ($request->hasFile('upload')) {
           $filename = $upload->getClientOriginalName();
