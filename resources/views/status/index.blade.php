@@ -47,6 +47,9 @@
               <a class="button -link" href=" {{ URL::route('application.create') }} ">{{ $app_status }}<span class="icon icon-{{ $app_status }}"></span></a>
             @endif
           </li>
+          <li class="{{ $app_submitted ? 'complete' : '-incomplete' }}">
+            <span class="icon icon-status" data-icon="&#x2713"></span>Submitted Application
+          </li>
         </ul>
 
         @if (isset($submit) && !$closed)

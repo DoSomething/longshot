@@ -44,7 +44,7 @@ class Application extends Model
   // Given a user id, returns bool if all required fields are
   public static function isFilledOut($id)
   {
-      $optional = ['test_score', 'file', 'hear_about', 'completed', 'submitted'];
+      $optional = ['test_score', 'upload', 'hear_about', 'completed', 'submitted'];
       $fields = self::where('user_id', $id)->firstOrFail()->toArray();
 
       return fieldsAreComplete($fields, $optional);
