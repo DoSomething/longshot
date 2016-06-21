@@ -82,7 +82,7 @@ class ApplicationController extends \Controller
 
     // @TODO: there's a better way of doing the following...
     $application = new Application();
-    $application->fill($request->all());
+      $application->fill($request->all());
 
       // We aren't saving the test type without a score elsewhere
       if (!$request->has('test_score')) {
