@@ -171,27 +171,26 @@ class ProfilesController extends \Controller
           $currentRaceArray[] = $currentRace['race'];
       }
 
-      $inputRaces = isset(Input::only('race')['race']) ? Input::only('race')['race'] : NULL;
+      $inputRaces = isset(Input::only('race')['race']) ? Input::only('race')['race'] : null;
 
       // Adding races or remove specific races if there is any input
       if ($inputRaces) {
-        // Add the newly checked races
-        $toAdd = array_diff($inputRaces, $currentRaceArray);
-        foreach ($toAdd as $diff) {
-            $race = new Race();
-            $race->race = $diff;
-            $race->profile()->associate($user->profile);
-            $race->save();
-        }
+          // Add the newly checked races
+          $toAdd = array_diff($inputRaces, $currentRaceArray);
+          foreach ($toAdd as $diff) {
+              $race = new Race();
+              $race->race = $diff;
+              $race->profile()->associate($user->profile);
+              $race->save();
+          }
 
-        // Remove the newly unchecked races
-        $toRemove = array_diff($currentRaceArray, $inputRaces);
-        foreach ($toRemove as $remove) {
-          Race::where('profile_id', '=', $user->profile->id)->where('race', '=', $remove)->delete();
-        }
-      }
-      else {
-        // If there is no input, it means no boxes are checked, so remove all races
+          // Remove the newly unchecked races
+          $toRemove = array_diff($currentRaceArray, $inputRaces);
+          foreach ($toRemove as $remove) {
+            Race::where('profile_id', '=', $user->profile->id)->where('race', '=', $remove)->delete();
+          }
+      } else {
+          // If there is no input, it means no boxes are checked, so remove all races
         Race::where('profile_id', '=', $user->profile->id)->delete();
       }
 

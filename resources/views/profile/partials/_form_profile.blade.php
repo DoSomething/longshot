@@ -60,7 +60,7 @@
     @foreach($races as $key => $race)
       <div class="field-group">
           {!! Form::label('race['. $key . ']', ' ') !!}
-          @if(in_array($race, $user_races))
+          @if(isset($user_races) && in_array($race, $user_races))
               {!! Form::checkbox('race['. $key . ']', $race, true) !!}
               {{ $race }}
           @else
