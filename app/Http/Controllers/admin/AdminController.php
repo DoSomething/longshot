@@ -217,10 +217,10 @@ class AdminController extends \Controller
         // Get what races should be checked and pass to the view
         $user_races = [];
         if (!is_null($profile)) {
-          $currentRaces = Profile::getUserRace($profile->id);
-          foreach ($currentRaces as $currentRace) {
-              $user_races[] = $currentRace['race'];
-          }
+            $currentRaces = Profile::getUserRace($profile->id);
+            foreach ($currentRaces as $currentRace) {
+                $user_races[] = $currentRace['race'];
+            }
         }
 
         $hear_about = Scholarship::getCurrentScholarship()->hear_about_options;
