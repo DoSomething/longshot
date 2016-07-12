@@ -187,7 +187,7 @@ class ProfilesController extends \Controller
           // Remove the newly unchecked races
           $toRemove = array_diff($currentRaceArray, $inputRaces);
           foreach ($toRemove as $remove) {
-            Race::where('profile_id', '=', $user->profile->id)->where('race', '=', $remove)->delete();
+              Race::where('profile_id', '=', $user->profile->id)->where('race', '=', $remove)->delete();
           }
       } else {
           // If there is no input, it means no boxes are checked, so remove all races
