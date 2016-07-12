@@ -216,7 +216,7 @@ class AdminController extends \Controller
 
         // Get what races should be checked and pass to the view
         $user_races = [];
-        if ($profile) {
+        if (!is_null($profile)) {
           $currentRaces = Profile::getUserRace($profile->id);
           foreach ($currentRaces as $currentRace) {
               $user_races[] = $currentRace['race'];
