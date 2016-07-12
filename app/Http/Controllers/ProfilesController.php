@@ -137,9 +137,16 @@ class ProfilesController extends \Controller
       $states = Profile::getStates();
       $races = Profile::getRaces();
 
+      // Get what races should be checked and pass to the view
+      $currentRaces = Profile::getUserRace($profile->id);
+      $user_races = [];
+      foreach ($currentRaces as $currentRace) {
+          $user_races[] = $currentRace['race'];
+      }
+
       $vars = (object) $this->settings->getSpecifiedSettingsVars(['basic_info_help_text']);
 
-      return view('profile.edit')->withUser($profile)->with(compact('states', 'races', 'vars'));
+      return view('profile.edit')->withUser($profile)->with(compact('states', 'races', 'vars', 'user_races'));
   }
 
   /**
@@ -155,15 +162,21 @@ class ProfilesController extends \Controller
       $user = User::with('profile')->whereId($id)->firstOrFail();
       $input = Input::only('birthdate', 'phone', 'address_street', 'address_premise', 'city', 'state', 'zip', 'gender', 'school', 'grade', 'complete');
       $currentRaces = Race::where('profile_id', $user->profile->id)->select('race')->get()->toArray();
+      $profile = Profile::getUserProfile($user->id);
 
-    // Let's make the arrays match
-    $newArray = [];
+      // Update the races - this is a whole thing
+      // Let's put the current races into the same format as the input races array (as in not have it keyed by 'race')
+      $currentRaceArray = [];
       foreach ($currentRaces as $currentRace) {
-          $newArray[] = $currentRace['race'];
+          $currentRaceArray[] = $currentRace['race'];
       }
-      $inputRaces = Input::only('race');
-      if (isset($inputRaces['race'])) {
-          $toAdd = array_diff($inputRaces['race'], $newArray);
+
+      $inputRaces = isset(Input::only('race')['race']) ? Input::only('race')['race'] : null;
+
+      // Adding races or remove specific races if there is any input
+      if ($inputRaces) {
+          // Add the newly checked races
+          $toAdd = array_diff($inputRaces, $currentRaceArray);
           foreach ($toAdd as $diff) {
               $race = new Race();
               $race->race = $diff;
@@ -171,12 +184,16 @@ class ProfilesController extends \Controller
               $race->save();
           }
 
-      // Remove unchecked races
-      $toRemove = array_diff($newArray, $inputRaces['race']);
+          // Remove the newly unchecked races
+          $toRemove = array_diff($currentRaceArray, $inputRaces);
           foreach ($toRemove as $remove) {
               Race::where('profile_id', '=', $user->profile->id)->where('race', '=', $remove)->delete();
           }
+      } else {
+          // If there is no input, it means no boxes are checked, so remove all races
+        Race::where('profile_id', '=', $user->profile->id)->delete();
       }
+
       // only validate if not saved as a draft
       if (isset($request['complete'])) {
           $this->validate($request, $this->rules, $this->messages);
