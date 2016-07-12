@@ -214,6 +214,13 @@ class AdminController extends \Controller
         $races = Profile::getRaces();
         $states = Profile::getStates();
 
+        // Get what races should be checked and pass to the view
+        $currentRaces = Profile::getUserRace($profile->id);
+        $user_races = [];
+        foreach ($currentRaces as $currentRace) {
+            $user_races[] = $currentRace['race'];
+        }
+
         $hear_about = Scholarship::getCurrentScholarship()->hear_about_options;
         $choices = Application::formatChoices($hear_about);
 
@@ -231,7 +238,7 @@ class AdminController extends \Controller
 
         $possible_ratings = Rating::getPossibleRatings();
 
-        return view('admin.applications.edit')->withUser($profile)->with(compact('id', 'application', 'app_id', 'user', 'user_info', 'profile', 'races', 'label', 'choices', 'recommendations', 'states', 'show_rating', 'possible_ratings', 'app_rating', 'rank_values'));
+        return view('admin.applications.edit')->withUser($profile)->with(compact('id', 'application', 'app_id', 'user', 'user_info', 'profile', 'races', 'label', 'choices', 'recommendations', 'states', 'show_rating', 'possible_ratings', 'app_rating', 'rank_values', 'user_races'));
     }
 
     public function settings()
