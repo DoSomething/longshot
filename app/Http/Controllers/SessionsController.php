@@ -42,7 +42,6 @@ class SessionsController extends \Controller
       $input = $request->only('email', 'password');
 
       if (Auth::attempt($input)) {
-
           if (Auth::user()->hasRole('administrator')) {
               return Redirect::route('admin');
           }
