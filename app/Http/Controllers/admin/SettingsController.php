@@ -2,7 +2,6 @@
 
 use App\Models\Setting;
 use Illuminate\Http\Request;
-use Scholarship\Forms\SettingsForm;
 use Scholarship\Repositories\SettingRepository;
 
 class SettingsController extends \Controller
@@ -144,9 +143,6 @@ class SettingsController extends \Controller
 
       $inputImages = Input::only('header_logo', 'footer_logo', 'nominate_image', 'background_image');
 
-      // $this->settingsForm->validate($inputText);
-      // $this->settingsForm->validate($inputImages);
-
       $defaultLogoPath = '/dist/images/tmi-logo.png';
 
     // Uploaded Images
@@ -182,8 +178,10 @@ class SettingsController extends \Controller
    *
    * @return Response
    */
-  public function updateMetaData()
+  public function updateMetaData(Request $request)
   {
+      $this->validate($request, $this->rules);
+
       $inputText = Input::only(
       'open_graph_data_title',
       'open_graph_data_description',
@@ -192,9 +190,6 @@ class SettingsController extends \Controller
     );
 
       $inputImages = Input::only('open_graph_data_image', 'favicon');
-
-      $this->settingsForm->validate($inputText);
-      $this->settingsForm->validate($inputImages);
 
     // Uploaded Images
     foreach ($inputImages as $key => $image) {
