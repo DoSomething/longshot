@@ -42,10 +42,9 @@ class SessionsController extends \Controller
       $input = $request->only('email', 'password');
 
       if (Auth::attempt($input)) {
-
-          // if (Auth::user()->hasRole('administrator')) {
-          //     return Redirect::route('admin');
-          // }
+          if (Auth::user()->hasRole('administrator')) {
+              return Redirect::route('admin');
+          }
 
           return redirect()->intended('status')->with('flash_message', ['text' => 'You have been logged in!', 'class' => '-info']);
       }
