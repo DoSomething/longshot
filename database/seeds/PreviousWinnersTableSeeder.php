@@ -1,10 +1,9 @@
 <?php
 
-use Illuminate\Database\Seeder;
-use App\Models\Winner;
-use App\Models\Profile;
 use App\Models\Application;
-
+use App\Models\Profile;
+use App\Models\Winner;
+use Illuminate\Database\Seeder;
 
 class PreviousWinnersTableSeeder extends Seeder
 {

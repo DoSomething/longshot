@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Seeder;
 use App\Models\Scholarship;
+use Illuminate\Database\Seeder;
 
 class ScholarshipsTableSeeder extends Seeder
 {
