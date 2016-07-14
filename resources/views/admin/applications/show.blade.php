@@ -11,8 +11,10 @@
 
         <div class="wrapper">
           <p>{{ strtolower($user['email']) }}</p>
-          {!! '<a class="btn btn-default btn-edit" href="' . URL::route('admin.application.edit', array('id' => $id)) . '"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit</a>' !!}
 
+          @if (isset($profile) || !is_null($application) || (!is_null($recommendations) && count($recommendations) > 0))
+            {!! '<a class="btn btn-default btn-edit" href="' . URL::route('admin.application.edit', array('id' => $id)) . '"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit</a>' !!}
+          @endif
           <hr>
 
           @if ($show_rating)

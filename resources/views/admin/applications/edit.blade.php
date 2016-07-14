@@ -14,6 +14,7 @@
 
           <hr>
 
+        @if (!is_null($profile))
           <h2> Profile </h2>
           <div class="well well-lg">
           {!! Form::model($user, ['method' => 'PATCH', 'route' => ['profile.update', $id]]) !!}
@@ -21,6 +22,7 @@
             {!! Form::submit('Update info', ['class' => 'btn btn-primary', 'name' => 'complete']) !!}
           {!! Form::close() !!}
          </div>
+        @endif
 
         @if (!is_null($application))
           <h2>Application</h2>

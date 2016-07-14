@@ -206,7 +206,7 @@ class AdminController extends \Controller
     {
         $application = Application::getUserApplication($id);
         $user_info = User::getUserInfo($id);
-        $profile = Profile::with('race')->whereUserId($id)->firstOrFail();
+        $profile = Profile::with('race')->whereUserId($id)->first();
         if (isset($application)) {
             $label = Scholarship::getScholarshipLabels($application['scholarship_id']);
         }
@@ -215,10 +215,12 @@ class AdminController extends \Controller
         $states = Profile::getStates();
 
         // Get what races should be checked and pass to the view
-        $currentRaces = Profile::getUserRace($profile->id);
         $user_races = [];
-        foreach ($currentRaces as $currentRace) {
-            $user_races[] = $currentRace['race'];
+        if (!is_null($profile)) {
+            $currentRaces = Profile::getUserRace($profile->id);
+            foreach ($currentRaces as $currentRace) {
+                $user_races[] = $currentRace['race'];
+            }
         }
 
         $hear_about = Scholarship::getCurrentScholarship()->hear_about_options;
