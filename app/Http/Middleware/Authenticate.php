@@ -39,7 +39,7 @@ class Authenticate
             if ($request->ajax()) {
                 return response('Unauthorized.', 401);
             } else {
-                return redirect()->home();
+                return redirect()->home()->with('flash_message', ['text' => 'You must be logged in to access that page.', 'class' => '-warning']);
             }
         }
 

@@ -22,7 +22,7 @@ Route::resource('profile', 'ProfilesController');
 // Application
 Route::resource('application', 'ApplicationController', ['middleware' => 'auth']);
 // Status
-Route::get('status', ['as' => 'status', 'uses' => 'StatusController@status', 'middleware' => 'auth']);
+Route::get('status', ['as' => 'status', 'uses' => 'StatusController@status'])->middleware(['auth']);
 // this should be a post.
 Route::get('resend-email', ['as' => 'resend', 'uses' => 'StatusController@resendEmailRequest']);
 // Review
