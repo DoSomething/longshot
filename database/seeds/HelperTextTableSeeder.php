@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Database\Seeder;
+use App\Models\Setting;
+
 class HelperTextTableSeeder extends Seeder
 {
     public function run()

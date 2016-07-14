@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Database\Seeder;
+use App\Models\Setting;
+
 class OpenGraphDataSettingsTableSeeder extends Seeder
 {
     public function run()

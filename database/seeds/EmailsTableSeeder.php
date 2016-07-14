@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Database\Seeder;
+use App\Models\Email;
 
 class EmailsTableSeeder extends Seeder
 {

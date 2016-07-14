@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Database\Seeder;
+use App\Models\Scholarship;
+
 class ScholarshipsTableSeeder extends Seeder
 {
     public function run()
