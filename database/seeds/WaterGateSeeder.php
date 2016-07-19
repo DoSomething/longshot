@@ -1,5 +1,12 @@
 <?php
 
+use App\Models\Application;
+use App\Models\Profile;
+use App\Models\Race;
+use App\Models\Recommendation;
+use App\Models\User;
+use Illuminate\Database\Seeder;
+
 class WaterGateSeeder extends Seeder
 {
     /**

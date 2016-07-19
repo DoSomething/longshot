@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\Page;
+use Illuminate\Database\Seeder;
+
 class PagesTableSeeder extends Seeder
 {
     public function run()

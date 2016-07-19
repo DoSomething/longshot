@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\Setting;
+use Illuminate\Database\Seeder;
+
 class FaviconSettingsTableSeeder extends Seeder
 {
     public function run()

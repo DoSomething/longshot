@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\Setting;
+use Illuminate\Database\Seeder;
+
 class NominateSettingsTableSeeder extends Seeder
 {
     public function run()
