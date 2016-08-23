@@ -7,7 +7,7 @@
     <h1 class="__title heading -beta text-primary-color">{{ $page->title }}</h1>
 
     <div class="segment">
-      {{ $page->description_html }}
+      {!! $page->description_html !!}
     </div>
 
     {{-- Output Blocks --}}
