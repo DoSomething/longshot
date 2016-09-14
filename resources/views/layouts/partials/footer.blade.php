@@ -10,7 +10,7 @@
     @if (isset($global_vars->footer_text) || isset($global_vars->official_rules_url))
     <p class="__message">
       <small>
-        {{ $global_vars->footer_text or '' }}
+        {!! $global_vars->footer_text or '' !!}
 
         @if (isset($global_vars->official_rules_url))
           Check out the {{ link_to($global_vars->official_rules_url, 'Official Rules', ['target' => '_blank']) }}.
