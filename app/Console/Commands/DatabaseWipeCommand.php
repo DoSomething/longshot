@@ -2,7 +2,17 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Application;
+use App\Models\Nomination;
+use App\Models\Profile;
+use App\Models\Race;
+use App\Models\Rating;
+use App\Models\Recommendation;
+use App\Models\RecommendationToken;
+use App\Models\User;
+Use DB;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Schema;
 
 class DatabaseWipeCommand extends Command
 {
@@ -65,7 +75,7 @@ class DatabaseWipeCommand extends Command
         if ((Schema::hasTable('failed_jobs'))) {
             DB::table('failed_jobs')->truncate();
         }
-        DB::table('password_reminders')->truncate();
+        DB::table('password_resets')->truncate();
 
         // Add the admins back into the Users table.
         foreach ($admins as $admin) {
