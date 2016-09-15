@@ -10,7 +10,7 @@ use App\Models\Rating;
 use App\Models\Recommendation;
 use App\Models\RecommendationToken;
 use App\Models\User;
-Use DB;
+use DB;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Schema;
 

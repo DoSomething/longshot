@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands;
 
-use App\Models\User;
 use App\Models\Winner;
 use Illuminate\Console\Command;
 
