@@ -87,14 +87,14 @@ Slideshow.prototype.show = function (slideIndex) {
   var _$slides = this.$slides;
 
   if (slideIndex > 0) {
-    for (i = 0; i < slideIndex; i++) {
+    for (var i = 0; i < slideIndex; i++) {
       var $thisSlide = $(_$slides[i]);
       classToggle($thisSlide, 'is-pending');
       classToggle($thisSlide, 'is-completed');
     }
   }
 
-  $selectedSlide = $(_$slides.get(slideIndex));
+  const $selectedSlide = $(_$slides.get(slideIndex));
   classToggle($selectedSlide, 'is-pending');
   classToggle($selectedSlide, 'is-viewing');
 
@@ -127,7 +127,7 @@ Slideshow.prototype.move = function (direction) {
 Slideshow.prototype.reset = function () {
 
   this.$slides.each(function () {
-    $slide = $(this);
+    const $slide = $(this);
 
     if ($slide.hasClass('is-completed') || $slide.hasClass('is-viewing')) {
       if ($slide.hasClass('is-completed')) {
