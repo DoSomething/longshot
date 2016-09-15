@@ -24,4 +24,5 @@ elixir(function(mix) {
 	mix.copy('resources/assets/bower_components/bootstrap/dist/js', 'public/dist/js');
 	mix.copy('resources/assets/bower_components/bootstrap/dist/css', 'public/dist/css');
 	mix.copy('resources/assets/js/libs', 'public/dist/js');
+	mix.browserify('main.js', 'public/dist/js/main.js');
 });

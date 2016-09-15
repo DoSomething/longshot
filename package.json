@@ -10,6 +10,8 @@
     "jquery": "global:$"
   },
   "dependencies": {
+    "babel-preset-es2015": "^6.14.0",
+    "babel-preset-react": "^6.11.1",
     "susy": "^2.2.2"
   },
   "devDependencies": {

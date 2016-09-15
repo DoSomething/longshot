@@ -94,7 +94,7 @@ Slideshow.prototype.show = function (slideIndex) {
     }
   }
 
-  $selectedSlide = $(_$slides.get(slideIndex));
+  const $selectedSlide = $(_$slides.get(slideIndex));
   classToggle($selectedSlide, 'is-pending');
   classToggle($selectedSlide, 'is-viewing');
 
