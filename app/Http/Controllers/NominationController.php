@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Email;
+use App\Models\Nomination;
 use Illuminate\Http\Request;
 use Scholarship\Forms\NominationForm;
 
