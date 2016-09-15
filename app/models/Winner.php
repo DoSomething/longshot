@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Cache;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\User;
 use Schema;
 
 class Winner extends Model
