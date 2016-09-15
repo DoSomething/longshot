@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Winner;
 use Illuminate\Console\Command;
 
 class TransferWinnersCommand extends Command
