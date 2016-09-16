@@ -2,11 +2,9 @@
 /node_modules
 .env
 .DS_Store
-composer.lock
 /bootstrap/compiled.php
 /vendor
 composer.phar
-composer.lock
 .env.*.php
 .env.php
 .DS_Store
