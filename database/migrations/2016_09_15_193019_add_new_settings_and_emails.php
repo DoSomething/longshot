@@ -14,124 +14,84 @@ class AddNewSettingsAndEmails extends Migration
     public function up()
     {
         // New Settings
-        if (!(Setting::where('key', 'background_image', '=')->first())) {
-            Setting::insert([
-                'category'  => 'general',
-                'key'       => 'background_image',
-                'value'     => '',
-                'type'      => 'image',
-            ]);
-        }
+        Setting::firstOrCreate([
+            'category'  => 'general',
+            'key'       => 'background_image',
+            'type'      => 'image',
+        ]);
 
-        if (!(Setting::where('key', 'custom_font_kit_id', '=')->first())) {
-            Setting::insert([
-                'category'  => 'appearance',
-                'key'       => 'custom_font_kit_id',
-                'value'     => '',
-                'type'      => 'text',
-            ]);
-        }
+        Setting::firstOrCreate([
+            'category'  => 'appearance',
+            'key'       => 'custom_font_kit_id',
+            'type'      => 'text',
+        ]);
 
-        if (!(Setting::where('key', 'custom_font_name', '=')->first())) {
-            Setting::insert([
-                'category'  => 'appearance',
-                'key'       => 'custom_font_name',
-                'value'     => '',
-                'type'      => 'text',
-            ]);
-        }
+        Setting::firstOrCreate([
+            'category'  => 'appearance',
+            'key'       => 'custom_font_name',
+            'type'      => 'text',
+        ]);
 
         // New Emails
-        Email::firstOrNew([
+        Email::firstOrCreate([
             'key'       => 'submitted_blank_rec',
             'recipient' => 'group',
-            'subject'   => '',
-            'body'      => '',
-        ])->save();
+        ]);
 
-        Email::firstOrNew([
+        Email::firstOrCreate([
             'key'       => 'submitted_no_rec',
             'recipient' => 'group',
-            'subject'   => '',
-            'body'      => '',
-        ])->save();
+        ]);
 
-        Email::firstOrNew([
+        Email::firstOrCreate([
             'key'       => 'incomplete_apps',
             'recipient' => 'group',
-            'subject'   => '',
-            'body'      => '',
-        ])->save();
+        ]);
 
-        Email::firstOrNew([
+        Email::firstOrCreate([
             'key'       => 'nominated_no_app',
             'recipient' => 'group',
-            'subject'   => '',
-            'body'      => '',
-        ])->save();
+        ]);
 
-        Email::firstOrNew([
+        Email::firstOrCreate([
             'key'       => 'completed_apps',
             'recipient' => 'group',
-            'subject'   => '',
-            'body'      => '',
-        ])->save();
+        ]);
 
-        Email::firstOrNew([
+        Email::firstOrCreate([
             'key'       => 'rec_requested_not_finished',
             'recipient' => 'group',
-            'subject'   => '',
-            'body'      => '',
-        ])->save();
+        ]);
 
-        Email::firstOrNew([
+        Email::firstOrCreate([
             'key'       => 'nominators',
             'recipient' => 'group',
-            'subject'   => '',
-            'body'      => '',
-        ])->save();
+        ]);
 
-        Email::firstOrNew([
+        Email::firstOrCreate([
             'key'       => 'nominees',
             'recipient' => 'group',
-            'subject'   => '',
-            'body'      => '',
-        ])->save();
+        ]);
 
-        Email::firstOrNew([
+        Email::firstOrCreate([
             'key'       => 'recommenders',
             'recipient' => 'group',
-            'subject'   => '',
-            'body'      => '',
-        ])->save();
+        ]);
 
-        Email::firstOrNew([
+        Email::firstOrCreate([
             'key'       => 'completed_apps_by_first_and_email',
             'recipient' => 'group',
-            'subject'   => '',
-            'body'      => '',
-        ])->save();
+        ]);
 
-        Email::firstOrNew([
+        Email::firstOrCreate([
             'key'       => 'incomplete_apps_by_first_and_email',
             'recipient' => 'group',
-            'subject'   => '',
-            'body'      => '',
-        ])->save();
+        ]);
 
-        Email::firstOrNew([
+        Email::firstOrCreate([
             'key'       => 'yes_applicants',
             'recipient' => 'group',
-            'subject'   => '',
-            'body'      => '',
-        ])->save();
-
-        Email::firstOrNew([
-            'key'       => 'noodles',
-            'recipient' => 'group',
-            'subject'   => '',
-            'body'      => '',
-        ])->save();
+        ]);
     }
 
     /**
