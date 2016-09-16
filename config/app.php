@@ -157,6 +157,9 @@ return [
         'App\Providers\EventServiceProvider',
         'App\Providers\RouteServiceProvider',
         'App\Providers\ComposerServiceProvider',
+        'Spatie\Backup\BackupServiceProvider',
+        'Maknz\Slack\Laravel\ServiceProvider',
+        'Aws\Laravel\AwsServiceProvider',
 
     ],
 
@@ -176,6 +179,7 @@ return [
         'App'         => 'Illuminate\Support\Facades\App',
         'Artisan'     => 'Illuminate\Support\Facades\Artisan',
         'Auth'        => 'Illuminate\Support\Facades\Auth',
+        'AWS'         => 'Aws\Laravel\AwsFacade',
         'Blade'       => 'Illuminate\Support\Facades\Blade',
         'Bus'         => 'Illuminate\Support\Facades\Bus',
         'Cache'       => 'Illuminate\Support\Facades\Cache',
@@ -201,6 +205,7 @@ return [
         'Route'       => 'Illuminate\Support\Facades\Route',
         'Schema'      => 'Illuminate\Support\Facades\Schema',
         'Session'     => 'Illuminate\Support\Facades\Session',
+        'Slack'       => 'Maknz\Slack\Laravel\Facade',
         'Storage'     => 'Illuminate\Support\Facades\Storage',
         'URL'         => 'Illuminate\Support\Facades\URL',
         'Validator'   => 'Illuminate\Support\Facades\Validator',
