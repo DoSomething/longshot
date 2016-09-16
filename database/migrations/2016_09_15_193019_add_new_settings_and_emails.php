@@ -2,7 +2,6 @@
 
 use App\Models\Email;
 use App\Models\Setting;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class AddNewSettingsAndEmails extends Migration
@@ -21,7 +20,7 @@ class AddNewSettingsAndEmails extends Migration
                 'key'       => 'background_image',
                 'value'     => '',
                 'type'      => 'image',
-            ]);  
+            ]);
         }
 
         if (!(Setting::where('key', 'custom_font_kit_id', '=')->first())) {
