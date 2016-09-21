@@ -24,6 +24,7 @@ namespace :deploy do
   task :link_folders do
     run "ln -nfs #{shared_path}/.env #{release_path}/"
     run "ln -nfs #{shared_path}/content #{release_path}/public"
+    run "ln -nfs #{shared_path}/pages #{release_path}/public"
 
     folders.each do |folder|
       run "rm -rf #{release_path}/storage/#{folder}"
