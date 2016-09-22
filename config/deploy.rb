@@ -19,7 +19,7 @@ ssh_options[:keys] = [ENV["CAP_PRIVATE_KEY"]]
 default_run_options[:shell] = '/bin/bash'
 
 namespace :deploy do
-  folders = %w{logs dumps system}
+  folders = %w{logs dumps system "app/uploads"}
 
   task :link_folders do
     run "ln -nfs #{shared_path}/.env #{release_path}/"
