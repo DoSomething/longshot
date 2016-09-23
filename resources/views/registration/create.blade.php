@@ -12,7 +12,7 @@
       <p>Have an account? {!! link_to_route('login', 'Log in') !!}</p>
 
       @if (isset($vars->create_account_help_text))
-        <p>{{ $vars->create_account_help_text }}</p>
+        <p>{!! $vars->create_account_help_text !!}</p>
       @endif
 
       {!! Form::open(['route' => 'registration.store']) !!}
