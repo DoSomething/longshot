@@ -40,6 +40,7 @@ class Email extends Model
 
       // Replace all the tokens
       $body = str_replace(array_keys($tokens), array_values($tokens), $body);
+      $subject = str_replace(array_keys($tokens), array_values($tokens), $subject);
 
       $email_data = [
         'to'      => $to,
