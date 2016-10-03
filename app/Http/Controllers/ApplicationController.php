@@ -182,11 +182,10 @@ class ApplicationController extends \Controller
           if (empty($application->upload)) {
               $application->upload = $filename;
           } else {
-              // If there is already a file - add file and append to list in db
+              // If there is already a file - append to list in db
               $application->upload = $application->upload.','.$filename;
           }
       }
-
       // Remove deleted files
       if ($request->input('remove')) {
           // Remove file from application's list of files
