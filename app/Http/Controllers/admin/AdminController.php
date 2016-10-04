@@ -385,7 +385,7 @@ class AdminController extends \Controller
         // get rec info
       $rec_id = Input::get('rec_id');
         $recommendation = Recommendation::whereId($rec_id)->firstOrFail();
-        $token = RecommendationToken::where('recommendation_id', $recommendation->id);
+        $token = RecommendationToken::where('recommendation_id', $recommendation->id)->first()->token;
         $link = link_to_route('recommendation.edit', 'Please provide a recommendation', [$recommendation->id, 'token' => $token]);
 
       // get applicant info
@@ -395,8 +395,8 @@ class AdminController extends \Controller
       // build and send email
       $email = new Email();
         $data = [
-        ':link:'           => $link,
-        ':applicant_name:' => $applicant->first_name.' '.$applicant->last_name,
+        'link'           => $link,
+        'applicant_name' => $applicant->first_name.' '.$applicant->last_name,
       ];
         $email->sendEmail('request', 'recommender', $recommendation->email, $data);
 
