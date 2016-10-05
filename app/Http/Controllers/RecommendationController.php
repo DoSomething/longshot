@@ -76,12 +76,29 @@ class RecommendationController extends \Controller
       $request = $request->all();
       $recs = $request['rec'];
       $rules = array_merge($this->rules, $this->applicant_rules);
-      foreach ($recs as $rec) {
-          $v = Validator::make($rec, $rules);
+      $errors = [];
 
-          if ($v->fails()) {
-              return redirect()->back()->with('flash_message', ['text' => 'There is an error in your submission. '.$v->errors()->all()[0], 'class' => '-error'])->withInput();
-          } else {
+      // Go through each rec and collect the validation errors
+      foreach ($recs as $key=>$rec) {
+        // Only try to validate and fill in recs that have any part of the form filled out
+        if (array_filter($rec)) {
+            $v = Validator::make($rec, $rules);
+
+            if ($v->fails()) {
+              $errors[$key] = $v->errors()->all();
+            }
+          }
+      }
+
+      // If there are any errors in the form, keep the data in the form and display the errors. Do not save any recs until there are no errors in the form
+      if ($errors !== []) {
+        $errorMessage = $this->formatErrors($errors);
+        return redirect()->back()->withInput()->with('flash_message', ['text' => 'There is an error in your submission.<br>'. $errorMessage, 'class' => '-error']);
+      } else {
+          // Once there are no errors, go through the filled in rec forms and create the recs
+          foreach ($recs as $key=>$rec) {
+            if (array_filter($rec)) {
+
               $recommendation = new Recommendation();
               $recommendation->fill($rec);
 
@@ -92,10 +109,26 @@ class RecommendationController extends \Controller
               $token = $recommendation->generateRecToken($recommendation);
               $this->prepareRecRequestConfirmationEmail($recommendation);
               $this->prepareRecRequestEmail($recommendation, $token);
-
-              return redirect()->route('status')->with('flash_message', ['text' => 'Your recommendation request has been submitted!', 'class' => '-success']);
+            }
           }
       }
+      return redirect()->route('status')->with('flash_message', ['text' => 'Your recommendation request has been submitted!', 'class' => '-success']);
+  }
+
+  public function formatErrors($errors)
+  {
+    $formatted = '';
+
+    foreach ($errors as $recNumber=>$errorArray) {
+      $formatted .= 'Recommendation # ' . ($recNumber + 1) . ': <br>';
+      $formatted .= '<ul>';
+      foreach ($errorArray as $error) {
+        $formatted .= '<li>' . $error . '</li>';
+      }
+      $formatted .= '</ul>';
+    }
+
+    return $formatted;
   }
 
   /**
