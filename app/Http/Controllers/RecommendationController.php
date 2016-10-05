@@ -94,7 +94,7 @@ class RecommendationController extends \Controller
       if ($errors !== []) {
           $errorMessage = $this->formatErrors($errors);
 
-          return redirect()->back()->withInput()->with('flash_message', ['text' => 'There is an error in your submission.<br>'. $errorMessage, 'class' => '-error']);
+          return redirect()->back()->withInput()->with('flash_message', ['text' => 'There is an error in your submission.<br>'.$errorMessage, 'class' => '-error']);
       } else {
           // Once there are no errors, go through the filled in rec forms and create the recs
           foreach ($recs as $key => $rec) {
@@ -109,7 +109,7 @@ class RecommendationController extends \Controller
                   $token = $recommendation->generateRecToken($recommendation);
                   $this->prepareRecRequestConfirmationEmail($recommendation);
                   $this->prepareRecRequestEmail($recommendation, $token);
-            }
+              }
           }
       }
 
@@ -275,7 +275,7 @@ class RecommendationController extends \Controller
             if ($errors !== []) {
                 $errorMessage = $this->formatErrors($errors);
 
-                return redirect()->back()->withInput()->with('flash_message', ['text' => 'There is an error in your submission.<br>'. $errorMessage, 'class' => '-error']);
+                return redirect()->back()->withInput()->with('flash_message', ['text' => 'There is an error in your submission.<br>'.$errorMessage, 'class' => '-error']);
             } else {
                 // Update the rec if there are no errors
               $currentRec = Recommendation::whereId($rec['id'])->firstOrFail();
@@ -300,7 +300,7 @@ class RecommendationController extends \Controller
                   if ($errors !== []) {
                       $errorMessage = $this->formatErrors($errors);
 
-                      return redirect()->back()->withInput()->with('flash_message', ['text' => 'There is an error in your submission.<br>'. $errorMessage, 'class' => '-error']);
+                      return redirect()->back()->withInput()->with('flash_message', ['text' => 'There is an error in your submission.<br>'.$errorMessage, 'class' => '-error']);
                   } else {
                       // If no errors, save the new rec
                       $newRec = new Recommendation();
