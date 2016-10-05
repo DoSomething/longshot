@@ -127,6 +127,7 @@ class RecommendationController extends \Controller
   {
       $formatted = '';
 
+      // Go through the errors for each rec and format properly
       foreach ($errors as $recNumber => $errorArray) {
           $formatted .= 'Recommendation # '.($recNumber + 1).': <br>';
           $formatted .= '<ul>';
