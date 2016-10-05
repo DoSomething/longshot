@@ -259,40 +259,57 @@ class RecommendationController extends \Controller
     {
         $recs = $input['rec'];
         $rules = array_merge($this->rules, $this->applicant_rules);
-        foreach ($recs as $rec) {
+        $errors = [];
+        foreach ($recs as $key=>$rec) {
             // If rec already exists, update existing rec
-        if (isset($rec['id'])) {
-            // Do not validate completed recs
-          if (!Recommendation::isComplete($rec['id'])) {
-              $v = Validator::make($rec, $rules);
-              if ($v->fails()) {
-                  return redirect()->back()->with('flash_message', ['text' => 'There is an error in your submission. '.$v->errors()->all()[0], 'class' => '-error'])->withInput();
-              }
-          }
-            $currentRec = Recommendation::whereId($rec['id'])->firstOrFail();
-            $currentRec->fill($rec);
-            // Only resend and email to the recommender if the email address was changed
-            if ($currentRec->isDirty('email')) {
-                $token = RecommendationToken::where('recommendation_id', $rec['id'])->pluck('token');
-                $this->prepareRecRequestEmail($currentRec, $token);
-                $this->prepareRecRequestConfirmationEmail($currentRec);
-            }
-            $currentRec->save();
-        } else {
-            // True if any fields are filled in
-            if (array_filter($rec)) {
+          if (isset($rec['id'])) {
+              // Do not validate completed recs
+            if (!Recommendation::isComplete($rec['id'])) {
                 $v = Validator::make($rec, $rules);
+                // Collect validation errors
                 if ($v->fails()) {
-                    return redirect()->back()->with('flash_message', ['text' => 'There is an error in your submission. '.$v->errors()->all()[0], 'class' => '-error'])->withInput();
+                  $errors[$key] = $v->errors()->all();
                 }
-                $newRec = new Recommendation();
-                $application = Auth::user()->application;
-                $newRec->application()->associate($application);
-                $newRec->fill($rec);
-                $newRec->save();
-                $token = $newRec->generateRecToken($newRec);
-                $this->prepareRecRequestConfirmationEmail($newRec);
-                $this->prepareRecRequestEmail($newRec, $token);
+            }
+            // Display errors to user if there are any
+            if ($errors !== []) {
+              $errorMessage = $this->formatErrors($errors);
+              return redirect()->back()->withInput()->with('flash_message', ['text' => 'There is an error in your submission.<br>'. $errorMessage, 'class' => '-error']);
+            } else {
+              // Update the rec if there are no errors
+              $currentRec = Recommendation::whereId($rec['id'])->firstOrFail();
+              $currentRec->fill($rec);
+              // Only resend and email to the recommender if the email address was changed
+              if ($currentRec->isDirty('email')) {
+                  $token = RecommendationToken::where('recommendation_id', $rec['id'])->pluck('token');
+                  $this->prepareRecRequestEmail($currentRec, $token);
+                  $this->prepareRecRequestConfirmationEmail($currentRec);
+              }
+              $currentRec->save();
+            }
+          } else {
+              // True if any fields are filled in
+              if (array_filter($rec)) {
+                  $v = Validator::make($rec, $rules);
+                  // Collect validation errors
+                  if ($v->fails()) {
+                    $errors[$key] = $v->errors()->all();
+                  }
+                  // Display errors to the user
+                  if ($errors !== []) {
+                    $errorMessage = $this->formatErrors($errors);
+                    return redirect()->back()->withInput()->with('flash_message', ['text' => 'There is an error in your submission.<br>'. $errorMessage, 'class' => '-error']);
+                  } else {
+                    // If no errors, save the new rec
+                    $newRec = new Recommendation();
+                    $application = Auth::user()->application;
+                    $newRec->application()->associate($application);
+                    $newRec->fill($rec);
+                    $newRec->save();
+                    $token = $newRec->generateRecToken($newRec);
+                    $this->prepareRecRequestConfirmationEmail($newRec);
+                    $this->prepareRecRequestEmail($newRec, $token);
+                }
             }
         }
         }
