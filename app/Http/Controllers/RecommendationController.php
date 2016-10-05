@@ -93,22 +93,22 @@ class RecommendationController extends \Controller
       // If there are any errors in the form, keep the data in the form and display the errors. Do not save any recs until there are no errors in the form
       if ($errors !== []) {
           $errorMessage = $this->formatErrors($errors);
+
           return redirect()->back()->withInput()->with('flash_message', ['text' => 'There is an error in your submission.<br>'. $errorMessage, 'class' => '-error']);
       } else {
           // Once there are no errors, go through the filled in rec forms and create the recs
           foreach ($recs as $key => $rec) {
               if (array_filter($rec)) {
+                  $recommendation = new Recommendation();
+                  $recommendation->fill($rec);
 
-                $recommendation = new Recommendation();
-                $recommendation->fill($rec);
+                  $application = Auth::user()->application;
+                  $recommendation->application()->associate($application);
+                  $recommendation->save();
 
-                $application = Auth::user()->application;
-                $recommendation->application()->associate($application);
-                $recommendation->save();
-
-                $token = $recommendation->generateRecToken($recommendation);
-                $this->prepareRecRequestConfirmationEmail($recommendation);
-                $this->prepareRecRequestEmail($recommendation, $token);
+                  $token = $recommendation->generateRecToken($recommendation);
+                  $this->prepareRecRequestConfirmationEmail($recommendation);
+                  $this->prepareRecRequestEmail($recommendation, $token);
             }
           }
       }
@@ -127,11 +127,11 @@ class RecommendationController extends \Controller
   {
       $formatted = '';
 
-      foreach ($errors as $recNumber=>$errorArray) {
-          $formatted .= 'Recommendation # ' . ($recNumber + 1) . ': <br>';
+      foreach ($errors as $recNumber => $errorArray) {
+          $formatted .= 'Recommendation # '.($recNumber + 1).': <br>';
           $formatted .= '<ul>';
           foreach ($errorArray as $error) {
-              $formatted .= '<li>' . $error . '</li>';
+              $formatted .= '<li>'.$error.'</li>';
           }
           $formatted .= '</ul>';
       }
@@ -274,6 +274,7 @@ class RecommendationController extends \Controller
             // Display errors to user if there are any
             if ($errors !== []) {
                 $errorMessage = $this->formatErrors($errors);
+
                 return redirect()->back()->withInput()->with('flash_message', ['text' => 'There is an error in your submission.<br>'. $errorMessage, 'class' => '-error']);
             } else {
                 // Update the rec if there are no errors
@@ -285,7 +286,7 @@ class RecommendationController extends \Controller
                   $this->prepareRecRequestEmail($currentRec, $token);
                   $this->prepareRecRequestConfirmationEmail($currentRec);
               }
-              $currentRec->save();
+                $currentRec->save();
             }
           } else {
               // True if any fields are filled in
@@ -298,6 +299,7 @@ class RecommendationController extends \Controller
                   // Display errors to the user
                   if ($errors !== []) {
                       $errorMessage = $this->formatErrors($errors);
+
                       return redirect()->back()->withInput()->with('flash_message', ['text' => 'There is an error in your submission.<br>'. $errorMessage, 'class' => '-error']);
                   } else {
                       // If no errors, save the new rec
@@ -309,9 +311,9 @@ class RecommendationController extends \Controller
                       $token = $newRec->generateRecToken($newRec);
                       $this->prepareRecRequestConfirmationEmail($newRec);
                       $this->prepareRecRequestEmail($newRec, $token);
-                }
-            }
-        }
+                  }
+              }
+          }
         }
 
         return redirect()->route('status')->with('flash_message', ['text' => 'Everything updated!', 'class' => '-success']);
