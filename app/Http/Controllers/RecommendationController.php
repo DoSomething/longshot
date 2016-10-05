@@ -112,9 +112,17 @@ class RecommendationController extends \Controller
             }
           }
       }
+
       return redirect()->route('status')->with('flash_message', ['text' => 'Your recommendation request has been submitted!', 'class' => '-success']);
   }
 
+  /**
+   * Formats validation errors from the rec request form and returns a formatted string
+   *
+   * @param  array  $errors
+   *
+   * @return string $formatted
+   */
   public function formatErrors($errors)
   {
     $formatted = '';
