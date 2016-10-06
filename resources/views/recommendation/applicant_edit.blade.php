@@ -54,7 +54,7 @@
 
             {{-- Phone Number --}}
             <div class="field-group -dual -beta">
-              {{ Form::label('rec['.$i.'][phone]', 'Phone Number: ') }}
+              {{ Form::label('rec['.$i.'][phone]', 'Phone Number (no dashes): ') }}
               {{ Form::text('rec['.$i.'][phone]', $recs[$i]['phone'], ['disabled']) }}
               {{ errorsFor('rec['.$i.'][phone]', $errors) }}
             </div>

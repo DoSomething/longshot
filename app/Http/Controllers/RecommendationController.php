@@ -81,7 +81,8 @@ class RecommendationController extends \Controller
       // Go through each rec and collect the validation errors
       foreach ($recs as $key => $rec) {
           // Only try to validate and fill in recs that have any part of the form filled out
-        if (array_filter($rec)) {
+          // Always validate the first form in case someone tries to submit a completely blank form
+        if (array_filter($rec) || $key == 0) {
             $v = Validator::make($rec, $rules);
 
             if ($v->fails()) {

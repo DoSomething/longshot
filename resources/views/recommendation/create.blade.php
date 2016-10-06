@@ -54,7 +54,7 @@
 
             {{-- Phone Number --}}
             <div class="field-group -dual -beta">
-              {!! Form::label('rec['.$i.'][phone]', 'Phone Number: ') !!}
+              {!! Form::label('rec['.$i.'][phone]', 'Phone Number (no dashes): ') !!}
               {!! Form::text('rec['.$i.'][phone]') !!}
               {{-- @TODO: will need a different method of showing errors, since these fields are dynamic and we can't use the ValidationService --}}
               {!! errorsFor('rec['.$i.'][phone]', $errors) !!}
