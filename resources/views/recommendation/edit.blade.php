@@ -46,7 +46,7 @@
 
           {{-- Phone Number --}}
           <div class="field-group -dual -beta">
-            {!! Form::label('phone', 'Your Phone Number: ') !!}
+            {!! Form::label('phone', 'Your Phone Number (no dashes): ') !!}
             {!! Form::text('phone') !!}
             {!! errorsFor('phone', $errors) !!}
           </div>
