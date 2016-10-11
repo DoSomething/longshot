@@ -1,3 +1,5 @@
+import formLoader from './form-loader';
+
 var $      = require('jquery');
 var Panels = require('./panels');
 var Modal  = require('./modal');
@@ -10,6 +12,9 @@ var $mainNav   = $('#main-nav');
 
 
 Panels.init($container, $mainNav);
+
+// Prevent form double submission
+formLoader.initialize();
 
 
 // If there's a designated content modal, then lets activate it!
