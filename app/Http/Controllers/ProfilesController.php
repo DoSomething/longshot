@@ -4,7 +4,6 @@ use App\Models\Application;
 use App\Models\Profile;
 use App\Models\Race;
 use App\Models\User;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Scholarship\Repositories\SettingRepository;
 
@@ -117,9 +116,9 @@ class ProfilesController extends \Controller
   {
       // If there is a profile, direct to edit, otherwise to create (edit handles making sure it is the correct user)
       if (Profile::where('user_id', $id)->first()) {
-        return redirect()->route('profile.edit', $id);
-      }  else {
-        return redirect()->route('profile.create');
+          return redirect()->route('profile.edit', $id);
+      } else {
+          return redirect()->route('profile.create');
       }
   }
 
@@ -134,7 +133,7 @@ class ProfilesController extends \Controller
   {
       // Make sure the user is only seeing their own profile
       if (Auth::user()->id != $id) {
-        // Direct the user to show to edit or create their own application
+          // Direct the user to show to edit or create their own application
         return redirect()->route('profile.show', Auth::user()->id);
       }
 

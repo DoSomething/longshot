@@ -2,7 +2,6 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\User;
 use Auth;
 use Closure;
 use Scholarship\Repositories\SettingRepository;

@@ -47,12 +47,13 @@ class ApplicationController extends \Controller
     }
 
   /**
-   * This isn't a real route, so redirect to the homepage if someone hits it in error
+   * This isn't a real route, so redirect to the homepage if someone hits it in error.
    *
    * @return Response
    */
-  public function index() {
-    return redirect()->route('home');
+  public function index()
+  {
+      return redirect()->route('home');
   }
 
   /**
@@ -116,7 +117,7 @@ class ApplicationController extends \Controller
   }
 
   /**
-   * We very rarely use show, but sometimes people hit it somehow so we should handle it
+   * We very rarely use show, but sometimes people hit it somehow so we should handle it.
    *
    * @param  int  $id
    *
@@ -126,9 +127,9 @@ class ApplicationController extends \Controller
   {
       // If there is an application, direct to edit, otherwise to create (edit handles making sure it is the correct user)
       if (Application::where('user_id', $id)->first()) {
-        return redirect()->route('application.edit', $id);
-      }  else {
-        return redirect()->route('application.create');
+          return redirect()->route('application.edit', $id);
+      } else {
+          return redirect()->route('application.create');
       }
   }
 
@@ -143,7 +144,7 @@ class ApplicationController extends \Controller
   {
       // Make sure the user is only seeing their own application
       if (Auth::user()->id != $id) {
-        // Direct the user to show to edit or create their own application
+          // Direct the user to show to edit or create their own application
         return redirect()->route('application.show', Auth::user()->id);
       }
       // @TODO: add a filter here to check for app complete.
