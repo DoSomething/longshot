@@ -42,11 +42,12 @@ class RegistrationController extends \Controller
     }
 
   /**
-   * This isn't a real route, so redirect to the homepage if someone hits it in error
+   * This isn't a real route, so redirect to the homepage if someone hits it in error.
    *
    * @return Response
    */
-  public function index() {
+  public function index()
+  {
     return redirect()->route('home');
   }
 
