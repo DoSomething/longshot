@@ -42,6 +42,15 @@ class ProfilesController extends \Controller
     }
 
   /**
+   * This isn't a real route, so redirect to the homepage if someone hits it in error
+   *
+   * @return Response
+   */
+  public function index() {
+    return redirect()->route('home');
+  }
+
+  /**
    * Show the form for creating a new resource.
    *
    * @return Response
@@ -106,22 +115,12 @@ class ProfilesController extends \Controller
    */
   public function show($id)
   {
-      try {
-          // @TODO: maybe add this to the global exceptions in app/start/global.php
-
-      $user = User::with('profile')->whereId($id)->firstOrFail();
-      } catch (ModelNotFoundException $error) {
-          return Redirect::home()->with('flash_message', ['text' => 'This user does\'t exist!', 'class' => '-warning']);
+      // If there is a profile, direct to edit, otherwise to create (edit handles making sure it is the correct user)
+      if (Profile::where('user_id', $id)->first()) {
+        return redirect()->route('profile.edit', $id);
+      }  else {
+        return redirect()->route('profile.create');
       }
-
-      if (!$user->profile) {
-          // @TODO: Probably change states into a public static function of Controller.
-      $states = Profile::getStates();
-
-          return view('profile.create', compact('states'));
-      }
-
-      return view('profile.show')->withUser($user);
   }
 
   /**
@@ -133,6 +132,12 @@ class ProfilesController extends \Controller
    */
   public function edit($id)
   {
+      // Make sure the user is only seeing their own profile
+      if (Auth::user()->id != $id) {
+        // Direct the user to show to edit or create their own application
+        return redirect()->route('profile.show', Auth::user()->id);
+      }
+
       $profile = Profile::with('race')->whereUserId($id)->firstOrFail();
       $states = Profile::getStates();
       $races = Profile::getRaces();

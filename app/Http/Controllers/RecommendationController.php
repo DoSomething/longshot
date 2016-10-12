@@ -48,6 +48,15 @@ class RecommendationController extends \Controller
     }
 
   /**
+   * This isn't a real route, so redirect to the homepage if someone hits it in error
+   *
+   * @return Response
+   */
+  public function index() {
+    return redirect()->route('home');
+  }
+
+  /**
    * Show the form for creating a new resource.
    * GET /recommendation/create.
    *
@@ -151,7 +160,8 @@ class RecommendationController extends \Controller
    */
   public function show($id)
   {
-      //
+      // @TODO: this is getting hit on occasion, but since we have query parameters in edit I don't think we can really direct them anywhere except the homepage
+      return redirect()->route('home');
   }
 
   /**

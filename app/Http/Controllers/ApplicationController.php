@@ -34,7 +34,8 @@ class ApplicationController extends \Controller
 
     public function __construct(SettingRepository $settings)
     {
-        $this->middleware('currentUser', ['only' => ['edit', 'update']]);
+        // You should be logged in to do anything with an application
+        $this->middleware('currentUser');
 
         $this->middleware('isClosed');
         // Check that the current user doesn't create many applications
@@ -44,6 +45,15 @@ class ApplicationController extends \Controller
 
         $this->settings = $settings;
     }
+
+  /**
+   * This isn't a real route, so redirect to the homepage if someone hits it in error
+   *
+   * @return Response
+   */
+  public function index() {
+    return redirect()->route('home');
+  }
 
   /**
    * Show the form for creating a new resource.
@@ -106,7 +116,7 @@ class ApplicationController extends \Controller
   }
 
   /**
-   * Display the specified resource.
+   * We very rarely use show, but sometimes people hit it somehow so we should handle it
    *
    * @param  int  $id
    *
@@ -114,9 +124,12 @@ class ApplicationController extends \Controller
    */
   public function show($id)
   {
-      $user = User::with('application')->whereId($id)->firstOrFail();
-
-      return view('application.show')->withUser($user);
+      // If there is an application, direct to edit, otherwise to create (edit handles making sure it is the correct user)
+      if (Application::where('user_id', $id)->first()) {
+        return redirect()->route('application.edit', $id);
+      }  else {
+        return redirect()->route('application.create');
+      }
   }
 
   /**
@@ -128,6 +141,11 @@ class ApplicationController extends \Controller
    */
   public function edit($id)
   {
+      // Make sure the user is only seeing their own application
+      if (Auth::user()->id != $id) {
+        // Direct the user to show to edit or create their own application
+        return redirect()->route('application.show', Auth::user()->id);
+      }
       // @TODO: add a filter here to check for app complete.
       $user = User::whereId($id)->firstOrFail();
       $application = Application::getUserApplication($id);

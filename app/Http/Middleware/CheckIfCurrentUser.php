@@ -30,12 +30,8 @@ class CheckIfCurrentUser
     public function handle($request, Closure $next)
     {
         if (Auth::guest()) {
-            return redirect()->home();
+            return redirect()->route('login')->with('flash_message', ['text' => 'You must be logged in to do that.', 'class' => '-warning']);
         }
-          // // @TODO: protect both the applicaiton/profile edit routes!
-          // if (Auth::user()->id !== (int)$route->parameter('profile')) {
-          //   return Redirect::home();
-          // }
 
         return $next($request);
     }
