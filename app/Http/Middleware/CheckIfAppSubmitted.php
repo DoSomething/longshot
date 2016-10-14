@@ -35,7 +35,7 @@ class CheckIfAppSubmitted
         if (!is_null($user->application)) {
             $complete = Application::isSubmitted($user->id);
             if (isset($complete)) {
-                return Redirect::route('status')->with('flash_message', ['text' => 'You have already submitted your application, you can no longer edit.', 'class' => '-error']);
+                return redirect()->route('status')->with('flash_message', ['text' => 'You have already submitted your application, you can no longer edit.', 'class' => '-error']);
             }
         }
 
