@@ -153,7 +153,8 @@ class StatusController extends \Controller
         $recommendation = Recommendation::whereId($rec_id)->firstOrFail();
         $token = $recommendation->generateRecToken($recommendation);
 
-        $link = link_to_route('recommendation.edit', 'Please provide a recommendation', [$recommendation->id, 'token' => $token]);
+        $link = '<a href="'.url('/').'/recommendation/'.$recommendation->id.'/edit?token='.$token.'" mc:disable-tracking>Please provide a recommendation</a>';
+
         $email = new Email();
         $data = [
           'link'           => $link,

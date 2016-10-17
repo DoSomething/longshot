@@ -386,7 +386,7 @@ class AdminController extends \Controller
       $rec_id = Input::get('rec_id');
         $recommendation = Recommendation::whereId($rec_id)->firstOrFail();
         $token = RecommendationToken::where('recommendation_id', $recommendation->id)->first()->token;
-        $link = link_to_route('recommendation.edit', 'Please provide a recommendation', [$recommendation->id, 'token' => $token]);
+        $link = '<a href="'.url('/').'/recommendation/'.$recommendation->id.'/edit?token='.$token.'" mc:disable-tracking>Please provide a recommendation</a>';
 
       // get applicant info
       $applicant_id = Input::get('applicant_id');
