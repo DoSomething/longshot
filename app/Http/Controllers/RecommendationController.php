@@ -295,7 +295,7 @@ class RecommendationController extends \Controller
                 $currentRec->fill($rec);
               // Only resend and email to the recommender if the email address was changed
               if ($currentRec->isDirty('email')) {
-                  $token = RecommendationToken::where('recommendation_id', $rec['id'])->pluck('token');
+                  $token = RecommendationToken::where('recommendation_id', $rec['id'])->first()->token;
                   $this->prepareRecRequestEmail($currentRec, $token);
                   $this->prepareRecRequestConfirmationEmail($currentRec);
               }
