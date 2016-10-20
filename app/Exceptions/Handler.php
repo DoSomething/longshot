@@ -6,6 +6,7 @@ use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Session\TokenMismatchException;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
@@ -48,6 +49,11 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
+        if ($e instanceof TokenMismatchException) {
+            // If a user gets a token mismatch when submitting a form, bring them back to the form with all their input, but tell them to try again
+            return redirect()->back()->withInput()->with('flash_message', ['text' => 'There was an error processing your submission, please try again.', 'class' => '-error']);
+        }
+
         return parent::render($request, $e);
     }
 }
