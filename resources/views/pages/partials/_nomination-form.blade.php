@@ -4,7 +4,7 @@
         <h1 class="__title heading -alpha -alt">Nominate A Star</h1>
 
         @if (isset($vars->nominate_text))
-          <p class="__message">{{ $vars->nominate_text }}</p>
+          <p class="__message">{!! $vars->nominate_text !!}</p>
         @endif
 
         {!! Form::open(['route' => 'nomination.create']) !!}
