@@ -1,6 +1,6 @@
   {{-- Accomplishments --}}
   <div class="field-group {{ setInvalidClass('accomplishments', $errors) }}">
-    {!! Form::label('accomplishments', $label['accomplishments']) !!}
+    {!! $label['accomplishments'] !!}
     {!! Form::textarea('accomplishments') !!}
     {!! errorsFor('accomplishments', $errors); !!}
   </div>
@@ -30,21 +30,21 @@
 
   {{-- Activities --}}
   <div class="field-group {{ setInvalidClass('activities', $errors) }}">
-    {!! Form::label('activities', $label['activities']) !!}
+    {!! $label['activities'] !!}
     {!! Form::textarea('activities') !!}
     {!! errorsFor('activities', $errors); !!}
   </div>
 
     {{-- Participation --}}
   <div class="field-group {{ setInvalidClass('activities', $errors) }}">
-    {!! Form::label('participation', $label['participation']) !!}
+    {!! $label['participation'] !!}
     {!! Form::textarea('participation') !!}
     {!! errorsFor('participation', $errors); !!}
   </div>
 
   {{-- Essay 1 --}}
   <div class="field-group {{ setInvalidClass('essay1', $errors) }}">
-    {!! Form::label('essay1', $label['essay1']) !!}
+    {!! $label['essay1'] !!}
     {!! Form::textarea('essay1') !!}
     {!! errorsFor('essay1', $errors); !!}
   </div>
@@ -52,7 +52,7 @@
 
   {{-- Essay 2 --}}
   <div class="field-group {{ setInvalidClass('essay2', $errors) }}">
-    {!! Form::label('essay2', $label['essay2']) !!}
+    {!! $label['essay2'] !!}
     {!! Form::textarea('essay2') !!}
     {!! errorsFor('essay2', $errors); !!}
   </div>
