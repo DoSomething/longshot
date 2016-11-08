@@ -66,7 +66,7 @@
                   @if (!empty($field))
                     {{-- Does the field have a better title in the scholarship? --}}
                     @if (isset($scholarship[$key]))
-                      <p><strong>{{ snakeCaseToTitleCase($scholarship[$key]) }}</strong></p>
+                      <p><strong>{!! snakeCaseToTitleCase($scholarship[$key]) !!}</strong></p>
                     @else
                       <p><strong>{{ snakeCaseToTitleCase($key) }}</strong></p>
                     @endif
