@@ -28,6 +28,9 @@
     @if (isset($global_vars->tracking_code_id))
       @include('layouts.partials.google-analytics')
     @endif
+    <script src="/dist/js/jquery.min.js"></script>
+    <script src="/dist/js/main.js"></script> 
+    <script src="https://cdn.optimizely.com/js/2090121062.js"></script>
   </head>
 
     @if (!empty($global_vars->background_image))
@@ -69,8 +72,7 @@
 
     @include('layouts.partials.upgrade-message')
 
-    <script src="/dist/js/jquery.min.js"></script>
-    <script src="/dist/js/main.js"></script>
-
+    
+    
   </body>
 </html>
