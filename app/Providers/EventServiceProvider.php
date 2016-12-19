@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use Cache;
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use Scholarship\Repositories\SettingRepository;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -29,6 +31,33 @@ class EventServiceProvider extends ServiceProvider
     {
         parent::boot($events);
 
-        //
+        $events->listen('settings.change', function($category) {
+              if ($category === 'general') {
+
+                // @TODO: get this to work
+                // Cache::forget('setting.' . implode('.', SettingRepository::$pageQueryItems));
+                // Cache::forget('setting.' . implode('.', SettingRepository::$nominateQueryItems));
+                // foreach (SettingRepository::$individualQueryItems as $item) {
+                //   Cache::forget('setting.' . $item);
+                // }
+                Cache::flush();
+
+              } elseif ($category === 'meta_data') {
+
+                // @TODO: get this to work
+                // Cache::forget('setting.' . implode('.', SettingRepository::$openGraphDataQueryItems));
+
+                // Cache::forget('setting.favicon');
+
+                Cache::flush();
+
+
+              } else {
+                // @TODO: get this to work
+                // Cache::forget('setting.' . $category);
+
+                Cache::flush();
+              }
+        });
     }
 }
