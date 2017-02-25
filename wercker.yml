@@ -1,4 +1,4 @@
-box: blisteringherb/ds-wercker-box:mysql
+box: dosomething/ds-docker-php
 build:
     steps:
       - script:
