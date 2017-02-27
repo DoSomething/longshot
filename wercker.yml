@@ -17,10 +17,10 @@ build:
           code: |-
             mkdir -p $WERCKER_CACHE_DIR/wercker/npm
             npm config set cache $WERCKER_CACHE_DIR/wercker/npm
-            sudo npm install
+            npm install
       - script:
           name: install bower dependencies
-          code: bower install
+          code: bower --allow-root install
       - script:
           name: build assets
           code: gulp
