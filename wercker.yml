@@ -33,3 +33,9 @@ deploy:
           export CAP_PRIVATE_KEY=`mktemp`
           echo -e $WERCKER_APP_KEY_PRIVATE > $CAP_PRIVATE_KEY
     - cap
+  after-steps:
+    - sherzberg/slack-notify:
+        subdomain: dosomething
+        token: $SLACK_TOKEN
+        channel: $SLACK_ROOM
+
