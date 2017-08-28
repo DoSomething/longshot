@@ -12,7 +12,7 @@ class ApplicationController extends \Controller
     'accomplishments' => 'required',
     'participation'   => 'required',
     'gpa'             => 'required|numeric',
-    'test_score'      => 'numeric|required_if:test_type,PSAT,SAT,PLAN,ACT',
+    'test_score'      => 'numeric|required_if:test_type,PSAT,SAT (Out of 2400),SAT (Out of 1600),PLAN,ACT',
     'activities'      => 'required',
     'essay1'          => 'required',
     'essay2'          => 'required',
