@@ -9,6 +9,11 @@ set :user, "dosomething"
 set :group, "dosomething"
 set :use_sudo, false
 
+gateway = ENV["GATEWAY"]
+unless gateway.nil?
+  set :gateway, ENV["GATEWAY"]
+end
+
 set :repository, "."
 set :scm, :none
 set :deploy_via, :copy
