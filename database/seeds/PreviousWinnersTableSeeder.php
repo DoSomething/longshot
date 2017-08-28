@@ -3,6 +3,7 @@
 use App\Models\Application;
 use App\Models\Profile;
 use App\Models\Winner;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class PreviousWinnersTableSeeder extends Seeder
