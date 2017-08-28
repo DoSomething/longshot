@@ -45,7 +45,7 @@ class Export extends Model
 
     public static function nominated_no_app_query()
     {
-        $results = DB::select('SELECT n.nom_name, n.nom_email
+        $results = DB::select('SELECT n.nom_name as Nominee, n.nom_email as Email
                            FROM nominations n
                            WHERE not exists (SELECT *
                                              FROM users u
