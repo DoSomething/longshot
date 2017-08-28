@@ -31,6 +31,5 @@ class DatabaseSeeder extends Seeder
         $this->call('StatusPageHelpTextTableSeeder');
         $this->call('TrackingCodeSettingTableSeeder');
         $this->call('UsersTableSeeder');
-        $this->call('WaterGateSeeder');
     }
 }

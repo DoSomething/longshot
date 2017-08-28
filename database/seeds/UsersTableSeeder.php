@@ -20,30 +20,30 @@ class UsersTableSeeder extends Seeder
       ])->assignRole(1);
 
       User::create([
-        'first_name' => 'Andrea',
-        'last_name'  => 'Gaither',
-        'email'      => 'agaither@dosomething.org',
+        'first_name' => 'Katie',
+        'last_name'  => 'Crane',
+        'email'      => 'kcrane@dosomething.org',
         'password'   => '123456',
       ])->assignRole(1);
 
       User::create([
-        'first_name' => 'Barry',
-        'last_name'  => 'Clark',
-        'email'      => 'bclark@dosomething.org',
+        'first_name' => 'Jen',
+        'last_name'  => 'Ng',
+        'email'      => 'jng@dosomething.org',
         'password'   => '123456',
       ])->assignRole(1);
 
       User::create([
-        'first_name' => 'Greg',
-        'last_name'  => 'Thomas',
-        'email'      => 'gthomas@tmiagency.org',
+        'first_name' => 'Mai',
+        'last_name'  => 'Irie',
+        'email'      => 'mirie@dosomething.org',
         'password'   => '123456',
       ])->assignRole(1);
 
       User::create([
-        'first_name' => 'Elizabeth',
-        'last_name'  => 'Divine',
-        'email'      => 'edivine@tmiagency.org',
+        'first_name' => 'Dave',
+        'last_name'  => 'Furnes',
+        'email'      => 'dfurnes@dosomething.org',
         'password'   => '123456',
       ])->assignRole(1);
   }
