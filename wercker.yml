@@ -10,6 +10,7 @@ build:
           name: phpunit
           code: |-
               cp .env.example .env
+              php artisan key:generate
               mysql -u homestead -psecret -e "CREATE DATABASE longshot_testing;"
               vendor/bin/phpunit
       - script:
