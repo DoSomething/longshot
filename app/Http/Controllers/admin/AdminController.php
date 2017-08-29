@@ -347,7 +347,7 @@ class AdminController extends \Controller
         // For each result, construct and send the email
         $tokens = [];
         foreach ($query_result as $row) {
-            // Some emails are stored under a different column, and we get them "as Email"
+            // Grab the email address
             $send_to = $row->email;
 
             // Define row specific tokens
