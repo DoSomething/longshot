@@ -16,7 +16,7 @@
   {{-- Test Type --}}
   <div class="field-group -mono {{ setInvalidClass('test_type', $errors) }}">
     {!! Form::label('test_type', 'Test Type:') !!}
-    {!! Form::select('test_type', array('PSAT' => 'PSAT', 'SAT' => 'SAT', 'PLAN' => 'PLAN', 'ACT' => 'ACT', 'Prefer not to submit scores' => 'Prefer not to submit scores')); !!}
+    {!! Form::select('test_type', array('PSAT' => 'PSAT', 'SAT (Out of 1600)' => 'SAT (Out of 1600)', 'SAT (Out of 2400)' => 'SAT (Out of 2400)', 'PLAN' => 'PLAN', 'ACT' => 'ACT', 'Prefer not to submit scores' => 'Prefer not to submit scores')); !!}
     {!! errorsFor('test_type', $errors); !!}
   </div>
 
