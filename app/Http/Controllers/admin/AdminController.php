@@ -348,7 +348,7 @@ class AdminController extends \Controller
         $tokens = [];
         foreach ($query_result as $row) {
             // Some emails are stored under a different column, and we get them "as Email"
-            $send_to = isset($row->email) ? $row->email : $row->Email;
+            $send_to = $row->email;
 
             // Define row specific tokens
             if (isset($row->first_name)) {
