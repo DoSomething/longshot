@@ -45,7 +45,7 @@ class Export extends Model
 
     public static function nominated_no_app_query()
     {
-        $results = DB::select('SELECT n.nom_name, n.nom_email
+        $results = DB::select('SELECT n.nom_name, n.nom_email as email
                            FROM nominations n
                            WHERE not exists (SELECT *
                                              FROM users u
@@ -79,7 +79,7 @@ class Export extends Model
 
     public static function nominators_query()
     {
-        $results = DB::select('SELECT DISTINCT rec_name as Name, rec_email as Email
+        $results = DB::select('SELECT DISTINCT rec_name as Name, rec_email as email
                           FROM nominations');
 
         return $results;
@@ -87,7 +87,7 @@ class Export extends Model
 
     public static function nominees_query()
     {
-        $results = DB::select('SELECT DISTINCT nom_name as Name, nom_email as Email
+        $results = DB::select('SELECT DISTINCT nom_name as Name, nom_email as email
                           FROM nominations');
 
         return $results;
