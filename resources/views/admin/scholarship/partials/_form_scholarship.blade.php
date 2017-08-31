@@ -137,7 +137,7 @@
 {{-- Image Uploads --}}
 <div class="form-group">
   {!! Form::label('image_uploads', 'Allow applicants to upload images') !!}
-  {!! Form::checkbox('image_uploads', 1, $scholarship->image_uploads, ['class' => 'form-control']) !!}
+  {!! Form::checkbox('image_uploads', 1, $scholarship->image_uploads) !!}
   {!! errorsFor('image_uploads', $errors); !!}
 </div>
 
