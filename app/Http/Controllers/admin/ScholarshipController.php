@@ -78,14 +78,11 @@ class ScholarshipController extends \Controller
   {
       $input = Input::all();
 
-      // Must explicity get checkbox content to save as boolean, since a non-checked  box doesn't return anything from a form submit.
-      $optional = Input::get('display_optional_rec_question');
-      $images = Input::get('image_uploads');
-
       $scholarship = Scholarship::whereId($id)->firstOrFail();
 
-      $scholarship->display_optional_rec_question = $optional;
-      $scholarship->image_uploads = $images;
+      // Must explicity get checkbox content to save as boolean, since a non-checked  box doesn't return anything from a form submit.
+      $scholarship->display_optional_rec_question = Input::get('display_optional_rec_question');
+      $scholarship->image_uploads = Input::get('image_uploads');
 
       $scholarship->fill($input)->save();
 
