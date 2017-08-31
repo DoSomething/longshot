@@ -136,8 +136,8 @@
 
 {{-- Image Uploads --}}
 <div class="form-group">
-  {!! Form::label('image_uploads', 'Allow applicants to upload images') !!}
   {!! Form::checkbox('image_uploads', 1, $scholarship->image_uploads) !!}
+  {!! Form::label('image_uploads', 'Allow applicants to upload images') !!}
   {!! errorsFor('image_uploads', $errors); !!}
 </div>
 
@@ -164,8 +164,8 @@
 
 {{-- Recommendation Optional question --}}
 <div class="form-group">
-  {!! Form::label('display_optional_rec_question', 'Display optional recommendation question') !!}
   {!! Form::checkbox('display_optional_rec_question', 1, $scholarship->display_optional_rec_question) !!}
+  {!! Form::label('display_optional_rec_question', 'Display optional recommendation question') !!}
   {!! errorsFor('display_optional_rec_question', $errors); !!}
 </div>
 <div class="form-group">
