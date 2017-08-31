@@ -153,6 +153,7 @@ class ApplicationController extends \Controller
       $application = Application::getUserApplication($id);
       $label = Scholarship::getScholarshipLabels($application['scholarship_id']);
       $hear_about = Scholarship::getCurrentScholarship()->hear_about_options;
+      $image_uploads = Scholarship::getCurrentScholarship()->image_uploads;
       $choices = Application::formatChoices($hear_about);
 
       // We have to pass uploads to the view, so set null unless there is one
@@ -163,7 +164,7 @@ class ApplicationController extends \Controller
 
       $vars = (object) $this->settings->getSpecifiedSettingsVars(['application_create_help_text']);
 
-      return view('application.edit')->with(compact('user', 'label', 'choices', 'vars', 'uploads'));
+      return view('application.edit')->with(compact('user', 'label', 'choices', 'vars', 'uploads', 'image_uploads'));
   }
 
   /**
