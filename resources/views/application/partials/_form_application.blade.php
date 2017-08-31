@@ -58,27 +58,29 @@
   </div>
 
   {{-- Upload --}}
-  @if (isset($uploads) && !is_null($uploads))
-    <p>Uploaded Images</p>
-    @foreach ($uploads as $upload)
-      <div class="image-holder">
-        <img src="/storage/app/uploads/{{$user->id}}/{{$upload}}" alt="uploaded image">
-        <p>Remove?</p>
-        {!! Form::checkbox('remove[]', $upload) !!}
+  @if ($image_uploads)
+    @if (isset($uploads) && !is_null($uploads))
+      <p>Uploaded Images</p>
+      @foreach ($uploads as $upload)
+        <div class="image-holder">
+          <img src="/storage/app/uploads/{{$user->id}}/{{$upload}}" alt="uploaded image">
+          <p>Remove?</p>
+          {!! Form::checkbox('remove[]', $upload) !!}
+        </div>
+        <br>
+      @endforeach
+      <div class="field-group">
+        {!! Form::label('upload', 'Additional photos (optional)') !!}
+        {!! Form::file('upload') !!}
+        {!! errorsFor('upload', $errors); !!}
       </div>
-      <br>
-    @endforeach
-    <div class="field-group">
-      {!! Form::label('upload', 'Additional photos (optional)') !!}
-      {!! Form::file('upload') !!}
-      {!! errorsFor('upload', $errors); !!}
-    </div>
-  @else
-    <div class="field-group">
-      {!! Form::label('upload', 'Photos (optional)') !!}
-      {!! Form::file('upload') !!}
-      {!! errorsFor('upload', $errors); !!}
-    </div>
+    @else
+      <div class="field-group">
+        {!! Form::label('upload', 'Photos (optional)') !!}
+        {!! Form::file('upload') !!}
+        {!! errorsFor('upload', $errors); !!}
+      </div>
+    @endif
   @endif
 
   {{-- Hear About --}}

@@ -67,10 +67,11 @@ class ApplicationController extends \Controller
       $current_scholarship_id = Scholarship::getCurrentScholarship()->id;
       $label = Scholarship::getScholarshipLabels($current_scholarship_id);
       $hear_about = Scholarship::getCurrentScholarship()->hear_about_options;
+      $image_uploads = Scholarship::getCurrentScholarship()->image_uploads;
       $choices = Application::formatChoices($hear_about);
       $vars = (object) $this->settings->getSpecifiedSettingsVars(['application_create_help_text']);
 
-      return view('application.create')->with(compact('label', 'choices', 'vars'));
+      return view('application.create')->with(compact('label', 'choices', 'vars', 'image_uploads'));
   }
 
   /**
