@@ -134,6 +134,13 @@
   {!! errorsFor('label_app_essay2', $errors); !!}
 </div>
 
+{{-- Image Uploads --}}
+<div class="form-group">
+  {!! Form::label('image_uploads', 'Allow applicants to upload images?') !!}
+  {!! Form::checkbox('image_uploads', 1, $scholarship->image_uploads) !!}
+  {!! errorsFor('image_uploads', $errors); !!}
+</div>
+
 {{-- Recommendation Rank Character Label --}}
 <div class="form-group">
   {!! Form::label('label_rec_rank_character', 'Recommendation Rank Character Label: ') !!}
@@ -157,8 +164,8 @@
 
 {{-- Recommendation Optional question --}}
 <div class="form-group">
-  {!! Form::label('display_optional_rec_question', 'Display optional recommendation question? ') !!}
-  {!! Form::checkbox('display_optional_rec_question', 1, ['class' => 'form-control']) !!}
+  {!! Form::label('display_optional_rec_question', 'Display optional recommendation question?') !!}
+  {!! Form::checkbox('display_optional_rec_question', 1, $scholarship->display_optional_rec_question) !!}
   {!! errorsFor('display_optional_rec_question', $errors); !!}
 </div>
 <div class="form-group">
