@@ -31,7 +31,18 @@
         {!! Form::close() !!}
 
        </div>
+
+
       </div>
+       <div class="row">
+          <div class="col-xs-3 col-xs-offset-2 main">
+           {!! Form::open(['route' => 'export.csv']) !!}
+
+           {!! Form::button('<i class="glyphicon glyphicon-download-alt"></i>Demographic Data', array('type' => 'submit', 'name' => 'demo_data', 'class' => 'btn btn-default btn-lg')) !!}
+
+          {!! Form::close() !!}
+          </div>
+       </div>
     </div>
 
 
