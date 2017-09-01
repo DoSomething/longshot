@@ -141,4 +141,16 @@ class Export extends Model
 
         return $results;
     }
+
+  public static function demo_data_query()
+  {
+    $results = DB::select('SELECT u.first_name, u.last_name, p.city, p.state, p.zip, p.gender, p.school, a.hear_about, a.test_type, a.test_score, a.gpa, group_concat(r.race) as race
+                          FROM users u
+                          LEFT JOIN applications a on u.id = a.user_id
+                          LEFT JOIN profiles p on u.id = p.user_id
+                          LEFT JOIN races r on p.id = r.profile_id
+                          GROUP BY u.email');
+
+    return $results;
+  }
 }
