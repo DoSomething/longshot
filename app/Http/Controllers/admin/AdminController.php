@@ -223,6 +223,8 @@ class AdminController extends \Controller
             }
         }
 
+        $image_uploads = Scholarship::getCurrentScholarship()->image_uploads;
+
         $hear_about = Scholarship::getCurrentScholarship()->hear_about_options;
         $choices = Application::formatChoices($hear_about);
 
@@ -240,7 +242,7 @@ class AdminController extends \Controller
 
         $possible_ratings = Rating::getPossibleRatings();
 
-        return view('admin.applications.edit')->withUser($profile)->with(compact('id', 'application', 'app_id', 'user', 'user_info', 'profile', 'races', 'label', 'choices', 'recommendations', 'states', 'show_rating', 'possible_ratings', 'app_rating', 'rank_values', 'user_races'));
+        return view('admin.applications.edit')->withUser($profile)->with(compact('id', 'application', 'app_id', 'user', 'user_info', 'profile', 'races', 'label', 'choices', 'recommendations', 'states', 'show_rating', 'possible_ratings', 'app_rating', 'rank_values', 'user_races', 'image_uploads'));
     }
 
     public function settings()
