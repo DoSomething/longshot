@@ -213,7 +213,7 @@ class Export extends Model
     return $results;
   }
 
-  public static full_app_dump_query()
+  public static function full_app_data_query()
   {
     $results = DB::select('SELECT u.first_name, u.last_name, u.email,
                           p.birthdate, p.phone, p.address_street, p.address_premise, p.city, p.state, p.zip, p.gender, p.school, p.grade,

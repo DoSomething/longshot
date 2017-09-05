@@ -47,6 +47,8 @@
 
             {!! Form::button('<i class="glyphicon glyphicon-download-alt"></i>Yes Applicants Full Data', array('type' => 'submit', 'name' => 'full_yes_data', 'class' => 'btn btn-default btn-lg')) !!}
 
+            {!! Form::button('<i class="glyphicon glyphicon-download-alt"></i>All Applicants Full Data', array('type' => 'submit', 'name' => 'full_app_data', 'class' => 'btn btn-default btn-lg')) !!}
+
           {!! Form::close() !!}
           </div>
        </div>
