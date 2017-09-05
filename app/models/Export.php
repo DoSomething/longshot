@@ -212,4 +212,62 @@ class Export extends Model
 
     return $results;
   }
+
+  public static full_app_dump_query()
+  {
+    $results = DB::select('SELECT u.first_name, u.last_name, u.email,
+                          p.birthdate, p.phone, p.address_street, p.address_premise, p.city, p.state, p.zip, p.gender, p.school, p.grade,
+                          a.accomplishments, a.activities, a.participation, a.essay1, a.essay2, a.hear_about, a.test_type, a.test_score, a.gpa,
+                          group_concat(r.race) as race, s.rating,
+
+                          SUBSTRING_INDEX(SUBSTRING_INDEX(CONCAT(GROUP_CONCAT(recs.first_name SEPARATOR "----"),"----"), "----", 1), "----", -1) AS "Recommendation First Name 1",
+                          SUBSTRING_INDEX(SUBSTRING_INDEX(CONCAT(GROUP_CONCAT(recs.last_name SEPARATOR "----"),"----"), "----", 1), "----", -1) AS "Recommendation Last Name 1",
+                          SUBSTRING_INDEX(SUBSTRING_INDEX(CONCAT(GROUP_CONCAT(recs.relationship SEPARATOR "----"),"----"), "----", 1), "----", -1) AS "Recommendation Relationship 1",
+                          SUBSTRING_INDEX(SUBSTRING_INDEX(CONCAT(GROUP_CONCAT(recs.phone SEPARATOR "----"),"----"), "----", 1), "----", -1) AS "Recommendation Phone 1",
+                          SUBSTRING_INDEX(SUBSTRING_INDEX(CONCAT(GROUP_CONCAT(recs.email SEPARATOR "----"),"----"), "----", 1), "----", -1) AS "Recommendation Email 1",
+                          SUBSTRING_INDEX(SUBSTRING_INDEX(CONCAT(GROUP_CONCAT(recs.rank_character SEPARATOR "----"),"----"), "----", 1), "----", -1) AS "Recommendation rank_character 1",
+                          SUBSTRING_INDEX(SUBSTRING_INDEX(CONCAT(GROUP_CONCAT(recs.rank_additional SEPARATOR "----"),"----"), "----", 1), "----", -1) AS "Recommendation rank_additional 1",
+                          SUBSTRING_INDEX(SUBSTRING_INDEX(CONCAT(GROUP_CONCAT(recs.essay1 SEPARATOR "----"),"----"), "----", 1), "----", -1) AS "Recommendation essay 1",
+                          SUBSTRING_INDEX(SUBSTRING_INDEX(CONCAT(GROUP_CONCAT(recs.optional_question SEPARATOR "----"),"----"), "----", 1), "----", -1) AS "Recommendation optional question 1",
+
+                          SUBSTRING_INDEX(SUBSTRING_INDEX(CONCAT(GROUP_CONCAT(recs.first_name SEPARATOR "----"),"----"), "----", 2), "----", -1) AS "Recommendation First Name 2",
+                          SUBSTRING_INDEX(SUBSTRING_INDEX(CONCAT(GROUP_CONCAT(recs.last_name SEPARATOR "----"),"----"), "----", 2), "----", -1) AS "Recommendation Last Name 2",
+                          SUBSTRING_INDEX(SUBSTRING_INDEX(CONCAT(GROUP_CONCAT(recs.relationship SEPARATOR "----"),"----"), "----", 2), "----", -1) AS "Recommendation Relationship 2",
+                          SUBSTRING_INDEX(SUBSTRING_INDEX(CONCAT(GROUP_CONCAT(recs.phone SEPARATOR "----"),"----"), "----", 2), "----", -1) AS "Recommendation Phone 2",
+                          SUBSTRING_INDEX(SUBSTRING_INDEX(CONCAT(GROUP_CONCAT(recs.email SEPARATOR "----"),"----"), "----", 2), "----", -1) AS "Recommendation Email 2",
+                          SUBSTRING_INDEX(SUBSTRING_INDEX(CONCAT(GROUP_CONCAT(recs.rank_character SEPARATOR "----"),"----"), "----", 2), "----", -1) AS "Recommendation rank_character 2",
+                          SUBSTRING_INDEX(SUBSTRING_INDEX(CONCAT(GROUP_CONCAT(recs.rank_additional SEPARATOR "----"),"----"), "----", 2), "----", -1) AS "Recommendation rank_additional 2",
+                          SUBSTRING_INDEX(SUBSTRING_INDEX(CONCAT(GROUP_CONCAT(recs.essay1 SEPARATOR "----"),"----"), "----", 2), "----", -1) AS "Recommendation essay 2",
+                          SUBSTRING_INDEX(SUBSTRING_INDEX(CONCAT(GROUP_CONCAT(recs.optional_question SEPARATOR "----"),"----"), "----", 2), "----", -1) AS "Recommendation optional question 2",
+
+                          SUBSTRING_INDEX(SUBSTRING_INDEX(CONCAT(GROUP_CONCAT(recs.first_name SEPARATOR "----"),"----"), "----", 3), "----", -1) AS "Recommendation First Name 3",
+                          SUBSTRING_INDEX(SUBSTRING_INDEX(CONCAT(GROUP_CONCAT(recs.last_name SEPARATOR "----"),"----"), "----", 3), "----", -1) AS "Recommendation Last Name 3",
+                          SUBSTRING_INDEX(SUBSTRING_INDEX(CONCAT(GROUP_CONCAT(recs.relationship SEPARATOR "----"),"----"), "----", 3), "----", -1) AS "Recommendation Relationship 3",
+                          SUBSTRING_INDEX(SUBSTRING_INDEX(CONCAT(GROUP_CONCAT(recs.phone SEPARATOR "----"),"----"), "----", 3), "----", -1) AS "Recommendation Phone 3",
+                          SUBSTRING_INDEX(SUBSTRING_INDEX(CONCAT(GROUP_CONCAT(recs.email SEPARATOR "----"),"----"), "----", 3), "----", -1) AS "Recommendation Email 3",
+                          SUBSTRING_INDEX(SUBSTRING_INDEX(CONCAT(GROUP_CONCAT(recs.rank_character SEPARATOR "----"),"----"), "----", 3), "----", -1) AS "Recommendation rank_character 3",
+                          SUBSTRING_INDEX(SUBSTRING_INDEX(CONCAT(GROUP_CONCAT(recs.rank_additional SEPARATOR "----"),"----"), "----", 3), "----", -1) AS "Recommendation rank_additional 3",
+                          SUBSTRING_INDEX(SUBSTRING_INDEX(CONCAT(GROUP_CONCAT(recs.essay1 SEPARATOR "----"),"----"), "----", 3), "----", -1) AS "Recommendation essay 3",
+                          SUBSTRING_INDEX(SUBSTRING_INDEX(CONCAT(GROUP_CONCAT(recs.optional_question SEPARATOR "----"),"----"), "----", 3), "----", -1) AS "Recommendation optional question 3",
+
+                          SUBSTRING_INDEX(SUBSTRING_INDEX(CONCAT(GROUP_CONCAT(recs.first_name SEPARATOR "----"),"----"), "----", 4), "----", -1) AS "Recommendation First Name 4",
+                          SUBSTRING_INDEX(SUBSTRING_INDEX(CONCAT(GROUP_CONCAT(recs.last_name SEPARATOR "----"),"----"), "----", 4), "----", -1) AS "Recommendation Last Name 4",
+                          SUBSTRING_INDEX(SUBSTRING_INDEX(CONCAT(GROUP_CONCAT(recs.relationship SEPARATOR "----"),"----"), "----", 4), "----", -1) AS "Recommendation Relationship 4",
+                          SUBSTRING_INDEX(SUBSTRING_INDEX(CONCAT(GROUP_CONCAT(recs.phone SEPARATOR "----"),"----"), "----", 4), "----", -1) AS "Recommendation Phone 4",
+                          SUBSTRING_INDEX(SUBSTRING_INDEX(CONCAT(GROUP_CONCAT(recs.email SEPARATOR "----"),"----"), "----", 4), "----", -1) AS "Recommendation Email 4",
+                          SUBSTRING_INDEX(SUBSTRING_INDEX(CONCAT(GROUP_CONCAT(recs.rank_character SEPARATOR "----"),"----"), "----", 4), "----", -1) AS "Recommendation rank_character 4",
+                          SUBSTRING_INDEX(SUBSTRING_INDEX(CONCAT(GROUP_CONCAT(recs.rank_additional SEPARATOR "----"),"----"), "----", 4), "----", -1) AS "Recommendation rank_additional 4",
+                          SUBSTRING_INDEX(SUBSTRING_INDEX(CONCAT(GROUP_CONCAT(recs.essay1 SEPARATOR "----"),"----"), "----", 4), "----", -1) AS "Recommendation essay 4",
+                          SUBSTRING_INDEX(SUBSTRING_INDEX(CONCAT(GROUP_CONCAT(recs.optional_question SEPARATOR "----"),"----"), "----", 4), "----", -1) AS "Recommendation optional question 4"
+
+                          FROM users u
+                          LEFT JOIN profiles p on u.id = p.user_id
+                          LEFT JOIN races r on r.profile_id = p.id
+                          LEFT JOIN applications a on u.id = a.user_id
+                          LEFT JOIN ratings s on a.id = s.application_id
+                          LEFT JOIN recommendations recs on recs.application_id = a.id
+                          GROUP BY u.email');
+
+    return $results;
+  }
 }
