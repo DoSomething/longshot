@@ -6,6 +6,11 @@
 
       @include('admin.layouts.partials.subnav-applications')
 
+
+        <div class="col-xs-6 col-xs-offset-2 main">
+          <p>For more information about the data exports available on this page and how to use the email functionality, please visit the <a href="https://github.com/DoSomething/longshot/wiki/Group-Emails-and-CSV-Exports-(Admin)">Group Emails and CSV Exports</a> page on the Longshot wiki.</p>
+        </div>
+
          <div class="col-xs-3 col-xs-offset-2 main">
 
         {!! Form::open(['route' => 'email.group']) !!}
