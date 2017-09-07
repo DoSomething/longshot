@@ -63,6 +63,11 @@ class ApplicationController extends \Controller
    */
   public function create()
   {
+      // If current user already has an application, redirect them to edit page
+      if (Auth::user()->application) {
+        return redirect()->route('application.edit', Auth::user()->id);
+      }
+
       //@TODO: need to figure out which scholarship is the current run.
       $current_scholarship_id = Scholarship::getCurrentScholarship()->id;
       $label = Scholarship::getScholarshipLabels($current_scholarship_id);
@@ -82,6 +87,16 @@ class ApplicationController extends \Controller
   public function store(Request $request)
   {
       $user = User::whereId(Auth::user()->id)->firstOrFail();
+
+      // If a user already has an application, we want to keep the new updates but not create a new application
+      // If a user goes "back" to the create page, they could submit the form again, but we don't want to create a new application for them
+      // Instead, use "update" to update their existing application
+      if (Auth::user()->application) {
+        $request['from_create'] = 1;
+        $this->update(Auth::user()->id, $request);
+
+        return $this->redirectAfterSave($request, Auth::user()->id);
+      }
 
     // Only run validation on applications that were submitted
     // (do not run on those 'saved as draft')
@@ -181,7 +196,7 @@ class ApplicationController extends \Controller
 
     // Only run validation on applications that were submitted
     // (do not run on those 'saved as draft')
-    if ($request->input('complete')) {
+    if ($request->input('complete') && !$request->input('from_create')) {
         $this->validate($request, $this->rules, $this->messages);
     }
       $application = Application::where('user_id', $id)->firstOrFail();
@@ -247,6 +262,8 @@ class ApplicationController extends \Controller
     {
         if (isset($override)) {
             return redirect()->route($override)->with('flash_message', ['text' => 'Your profile has been updated', 'class' => '-success']);
+        } elseif (isset($input['complete']) && isset($input['from_create'])) {
+            return redirect()->route('application.edit', $id)->with('flash_message', ['text' => 'Your application has been updated! Click "Save & Continue" to complete it!', 'class' => '-success']);
         } elseif (isset($input['complete'])) {
             return redirect()->route('review', $id)->with('flash_message', ['text' => 'Application information has been saved!', 'class' => '-success']);
         } else {

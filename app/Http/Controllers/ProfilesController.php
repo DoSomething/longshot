@@ -57,6 +57,11 @@ class ProfilesController extends \Controller
    */
   public function create()
   {
+      // If current user already has an application, redirect them to edit page
+      if (Auth::user()->profile) {
+        return redirect()->route('profile.edit', Auth::user()->id);
+      }
+
       $states = Profile::getStates();
       $races = Profile::getRaces();
 
@@ -74,12 +79,24 @@ class ProfilesController extends \Controller
   public function store(Request $request)
   {
       $user = User::whereId(Auth::user()->id)->firstOrFail();
-      // $input = Input::all();
+
+    // If a user already has a profile, we want to keep the new updates but not create a new profile
+    // If a user goes "back" to the create page, they could submit the form again, but we don't want to create a new profile for them
+    // Instead, use "update" to update their existing profile
+    if (Auth::user()->profile) {
+      $request['from_create'] = 1;
+      $this->update(Auth::user()->id, $request);
+
+      return $this->redirectAfterSave($request, Auth::user()->id);
+    }
+
     // Only run validation on applications that were submitted
     // (do not run on those 'saved as draft')
     if (isset($request['complete'])) {
         $this->validate($request, $this->rules, $this->messages);
     }
+
+
     // @TODO: there's a better way of doing the following...
     $profile = new Profile();
       $profile->birthdate = $request['birthdate'];
@@ -199,8 +216,9 @@ class ProfilesController extends \Controller
         Race::where('profile_id', '=', $user->profile->id)->delete();
       }
 
-      // only validate if not saved as a draft
-      if (isset($request['complete'])) {
+      // Only validate if not saved as a draft
+      // Do not validate if we got here from the /create page because if there are errors, the errors and updates will be lost
+      if (isset($request['complete']) && !isset($request['from_create'])) {
           $this->validate($request, $this->rules, $this->messages);
       }
 
@@ -222,6 +240,8 @@ class ProfilesController extends \Controller
     {
         if (isset($override)) {
             return redirect()->route($override)->with('flash_message', ['text' => 'Your profile has been updated', 'class' => '-success']);
+        } elseif (isset($input['complete']) && isset($input['from_create'])) {
+            return redirect()->route('profile.edit', $id)->with('flash_message', ['text' => 'Your profile has been updated! Click "Save & Continue" to complete it!', 'class' => '-success']);
         } elseif (isset($input['complete'])) {
             return redirect()->route('application.create')->with('flash_message', ['text' => 'Application information has been saved!', 'class' => '-success']);
         } else {
