@@ -177,7 +177,7 @@
 
 {{-- How did you hear options? --}}
 <div class="form-group">
-  {!! Form::label('hear_about_options', 'Hear about this options (comma seperated list) ') !!}
+  {!! Form::label('hear_about_options', 'Hear about this options (comma separated list) ') !!}
   {!! Form::text('hear_about_options', null, ['class' => 'form-control']) !!}
   {!! errorsFor('hear_about_options', $errors); !!}
 </div>
