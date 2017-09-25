@@ -42,6 +42,8 @@ class Scholarship extends Model
    */
   public static function isClosed($type = 'application')
   {
+      $start_date = self::getCurrentScholarship()->application_start;
+
       if ($type === 'application') {
           $end_date = self::getCurrentScholarship()->application_end;
       }
@@ -50,7 +52,7 @@ class Scholarship extends Model
           $end_date = self::getCurrentScholarship()->nomination_end;
       }
 
-      return date_has_expired($end_date);
+      return date_has_expired($end_date) || !date_has_expired($start_date);
   }
 
   /**
