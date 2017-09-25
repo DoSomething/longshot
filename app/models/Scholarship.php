@@ -99,7 +99,7 @@ class Scholarship extends Model
    */
   public static function getPastScholarship($id)
   {
-      $path = Cache::remember('scholarships', 120, function () use ($id) {
+      $path = Cache::remember('scholarships.'.$id, 120, function () use ($id) {
           return self::whereId($id)->first();
       });
 
