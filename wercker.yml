@@ -3,7 +3,9 @@ build:
     steps:
       - script:
           name: start mysql
-          code: sudo service mysql start
+          code: |-
+            chown -R mysql:mysql /var/lib/mysql /var/run/mysqld
+            sudo service mysql start
       - leipert/composer-install@0.9.1
       - wercker/bundle-install@1.1.1
       - script:
@@ -21,10 +23,14 @@ build:
             npm install
       - script:
           name: install bower dependencies
-          code: bower --allow-root install
+          code: |-
+            npm install -g bower
+            bower --allow-root install
       - script:
           name: build assets
-          code: gulp
+          code: |-
+            npm install -g gulp
+            gulp
 deploy:
   steps:
     - bundle-install
