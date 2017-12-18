@@ -28,7 +28,9 @@ build:
             bower --allow-root install
       - script:
           name: build assets
-          code: gulp
+          code: |-
+            npm install -g gulp
+            gulp
 deploy:
   steps:
     - bundle-install
