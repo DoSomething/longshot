@@ -23,7 +23,9 @@ build:
             npm install
       - script:
           name: install bower dependencies
-          code: bower --allow-root install
+          code: |-
+            npm install -g bower
+            bower --allow-root install
       - script:
           name: build assets
           code: gulp
