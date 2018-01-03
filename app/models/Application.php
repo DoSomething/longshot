@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Application extends Model
 {
-    protected $fillable = ['accomplishments', 'gpa', 'test_type', 'test_score', 'activities', 'participation', 'essay1', 'essay2', 'hear_about'];
+    protected $fillable = ['accomplishments', 'gpa', 'test_type', 'test_score', 'activities', 'participation', 'essay1', 'essay2', 'extra_question_1', 'extra_question_2', 'extra_question_3', 'extra_question_4', 'extra_question_5', 'hear_about'];
 
   /** Relationship definitions **/
   public function user()

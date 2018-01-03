@@ -134,6 +134,41 @@
   {!! errorsFor('label_app_essay2', $errors); !!}
 </div>
 
+{{-- Extra Question 1 Label --}}
+<div class="form-group">
+  {!! Form::label('label_extra_question_1', 'Extra Question 1 Label: ') !!}
+  {!! Form::text('label_extra_question_1', null, ['class' => 'form-control']) !!}
+  {!! errorsFor('label_extra_question_1', $errors); !!}
+</div>
+
+{{-- Extra Question 2 Label --}}
+<div class="form-group">
+  {!! Form::label('label_extra_question_2', 'Extra Question 2 Label: ') !!}
+  {!! Form::text('label_extra_question_2', null, ['class' => 'form-control']) !!}
+  {!! errorsFor('label_extra_question_2', $errors); !!}
+</div>
+
+{{-- Extra Question 3 Label --}}
+<div class="form-group">
+  {!! Form::label('label_extra_question_3', 'Extra Question 3 Label: ') !!}
+  {!! Form::text('label_extra_question_3', null, ['class' => 'form-control']) !!}
+  {!! errorsFor('label_extra_question_3', $errors); !!}
+</div>
+
+{{-- Extra Question 4 Label --}}
+<div class="form-group">
+  {!! Form::label('label_extra_question_4', 'Extra Question 4 Label: ') !!}
+  {!! Form::text('label_extra_question_4', null, ['class' => 'form-control']) !!}
+  {!! errorsFor('label_extra_question_4', $errors); !!}
+</div>
+
+{{-- Extra Question 5 Label --}}
+<div class="form-group">
+  {!! Form::label('label_extra_question_5', 'Extra Question 5 Label: ') !!}
+  {!! Form::text('label_extra_question_5', null, ['class' => 'form-control']) !!}
+  {!! errorsFor('label_extra_question_5', $errors); !!}
+</div>
+
 {{-- Image Uploads --}}
 <div class="form-group">
   {!! Form::checkbox('image_uploads', 1, isset($scholarship->image_uploads) ? $scholarship->image_uploads : false) !!}
