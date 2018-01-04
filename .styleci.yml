@@ -1,0 +1,12 @@
+preset: laravel
+
+linting: true
+
+disabled:
+ - concat_without_spaces
+ - no_useless_return
+ - simplified_null_return
+ - phpdoc_no_package
+ - phpdoc_summary
+ - phpdoc_var_without_name
+ - phpdoc_to_comment
