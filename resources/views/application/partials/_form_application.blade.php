@@ -5,7 +5,6 @@
     {!! errorsFor('accomplishments', $errors); !!}
   </div>
 
-
   {{-- GPA --}}
   <div class="field-group -mono {{ setInvalidClass('gpa', $errors) }}">
     {!! Form::label('gpa', 'GPA (please enter your GPA on a 4.0 or 5.0 scale)') !!}
@@ -27,7 +26,6 @@
     {!! errorsFor('test_score', $errors); !!}
   </div>
 
-
   {{-- Activities --}}
   <div class="field-group {{ setInvalidClass('activities', $errors) }}">
     {!! $label['activities'] !!}
@@ -48,7 +46,6 @@
     {!! Form::textarea('essay1') !!}
     {!! errorsFor('essay1', $errors); !!}
   </div>
-
 
   {{-- Essay 2 --}}
   <div class="field-group {{ setInvalidClass('essay2', $errors) }}">
