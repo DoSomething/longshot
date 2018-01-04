@@ -5,7 +5,6 @@
     {!! errorsFor('accomplishments', $errors); !!}
   </div>
 
-
   {{-- GPA --}}
   <div class="field-group -mono {{ setInvalidClass('gpa', $errors) }}">
     {!! Form::label('gpa', 'GPA (please enter your GPA on a 4.0 or 5.0 scale)') !!}
@@ -26,7 +25,6 @@
     {!! Form::text('test_score') !!}
     {!! errorsFor('test_score', $errors); !!}
   </div>
-
 
   {{-- Activities --}}
   <div class="field-group {{ setInvalidClass('activities', $errors) }}">
@@ -49,13 +47,57 @@
     {!! errorsFor('essay1', $errors); !!}
   </div>
 
-
   {{-- Essay 2 --}}
   <div class="field-group {{ setInvalidClass('essay2', $errors) }}">
     {!! $label['essay2'] !!}
     {!! Form::textarea('essay2') !!}
     {!! errorsFor('essay2', $errors); !!}
   </div>
+
+  {{-- Extra Question 1 --}}
+  @if ($label['extra_question_1'])
+    <div class="field-group {{ setInvalidClass('extra_question_1', $errors) }}">
+      {!! $label['extra_question_1'] !!}
+      {!! Form::textarea('extra_question_1') !!}
+      {!! errorsFor('extra_question_1', $errors); !!}
+    </div>
+  @endif
+
+  {{-- Extra Question 2 --}}
+  @if ($label['extra_question_2'])
+    <div class="field-group {{ setInvalidClass('extra_question_2', $errors) }}">
+      {!! $label['extra_question_2'] !!}
+      {!! Form::textarea('extra_question_2') !!}
+      {!! errorsFor('extra_question_2', $errors); !!}
+    </div>
+  @endif
+
+  {{-- Extra Question 3 --}}
+  @if ($label['extra_question_3'])
+    <div class="field-group {{ setInvalidClass('extra_question_3', $errors) }}">
+      {!! $label['extra_question_3'] !!}
+      {!! Form::textarea('extra_question_3') !!}
+      {!! errorsFor('extra_question_3', $errors); !!}
+    </div>
+  @endif
+
+  {{-- Extra Question 4 --}}
+  @if ($label['extra_question_4'])
+    <div class="field-group {{ setInvalidClass('extra_question_4', $errors) }}">
+      {!! $label['extra_question_4'] !!}
+      {!! Form::textarea('extra_question_4') !!}
+      {!! errorsFor('extra_question_4', $errors); !!}
+    </div>
+  @endif
+
+  {{-- Extra Question 5 --}}
+  @if ($label['extra_question_5'])
+    <div class="field-group {{ setInvalidClass('extra_question_5', $errors) }}">
+      {!! $label['extra_question_5'] !!}
+      {!! Form::textarea('extra_question_5') !!}
+      {!! errorsFor('extra_question_5', $errors); !!}
+    </div>
+  @endif
 
   {{-- Upload --}}
   @if ($image_uploads)

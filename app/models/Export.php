@@ -158,7 +158,7 @@ class Export extends Model
   {
     $results = DB::select('SELECT u.first_name, u.last_name, u.email,
                           p.birthdate, p.phone, p.address_street, p.address_premise, p.city, p.state, p.zip, p.gender, p.school, p.grade,
-                          a.accomplishments, a.activities, a.participation, a.essay1, a.essay2, a.hear_about, a.test_type, a.test_score, a.gpa,
+                          a.accomplishments, a.activities, a.participation, a.essay1, a.essay2, a.extra_question_1, a.extra_question_2, a.extra_question_3, a.extra_question_4, a.extra_question_5, a.hear_about, a.test_type, a.test_score, a.gpa,
                           group_concat(r.race) as race,
 
                           SUBSTRING_INDEX(SUBSTRING_INDEX(CONCAT(GROUP_CONCAT(recs.first_name SEPARATOR "----"),"----"), "----", 1), "----", -1) AS "Recommendation First Name 1",
@@ -217,7 +217,7 @@ class Export extends Model
   {
     $results = DB::select('SELECT u.first_name, u.last_name, u.email,
                           p.birthdate, p.phone, p.address_street, p.address_premise, p.city, p.state, p.zip, p.gender, p.school, p.grade,
-                          a.accomplishments, a.activities, a.participation, a.essay1, a.essay2, a.hear_about, a.test_type, a.test_score, a.gpa,
+                          a.accomplishments, a.activities, a.participation, a.essay1, a.essay2, a.extra_question_1, a.extra_question_2, a.extra_question_3, a.extra_question_4, a.extra_question_5, a.hear_about, a.test_type, a.test_score, a.gpa,
                           group_concat(r.race) as race, s.rating,
 
                           SUBSTRING_INDEX(SUBSTRING_INDEX(CONCAT(GROUP_CONCAT(recs.first_name SEPARATOR "----"),"----"), "----", 1), "----", -1) AS "Recommendation First Name 1",

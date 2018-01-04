@@ -16,20 +16,31 @@ class ApplicationController extends \Controller
     'activities'      => 'required',
     'essay1'          => 'required',
     'essay2'          => 'required',
+    'extra_question_1'=> 'sometimes|required',
+    'extra_question_2'=> 'sometimes|required',
+    'extra_question_3'=> 'sometimes|required',
+    'extra_question_4'=> 'sometimes|required',
+    'extra_question_5'=> 'sometimes|required',
     'upload'          => 'image',
    ];
 
     protected $messages = [
-    'accomplishments.required' => 'This question is required.',
-    'participation.required'   => 'This question is required.',
-    'gpa.required'             => 'GPA is required.',
-    'gpa.numeric'              => 'Please enter your GPA as a number.',
-    'test_score.numeric'       => 'Please enter your test score as a number.',
-    'activities.required'      => 'This question is required.',
-    'essay1.required'          => 'This essay is required.',
-    'essay2.required'          => 'This essay is required.',
-    'upload.image'             => 'The uploaded file must be an image.',
+    'accomplishments.required'  => 'hey you skipped this',
+    'participation.required'    => 'This question is required.',
+    'gpa.required'              => 'GPA is required.',
+    'gpa.numeric'               => 'Please enter your GPA as a number.',
+    'test_score.numeric'        => 'Please enter your test score as a number.',
+    'activities.required'       => 'This question is required.',
+    'essay1.required'           => 'This essay is required.',
+    'essay2.required'           => 'This essay is required.',
+    'extra_question_1.required' => 'This question is required.',
+    'extra_question_2.required' => 'This question is required.',
+    'extra_question_3.required' => 'This question is required.',
+    'extra_question_4.required' => 'This question is required.',
+    'extra_question_5.required' => 'This question is required.',
+    'upload.image'              => 'The uploaded file must be an image.',
    ];
+
     protected $settings;
 
     public function __construct(SettingRepository $settings)
