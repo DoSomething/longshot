@@ -29,7 +29,7 @@ class CheckIfAdmin
     public function handle($request, Closure $next)
     {
         // Is current user an admin?
-        if (!Auth::user() || !Auth::user()->hasRole('administrator')) {
+        if (! Auth::user() || ! Auth::user()->hasRole('administrator')) {
             return redirect()->home()->with('flash_message', ['text' => 'You are not authorized to view that page.', 'class' => '-error']);
         }
 

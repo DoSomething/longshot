@@ -2,11 +2,11 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Application;
-use App\Models\Recommendation;
-use App\Models\User;
 use Auth;
 use Closure;
+use App\Models\User;
+use App\Models\Application;
+use App\Models\Recommendation;
 use Scholarship\Repositories\SettingRepository;
 
 class CheckIfRecRequested
@@ -36,7 +36,7 @@ class CheckIfRecRequested
             $application = Application::where('user_id', $user->id)->first();
             $recommendations = Recommendation::where('application_id', $application->id)->get()->toArray();
 
-            if (!empty($recommendations)) {
+            if (! empty($recommendations)) {
                 return redirect()->route('recommendation.edit', ['user' => $user->id, 'app_id' => $application->id]);
             }
         }

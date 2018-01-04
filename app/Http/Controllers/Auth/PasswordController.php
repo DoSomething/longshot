@@ -1,8 +1,8 @@
 <?php
 
+use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
-use Illuminate\Support\Str;
 
 class PasswordController extends \Controller
 {

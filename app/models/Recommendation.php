@@ -22,10 +22,10 @@ class Recommendation extends Model
     public function generateRecToken($recommendation)
     {
         // is there already a token?
-    $token = RecommendationToken::where('recommendation_id', $recommendation->id)->first();
-        if (!isset($token['original']['token'])) {
+        $token = RecommendationToken::where('recommendation_id', $recommendation->id)->first();
+        if (! isset($token['original']['token'])) {
             // Create a new token.
-      $token = new RecommendationToken();
+            $token = new RecommendationToken();
             $token->recommendation()->associate($recommendation);
             $token->token = Hash::make(str_random(20));
             $token->save();
@@ -37,11 +37,11 @@ class Recommendation extends Model
     public function isRecommendationComplete($rec)
     {
         // Set an attribute of if it's finished or not.
-      if (!empty($rec->rank_character) && !empty($rec->rank_additional) && !empty($rec->essay1)) {
-          $rec->complete = 'Recommendation received!';
-      } else {
-          $rec->complete = 'Still waiting';
-      }
+        if (! empty($rec->rank_character) && ! empty($rec->rank_additional) && ! empty($rec->essay1)) {
+            $rec->complete = 'Recommendation received!';
+        } else {
+            $rec->complete = 'Still waiting';
+        }
     }
 
     public function numRecsForApp($app_id)
@@ -51,14 +51,14 @@ class Recommendation extends Model
         return count($recs);
     }
 
-  // Given a rec id, returns bool if all required fields are filled out.
-  public static function isComplete($id)
-  {
-      $optional = ['optional_question'];
-      $fields = self::where('id', $id)->firstOrFail()->toArray();
+    // Given a rec id, returns bool if all required fields are filled out.
+    public static function isComplete($id)
+    {
+        $optional = ['optional_question'];
+        $fields = self::where('id', $id)->firstOrFail()->toArray();
 
-      return fieldsAreComplete($fields, $optional);
-  }
+        return fieldsAreComplete($fields, $optional);
+    }
 
     public static function getRankValues()
     {

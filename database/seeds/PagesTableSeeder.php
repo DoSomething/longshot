@@ -10,8 +10,8 @@ class PagesTableSeeder extends Seeder
     {
         Page::truncate();
 
-    // @TODO: There's probably a much cleaner way to write this.
-    $pathHome = new Path();
+        // @TODO: There's probably a much cleaner way to write this.
+        $pathHome = new Path();
         $pathHome->url = '/';
         $pathHome->link_text = 'Home';
 

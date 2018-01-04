@@ -7,9 +7,9 @@ use Laracasts\Validation\FormValidator;
 class ApplicationForm extends FormValidator
 {
     /**
-  * @var array
-  */
- protected $rules = [
+     * @var array
+     */
+    protected $rules = [
   'accomplishments' => 'required',
   'participation'   => 'required',
   'gpa'             => 'required|numeric',

@@ -127,7 +127,7 @@ class Export extends Model
     public static function yes_applicants_query()
     {
         //removes newlines (10 - line feed, 13 - carriage return), horizontal tabs (9), and replaces commas (44) with semicolons
-    $results = DB::select('SELECT distinct concat(u.first_name, " ", u.last_name) as name, p.gender, p.state, p.zip, group_concat(r.race) as race,
+        $results = DB::select('SELECT distinct concat(u.first_name, " ", u.last_name) as name, p.gender, p.state, p.zip, group_concat(r.race) as race,
                                             REPLACE(REPLACE(REPLACE(REPLACE(a.activities,CHAR(10)," "),CHAR(13)," "), CHAR(9)," "), CHAR(44),";"),
                                             concat("footlockerscholarathletes.com/admin/applications/", u.id) as link
                           FROM users u
@@ -142,21 +142,21 @@ class Export extends Model
         return $results;
     }
 
-  public static function demo_data_query()
-  {
-    $results = DB::select('SELECT u.first_name, u.last_name, p.city, p.state, p.zip, p.gender, p.school, a.hear_about, a.test_type, a.test_score, a.gpa, group_concat(r.race) as race
+    public static function demo_data_query()
+    {
+        $results = DB::select('SELECT u.first_name, u.last_name, p.city, p.state, p.zip, p.gender, p.school, a.hear_about, a.test_type, a.test_score, a.gpa, group_concat(r.race) as race
                           FROM users u
                           LEFT JOIN applications a on u.id = a.user_id
                           LEFT JOIN profiles p on u.id = p.user_id
                           LEFT JOIN races r on p.id = r.profile_id
                           GROUP BY u.email');
 
-    return $results;
-  }
+        return $results;
+    }
 
-  public static function full_yes_data_query()
-  {
-    $results = DB::select('SELECT u.first_name, u.last_name, u.email,
+    public static function full_yes_data_query()
+    {
+        $results = DB::select('SELECT u.first_name, u.last_name, u.email,
                           p.birthdate, p.phone, p.address_street, p.address_premise, p.city, p.state, p.zip, p.gender, p.school, p.grade,
                           a.accomplishments, a.activities, a.participation, a.essay1, a.essay2, a.extra_question_1, a.extra_question_2, a.extra_question_3, a.extra_question_4, a.extra_question_5, a.hear_about, a.test_type, a.test_score, a.gpa,
                           group_concat(r.race) as race,
@@ -210,12 +210,12 @@ class Export extends Model
                           WHERE s.rating = "yes"
                           GROUP BY u.email');
 
-    return $results;
-  }
+        return $results;
+    }
 
-  public static function full_app_data_query()
-  {
-    $results = DB::select('SELECT u.first_name, u.last_name, u.email,
+    public static function full_app_data_query()
+    {
+        $results = DB::select('SELECT u.first_name, u.last_name, u.email,
                           p.birthdate, p.phone, p.address_street, p.address_premise, p.city, p.state, p.zip, p.gender, p.school, p.grade,
                           a.accomplishments, a.activities, a.participation, a.essay1, a.essay2, a.extra_question_1, a.extra_question_2, a.extra_question_3, a.extra_question_4, a.extra_question_5, a.hear_about, a.test_type, a.test_score, a.gpa,
                           group_concat(r.race) as race, s.rating,
@@ -268,6 +268,6 @@ class Export extends Model
                           LEFT JOIN recommendations recs on recs.application_id = a.id
                           GROUP BY u.email');
 
-    return $results;
-  }
+        return $results;
+    }
 }

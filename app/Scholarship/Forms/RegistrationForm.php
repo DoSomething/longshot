@@ -7,9 +7,9 @@ use Illuminate\Contracts\Validation\Validator;
 class RegistrationForm extends Validator
 {
     /**
-   * @var array
-   */
-  protected $rules = [
+     * @var array
+     */
+    protected $rules = [
     'first_name'  => 'required',
     'last_name'   => 'required',
     'email'       => 'required|email|unique:users',

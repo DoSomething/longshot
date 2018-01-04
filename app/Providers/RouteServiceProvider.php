@@ -2,13 +2,13 @@
 
 namespace App\Providers;
 
-use App\Models\Application;
-use App\Models\Recommendation;
-use App\Models\Scholarship;
 use App\Models\User;
-use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use App\Models\Application;
+use App\Models\Scholarship;
+use App\Models\Recommendation;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
 class RouteServiceProvider extends ServiceProvider
 {

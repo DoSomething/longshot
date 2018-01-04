@@ -35,10 +35,10 @@ Route::post('nomination', ['as' => 'nomination.create', 'uses' => 'NominationCon
 // Admin
 Route::group(['middleware' => 'isAdmin', 'prefix' => 'admin'], function () {
     Route::get('/', ['as' => 'admin', 'uses' => 'AdminController@index']);
-  // Search
-  Route::post('search', ['as' => 'search', 'uses' => 'AdminController@search']);
-  // Applications management
-  Route::get('applications', ['as' => 'applications.index', 'uses' => 'AdminController@applicationsIndex']);
+    // Search
+    Route::post('search', ['as' => 'search', 'uses' => 'AdminController@search']);
+    // Applications management
+    Route::get('applications', ['as' => 'applications.index', 'uses' => 'AdminController@applicationsIndex']);
     Route::get('applications/export', ['as' => 'export', 'uses' => 'AdminController@export']);
     Route::post('applications/export', ['as' => 'export.csv', 'uses' => 'AdminController@export_results']);
     Route::post('applications/export/send', ['as' => 'email.group', 'uses' => 'AdminController@email_group']);
@@ -47,14 +47,14 @@ Route::group(['middleware' => 'isAdmin', 'prefix' => 'admin'], function () {
     Route::post('application/rate', ['as' => 'applications.rate', 'uses' => 'AdminController@rate']);
     Route::post('application/complete', ['as' => 'applications.complete', 'uses' => 'AdminController@complete']);
     Route::post('resend', ['as' => 'admin.resend', 'uses' => 'AdminController@resendRecEmail']);
-  // Winners
-  Route::resource('winner', 'WinnerController');
-  // Scholarship management
-  Route::resource('scholarship', 'ScholarshipController');
-  // Static Content Pages
-  Route::resource('page', 'PagesController');
-  // Settings
-  Route::get('settings', ['as' => 'settings', 'uses' => 'AdminController@settings']);
+    // Winners
+    Route::resource('winner', 'WinnerController');
+    // Scholarship management
+    Route::resource('scholarship', 'ScholarshipController');
+    // Static Content Pages
+    Route::resource('page', 'PagesController');
+    // Settings
+    Route::get('settings', ['as' => 'settings', 'uses' => 'AdminController@settings']);
     Route::get('settings/general', ['as' => 'general.edit', 'uses' => 'SettingsController@editGeneral']);
     Route::post('settings/general', ['as' => 'general.update', 'uses' => 'SettingsController@updateGeneral']);
     Route::get('settings/appearance', ['as' => 'appearance.edit', 'uses' => 'SettingsController@editAppearance']);
@@ -62,8 +62,8 @@ Route::group(['middleware' => 'isAdmin', 'prefix' => 'admin'], function () {
     Route::get('settings/meta-data', ['as' => 'meta-data.edit', 'uses' => 'SettingsController@editMetaData']);
     Route::post('settings/meta-data', ['as' => 'meta-data.update', 'uses' => 'SettingsController@updateMetaData']);
     Route::post('settings/clear-cache', ['as' => 'general.clear-cache', 'uses' => 'SettingsController@clearCache']);
-  // Emails
-  Route::get('email', ['as' => 'emails', 'uses' => 'EmailController@index']);
+    // Emails
+    Route::get('email', ['as' => 'emails', 'uses' => 'EmailController@index']);
     Route::post('email', ['as' => 'emails.update', 'uses' => 'EmailController@update']);
 });
 Route::get('storage/app/uploads/{user_id}/{filename}', ['as' => 'uploads.show', 'uses' => 'UploadController@show']);

@@ -34,52 +34,52 @@ class SettingsController extends \Controller
         $this->settings = $settings;
     }
 
-  /**
-   * Show the form for editing the specified resource.
-   *
-   * @return Response
-   */
-  public function editAppearance()
-  {
-      $settings_data = Setting::whereCategory('appearance')->get();
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @return Response
+     */
+    public function editAppearance()
+    {
+        $settings_data = Setting::whereCategory('appearance')->get();
 
-      return view('admin.settings.appearance.edit')->with('settings', $settings_data);
-  }
+        return view('admin.settings.appearance.edit')->with('settings', $settings_data);
+    }
 
-  /**
-   * Show the form for editing the specified resource.
-   *
-   * @return Response
-   */
-  public function editGeneral()
-  {
-      $settings_data = Setting::whereCategory('general')->get();
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @return Response
+     */
+    public function editGeneral()
+    {
+        $settings_data = Setting::whereCategory('general')->get();
 
-      return view('admin.settings.general.edit')->with('settings', $settings_data);
-  }
+        return view('admin.settings.general.edit')->with('settings', $settings_data);
+    }
 
-  /**
-   * Show the form for editing the specified resource.
-   *
-   * @return Response
-   */
-  public function editMetaData()
-  {
-      $settings_data = Setting::whereCategory('meta_data')->get();
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @return Response
+     */
+    public function editMetaData()
+    {
+        $settings_data = Setting::whereCategory('meta_data')->get();
 
-      return view('admin.settings.meta-data.edit')->with('settings', $settings_data);
-  }
+        return view('admin.settings.meta-data.edit')->with('settings', $settings_data);
+    }
 
-  /**
-   * Update the specified resource in storage.
-   *
-   * @return Response
-   */
-  public function updateAppearance(Request $request)
-  {
-      $this->validate($request, $this->rules);
+    /**
+     * Update the specified resource in storage.
+     *
+     * @return Response
+     */
+    public function updateAppearance(Request $request)
+    {
+        $this->validate($request, $this->rules);
 
-      $input = $request->only([
+        $input = $request->only([
       'primary_color',
       'primary_color_contrast',
       'primary_color_interaction',
@@ -92,34 +92,34 @@ class SettingsController extends \Controller
       'custom_font_name',
       ]);
 
-      $input = $this->settings->nullify($input);
+        $input = $this->settings->nullify($input);
 
-    // Get specified category settings collection.
-    $settings_data = Setting::whereCategory('appearance')->get();
+        // Get specified category settings collection.
+        $settings_data = Setting::whereCategory('appearance')->get();
 
-    // Save settings.
-    $this->settings->saveSettings($settings_data, $input);
+        // Save settings.
+        $this->settings->saveSettings($settings_data, $input);
 
-    // Updated Appearance Settings so clear the cache.
-    Event::fire('settings.change', ['appearance']);
+        // Updated Appearance Settings so clear the cache.
+        Event::fire('settings.change', ['appearance']);
 
-    // Create the custom stylesheet file from values in Appearance settings.
-    createCustomStylesheet($input);
+        // Create the custom stylesheet file from values in Appearance settings.
+        createCustomStylesheet($input);
 
-      return redirect()->route('appearance.edit')->with('flash_message', ['text' => 'Success: Appearance settings have been saved!', 'class' => 'alert-success']);
-  }
+        return redirect()->route('appearance.edit')->with('flash_message', ['text' => 'Success: Appearance settings have been saved!', 'class' => 'alert-success']);
+    }
 
-  /**
-   * Update the specified resource in storage.
-   *
-   * @return Response
-   */
-  public function updateGeneral(Request $request)
-  {
-      $this->validate($request, $this->rules);
+    /**
+     * Update the specified resource in storage.
+     *
+     * @return Response
+     */
+    public function updateGeneral(Request $request)
+    {
+        $this->validate($request, $this->rules);
 
-      // @TODO: maybe collect the help_text related items via the $individualQueryItems SettingsRepository property?
-    $inputText = Input::only(
+        // @TODO: maybe collect the help_text related items via the $individualQueryItems SettingsRepository property?
+        $inputText = Input::only(
       'company_name',
       'company_url',
       'site_name',
@@ -141,92 +141,92 @@ class SettingsController extends \Controller
       'official_rules_url'
       );
 
-      $inputImages = Input::only('header_logo', 'footer_logo', 'nominate_image', 'background_image');
+        $inputImages = Input::only('header_logo', 'footer_logo', 'nominate_image', 'background_image');
 
-      $defaultLogoPath = '/dist/images/tmi-logo.png';
+        $defaultLogoPath = '/dist/images/tmi-logo.png';
 
-    // Uploaded Images
-    foreach ($inputImages as $key => $image) {
-        if (Input::hasFile($key)) {
-            $inputImages[$key] = $this->settings->moveImage($key);
+        // Uploaded Images
+        foreach ($inputImages as $key => $image) {
+            if (Input::hasFile($key)) {
+                $inputImages[$key] = $this->settings->moveImage($key);
+            }
         }
+
+        $input = array_merge($inputText, $inputImages);
+
+        $input = $this->settings->nullify($input);
+
+        if ($request->get('remove_background_image')) {
+            $input['background_image'] = '';
+        }
+
+        // Get specified category settings collection.
+        $settings_data = Setting::whereCategory('general')->get();
+
+        // Save settings.
+        $this->settings->saveSettings($settings_data, $input);
+
+        // Updated General Settings so clear the cache.
+        // @TODO: cache is not clearing
+        Event::fire('settings.change', ['general']);
+
+        return redirect()->route('general.edit')->with('flash_message', ['text' => 'Success: General settings have been saved!', 'class' => 'alert-success']);
     }
 
-      $input = array_merge($inputText, $inputImages);
+    /**
+     * Update the specified resource in storage.
+     *
+     * @return Response
+     */
+    public function updateMetaData(Request $request)
+    {
+        $this->validate($request, $this->rules);
 
-      $input = $this->settings->nullify($input);
-
-      if ($request->get('remove_background_image')) {
-          $input['background_image'] = '';
-      }
-
-    // Get specified category settings collection.
-    $settings_data = Setting::whereCategory('general')->get();
-
-    // Save settings.
-    $this->settings->saveSettings($settings_data, $input);
-
-    // Updated General Settings so clear the cache.
-    // @TODO: cache is not clearing
-    Event::fire('settings.change', ['general']);
-
-      return redirect()->route('general.edit')->with('flash_message', ['text' => 'Success: General settings have been saved!', 'class' => 'alert-success']);
-  }
-
-  /**
-   * Update the specified resource in storage.
-   *
-   * @return Response
-   */
-  public function updateMetaData(Request $request)
-  {
-      $this->validate($request, $this->rules);
-
-      $inputText = Input::only(
+        $inputText = Input::only(
       'open_graph_data_title',
       'open_graph_data_description',
       'open_graph_data_type',
       'open_graph_data_url'
     );
 
-      $inputImages = Input::only('open_graph_data_image', 'favicon');
+        $inputImages = Input::only('open_graph_data_image', 'favicon');
 
-    // Uploaded Images
-    foreach ($inputImages as $key => $image) {
-        if (Input::hasFile($key)) {
-            $inputImages[$key] = $this->settings->moveImage($key);
+        // Uploaded Images
+        foreach ($inputImages as $key => $image) {
+            if (Input::hasFile($key)) {
+                $inputImages[$key] = $this->settings->moveImage($key);
+            }
         }
+
+        $input = array_merge($inputText, $inputImages);
+
+        $input = $this->settings->nullify($input);
+
+        // Get specified category settings collection.
+        $settings_data = Setting::whereCategory('meta_data')->get();
+
+        // Save settings.
+        $this->settings->saveSettings($settings_data, $input);
+
+        // Updated General Settings so clear the cache.
+        Event::fire('settings.change', ['meta_data']);
+
+        return redirect()->route('meta-data.edit')->with('flash_message', ['text' => 'Success: Meta Data settings have been saved!', 'class' => 'alert-success']);
     }
 
-      $input = array_merge($inputText, $inputImages);
+    /**
+     * Clear entire cache.
+     *
+     * @return Response
+     */
+    public function clearCache()
+    {
+        Cache::flush();
 
-      $input = $this->settings->nullify($input);
+        // Reset appearance settings after cache clear.
+        $settings = new SettingRepository();
+        $settings->resetAppearanceSettings();
 
-    // Get specified category settings collection.
-    $settings_data = Setting::whereCategory('meta_data')->get();
-
-    // Save settings.
-    $this->settings->saveSettings($settings_data, $input);
-
-    // Updated General Settings so clear the cache.
-    Event::fire('settings.change', ['meta_data']);
-
-      return redirect()->route('meta-data.edit')->with('flash_message', ['text' => 'Success: Meta Data settings have been saved!', 'class' => 'alert-success']);
-  }
-
-  /**
-   * Clear entire cache.
-   *
-   * @return Response
-   */
-  public function clearCache()
-  {
-      Cache::flush();
-
-    // Reset appearance settings after cache clear.
-    $settings = new SettingRepository();
-      $settings->resetAppearanceSettings();
-
-      return redirect()->back()->with('flash_message', ['text' => 'Success: Cache has been cleared!', 'class' => 'alert-success']);
-  }
+        return redirect()->back()->with('flash_message', ['text' => 'Success: Cache has been cleared!', 'class' => 'alert-success']);
+    }
 }

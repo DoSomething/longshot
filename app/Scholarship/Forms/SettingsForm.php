@@ -7,9 +7,9 @@ use Laracasts\Validation\FormValidator;
 class SettingsForm extends FormValidator
 {
     /**
-   * @var array
-   */
-  protected $rules = [
+     * @var array
+     */
+    protected $rules = [
     // @TODO: Add regex check for alphanumeric + symbols for company_name & eligibility_text
     'company_url'                 => 'url',
     'header_logo'                 => 'image|mimes:png',

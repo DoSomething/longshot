@@ -5,19 +5,19 @@ use App\Models\Email;
 class EmailController extends \Controller
 {
     /**
-   * Display a listing of the resource.
-   *
-   * @return Response
-   */
-  public function index()
-  {
-      // Get all the emails.
-      $applicant_emails = Email::where('recipient', '=', 'applicant')->get()->toArray();
-      $recommender_emails = Email::where('recipient', '=', 'recommender')->get()->toArray();
-      $group_emails = Email::where('recipient', '=', 'group')->get()->toArray();
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
+    public function index()
+    {
+        // Get all the emails.
+        $applicant_emails = Email::where('recipient', '=', 'applicant')->get()->toArray();
+        $recommender_emails = Email::where('recipient', '=', 'recommender')->get()->toArray();
+        $group_emails = Email::where('recipient', '=', 'group')->get()->toArray();
 
-      return view('admin.settings.emails.edit')->with(compact('applicant_emails', 'recommender_emails', 'group_emails'));
-  }
+        return view('admin.settings.emails.edit')->with(compact('applicant_emails', 'recommender_emails', 'group_emails'));
+    }
 
     public function update()
     {

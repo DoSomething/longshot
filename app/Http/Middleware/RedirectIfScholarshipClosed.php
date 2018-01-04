@@ -2,9 +2,9 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Scholarship;
 use Auth;
 use Closure;
+use App\Models\Scholarship;
 use Scholarship\Repositories\SettingRepository;
 
 class RedirectIfScholarshipClosed
@@ -32,7 +32,7 @@ class RedirectIfScholarshipClosed
         // Is the scholarship closed?
         if (Scholarship::isClosed()) {
             // Check if the user is a guest, or if not an admin, redirect.
-            if ((Auth::user() && !(Auth::user()->hasRole('administrator'))) || Auth::guest()) {
+            if ((Auth::user() && ! (Auth::user()->hasRole('administrator'))) || Auth::guest()) {
                 return redirect()->home()->with('flash_message', ['text' => 'Applications have closed for the year!', 'class' => '-error']);
             }
         }

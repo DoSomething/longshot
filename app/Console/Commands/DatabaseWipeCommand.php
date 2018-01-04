@@ -2,16 +2,16 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Application;
-use App\Models\Nomination;
-use App\Models\Profile;
-use App\Models\Race;
-use App\Models\Rating;
-use App\Models\Recommendation;
-use App\Models\RecommendationToken;
-use App\Models\User;
 use DB;
+use App\Models\Race;
+use App\Models\User;
+use App\Models\Rating;
+use App\Models\Profile;
+use App\Models\Nomination;
+use App\Models\Application;
+use App\Models\Recommendation;
 use Illuminate\Console\Command;
+use App\Models\RecommendationToken;
 use Illuminate\Support\Facades\Schema;
 
 class DatabaseWipeCommand extends Command
@@ -47,11 +47,11 @@ class DatabaseWipeCommand extends Command
      */
     public function fire()
     {
-        if (!$this->confirm('Did you transfer the winners data to the winners table? [y|n]')) {
+        if (! $this->confirm('Did you transfer the winners data to the winners table? [y|n]')) {
             return $this->error('Please run artisan transfer:winners command!');
         }
 
-        if (!$this->confirm('Did you run a dump and back up the current database? [y|n]')) {
+        if (! $this->confirm('Did you run a dump and back up the current database? [y|n]')) {
             return $this->error('Please back up the current database before proceeding!');
         }
 
