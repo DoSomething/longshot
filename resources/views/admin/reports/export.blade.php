@@ -15,7 +15,7 @@
 
         {!! Form::open(['route' => 'email.group']) !!}
           @foreach($export_options as $option => $text)
-            {!! Form::button('<i class="glyphicon glyphicon-send"></i> Send Email', array('type' => 'submit', 'name' =>  $option, 'class' => 'btn btn-default btn-lg')) !!}
+            {!! Form::button('<i class="glyphicon glyphicon-send"></i> Send Email', ['type' => 'submit', 'name' =>  $option, 'class' => 'btn btn-default btn-lg', 'data-confirm' => 'Send email to ' . $text . ' group?']) !!}
           @endforeach
 
           <br/>
@@ -53,7 +53,5 @@
           </div>
        </div>
     </div>
-
-
 
 @stop
