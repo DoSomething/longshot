@@ -2,9 +2,9 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\User;
 use Auth;
 use Closure;
+use App\Models\User;
 use Scholarship\Repositories\SettingRepository;
 
 class CheckIfUserHasApp
@@ -30,7 +30,7 @@ class CheckIfUserHasApp
     public function handle($request, Closure $next, $value)
     {
         $user = Auth::user();
-        if ($user && !is_null($user->$value)) {
+        if ($user && ! is_null($user->$value)) {
             return redirect()->route($value.'.edit', $user->id);
         }
 

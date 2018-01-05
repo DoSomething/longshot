@@ -13,7 +13,7 @@ class RemoveAppRoles extends Migration
     {
         // if the applicant role is in the db, remove it and all corresponding role_user records
         $role = DB::table('roles')->where('name', 'applicant')->first();
-        if (!is_null($role)) {
+        if (! is_null($role)) {
             DB::table('role_user')->where('role_id', 2)->delete();
             DB::table('roles')->where('name', 'applicant')->delete();
         }

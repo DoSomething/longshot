@@ -19,14 +19,14 @@ class Rating extends Model
         return ['yes', 'no', 'maybe'];
     }
 
-  // Given an app_id returns rating, or false if application has been rated.
-  public static function getApplicationRating($app_id)
-  {
-      $rating = self::where('application_id', $app_id)->first();
-      if ($rating) {
-          return $rating->rating;
-      }
+    // Given an app_id returns rating, or false if application has been rated.
+    public static function getApplicationRating($app_id)
+    {
+        $rating = self::where('application_id', $app_id)->first();
+        if ($rating) {
+            return $rating->rating;
+        }
 
-      return false;
-  }
+        return false;
+    }
 }

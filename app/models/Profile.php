@@ -23,13 +23,13 @@ class Profile extends Model
         $this->attributes['birthdate'] = date('Y-m-d', (strtotime($birthdate)));
     }
 
-  /*
-   * List of all US states
-   * this could probably be done in a better way.
-   */
-  public static function getStates()
-  {
-      $states = [
+    /*
+     * List of all US states
+     * this could probably be done in a better way.
+     */
+    public static function getStates()
+    {
+        $states = [
             'AL' => 'Alabama',
             'AK' => 'Alaska',
             'AZ' => 'Arizona',
@@ -88,8 +88,8 @@ class Profile extends Model
             'VI' => 'Virgin Islands',
             ];
 
-      return $states;
-  }
+        return $states;
+    }
 
     public static function getRaces()
     {
@@ -106,29 +106,29 @@ class Profile extends Model
         return $races;
     }
 
- // Given a user id, returns bool if all required fields are set.
-  public static function isComplete($id)
-  {
-      $optional = ['address_premise'];
-      $fields = self::where('user_id', $id)->firstOrFail()->toArray();
+    // Given a user id, returns bool if all required fields are set.
+    public static function isComplete($id)
+    {
+        $optional = ['address_premise'];
+        $fields = self::where('user_id', $id)->firstOrFail()->toArray();
 
-      return fieldsAreComplete($fields, $optional);
-  }
+        return fieldsAreComplete($fields, $optional);
+    }
 
-  /**
-   * @param - int - id
-   *  the user ID
-   *
-   * @return - array - profile
-   *  the profile for a user formatted as an array with pretty titles.
-   */
-  public static function getUserProfile($id)
-  {
-      $fields = ['birthdate', 'phone', 'address_street as address_1', 'address_premise as address_2', 'city', 'state', 'zip as zip_code', 'gender', 'grade', 'school as current_high_school'];
-      if (self::where('user_id', '=', $id)->exists()) {
-          return $profile = self::where('user_id', $id)->select($fields)->first()->toArray();
-      }
-  }
+    /**
+     * @param - int - id
+     *  the user ID
+     *
+     * @return - array - profile
+     *  the profile for a user formatted as an array with pretty titles.
+     */
+    public static function getUserProfile($id)
+    {
+        $fields = ['birthdate', 'phone', 'address_street as address_1', 'address_premise as address_2', 'city', 'state', 'zip as zip_code', 'gender', 'grade', 'school as current_high_school'];
+        if (self::where('user_id', '=', $id)->exists()) {
+            return $profile = self::where('user_id', $id)->select($fields)->first()->toArray();
+        }
+    }
 
     public static function getUserProfileId($id)
     {

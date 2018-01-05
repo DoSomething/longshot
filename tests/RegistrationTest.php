@@ -1,8 +1,8 @@
 <?php
 
+use App\Models\User;
 use App\Models\Email;
 use App\Models\Scholarship;
-use App\Models\User;
 
 class RegistrationTest extends TestCase
 {

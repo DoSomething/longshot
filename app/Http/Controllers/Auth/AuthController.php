@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Models\User;
-use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Validator;
+use App\Models\User;
+use App\Http\Controllers\Controller;
+use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
 class AuthController extends Controller
 {

@@ -1,7 +1,7 @@
 <?php
 
-use App\Models\Email;
 use App\Models\User;
+use App\Models\Email;
 use Illuminate\Http\Request;
 use Scholarship\Repositories\SettingRepository;
 
@@ -41,52 +41,52 @@ class RegistrationController extends \Controller
          ];
     }
 
-  /**
-   * This isn't a real route, so redirect to the homepage if someone hits it in error.
-   *
-   * @return Response
-   */
-  public function index()
-  {
-      return redirect()->route('home');
-  }
+    /**
+     * This isn't a real route, so redirect to the homepage if someone hits it in error.
+     *
+     * @return Response
+     */
+    public function index()
+    {
+        return redirect()->route('home');
+    }
 
-  /**
-   * Show the form for creating a new resource.
-   * /register.
-   *
-   * @return Response
-   */
-  public function create()
-  {
-      $eligibilityText = $this->settings->getSpecifiedSettingsVars(['eligibility_text']);
-      $help_text = $this->settings->getSpecifiedSettingsVars(['create_account_help_text']);
+    /**
+     * Show the form for creating a new resource.
+     * /register.
+     *
+     * @return Response
+     */
+    public function create()
+    {
+        $eligibilityText = $this->settings->getSpecifiedSettingsVars(['eligibility_text']);
+        $help_text = $this->settings->getSpecifiedSettingsVars(['create_account_help_text']);
 
-      $vars = (object) array_merge($eligibilityText, $help_text);
+        $vars = (object) array_merge($eligibilityText, $help_text);
 
-      return view('registration.create', compact('vars'));
-  }
+        return view('registration.create', compact('vars'));
+    }
 
-  /**
-   * Store a newly created resource in storage.
-   * /register.
-   *
-   * @return Response
-   */
-  public function store(Request $request)
-  {
-      $this->validate($request, $this->rules, $this->messages);
-      $input = $request->only('first_name', 'last_name', 'email', 'password', 'password_confirmation');
+    /**
+     * Store a newly created resource in storage.
+     * /register.
+     *
+     * @return Response
+     */
+    public function store(Request $request)
+    {
+        $this->validate($request, $this->rules, $this->messages);
+        $input = $request->only('first_name', 'last_name', 'email', 'password', 'password_confirmation');
 
-      // We don't need to save this to the db.
-      $user = User::create($input);
+        // We don't need to save this to the db.
+        $user = User::create($input);
 
-      Auth::login($user);
+        Auth::login($user);
 
-      $this->sendRegistrationEmail($user);
+        $this->sendRegistrationEmail($user);
 
-      return redirect()->route('profile.create')->with('flash_message', ['text' => 'Thanks for creating your account.', 'class' => '-success']);
-  }
+        return redirect()->route('profile.create')->with('flash_message', ['text' => 'Thanks for creating your account.', 'class' => '-success']);
+    }
 
     public function sendRegistrationEmail($user)
     {
@@ -99,43 +99,43 @@ class RegistrationController extends \Controller
         $email->sendEmail('welcome', 'applicant', $user->email, $data);
     }
 
-  /**
-   * Show the form for editing the specified resource.
-   *
-   * @param  int  $id
-   *
-   * @return Response
-   */
-  public function edit($id)
-  {
-      $user = User::whereId($id)->firstOrFail();
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     *
+     * @return Response
+     */
+    public function edit($id)
+    {
+        $user = User::whereId($id)->firstOrFail();
 
-      return view('registration.edit')->withUser($user);
-  }
+        return view('registration.edit')->withUser($user);
+    }
 
-  /**
-   * Update the specified resource in storage.
-   * PUT /registration/{id}.
-   *
-   * @param Request $request
-   * @param Page $page
-   *
-   * @return \Illuminate\Http\RedirectResponse
-   */
-  public function update(Request $request, User $user)
-  {
-      $this->validate($request, $this->rules, $this->messages);
+    /**
+     * Update the specified resource in storage.
+     * PUT /registration/{id}.
+     *
+     * @param Request $request
+     * @param Page $page
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(Request $request, User $user)
+    {
+        $this->validate($request, $this->rules, $this->messages);
 
-      $user = Auth::user();
-      $request = $request->except('eligibility');
-      $user->fill($request);
+        $user = Auth::user();
+        $request = $request->except('eligibility');
+        $user->fill($request);
 
-      if ($user->isDirty('email')) {
-          $this->sendRegistrationEmail($user);
-      }
+        if ($user->isDirty('email')) {
+            $this->sendRegistrationEmail($user);
+        }
 
-      $user->save();
+        $user->save();
 
-      return redirect()->route('status');
-  }
+        return redirect()->route('status');
+    }
 }

@@ -13,14 +13,14 @@ class Block extends Model
         return $this->belongsTo('App\Models\Page');
     }
 
-  /**
-   * Return an array of block types.
-   *
-   * @return array Block types
-   */
-  public static function getTypes()
-  {
-      $types = [
+    /**
+     * Return an array of block types.
+     *
+     * @return array Block types
+     */
+    public static function getTypes()
+    {
+        $types = [
       'default'           => 'Default',
       'introduction'      => 'Introduction',
       'cta'               => 'Call to Action',
@@ -30,6 +30,6 @@ class Block extends Model
       'detailed-list'     => 'Detailed List',
     ];
 
-      return $types;
-  }
+        return $types;
+    }
 }

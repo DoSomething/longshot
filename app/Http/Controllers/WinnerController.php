@@ -1,10 +1,10 @@
 <?php
 
-use App\Models\Scholarship;
 use App\Models\User;
 use App\Models\Winner;
-use Illuminate\Filesystem\Filesystem;
+use App\Models\Scholarship;
 use Illuminate\Http\Request;
+use Illuminate\Filesystem\Filesystem;
 
 class WinnerController extends \Controller
 {
@@ -25,93 +25,93 @@ class WinnerController extends \Controller
         return view('admin.winners.index', compact('winners', 'scholarships'));
     }
 
-  /**
-   * Store a single winnner record.
-   *
-   * @return Response
-   */
-  public function store()
-  {
-      $user_id = Input::get('user_id');
+    /**
+     * Store a single winnner record.
+     *
+     * @return Response
+     */
+    public function store()
+    {
+        $user_id = Input::get('user_id');
 
-      $user = (new User())->getFullBios($user_id);
+        $user = (new User())->getFullBios($user_id);
 
-      $winner = new Winner();
-      $winner->setUserData($user);
+        $winner = new Winner();
+        $winner->setUserData($user);
 
-      $winner->save();
+        $winner->save();
 
-      // Clear cache since scholarship winner's information was updated.
-      Event::fire('data.update', ['winners', $winner->scholarship_id]);
+        // Clear cache since scholarship winner's information was updated.
+        Event::fire('data.update', ['winners', $winner->scholarship_id]);
 
-      return redirect()->back()->with('flash_message', ['text' => 'Success: Awesome, we got that person as a winner for you!', 'class' => 'alert-success']);
-  }
+        return redirect()->back()->with('flash_message', ['text' => 'Success: Awesome, we got that person as a winner for you!', 'class' => 'alert-success']);
+    }
 
-  /**
-   * Show the form for editing the specified resource.
-   *
-   * @param  int  $id
-   *
-   * @return Response
-   */
-  public function edit($id)
-  {
-      $winner = Winner::findOrFail($id);
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     *
+     * @return Response
+     */
+    public function edit($id)
+    {
+        $winner = Winner::findOrFail($id);
 
-      return view('admin.winners.edit', compact('winner'));
-  }
+        return view('admin.winners.edit', compact('winner'));
+    }
 
-  /**
-   * Update the specified resource.
-   *
-   * @return Response
-   */
-  public function update($id, Request $request)
-  {
-      $input = Input::except('photo');
-      $winner = Winner::with('user')->where('id', $id)->firstOrFail();
-      $winner->fill($input);
+    /**
+     * Update the specified resource.
+     *
+     * @return Response
+     */
+    public function update($id, Request $request)
+    {
+        $input = Input::except('photo');
+        $winner = Winner::with('user')->where('id', $id)->firstOrFail();
+        $winner->fill($input);
 
-      // @TODO: does the order of variable set and then if make sense here?
-      $image = $request->file('photo');
-      if ($request->hasFile('photo')) {
-          $filename = time().'-'.stringtoKebabCase($image->getClientOriginalName());
-          $image->move(uploadedContentPath('images').'/winners/', $filename);
-          $winner->photo = '/content/images/winners/'.$filename;
-      }
+        // @TODO: does the order of variable set and then if make sense here?
+        $image = $request->file('photo');
+        if ($request->hasFile('photo')) {
+            $filename = time().'-'.stringtoKebabCase($image->getClientOriginalName());
+            $image->move(uploadedContentPath('images').'/winners/', $filename);
+            $winner->photo = '/content/images/winners/'.$filename;
+        }
 
-      $winner->save();
+        $winner->save();
 
-    // Clear cache since scholarship winner's information was updated.
-      // @TODO: this is not clearing the cache
-    Event::fire('data.update', ['winners', $winner->scholarship_id]);
+        // Clear cache since scholarship winner's information was updated.
+        // @TODO: this is not clearing the cache
+        Event::fire('data.update', ['winners', $winner->scholarship_id]);
 
-      return redirect()->back()->with('flash_message', ['text' => 'Success: BAM, that\'s saved!', 'class' => 'alert-success']);
-  }
+        return redirect()->back()->with('flash_message', ['text' => 'Success: BAM, that\'s saved!', 'class' => 'alert-success']);
+    }
 
-  /**
-   * Delete a single winner record.
-   *
-   * @return Response
-   */
-  public function destroy()
-  {
-      $user_id = Input::get('user_id');
-      $record = Winner::where('user_id', $user_id)->firstOrFail();
+    /**
+     * Delete a single winner record.
+     *
+     * @return Response
+     */
+    public function destroy()
+    {
+        $user_id = Input::get('user_id');
+        $record = Winner::where('user_id', $user_id)->firstOrFail();
 
-      // Clean up and remove the associated winner profile image.
-      $image_path = public_path().$record->photo;
-      $image = new Filesystem();
+        // Clean up and remove the associated winner profile image.
+        $image_path = public_path().$record->photo;
+        $image = new Filesystem();
 
-      if ($image->exists($image_path)) {
-          $image->delete($image_path);
-      }
+        if ($image->exists($image_path)) {
+            $image->delete($image_path);
+        }
 
-      $record->delete();
+        $record->delete();
 
-      // Clear cache since scholarship winner was removed.
-      Event::fire('data.update', ['winners', $record->scholarship_id]);
+        // Clear cache since scholarship winner was removed.
+        Event::fire('data.update', ['winners', $record->scholarship_id]);
 
-      return redirect()->back()->with('flash_message', ['text' => 'Success: All set. Scholarship award has been revoked.', 'class' => 'alert-success']);
-  }
+        return redirect()->back()->with('flash_message', ['text' => 'Success: All set. Scholarship award has been revoked.', 'class' => 'alert-success']);
+    }
 }

@@ -1,54 +1,54 @@
 <?php
 
-use App\Models\Application;
+use App\Models\User;
 use App\Models\Email;
 use App\Models\Export;
-use App\Models\Nomination;
-use App\Models\Profile;
 use App\Models\Rating;
+use App\Models\Winner;
+use App\Models\Profile;
+use App\Models\Nomination;
+use App\Models\Application;
+use App\Models\Scholarship;
+use Illuminate\Http\Request;
 use App\Models\Recommendation;
 use App\Models\RecommendationToken;
-use App\Models\Scholarship;
-use App\Models\User;
-use App\Models\Winner;
-use Illuminate\Http\Request;
 
 class AdminController extends \Controller
 {
     /**
-   * Display a listing of the resource.
-   *
-   * @return Response
-   */
-  public function index()
-  {
-      $count = [];
-      $user = Auth::user();
-      $count['users'] = $query = DB::table('users')
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
+    public function index()
+    {
+        $count = [];
+        $user = Auth::user();
+        $count['users'] = $query = DB::table('users')
                                   ->leftJoin('role_user', 'users.id', '=', 'role_user.user_id')
                                   ->whereNull('role_user.role_id')
                                   ->count();
 
-      $count['apps'] = Application::leftJoin('role_user', 'applications.user_id', '=', 'role_user.user_id')
+        $count['apps'] = Application::leftJoin('role_user', 'applications.user_id', '=', 'role_user.user_id')
                                   ->whereNull('role_user.role_id')
                                   ->count();
-      $count['noms'] = Nomination::count();
-      $unique = DB::select('SELECT COUNT(DISTINCT (nom_email)) as count FROM nominations');
-      $count['unique_noms'] = $unique[0]->count;
-      $unique = DB::select('SELECT COUNT(DISTINCT (rec_email)) as count FROM nominations');
-      $count['unique_recs'] = $unique[0]->count;
-      $count['submitted_apps'] = Application::where('submitted', '=', 1)
+        $count['noms'] = Nomination::count();
+        $unique = DB::select('SELECT COUNT(DISTINCT (nom_email)) as count FROM nominations');
+        $count['unique_noms'] = $unique[0]->count;
+        $unique = DB::select('SELECT COUNT(DISTINCT (rec_email)) as count FROM nominations');
+        $count['unique_recs'] = $unique[0]->count;
+        $count['submitted_apps'] = Application::where('submitted', '=', 1)
                                             ->leftJoin('role_user', 'applications.user_id', '=', 'role_user.user_id')
                                             ->whereNull('role_user.role_id')
                                             ->count();
-      $count['completed_apps'] = Application::where('submitted', '=', 1)
+        $count['completed_apps'] = Application::where('submitted', '=', 1)
                                             ->where('completed', '=', 1)
                                             ->leftJoin('role_user', 'applications.user_id', '=', 'role_user.user_id')
                                             ->whereNull('role_user.role_id')
                                             ->count();
 
-    // @TODO: combime these two, the is null and is not null will not bind as a variable. :(
-    $base_rec_null_query = 'SELECT count(*) as total FROM (
+        // @TODO: combime these two, the is null and is not null will not bind as a variable. :(
+        $base_rec_null_query = 'SELECT count(*) as total FROM (
                         SELECT count(*) as c
                         FROM recommendations r
                         INNER JOIN applications a on a.id = r.application_id
@@ -60,7 +60,7 @@ class AdminController extends \Controller
                         HAVING c = :count
                       ) T ;';
 
-      $base_rec_complete_query = 'SELECT count(*) as total FROM (
+        $base_rec_complete_query = 'SELECT count(*) as total FROM (
                         SELECT count(*) as count
                         FROM recommendations r
                         INNER JOIN applications a on a.id = r.application_id
@@ -72,19 +72,19 @@ class AdminController extends \Controller
                         HAVING count = :count
                       ) T ;';
 
-      $requested_one = DB::select($base_rec_null_query, ['count' => 1]);
-      $requested_two = DB::select($base_rec_null_query, ['count' => 2]);
+        $requested_one = DB::select($base_rec_null_query, ['count' => 1]);
+        $requested_two = DB::select($base_rec_null_query, ['count' => 2]);
 
-      $submitted_one = DB::select($base_rec_complete_query, ['count' => 1]);
-      $submitted_two = DB::select($base_rec_complete_query, ['count' => 2]);
+        $submitted_one = DB::select($base_rec_complete_query, ['count' => 1]);
+        $submitted_two = DB::select($base_rec_complete_query, ['count' => 2]);
 
-      $count['requested_one'] = $requested_one[0]->total;
-      $count['requested_two'] = $requested_two[0]->total;
-      $count['submitted_one'] = $submitted_one[0]->total;
-      $count['submitted_two'] = $submitted_two[0]->total;
+        $count['requested_one'] = $requested_one[0]->total;
+        $count['requested_two'] = $requested_two[0]->total;
+        $count['submitted_one'] = $submitted_one[0]->total;
+        $count['submitted_two'] = $submitted_two[0]->total;
 
-      return view('admin.index', compact('user', 'count'));
-  }
+        return view('admin.index', compact('user', 'count'));
+    }
 
     public function applicationsIndex(Request $request)
     {
@@ -155,52 +155,52 @@ class AdminController extends \Controller
         return view('admin.applications.index', compact('applicants'));
     }
 
-  /**
-   * Get Application and Profile information for a specified User.
-   */
-  public function applicationsShow($id)
-  {
-      // @TODO: this could all be consolidated using some eager loading which
-    // would significantly reduce the number of SQL queries needed, as well
-    // as the number of variables passed to the view.
-      $application = Application::getUserApplication($id);
-      $profile = Profile::getUserProfile($id);
-      $user = User::getUserInfo($id);
-      if (isset($application)) {
-          $scholarship = Scholarship::getScholarshipLabels($application['scholarship_id']);
-      }
-      $app_id = Application::getUserApplicationId($id);
-      $prof_id = Profile::getUserProfileId($id);
+    /**
+     * Get Application and Profile information for a specified User.
+     */
+    public function applicationsShow($id)
+    {
+        // @TODO: this could all be consolidated using some eager loading which
+        // would significantly reduce the number of SQL queries needed, as well
+        // as the number of variables passed to the view.
+        $application = Application::getUserApplication($id);
+        $profile = Profile::getUserProfile($id);
+        $user = User::getUserInfo($id);
+        if (isset($application)) {
+            $scholarship = Scholarship::getScholarshipLabels($application['scholarship_id']);
+        }
+        $app_id = Application::getUserApplicationId($id);
+        $prof_id = Profile::getUserProfileId($id);
 
-      if (isset($profile)) {
-          $races = Profile::getUserRace($prof_id);
-      }
+        if (isset($profile)) {
+            $races = Profile::getUserRace($prof_id);
+        }
 
-      $is_winner = Winner::where('user_id', $id)->first() ? true : false;
-      $is_submitted = Application::isSubmitted($id);
+        $is_winner = Winner::where('user_id', $id)->first() ? true : false;
+        $is_submitted = Application::isSubmitted($id);
 
-      $recommendations = null;
-      $show_rating = false;
-      if ($app_id) {
-          $recommendations = Recommendation::getUserRecs($app_id->id);
-      }
+        $recommendations = null;
+        $show_rating = false;
+        if ($app_id) {
+            $recommendations = Recommendation::getUserRecs($app_id->id);
+        }
 
-      $uploads = null;
-      if ($application['upload']) {
-          $uploads = explode(',', $application['upload']);
-      }
+        $uploads = null;
+        if ($application['upload']) {
+            $uploads = explode(',', $application['upload']);
+        }
 
-      if (isset($application) && Application::isComplete($app_id->id)) {
-          $show_rating = true;
-          $app_rating = Rating::getApplicationRating($app_id->id);
-      }
+        if (isset($application) && Application::isComplete($app_id->id)) {
+            $show_rating = true;
+            $app_rating = Rating::getApplicationRating($app_id->id);
+        }
 
-      $possible_ratings = Rating::getPossibleRatings();
+        $possible_ratings = Rating::getPossibleRatings();
 
-      Session::put('url.index', URL::previous());
+        Session::put('url.index', URL::previous());
 
-      return view('admin.applications.show', compact('id', 'application', 'app_id', 'user', 'profile', 'races', 'scholarship', 'recommendations', 'show_rating', 'possible_ratings', 'app_rating', 'is_winner', 'is_submitted', 'uploads'));
-  }
+        return view('admin.applications.show', compact('id', 'application', 'app_id', 'user', 'profile', 'races', 'scholarship', 'recommendations', 'show_rating', 'possible_ratings', 'app_rating', 'is_winner', 'is_submitted', 'uploads'));
+    }
 
     public function applicationsEdit($id)
     {
@@ -216,7 +216,7 @@ class AdminController extends \Controller
 
         // Get what races should be checked and pass to the view
         $user_races = [];
-        if (!is_null($profile)) {
+        if (! is_null($profile)) {
             $currentRaces = Profile::getUserRace($profile->id);
             foreach ($currentRaces as $currentRace) {
                 $user_races[] = $currentRace['race'];
@@ -258,7 +258,7 @@ class AdminController extends \Controller
         $app_id = Input::get('app_id');
         $application = Application::whereId($app_id)->firstOrFail();
         $rate = Rating::where('application_id', $app_id)->first();
-        if (!$rate) {
+        if (! $rate) {
             $rate = new Rating();
         }
 
@@ -340,7 +340,7 @@ class AdminController extends \Controller
         $key = array_search('', $request->toArray());
         $export_function = $key.'_query';
 
-         // Create an export object to run the query on
+        // Create an export object to run the query on
         $export = new Export();
         $query_result = $export->$export_function();
 
@@ -367,12 +367,12 @@ class AdminController extends \Controller
         return redirect()->route('export')->with('flash_message', ['text' => 'Got an email sent to everyone!', 'class' => '-success']);
     }
 
-  /**
-   * Helper function to select/join for the admin index table.
-   */
-  public static function applicantBaseQuery($query)
-  {
-      $query->select('users.id', 'users.first_name', 'users.last_name', 'users.email',
+    /**
+     * Helper function to select/join for the admin index table.
+     */
+    public static function applicantBaseQuery($query)
+    {
+        $query->select('users.id', 'users.first_name', 'users.last_name', 'users.email',
                    'profiles.state', 'profiles.gender',
                    'applications.submitted', 'applications.completed', 'applications.gpa',
                    'ratings.rating')
@@ -380,23 +380,23 @@ class AdminController extends \Controller
           ->leftJoin('applications', 'applications.user_id', '=', 'users.id')
           ->leftJoin('ratings', 'application_id', '=', 'applications.id');
 
-      return $query;
-  }
+        return $query;
+    }
 
     public function resendRecEmail()
     {
         // get rec info
-      $rec_id = Input::get('rec_id');
+        $rec_id = Input::get('rec_id');
         $recommendation = Recommendation::whereId($rec_id)->firstOrFail();
         $token = RecommendationToken::where('recommendation_id', $recommendation->id)->first()->token;
         $link = link_to_route('recommendation.edit', 'Please provide a recommendation', [$recommendation->id, 'token' => $token]);
 
-      // get applicant info
-      $applicant_id = Input::get('applicant_id');
+        // get applicant info
+        $applicant_id = Input::get('applicant_id');
         $applicant = User::whereId($applicant_id)->firstOrFail();
 
-      // build and send email
-      $email = new Email();
+        // build and send email
+        $email = new Email();
         $data = [
         'link'           => $link,
         'applicant_name' => $applicant->first_name.' '.$applicant->last_name,

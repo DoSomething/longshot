@@ -189,16 +189,16 @@ function stringtoKebabCase($text)
 function fieldsAreComplete($fields, $optional = [])
 {
     // Are all fields filled out?
-  $empty_fields = [];
+    $empty_fields = [];
     foreach ($fields as $key => $field) {
-        if (empty($field) && !in_array($key, $optional)) {
+        if (empty($field) && ! in_array($key, $optional)) {
             $empty_fields[$key] = $field;
         }
     }
-  // If we have no empty fields, the app is complete
-  if (empty($empty_fields)) {
-      return true;
-  }
+    // If we have no empty fields, the app is complete
+    if (empty($empty_fields)) {
+        return true;
+    }
 
     return false;
 }
@@ -220,7 +220,7 @@ function outputBlock($block)
  */
 function output_id($title)
 {
-    if (!empty($title)) {
+    if (! empty($title)) {
         return 'id="'.stringtoKebabCase($title).'"';
     }
 

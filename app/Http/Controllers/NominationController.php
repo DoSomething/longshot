@@ -8,9 +8,9 @@ use Scholarship\Forms\NominationForm;
 class NominationController extends \Controller
 {
     /**
-   * @var nominationForm
-   */
-  protected $rules = [
+     * @var nominationForm
+     */
+    protected $rules = [
   'rec_name'   => 'required',
   'rec_email'  => 'required|email',
   'nom_name'   => 'required',

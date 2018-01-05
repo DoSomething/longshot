@@ -2,10 +2,10 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Application;
-use App\Models\User;
 use Auth;
 use Closure;
+use App\Models\User;
+use App\Models\Application;
 use Scholarship\Repositories\SettingRepository;
 
 class CheckIfAppSubmitted
@@ -32,7 +32,7 @@ class CheckIfAppSubmitted
     {
         $user = Auth::user();
         $application = User::with('application')->whereId($user->id)->first();
-        if (!is_null($user->application)) {
+        if (! is_null($user->application)) {
             $complete = Application::isSubmitted($user->id);
             if (isset($complete)) {
                 return redirect()->route('status')->with('flash_message', ['text' => 'You have already submitted your application, you can no longer edit.', 'class' => '-error']);
