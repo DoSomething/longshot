@@ -134,7 +134,7 @@
   {!! errorsFor('label_app_essay2', $errors); !!}
 </div>
 
-<p>Extra questions may optionally be included by admins. They only show up to the user if the admin includes a question. They are mandatory for applicants to fill out.</p>
+<p>Extra questions may optionally be included by admins. They only show up to the user if the admin includes a question. They are mandatory for applicants to fill out. They will appear just below the "Test Score" question on the application.</p>
 {{-- Extra Question 1 Label --}}
 <div class="form-group">
   {!! Form::label('label_extra_question_1', 'Extra Question 1 Label: ') !!}
