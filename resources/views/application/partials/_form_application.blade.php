@@ -69,6 +69,7 @@
       {!! Form::textarea('extra_question_5') !!}
       {!! errorsFor('extra_question_5', $errors); !!}
     </div>
+  @endif
 
   {{-- Activities --}}
   <div class="field-group {{ setInvalidClass('activities', $errors) }}">
@@ -97,8 +98,6 @@
     {!! Form::textarea('essay2') !!}
     {!! errorsFor('essay2', $errors); !!}
   </div>
-
-  @endif
 
   {{-- Upload --}}
   @if ($image_uploads)
