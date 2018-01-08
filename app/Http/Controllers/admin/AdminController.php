@@ -316,7 +316,7 @@ class AdminController extends \Controller
         // Create an export object to run the query on
         $export = new Export();
         $query_result = $export->$export_function();
-        info('CSV downloads - '  . $filename . ' ' . sizeof($query_result) . ' results found');
+        info('CSV downloads - '  . $filename . ' ' . count($query_result) . ' results found');
 
         // We need the result to be an array of an arrays, not an array of objects
         $query_result = json_decode(json_encode($query_result), true);
