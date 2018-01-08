@@ -307,9 +307,6 @@ class AdminController extends \Controller
      */
     public function export_results(Request $request)
     {
-
-
-
         // Get the name of the function that runs the selected query
         // @TODO: see if there is a better way to pass this from the form
         $filename = array_search('', $request->toArray());
@@ -319,25 +316,13 @@ class AdminController extends \Controller
         $export = new Export();
         $query_result = $export->$export_function();
 
-        // Process the results of the query
-        $output = '';
-        foreach ($query_result as $row) {
-            $output .= implode(',', array_values(get_object_vars($row)))."\n";
-        }
-        //problem is that the each query_result is an object (needs to be array)
-// dd(gettype($query_result[0]));
-        // using LEAGUE CSV
+        // We need the result to be an array of an arrays, not an array of objects
+        $query_result = json_decode(json_encode($query_result), true);
+
+        // Create and download the CSV file
         $writer = Writer::createFromPath($filename . '.csv', 'w+');
         $writer->insertAll($query_result);
-        $writer->output();
-        // // Build the csv
-        // $filename = $filename.'-'.time().'.csv';
-        // $headers = [
-        //   'Content-Type'        => 'text/csv',
-        //   'Content-Disposition' => 'attachment; filename="'.$filename.'"',
-        // ];
-
-        // return response(rtrim($output, "\n"), 200, $headers);
+        $writer->output($filename);
     }
 
     /**
