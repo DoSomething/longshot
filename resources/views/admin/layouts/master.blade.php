@@ -30,5 +30,7 @@
     @yield('main_content')
 
     <script src="/dist/js/bootstrap.min.js"></script>
+    <script src="/dist/js/main.js"></script>
+
   </body>
 </html>
