@@ -311,10 +311,12 @@ class AdminController extends \Controller
         // @TODO: see if there is a better way to pass this from the form
         $filename = array_search('', $request->toArray());
         $export_function = $filename.'_query';
+        info('CSV downloads - ' . $filename . ' download requested');
 
         // Create an export object to run the query on
         $export = new Export();
         $query_result = $export->$export_function();
+        info('CSV downloads - '  . $filename . ' ' . sizeof($query_result) . ' results found');
 
         // We need the result to be an array of an arrays, not an array of objects
         $query_result = json_decode(json_encode($query_result), true);
