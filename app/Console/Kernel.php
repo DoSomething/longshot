@@ -17,7 +17,7 @@ class Kernel extends ConsoleKernel
         'App\Console\Commands\CustomStylesCommand',
         'App\Console\Commands\TransferWinnersCommand',
         'App\Console\Commands\DatabaseWipeCommand',
-
+        'App\Console\Commands\GenerateTestData',
     ];
 
     /**
