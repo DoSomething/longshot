@@ -6,6 +6,8 @@ use App\Models\Race;
 use App\Models\Application;
 use App\Models\Recommendation;
 use App\Models\User;
+use App\Models\Scholarship;
+
 
 /**
 |--------------------------------------------------------------------------
@@ -74,10 +76,10 @@ $factory->define(Race::class, function (Generator $faker) {
 });
 
 // Application ("finished" but not submitted)
-    // scholarship_id
     // user_id
 $factory->define(Application::class, function (Generator $faker) {
     return [
+        'scholarship_id' => Scholarship::getCurrentScholarship()->id,
         'accomplishments' => $faker->paragraphs(4, true),
         'activities' => $faker->paragraph(5),
         'participation' => $faker->paragraph(5),
@@ -91,10 +93,10 @@ $factory->define(Application::class, function (Generator $faker) {
 });
 
 // Submitted Application
-    // scholarship_id
     // user_id
 $factory->defineAs(Application::class, 'submitted', function (Generator $faker) {
     return [
+        'scholarship_id' => Scholarship::getCurrentScholarship()->id,
         'accomplishments' => $faker->paragraphs(4, true),
         'activities' => $faker->paragraph(5),
         'participation' => $faker->paragraph(5),
@@ -109,10 +111,10 @@ $factory->defineAs(Application::class, 'submitted', function (Generator $faker) 
 });
 
 // Completed Application
-    // scholarship_id
     // user_id
 $factory->defineAs(Application::class, 'completed', function (Generator $faker) {
     return [
+        'scholarship_id' => Scholarship::getCurrentScholarship()->id,
         'accomplishments' => $faker->paragraphs(4, true),
         'activities' => $faker->paragraph(5),
         'participation' => $faker->paragraph(5),
@@ -128,10 +130,10 @@ $factory->defineAs(Application::class, 'completed', function (Generator $faker) 
 });
 
 // Partial Application
-    // scholarship_id
     // user_id
 $factory->defineAs(Application::class, 'partial', function (Generator $faker) {
     return [
+        'scholarship_id' => Scholarship::getCurrentScholarship()->id,
         'accomplishments' => $faker->paragraphs(4, true),
         'activities' => $faker->paragraph(5),
     ];
