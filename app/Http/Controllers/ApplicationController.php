@@ -25,7 +25,7 @@ class ApplicationController extends \Controller
    ];
 
     protected $messages = [
-    'accomplishments.required'  => 'hey you skipped this',
+    'accomplishments.required'  => 'This question is required.',
     'participation.required'    => 'This question is required.',
     'gpa.required'              => 'GPA is required.',
     'gpa.numeric'               => 'Please enter your GPA as a number.',
