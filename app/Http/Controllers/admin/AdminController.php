@@ -5,6 +5,7 @@ use App\Models\Email;
 use App\Models\Export;
 use App\Models\Rating;
 use App\Models\Winner;
+use League\Csv\Writer;
 use App\Models\Profile;
 use App\Models\Nomination;
 use App\Models\Application;
@@ -310,25 +311,20 @@ class AdminController extends \Controller
         // @TODO: see if there is a better way to pass this from the form
         $filename = array_search('', $request->toArray());
         $export_function = $filename.'_query';
+        info('CSV downloads - ' . $filename . ' download requested');
 
         // Create an export object to run the query on
         $export = new Export();
         $query_result = $export->$export_function();
+        info('CSV downloads - '  . $filename . ' ' . count($query_result) . ' results found');
 
-        // Process the results of the query
-        $output = '';
-        foreach ($query_result as $row) {
-            $output .= implode(',', array_values(get_object_vars($row)))."\n";
-        }
+        // We need the result to be an array of an arrays, not an array of objects
+        $query_result = json_decode(json_encode($query_result), true);
 
-        // Build the csv
-        $filename = $filename.'-'.time().'.csv';
-        $headers = [
-          'Content-Type'        => 'text/csv',
-          'Content-Disposition' => 'attachment; filename="'.$filename.'"',
-        ];
-
-        return response(rtrim($output, "\n"), 200, $headers);
+        // Create and download the CSV file
+        $writer = Writer::createFromPath($filename . '.csv', 'w+');
+        $writer->insertAll($query_result);
+        $writer->output($filename);
     }
 
     /**

@@ -15,7 +15,8 @@
 		"maknz/slack-laravel": "^1.0",
 		"aws/aws-sdk-php-laravel": "^3.1",
 		"league/flysystem-aws-s3-v3": "~1.0",
-		"predis/predis": "~1.0"
+		"predis/predis": "~1.0",
+		"league/csv": "^9.0"
 	},
 	"require-dev": {
 		"fzaninotto/faker": "~1.4",
