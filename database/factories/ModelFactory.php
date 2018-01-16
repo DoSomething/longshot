@@ -8,7 +8,6 @@ use App\Models\Application;
 use App\Models\Scholarship;
 use App\Models\Recommendation;
 
-
 /**
  * |--------------------------------------------------------------------------
  * | Model Factories

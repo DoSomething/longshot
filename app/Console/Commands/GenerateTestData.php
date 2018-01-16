@@ -115,7 +115,6 @@ class GenerateTestData extends Command
                 $profile_submitted_app_app = $profile->user->application;
                 $profile_submitted_app_app->recommendation()->save(factory(Recommendation::class, 'request')->create());
                 dump('user with finished profile and submitted app and rec requests - ' . $profile->user_id);
-
             });
         }
 
