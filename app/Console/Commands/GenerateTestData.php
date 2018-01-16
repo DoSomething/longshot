@@ -137,9 +137,9 @@ class GenerateTestData extends Command
                 $done = collect([$done]);
             }
             $done->each(function ($app) {
-                $app->user->application()->save(factory(Application::class, 'submitted')->create());
+                $app->user->application()->save(factory(Application::class, 'completed')->create());
                 $done_app = $app->user->application;
-                $done_app->recommendation()->save(factory(Recommendation::class, 'request')->create());
+                $done_app->recommendation()->save(factory(Recommendation::class, 'complete')->create());
                 $this->line('user with finished profile, completed app, completed rec requests - ' . $app->user_id);
             });
         }
