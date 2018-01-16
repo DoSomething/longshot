@@ -33,7 +33,7 @@ class GenerateTestData extends Command
         // plain user
         if (! $type || $type == 'user') {
             $user = factory(User::class, $number)->create()->each(function ($user) {
-                dump('plain user - ' . $user->id);
+                $this->line('plain user - ' . $user->id);
             });
         }
 
@@ -45,14 +45,14 @@ class GenerateTestData extends Command
             }
             $partial_profiles->each(function ($profile) {
                 $profile->race()->save(factory(Race::class)->make());
-                dump('user with partial profile (including race) - ' . $profile->user_id);
+                $this->line('user with partial profile (including race) - ' . $profile->user_id);
             });
         }
 
         // user with partial profile (no race)
         if (! $type || $type == 'partial-profile') {
             $partial_profile_no_race = factory(Profile::class, 'partial', $number)->create();
-            dump('user with partial profile (no race) - ' . $partial_profile_no_race->user_id);
+            $this->line('user with partial profile (no race) - ' . $partial_profile_no_race->user_id);
         }
 
         // user with partial profile and partial app (no race)
@@ -63,7 +63,7 @@ class GenerateTestData extends Command
             }
             $partial_profile_app_no_race->each(function ($profile) {
                 $profile->user->application()->save(factory(Application::class, 'partial')->create());
-                dump('user with partial profile and partial app (no race) - ' . $profile->user_id);
+                $this->line('user with partial profile and partial app (no race) - ' . $profile->user_id);
             });
         }
 
@@ -76,7 +76,7 @@ class GenerateTestData extends Command
             $partial_profile_app->each(function ($profile) {
                 $profile->race()->save(factory(Race::class)->create());
                 $profile->user->application()->save(factory(Application::class, 'partial')->create());
-                dump('user with partial profile and partial app (including race) - ' . $profile->user_id);
+                $this->line('user with partial profile and partial app (including race) - ' . $profile->user_id);
             });
         }
 
@@ -88,7 +88,7 @@ class GenerateTestData extends Command
             }
             $profile->each(function ($profile) {
                 $profile->race()->save(factory(Race::class)->create());
-                dump('user with finished profile (including race) - ' . $profile->user_id);
+                $this->line('user with finished profile (including race) - ' . $profile->user_id);
             });
         }
 
@@ -100,7 +100,7 @@ class GenerateTestData extends Command
             }
             $profile_partial_app->each(function ($profile) {
                 $profile->user->application()->save(factory(Application::class, 'partial')->create());
-                dump('user with finished profile and partial app - ' . $profile->user_id);
+                $this->line('user with finished profile and partial app - ' . $profile->user_id);
             });
         }
 
@@ -114,7 +114,7 @@ class GenerateTestData extends Command
                 $profile->user->application()->save(factory(Application::class, 'submitted')->create());
                 $profile_submitted_app_app = $profile->user->application;
                 $profile_submitted_app_app->recommendation()->save(factory(Recommendation::class, 'request')->create());
-                dump('user with finished profile and submitted app and rec requests - ' . $profile->user_id);
+                $this->line('user with finished profile and submitted app and rec requests - ' . $profile->user_id);
             });
         }
 
@@ -128,7 +128,7 @@ class GenerateTestData extends Command
                 $app->user->application()->save(factory(Application::class, 'submitted')->create());
                 $done_app = $app->user->application;
                 $done_app->recommendation()->save(factory(Recommendation::class, 'request')->create());
-                dump('user with finished profile, completed app, completed rec requests - ' . $app->user_id);
+                $this->line('user with finished profile, completed app, completed rec requests - ' . $app->user_id);
             });
         }
     }
