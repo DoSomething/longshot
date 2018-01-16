@@ -1,12 +1,12 @@
 <?php
 
-use Faker\Generator;
-use App\Models\Profile;
 use App\Models\Race;
-use App\Models\Application;
-use App\Models\Recommendation;
+use Faker\Generator;
 use App\Models\User;
+use App\Models\Profile;
+use App\Models\Application;
 use App\Models\Scholarship;
+use App\Models\Recommendation;
 
 
 /**
@@ -41,9 +41,11 @@ $factory->define(User::class, function (Faker\Generator $faker) {
 });
 
 // Profile Factories
-    // user_id
 $factory->define(Profile::class, function (Generator $faker) {
     return [
+        'user_id' => function () {
+            return factory(User::class)->create()->id;
+        },
         'birthdate' => $faker->dateTimeInInterval($startDate = '-18 years', $interval = '+1 years')->format('Y-m-d'),
         'phone' => $faker->randomNumber(9) . $faker->randomNumber(1),
         'address_street' => $faker->streetAddress(),
@@ -59,9 +61,11 @@ $factory->define(Profile::class, function (Generator $faker) {
 
 
 // Partial Profile factory
-    // user_id
 $factory->defineAs(Profile::class, 'partial', function (Generator $faker) {
     return [
+        'user_id' => function () {
+            return factory(User::class)->create()->id;
+        },
         'birthdate' => $faker->dateTimeInInterval($startDate = '-18 years', $interval = '+1 years')->format('Y-m-d'),
         'phone' => $faker->randomNumber(9) . $faker->randomNumber(1),
     ];
@@ -76,7 +80,6 @@ $factory->define(Race::class, function (Generator $faker) {
 });
 
 // Application ("finished" but not submitted)
-    // user_id
 $factory->define(Application::class, function (Generator $faker) {
     return [
         'scholarship_id' => Scholarship::getCurrentScholarship()->id,
@@ -111,7 +114,6 @@ $factory->defineAs(Application::class, 'submitted', function (Generator $faker) 
 });
 
 // Completed Application
-    // user_id
 $factory->defineAs(Application::class, 'completed', function (Generator $faker) {
     return [
         'scholarship_id' => Scholarship::getCurrentScholarship()->id,
@@ -130,7 +132,6 @@ $factory->defineAs(Application::class, 'completed', function (Generator $faker) 
 });
 
 // Partial Application
-    // user_id
 $factory->defineAs(Application::class, 'partial', function (Generator $faker) {
     return [
         'scholarship_id' => Scholarship::getCurrentScholarship()->id,
