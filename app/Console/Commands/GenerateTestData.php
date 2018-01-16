@@ -28,11 +28,18 @@ class GenerateTestData extends Command
     public function fire()
     {
         $number = (int) $this->argument('amount');
-        $type = ($this->argument('type') == 'all') ? null : $this->argument('type');
+        $type = $this->argument('type');
+        if ($type === 'all') {
+            $type = null;
+        }
 
         // plain user
         if (! $type || $type == 'user') {
-            $user = factory(User::class, $number)->create()->each(function ($user) {
+            $users = factory(User::class, $number)->create();
+            if ($number == 1) {
+                $users = collect([$users]);
+            }
+            $users->each(function ($user) {
                 $this->line('plain user - ' . $user->id);
             });
         }
@@ -52,7 +59,12 @@ class GenerateTestData extends Command
         // user with partial profile (no race)
         if (! $type || $type == 'partial-profile') {
             $partial_profile_no_race = factory(Profile::class, 'partial', $number)->create();
-            $this->line('user with partial profile (no race) - ' . $partial_profile_no_race->user_id);
+            if ($number == 1) {
+                $partial_profile_no_race = collect([$partial_profile_no_race]);
+            }
+            $partial_profile_no_race->each(function ($partial) {
+                $this->line('user with partial profile (no race) - ' . $partial->user_id);
+            });
         }
 
         // user with partial profile and partial app (no race)
@@ -84,7 +96,7 @@ class GenerateTestData extends Command
         if (! $type || $type == 'profile-race') {
             $profile = factory(Profile::class, $number)->create();
             if ($number == 1) {
-                $partial_profile_app = collect([$partial_profile_app]);
+                $profile = collect([$profile]);
             }
             $profile->each(function ($profile) {
                 $profile->race()->save(factory(Race::class)->create());
@@ -96,7 +108,7 @@ class GenerateTestData extends Command
         if (! $type || $type == 'profile-partial-app') {
             $profile_partial_app = factory(Profile::class, $number)->create();
             if ($number == 1) {
-                $partial_profile_app = collect([$partial_profile_app]);
+                $profile_partial_app = collect([$profile_partial_app]);
             }
             $profile_partial_app->each(function ($profile) {
                 $profile->user->application()->save(factory(Application::class, 'partial')->create());
