@@ -25,19 +25,20 @@ class GenerateTestData extends Command
      */
     protected $description = 'Make some test data';
 
-    public function fire() {
+    public function fire()
+    {
         $number = (int) $this->argument('amount');
         $type = ($this->argument('type') == 'all') ? null : $this->argument('type');
 
         // plain user
-        if (!$type || $type == 'user') {
+        if (! $type || $type == 'user') {
             $user = factory(User::class, $number)->create()->each(function ($user) {
                 dump('plain user - ' . $user->id);
             });
         }
 
         // user with partial profile (including race)
-        if (!$type || $type == 'partial-profile-race') {
+        if (! $type || $type == 'partial-profile-race') {
             $partial_profiles = factory(Profile::class, 'partial', $number)->create();
             if ($number == 1) {
                 $partial_profiles = collect([$partial_profiles]);
@@ -49,13 +50,13 @@ class GenerateTestData extends Command
         }
 
         // user with partial profile (no race)
-        if (!$type || $type == 'partial-profile') {
+        if (! $type || $type == 'partial-profile') {
             $partial_profile_no_race = factory(Profile::class, 'partial', $number)->create();
             dump('user with partial profile (no race) - ' . $partial_profile_no_race->user_id);
         }
 
         // user with partial profile and partial app (no race)
-        if (!$type || $type == 'partial-profile-and-app') {
+        if (! $type || $type == 'partial-profile-and-app') {
             $partial_profile_app_no_race = factory(Profile::class, 'partial', $number)->create();
             if ($number == 1) {
                 $partial_profile_app_no_race = collect([$partial_profile_app_no_race]);
@@ -67,7 +68,7 @@ class GenerateTestData extends Command
         }
 
         // user with partial profile and partial app (including race)
-        if (!$type || $type == 'partial-profile-and-app-race') {
+        if (! $type || $type == 'partial-profile-and-app-race') {
             $partial_profile_app = factory(Profile::class, 'partial', $number)->create();
             if ($number == 1) {
                 $partial_profile_app = collect([$partial_profile_app]);
@@ -80,7 +81,7 @@ class GenerateTestData extends Command
         }
 
         // user with finished profile (including race)
-        if (!$type || $type == 'profile-race') {
+        if (! $type || $type == 'profile-race') {
             $profile = factory(Profile::class, $number)->create();
             if ($number == 1) {
                 $partial_profile_app = collect([$partial_profile_app]);
@@ -92,7 +93,7 @@ class GenerateTestData extends Command
         }
 
         // user with finished profile and partial app
-        if (!$type || $type == 'profile-partial-app') {
+        if (! $type || $type == 'profile-partial-app') {
             $profile_partial_app = factory(Profile::class, $number)->create();
             if ($number == 1) {
                 $partial_profile_app = collect([$partial_profile_app]);
@@ -104,7 +105,7 @@ class GenerateTestData extends Command
         }
 
         // user with finished profile and submitted app and rec requests
-        if (!$type || $type == 'submitted-app-recs') {
+        if (! $type || $type == 'submitted-app-recs') {
             $profile_submitted_app = factory(Profile::class, $number)->create();
             if ($number == 1) {
                 $profile_submitted_app = collect([$profile_submitted_app]);
@@ -119,7 +120,7 @@ class GenerateTestData extends Command
         }
 
         // user with finished profile, completed app, completed rec requests
-        if (!$type || $type == 'all-done') {
+        if (! $type || $type == 'all-done') {
             $done = factory(Profile::class, $number)->create();
             if ($number == 1) {
                 $done = collect([$done]);

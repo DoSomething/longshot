@@ -1,8 +1,8 @@
 <?php
 
 use App\Models\Race;
-use Faker\Generator;
 use App\Models\User;
+use Faker\Generator;
 use App\Models\Profile;
 use App\Models\Application;
 use App\Models\Scholarship;
@@ -10,24 +10,15 @@ use App\Models\Recommendation;
 
 
 /**
-|--------------------------------------------------------------------------
-| Model Factories
-|--------------------------------------------------------------------------
-|
-| Here you may define all of your model factories. Model factories give
-| you a convenient way to create models for testing and seeding your
-| database. Just tell the factory how a default model should look.
-|
-*/
-
-// user
-// user with partial profile (including race)
-// user with partial profile (no race)
-// user with partial profile and partial app
-// user with finished profile
-// user with finished profile and partial app
-// user with finished profile and submitted app and rec requests
-// user with finished profile, completed app, completed rec requests
+ * |--------------------------------------------------------------------------
+ * | Model Factories
+ * |--------------------------------------------------------------------------
+ * |
+ * | Here you may define all of your model factories. Model factories give
+ * | you a convenient way to create models for testing and seeding your
+ * | database. Just tell the factory how a default model should look.
+ * |
+ */
 
 // User Factory
 $factory->define(User::class, function (Faker\Generator $faker) {
@@ -58,7 +49,6 @@ $factory->define(Profile::class, function (Generator $faker) {
         'grade' => $faker->numberBetween(9, 12),
     ];
 });
-
 
 // Partial Profile factory
 $factory->defineAs(Profile::class, 'partial', function (Generator $faker) {
