@@ -323,8 +323,9 @@ class AdminController extends \Controller
 
         // Create and download the CSV file
         $writer = Writer::createFromPath($filename . '.csv', 'w+');
+        $writer->insertOne(array_keys($query_result[0]));
         $writer->insertAll($query_result);
-        $writer->output($filename);
+        $writer->output($filename . '.csv');
     }
 
     /**
