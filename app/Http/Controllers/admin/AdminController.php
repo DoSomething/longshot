@@ -322,9 +322,13 @@ class AdminController extends \Controller
         $query_result = json_decode(json_encode($query_result), true);
 
         // Create and download the CSV file
-        $writer = Writer::createFromPath($filename . '.csv', 'w+');
+        $file = new \SplFileObject($filename . '.csv', 'w+');
+        $writer = Writer::createFromFileObject($file);
+        $writer->insertOne(array_keys($query_result[0]));
         $writer->insertAll($query_result);
-        $writer->output($filename);
+        info('created_csv', ['csv' => $writer->getContent()]);
+
+        return response()->download($file);
     }
 
     /**
