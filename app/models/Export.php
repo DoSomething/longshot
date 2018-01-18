@@ -119,7 +119,7 @@ class Export extends Model
                           FROM applications a
                           INNER JOIN users u on u.id = a.user_id
                           WHERE a.submitted = 1
-                          AND a.completed = null');
+                          AND a.completed is null');
 
         return $results;
     }
