@@ -15,7 +15,8 @@ class Export extends Model
                            INNER JOIN users u on u.id = a.user_id
                            WHERE a.submitted = 1
                            AND r.rank_character IS null
-                           AND a.completed IS null');
+                           AND a.completed IS null
+                           GROUP BY u.email');
 
         return $results;
     }
@@ -128,7 +129,7 @@ class Export extends Model
     {
         //removes newlines (10 - line feed, 13 - carriage return), horizontal tabs (9), and replaces commas (44) with semicolons
         $results = DB::select('SELECT distinct concat(u.first_name, " ", u.last_name) as name, p.gender, p.state, p.zip, group_concat(r.race) as race,
-                                            REPLACE(REPLACE(REPLACE(REPLACE(a.activities,CHAR(10)," "),CHAR(13)," "), CHAR(9)," "), CHAR(44),";"),
+                                            REPLACE(REPLACE(REPLACE(REPLACE(a.activities,CHAR(10)," "),CHAR(13)," "), CHAR(9)," "), CHAR(44),";") as activities,
                                             concat("footlockerscholarathletes.com/admin/applications/", u.id) as link
                           FROM users u
                           INNER JOIN profiles p on p.user_id = u.id
