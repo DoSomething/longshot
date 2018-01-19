@@ -328,7 +328,6 @@ class AdminController extends \Controller
             $writer->insertOne(array_keys($query_result[0]));
         }
         $writer->insertAll($query_result);
-        info('created_csv', ['csv' => $writer->getContent()]);
 
         return response()->download($file);
     }
