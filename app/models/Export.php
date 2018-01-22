@@ -157,6 +157,7 @@ class Export extends Model
 
     public static function full_yes_data_query()
     {
+        // TODO: we should probably do the character escaping with a PHP iterator rather than in the database query
         $results = DB::select('SELECT u.first_name, u.last_name, u.email,
                           p.birthdate, p.phone, p.address_street, p.address_premise, p.city, p.state, p.zip, p.gender, p.school, p.grade,
                           REPLACE(REPLACE(REPLACE(REPLACE(a.accomplishments,CHAR(10)," "),CHAR(13)," "), CHAR(9)," "), CHAR(44),";") as accomplishments,
