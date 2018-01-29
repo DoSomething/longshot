@@ -200,7 +200,7 @@ class RecommendationController extends \Controller
             return view('recommendation.edit')->with(compact('recommendation', 'scholarship', 'rank_values', 'vars'));
         }
         // The user wants to add more recs.
-        elseif (isset($_GET['app_id'])) {
+        elseif (isset($_GET['app_id']) && ($_GET['app_id'] == Auth::user()->application->id)) {
             $rec_min = Scholarship::getCurrentScholarship()->num_recommendations_min;
             $rec_max = Scholarship::getCurrentScholarship()->num_recommendations_max;
             $num_recs = ['num_recommendations_max' => $rec_max, 'num_recommendations_min' => $rec_min];
@@ -215,7 +215,7 @@ class RecommendationController extends \Controller
 
             return view('recommendation.applicant_edit')->with(compact('num_recs', 'recs', 'user', 'vars', 'complete_recs'));
         } else {
-            return App::abort(403, 'Access denied');
+            return redirect()->home()->with('flash_message', ['text' => 'You are not authorized to view that page.', 'class' => '-error']);
         }
     }
 
