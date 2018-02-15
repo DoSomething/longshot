@@ -10,7 +10,7 @@
       <div class="wrapper">
 
         @if (isset($vars->application_submit_help_text))
-          <p>{{ $vars->application_submit_help_text }}</p>
+          <p>{!! $vars->application_submit_help_text !!}</p>
         @endif
 
         <div class="fragment">
