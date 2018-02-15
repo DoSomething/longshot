@@ -10,7 +10,7 @@
       <div class="wrapper">
         <h2 class="heading -gamma">Status: <em> {{ $status }} </em></h2>
         @if (!empty($help_text))
-          <p>{{ $help_text }}</p>
+          <p>{!! $help_text !!}</p>
         @endif
 
       </div>
