@@ -10,6 +10,7 @@ use App\Models\Profile;
 use App\Models\Nomination;
 use App\Models\Application;
 use App\Models\Scholarship;
+use App\Jobs\SendGroupEmail;
 use Illuminate\Http\Request;
 use App\Models\Recommendation;
 use App\Models\RecommendationToken;
@@ -338,34 +339,15 @@ class AdminController extends \Controller
     public function email_group(Request $request)
     {
         // Get the name of the function that runs the selected query
-        $key = array_search('', $request->toArray());
-        $export_function = $key.'_query';
+        $exportName = array_search('', $request->toArray());
+        $exportFunction = $exportName.'_query';
 
-        // Create an export object to run the query on
-        $export = new Export();
-        $query_result = $export->$export_function();
+        // Email to notify once all the messages send
+        $adminEmail = Auth::user()->email;
 
-        $email = new Email();
+        $this->dispatch(new SendGroupEmail($exportName, $exportFunction, $adminEmail));
 
-        // For each result, construct and send the email
-        $tokens = [];
-        foreach ($query_result as $row) {
-            // Grab the email address
-            $send_to = $row->email;
-
-            // Define row specific tokens
-            if (isset($row->first_name)) {
-                $tokens[':first_name:'] = $row->first_name;
-            }
-            if (isset($row->last_name)) {
-                $tokens[':last_name:'] = $row->last_name;
-            }
-
-            // send it by passing in key, recipient, to, and extra tokens
-            $email->sendEmail($key, 'group', $send_to, $tokens);
-        }
-
-        return redirect()->route('export')->with('flash_message', ['text' => 'Got an email sent to everyone!', 'class' => '-success']);
+        return redirect()->route('export')->with('flash_message', ['text' => 'We will send an email to everyone!', 'class' => '-success']);
     }
 
     /**
