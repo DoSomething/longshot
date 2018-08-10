@@ -27,9 +27,9 @@ class SendGroupEmail extends Job implements ShouldQueue
      */
     public function __construct($exportName, $exportFunction, $adminEmail)
     {
-        // $this->exportName = $exportName;
-        // $this->exportFunction = $exportFunction;
-        // $this->adminEmail = $adminEmail;
+        $this->exportName = $exportName;
+        $this->exportFunction = $exportFunction;
+        $this->adminEmail = $adminEmail;
     }
 
     /**
@@ -61,7 +61,6 @@ class SendGroupEmail extends Job implements ShouldQueue
             }
 
             // Send it by passing in key, recipient, to, and extra tokens
-            // $messageToSend = Email::where('key', '=', $this->exportName)->firstOrFail();
             $email->sendEmail($this->exportName, 'group', $send_to, $tokens);
 
             info($this->exportFunction . ' email sent to: ' . $send_to);
@@ -70,9 +69,9 @@ class SendGroupEmail extends Job implements ShouldQueue
         // Notify us that the emails have all been queued
         info('DONE Group Emails all queued: ' . $this->exportFunction);
         Mail::raw('DONE Queuing Group Email: ' . $this->exportFunction, function ($message) {
-            // $message->to($this->adminEmail);
+            $message->to($this->adminEmail);
             $message->subject('Done Queuing Group Email: ' . $this->exportFunction);
-            // $message->from(Scholarship::getCurrentScholarship()->email_from_address, Scholarship::getCurrentScholarship()->email_from_name);
+            $message->from(Scholarship::getCurrentScholarship()->email_from_address, Scholarship::getCurrentScholarship()->email_from_name);
         });
     }
 }
