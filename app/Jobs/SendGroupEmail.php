@@ -3,7 +3,6 @@
 namespace App\Jobs;
 
 use Mail;
-use App\Jobs\Job;
 use App\Models\Email;
 use App\Models\Export;
 use App\Models\Scholarship;
@@ -18,7 +17,6 @@ class SendGroupEmail extends Job implements ShouldQueue
     protected $exportName;
     protected $exportFunction;
     protected $adminEmail;
-
 
     /**
      * Create a new job instance.
