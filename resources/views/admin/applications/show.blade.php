@@ -8,6 +8,7 @@
 
       <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         <h1>{{ $user['first_name'] . ' ' . $user['last_name'] }}</h1>
+
         <div class="wrapper">
           <p>{{ strtolower($user['email']) }}</p>
 

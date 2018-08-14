@@ -92,9 +92,9 @@ class Recommendation extends Model
 
             foreach ($recommendations as $recommendation) {
                 $recommendation_token = $recommendation->generateRecToken($recommendation);
-
                 $recommendation = $recommendation->toArray();
                 $recommendation['recommendation_link'] = link_to_route('recommendation.edit', 'Recommendation Link', [$recommendation['id'], 'token' => $recommendation_token]);
+
                 array_push($recommendations_array, $recommendation);
             }
 
