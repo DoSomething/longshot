@@ -8,7 +8,6 @@
 
       <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         <h1>{{ $user['first_name'] . ' ' . $user['last_name'] }}</h1>
-
         <div class="wrapper">
           <p>{{ strtolower($user['email']) }}</p>
 
@@ -96,7 +95,8 @@
                   <div>
                     @if (isset($scholarship[$key]))
                       <p><strong>{{ snakeCaseToTitleCase($scholarship[$key]) }}</strong></p>
-                    @else
+                    <!-- Do not create a header for Recommendation Link since it is a clickable link with title already included -->
+                    @elseif ($key != 'recommendation_link')
                       <p><strong>{{ snakeCaseToTitleCase($key) }}</strong></p>
                     @endif
                       <p>{{ $field }}</p>
