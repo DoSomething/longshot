@@ -108,7 +108,7 @@ return [
     |
     */
 
-    'log' => 'daily',
+    'log' => env('APP_LOG', 'daily'),
 
     /*
     |--------------------------------------------------------------------------
@@ -147,6 +147,7 @@ return [
         'Illuminate\View\ViewServiceProvider',
         'Collective\Html\HtmlServiceProvider',
         'Illuminate\Broadcasting\BroadcastServiceProvider',
+        'Illuminate\Bus\BusServiceProvider',
 
         /*
          * Application Service Providers...
