@@ -96,7 +96,8 @@
                   <div>
                     @if (isset($scholarship[$key]))
                       <p><strong>{{ snakeCaseToTitleCase($scholarship[$key]) }}</strong></p>
-                    @else
+                    <!-- Do not create a header for Recommendation Link since it is a clickable link with title already included -->
+                    @elseif ($key != 'recommendation_link')
                       <p><strong>{{ snakeCaseToTitleCase($key) }}</strong></p>
                     @endif
                       <p>{{ $field }}</p>
