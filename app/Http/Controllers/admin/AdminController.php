@@ -154,7 +154,7 @@ class AdminController extends \Controller
 
         $applicants = $query->get();
 
-        return view('admin.applications.index', compact('applicants'));
+        return view('admin.applications.index', compact('applicants', 'search'));
     }
 
     /**
