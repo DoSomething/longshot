@@ -127,7 +127,8 @@
 
   {{-- Hear About --}}
   <div class="field-group -mono {{ setInvalidClass('hear_about', $errors) }}">
-    {!! Form::label('hear_about', 'How did you hear about this scholarship? (optional) ') !!}
-    {!! Form::select('hear_about',  $choices); !!}
-    {!! errorsFor('test_hear_abouttype', $errors); !!}
+    {!! Form::label('hear_about', 'How did you hear about this scholarship?') !!}
+    {!! Form::select('hear_about', ['' => 'Please Select'] + $choices)!!}
+
+    {!! errorsFor('hear_about', $errors); !!}
   </div>

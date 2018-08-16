@@ -32,7 +32,7 @@ class Application extends Model
     /** End Relationships **/
     public static function formatChoices($choices)
     {
-        $return = [''];
+        $return = [];
         $choices = explode(',', $choices);
         foreach ($choices as $choice) {
             $return[$choice] = $choice;

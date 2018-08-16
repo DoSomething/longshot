@@ -22,6 +22,7 @@ class ApplicationController extends \Controller
     'extra_question_4'=> 'sometimes|required',
     'extra_question_5'=> 'sometimes|required',
     'upload'          => 'image',
+    'hear_about'      => 'required',
    ];
 
     protected $messages = [
@@ -39,6 +40,7 @@ class ApplicationController extends \Controller
     'extra_question_4.required' => 'This question is required.',
     'extra_question_5.required' => 'This question is required.',
     'upload.image'              => 'The uploaded file must be an image.',
+    'hear_about.required' => 'You must pick an option from the drop down list.',
    ];
 
     protected $settings;
