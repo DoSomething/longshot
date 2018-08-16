@@ -8,7 +8,7 @@
 
 ## Local Development Setup
 1. Clone the repo
-2. Create a `.env` file from `.env.example` and make sure your `.env.local.php` has the correct keys for your dev environment. Reach out to the tech team for the correct keys to use in your dev environments `.env.local.php` file.
+2. Create a `.env` file from `.env.example` and make sure your `.env` has the correct keys for your dev environment. Reach out to the tech team for the correct keys to use in your dev environment's `.env` file.
 3. Edit your `Homestead.yml` file to include this new info. Making sure the `folders` and `sites` configuration is correct for your local set up. You might need to run `vagrant provision` after you make this update.
 4. Add your app url (longshot.dev) to your `etc/hosts` file i.e. `127.0.0.1 longshot.dev`
 5. Manually create a `scholarship_app` database in Sequel Pro.
@@ -16,7 +16,7 @@
     - Name the connection 
     - Enter host info: `127.0.0.1`
     - Username: `homestead` 
-    - Enter password from `.env.local.php` file
+    - Enter password from `.env` file
     - Port: `33060`
     - Hit `connect`
     - In the `choose database` dropdown select `add database`
@@ -37,6 +37,14 @@ Within the directory for the project in the Vagrant VM ([instructions here](http
 To run the migrations to setup your database and then immediately seed it, run (also from the project directory in vagrant):
 
     $ php artisan migrate && php artisan db:seed
+
+You'll also need generate an app key if you don't already have one:
+
+    $ php artisan key:generate
+
+Create some good test data (if you need more of a particular type of test data, you may choose to create more of just that type, see `GenerateTestData.php` for all the types):
+
+    $ php artisan generate:testdata 10
 
 ### Front-end
 
@@ -61,6 +69,10 @@ Whenever you need to edit anything in **/resources/assets/** you will need to `g
 In order to run tests, you need to have created the `longshot_testing` database. Then, go to the project directory in vagrant and run `vendor/bin/phpunit`. Tests run automatically on PRs as well.
 
 Pro-tip: If you are debugging tests and crash in the middle, the tests will not get to the step where they roll back all the migrations on the testing database. Not rolling back means that if you try to run the tests again, it will crash because there are unexpected tables in there. So, if you crash during a test, you will need to manually drop those tables before running again :runner:
+
+### Using Longshot
+
+The seeded scholarship opened in 2014 and closed in 2020, so you will see "Apply" in the upper right corner and can click that to create a new account as an applicant. To log in as an admin, use one of the seeded admin accounts.
 
 ***
 
