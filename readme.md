@@ -72,7 +72,7 @@ Pro-tip: If you are debugging tests and crash in the middle, the tests will not 
 
 ### Using Longshot
 
-The seeded scholarship opened in 2014 and closed in 2020, so you will see "Apply" in the upper right corner and can click that to create a new account as an applicant. To log in as an admin, use one of the seeded admin accounts.
+The seeded scholarship opened in 2014 and closes in 2020, so you will see "Apply" in the upper right corner and can click that to create a new account as an applicant. To log in as an admin, use one of the seeded admin accounts.
 
 ***
 
