@@ -94,9 +94,7 @@ class AdminController extends \Controller
         $filter_by = $request->input('filter_by');
         $direction = $request->input('direction');
 
-        $query = DB::table('users');
-
-        $query = $this->applicantBaseQuery($query);
+        $query = $this->applicantBaseQuery();
         $query->leftJoin('role_user', 'users.id', '=', 'role_user.user_id')
                   ->whereNull('role_user.role_id');
 
@@ -143,18 +141,20 @@ class AdminController extends \Controller
         return view('admin.applications.index', compact('applicants'));
     }
 
+    /**
+     * Find applicant based on last name or email
+     */
     public function search(Request $request)
     {
-        $name = $request->input('search');
+        $search = $request->input('search');
 
-        $query = DB::table('users');
-        $query = $this->applicantBaseQuery($query);
-
-        $query->where('last_name', 'LIKE', '%'.$name.'%');
+        $query = $this->applicantBaseQuery()
+                        ->where('last_name', 'LIKE', '%'.$search.'%')
+                        ->orWhere('email', 'LIKE', '%'.$search.'%');
 
         $applicants = $query->get();
 
-        return view('admin.applications.index', compact('applicants'));
+        return view('admin.applications.index', compact('applicants', 'search'));
     }
 
     /**
@@ -353,9 +353,10 @@ class AdminController extends \Controller
     /**
      * Helper function to select/join for the admin index table.
      */
-    public static function applicantBaseQuery($query)
+    public static function applicantBaseQuery()
     {
-        $query->select('users.id', 'users.first_name', 'users.last_name', 'users.email',
+        $query = DB::table('users')
+          ->select('users.id', 'users.first_name', 'users.last_name', 'users.email',
                    'profiles.state', 'profiles.gender',
                    'applications.submitted', 'applications.completed', 'applications.gpa',
                    'ratings.rating')

@@ -12,7 +12,7 @@
 
         {!! Form::open(['route' => 'search', 'class' => 'navbar-form navbar-right']) !!}
           <div class="input-group">
-            {!! Form::text('search', NULL, ['class' => 'form-control', 'placeholder' => 'last name']) !!}
+            {!! Form::text('search', isset($search) ? $search : NULL, ['class' => 'form-control', 'placeholder' => 'last name or email']) !!}
             <div class="input-group-btn">
               <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span> Search</button>
             </div>
