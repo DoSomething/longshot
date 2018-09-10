@@ -44,7 +44,7 @@
           <div class="field-group -checkbox">
             <p><small>{!! $vars->eligibility_text or '[Include eligibility text here]' !!}</small></p>
             {!! Form::checkbox('eligibility', 1, false, ['id' => 'eligibility']) !!}
-            {!! Form::label('eligibility', 'Yes, I\'m eligible') !!}
+            {!! Form::label('eligibility', 'Yes, I\'m eligible, and I agree to this use of my contact info') !!}
             {!! errorsFor('eligibility', $errors) !!}
           </div>
 
