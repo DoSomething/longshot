@@ -5,7 +5,7 @@
       <span>In partnership with:</span> <img src="{{ $global_vars->footer_logo or '/dist/images/tmi-logo.png' }}" alt="partner">
     </div>
 
-    <p class="__copyright">Copyright &copy; {{ date('Y') }} {{ $global_vars->company_name or 'TMI Agency' }}</p>
+    <p class="__copyright">Copyright &copy; {{ date('Y') }} {{ $global_vars->company_name or 'DoSomething Strategic' }}</p>
 
     @if (isset($global_vars->footer_text) || isset($global_vars->official_rules_url))
     <p class="__message">
