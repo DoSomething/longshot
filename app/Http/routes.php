@@ -47,6 +47,7 @@ Route::group(['middleware' => 'isAdmin', 'prefix' => 'admin'], function () {
     Route::post('application/rate', ['as' => 'applications.rate', 'uses' => 'AdminController@rate']);
     Route::post('application/complete', ['as' => 'applications.complete', 'uses' => 'AdminController@complete']);
     Route::post('resend', ['as' => 'admin.resend', 'uses' => 'AdminController@resendRecEmail']);
+    Route::post('email/test', ['as' => 'email.test', 'uses' => 'AdminController@testEmail']);
     // Winners
     Route::resource('winner', 'WinnerController');
     // Scholarship management
