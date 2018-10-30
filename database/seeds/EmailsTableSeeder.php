@@ -149,5 +149,12 @@ class EmailsTableSeeder extends Seeder
         'subject'   => '',
         'body'      => '',
       ]);
+
+        Email::create([
+        'key'       => 'test',
+        'recipient' => 'applicant',
+        'subject'   => '',
+        'body'      => '',
+      ]);
     }
 }

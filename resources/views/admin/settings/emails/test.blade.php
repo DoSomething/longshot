@@ -8,7 +8,7 @@
 
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 
-                {!! Form::open(array('action' => 'EmailController@sendTestEmail')) !!}
+                {!! Form::open(['action' => 'EmailController@sendTestEmail']) !!}
 
                     <h1 class="page-header">Send Test Email</h1>
 

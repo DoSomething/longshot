@@ -32,21 +32,17 @@ class Email extends Model
         ':home_page:'   => link_to_route('home', Scholarship::getCurrentScholarship()->title),
         ':email:'       => link_to('mailto:'.Scholarship::getCurrentScholarship()->email_from_address, Scholarship::getCurrentScholarship()->email_from_address),
       ];
-
         $tokens = array_merge($tokens, $extra_tokens);
 
-        $subject = $email->subject;
-        $body = $email->body;
-
-        // Replace all the tokens
-        $body = str_replace(array_keys($tokens), array_values($tokens), $body);
-        $subject = str_replace(array_keys($tokens), array_values($tokens), $subject);
+        // If this is a test email, grab the content from the form, Otherwise, grab email content from the database and replace all the tokens.
+        $body = $tokens['body'] ? $tokens['body'] : str_replace(array_keys($tokens), array_values($tokens), $email->body);
+        $subject = $tokens['subject'] ? $tokens['subject'] :str_replace(array_keys($tokens), array_values($tokens), $email->subject);
 
         $email_data = [
-        'to'      => $to,
-        'body'    => $body,
-        'subject' => $subject,
-      ];
+            'to'      => $to,
+            'body'    => $body,
+            'subject' => $subject,
+        ];
 
         // Send off the message.
         Mail::queue('emails.email', $email_data, function ($message) use ($email_data) {

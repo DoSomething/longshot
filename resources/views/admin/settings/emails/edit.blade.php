@@ -56,7 +56,8 @@
           </div>
 
         {!! Form::close() !!}
-
+        <br>
+        <a href='{{ route('emails.test') }}'>Send Test Email</a>
       </div>
 
     </div>
