@@ -33,4 +33,14 @@ class EmailController extends \Controller
 
         return redirect()->route('emails')->with('flash_message', ['text' => 'Success: Email settings have been saved!', 'class' => 'alert-success']);
     }
+
+    public function testEmail()
+    {
+        return view('admin.settings.emails.test');
+    }
+
+    public function sendTestEmail()
+    {
+        // return redirect()->route('emails.test')->with('flash_message', ['text'] => 'Success: Test email has been sent!', 'class' => 'alert-success');
+    }
 }
