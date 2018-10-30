@@ -16,17 +16,17 @@
                         <div>
                         {!! Form::label('recipient', 'To: ') !!}
                         <br>
-                        {!! Form::text('recipient') !!}
+                        {!! Form::text('recipient', '', ['required' => 'required']) !!}
                         </div>
                         <div>
                         {!! Form::label('subject', 'Subject: ') !!}
                         <br>
-                        {!! Form::text('subject') !!}
+                        {!! Form::text('subject', '', ['required' => 'required']) !!}
                         </div>
                         <div>
                             {!! Form::label('body', 'Email Body: ') !!}
                         <br>
-                        {!! Form::textarea('body') !!}
+                        {!! Form::textarea('body', '', ['required' => 'required']) !!}
                         </div>
                         <div>
                             {!! Form::submit('Send Test Email',     ['class' => 'btn btn-default']) !!}
