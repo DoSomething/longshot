@@ -32,9 +32,10 @@ class Email extends Model
         ':home_page:'   => link_to_route('home', Scholarship::getCurrentScholarship()->title),
         ':email:'       => link_to('mailto:'.Scholarship::getCurrentScholarship()->email_from_address, Scholarship::getCurrentScholarship()->email_from_address),
       ];
+
         $tokens = array_merge($tokens, $extra_tokens);
 
-        // If this is a test email, grab the content from the form, Otherwise, grab email content from the database and replace all the tokens.
+        // If this is a test email, grab the content from the form. Otherwise, grab email content from the database and replace all the tokens.
         $body = $tokens['body'] ? $tokens['body'] : str_replace(array_keys($tokens), array_values($tokens), $email->body);
         $subject = $tokens['subject'] ? $tokens['subject'] : str_replace(array_keys($tokens), array_values($tokens), $email->subject);
 
