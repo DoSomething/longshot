@@ -36,7 +36,7 @@ class Email extends Model
 
         // If this is a test email, grab the content from the form, Otherwise, grab email content from the database and replace all the tokens.
         $body = $tokens['body'] ? $tokens['body'] : str_replace(array_keys($tokens), array_values($tokens), $email->body);
-        $subject = $tokens['subject'] ? $tokens['subject'] :str_replace(array_keys($tokens), array_values($tokens), $email->subject);
+        $subject = $tokens['subject'] ? $tokens['subject'] : str_replace(array_keys($tokens), array_values($tokens), $email->subject);
 
         $email_data = [
             'to'      => $to,
