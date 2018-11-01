@@ -42,10 +42,14 @@ class EmailController extends \Controller
     public function sendTestEmail()
     {
         // Build and send email
-        $email = new Email();
         $input = Input::all();
+        $email = Email::firstOrCreate([
+            'key' => 'test',
+            'recipient' => 'test',
+        ]);
 
-        $email->sendEmail('welcome', 'applicant', $input['recipient'], $input);
+        $email->fill(['subject' => $input['recipient'], 'body' => $input['body']]);
+        $email->sendEmail($email->key, $email->recipient, $input['recipient'], $input);
 
         return redirect()->route('emails.test')->with('flash_message', ['text' => 'Success: Test email has been sent!', 'class' => 'alert-success']);
     }
