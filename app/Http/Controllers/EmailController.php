@@ -48,8 +48,9 @@ class EmailController extends \Controller
             'recipient' => 'test',
         ]);
 
-        $email->fill(['subject' => $input['recipient'], 'body' => $input['body']]);
-        $email->sendEmail($email->key, $email->recipient, $input['recipient'], $input);
+        $email->fill(['subject' => $input['subject'], 'body' => $input['body']]);
+        $email->save();
+        $email->sendEmail($email->key, $email->recipient, $input['recipient']);
 
         return redirect()->route('emails.test')->with('flash_message', ['text' => 'Success: Test email has been sent!', 'class' => 'alert-success']);
     }
