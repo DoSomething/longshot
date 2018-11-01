@@ -11,6 +11,7 @@
                 {!! Form::open(['action' => 'EmailController@sendTestEmail']) !!}
 
                     <h1 class="page-header">Send Test Email</h1>
+                    <p>Use this page to test that emails are sending even when the scholarship is closed! If you receive an email at the provided email address, email sending is working. Please note that this does not test the copy of the different group email sends; that copy will need to be reviewed separately.</p>
 
                     <div class="panel-body">
                         <div>
