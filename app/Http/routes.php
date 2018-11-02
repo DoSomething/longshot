@@ -65,6 +65,8 @@ Route::group(['middleware' => 'isAdmin', 'prefix' => 'admin'], function () {
     // Emails
     Route::get('email', ['as' => 'emails', 'uses' => 'EmailController@index']);
     Route::post('email', ['as' => 'emails.update', 'uses' => 'EmailController@update']);
+    Route::get('email/test', ['as' => 'emails.test', 'uses' => 'EmailController@testEmail']);
+    Route::post('email/test', ['as' => 'emails.sendTest', 'uses' => 'EmailController@sendTestEmail']);
 });
 Route::get('storage/app/uploads/{user_id}/{filename}', ['as' => 'uploads.show', 'uses' => 'UploadController@show']);
 

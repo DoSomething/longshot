@@ -43,10 +43,10 @@ class Email extends Model
         $subject = str_replace(array_keys($tokens), array_values($tokens), $subject);
 
         $email_data = [
-        'to'      => $to,
-        'body'    => $body,
-        'subject' => $subject,
-      ];
+            'to'      => $to,
+            'body'    => $body,
+            'subject' => $subject,
+        ];
 
         // Send off the message.
         Mail::queue('emails.email', $email_data, function ($message) use ($email_data) {
