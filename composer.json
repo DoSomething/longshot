@@ -5,6 +5,7 @@
 	"license": "MIT",
 	"type": "project",
 	"require": {
+    "php": "~7.0.0",
 		"laravel/framework": "5.2.*",
 		"guzzlehttp/guzzle": "6.*",
 		"michelf/php-markdown": "1.6.*",
