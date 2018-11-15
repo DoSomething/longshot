@@ -1,29 +1,29 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0c6c0f04300ef1a67f0064fd63c67dc3",
+    "content-hash": "5e0af77ddeafdb9da23788d6691ae44d",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.19.10",
+            "version": "3.24.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "eb9488f671175e708cf68c74cc04bd9115c96761"
+                "reference": "2823e0a0742505f655b0cb3bcdb10844f60e6078"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/eb9488f671175e708cf68c74cc04bd9115c96761",
-                "reference": "eb9488f671175e708cf68c74cc04bd9115c96761",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/2823e0a0742505f655b0cb3bcdb10844f60e6078",
+                "reference": "2823e0a0742505f655b0cb3bcdb10844f60e6078",
                 "shasum": ""
             },
             "require": {
                 "guzzlehttp/guzzle": "^5.3.1|^6.2.1",
                 "guzzlehttp/promises": "~1.0",
-                "guzzlehttp/psr7": "~1.3.1",
+                "guzzlehttp/psr7": "^1.3.1, !=1.4.0",
                 "mtdowling/jmespath.php": "~2.2",
                 "php": ">=5.5"
             },
@@ -84,7 +84,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2016-09-22T19:32:03+00:00"
+            "time": "2017-03-14T00:56:44+00:00"
         },
         {
             "name": "aws/aws-sdk-php-laravel",
@@ -3313,12 +3313,12 @@
             "version": "0.9.5",
             "source": {
                 "type": "git",
-                "url": "https://github.com/padraic/mockery.git",
+                "url": "https://github.com/mockery/mockery.git",
                 "reference": "4db079511a283e5aba1b3c2fb19037c645e70fc2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/padraic/mockery/zipball/4db079511a283e5aba1b3c2fb19037c645e70fc2",
+                "url": "https://api.github.com/repos/mockery/mockery/zipball/4db079511a283e5aba1b3c2fb19037c645e70fc2",
                 "reference": "4db079511a283e5aba1b3c2fb19037c645e70fc2",
                 "shasum": ""
             },
@@ -3546,8 +3546,7 @@
             "authors": [
                 {
                     "name": "Chris Boulton",
-                    "homepage": "http://github.com/chrisboulton",
-                    "role": "Original developer"
+                    "homepage": "http://github.com/chrisboulton"
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
