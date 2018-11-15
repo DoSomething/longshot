@@ -84,9 +84,8 @@ class SettingRepository
     {
         $extension = Input::file($key)->guessExtension();
 
-        Input::file($key)->move(uploadedContentPath('images'), snakeCaseToKebabCase($key).'.'.$extension);
-
-        $path = '/content/images/'.snakeCaseToKebabCase($key).'.'.$extension;
+        $path = uploadedContentPath('images').'/'.snakeCaseToKebabCase($key).'.'.$extension;
+        Storage::put($path, Input::file($key), 'public');
 
         return $path;
     }

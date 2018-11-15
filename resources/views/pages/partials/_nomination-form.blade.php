@@ -53,6 +53,6 @@
       </div>
 
       @if (isset($vars->nominate_image))
-        <div class="__image" style="background-image: url('{{ $vars->nominate_image or '/dist/images/nominate-image-placeholder.jpg' }}');"></div>
+        <div class="__image" style="background-image: url('{{ asset_url($vars->nominate_image, '/dist/images/nominate-image-placeholder.jpg') }}');"></div>
       @endif
     </section>

@@ -2,7 +2,7 @@
   <div class="wrapper">
 
     <div class="__partner">
-      <span>In partnership with:</span> <img src="{{ $global_vars->footer_logo or '/dist/images/tmi-logo.png' }}" alt="partner">
+      <span>In partnership with:</span> <img src="{{ asset_url($global_vars->footer_logo, '/dist/images/tmi-logo.png') }}" alt="partner">
     </div>
 
     <p class="__copyright">Copyright &copy; {{ date('Y') }} {{ $global_vars->company_name or 'DoSomething Strategic' }}</p>
