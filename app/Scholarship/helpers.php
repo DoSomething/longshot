@@ -155,7 +155,7 @@ function createCustomStylesheet($styles)
  */
 function uploadedContentPath($type = '')
 {
-    return '/content/'.$type;
+    return 'content/'.$type;
 }
 
 /**
