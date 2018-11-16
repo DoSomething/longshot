@@ -3,6 +3,7 @@
 namespace Scholarship\Repositories;
 
 use Cache;
+use Storage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 
