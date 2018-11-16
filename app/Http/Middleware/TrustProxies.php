@@ -22,9 +22,9 @@ class TrustProxies extends Middleware
      */
     protected $headers = [
         Request::HEADER_FORWARDED => null, // Not set on AWS or Heroku.
-        Request::HEADER_X_FORWARDED_FOR => 'X_FORWARDED_FOR',
-        Request::HEADER_X_FORWARDED_HOST => null, // Not set on AWS or Heroku.
-        Request::HEADER_X_FORWARDED_PORT => 'X_FORWARDED_PORT',
-        Request::HEADER_X_FORWARDED_PROTO => 'X_FORWARDED_PROTO',
+        Request::HEADER_CLIENT_IP => 'X_FORWARDED_FOR',
+        Request::HEADER_CLIENT_HOST => null, // Not set on AWS or Heroku.
+        Request::HEADER_CLIENT_PROTO => 'X_FORWARDED_PROTO',
+        Request::HEADER_CLIENT_PORT => 'X_FORWARDED_PORT',
     ];
 }
