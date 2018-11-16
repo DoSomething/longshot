@@ -83,10 +83,12 @@ class SettingRepository
      */
     public function moveImage($key)
     {
-        $extension = Input::file($key)->guessExtension();
+        $file = file_get_contents(Input::file($key)->getRealPath());
 
+        $extension = Input::file($key)->guessExtension();
         $path = uploadedContentPath('images').'/'.snakeCaseToKebabCase($key).'.'.$extension;
-        Storage::put($path, Input::file($key), 'public');
+
+        Storage::put($path, $file, 'public');
 
         return $path;
     }
