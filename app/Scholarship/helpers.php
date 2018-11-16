@@ -161,7 +161,7 @@ function uploadedContentPath($type = '')
 /**
  * Prepare URL for an image stored locally or in S3.
  */
-function asset_url($path, $fallback)
+function asset_url($path, $fallback = null)
 {
     if (! $path) {
         return $fallback;
