@@ -52,7 +52,7 @@
 
       @if (!empty($setting->value))
         <div class="image-holder">
-          <img src="{{ $setting->value }}" alt="uploaded image">
+          <img src="{{ asset_url($setting->value) }}" alt="uploaded image">
         </div>
         @if ($setting->key === 'background_image')
           {!! Form::label('Remove?') !!}
