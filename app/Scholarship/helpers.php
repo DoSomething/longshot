@@ -155,7 +155,25 @@ function createCustomStylesheet($styles)
  */
 function uploadedContentPath($type = '')
 {
-    return public_path().'/content/'.$type;
+    return 'content/'.$type;
+}
+
+/**
+ * Prepare URL for an image stored locally or in S3.
+ */
+function asset_url($path, $fallback)
+{
+    if (! $path) {
+        return $fallback;
+    }
+
+    // We've stored paths in the database with leading slashes, but
+    // these mess up the URL when passed through the Storage facade.
+    if (starts_with($path, '/')) {
+        $path = substr($path, 1);
+    }
+
+    return Storage::url($path);
 }
 
 /**
