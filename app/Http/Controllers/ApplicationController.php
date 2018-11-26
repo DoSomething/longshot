@@ -133,7 +133,10 @@ class ApplicationController extends \Controller
         $upload = $request->file('upload');
         if ($request->hasFile('upload')) {
             $filename = $upload->getClientOriginalName();
-            $upload->move(base_path('/storage/app/uploads/'.$user->id.'/'), $filename);
+            $file = file_get_contents($upload->getRealPath());
+
+            Storage::put('uploads/'.$user->id.'/'.$filename, $file, 'private');
+
             $application->upload = $filename;
         }
 
@@ -225,7 +228,9 @@ class ApplicationController extends \Controller
         $upload = $request->file('upload');
         if ($request->hasFile('upload')) {
             $filename = $upload->getClientOriginalName();
-            $upload->move(base_path('/storage/app/uploads/'.$application->user_id.'/'), $filename);
+            $file = file_get_contents($upload->getRealPath());
+
+            Storage::put('uploads/'.$user->id.'/'.$filename, $file, 'private');
 
             // If there is not already a file, just throw the name in the uploads column
             if (empty($application->upload)) {
