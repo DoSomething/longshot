@@ -21,7 +21,8 @@
 		"aws/aws-sdk-php": "~3.0",
 		"fideloper/proxy": "^3.3",
 		"intervention/image": "^2.4",
-    "ext-gd": "*"
+    "ext-gd": "*",
+    "ext-newrelic": "*"
 	},
 	"require-dev": {
 		"fzaninotto/faker": "~1.4",
