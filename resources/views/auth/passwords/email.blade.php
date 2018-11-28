@@ -15,8 +15,8 @@
     <div class="segment -compact">
           <div class="wrapper">
             <p>Please provide the email address that you used when you signed up to apply for a scholarship.</p>
-            <p>We will send you an email that will allow you to reset your password.</p>
-                    
+            <p>We will send you an email to reset your password. Please allow up to 15 minutes to receive it and be sure to check your spam folder.</p>
+            <p>If you have not received the password reset after 15 minutes, please double check the email address you used to create the account and request it again. If you receive more than one password reset email, please be sure to use the most recent password reset link.</p>
 
                     <form class="field-group" role="form" method="POST" action="{{ url('/password/email') }}">
                         {{ csrf_field() }}
