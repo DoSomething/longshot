@@ -231,7 +231,7 @@ class ApplicationController extends \Controller
             $filename = $upload->getClientOriginalName();
             $file = file_get_contents($upload->getRealPath());
 
-            Storage::put('uploads/'.$user->id.'/'.$filename, $file, 'private');
+            Storage::put('uploads/'.Auth::id().'/'.$filename, $file, 'private');
 
             // If there is not already a file, just throw the name in the uploads column
             if (empty($application->upload)) {
