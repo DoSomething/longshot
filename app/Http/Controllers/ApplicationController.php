@@ -4,6 +4,7 @@ use App\Models\User;
 use App\Models\Application;
 use App\Models\Scholarship;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Scholarship\Repositories\SettingRepository;
 
 class ApplicationController extends \Controller
@@ -135,7 +136,7 @@ class ApplicationController extends \Controller
             $filename = $upload->getClientOriginalName();
             $file = file_get_contents($upload->getRealPath());
 
-            Storage::put('uploads/'.$user->id.'/'.$filename, $file, 'private');
+            Storage::put('uploads/'.Auth::id().'/'.$filename, $file, 'private');
 
             $application->upload = $filename;
         }
