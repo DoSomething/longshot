@@ -15,8 +15,10 @@ class UpdateStatusOnApp extends Migration
             $table->dropIndex('applications_complete_index');
             $table->renameColumn('complete', 'submitted');
         });
+
         Schema::table('applications', function ($table) {
-            $table->tinyInteger('completed')->after('submitted')->nullable();
+            // We had to remove `->nullable()` from this column in this migration in order to allow future alterations to this column. It would allow this to be set initially but when making futer changes gives error of "Invalid default value."
+            $table->tinyInteger('completed')->after('submitted');
             $table->index('completed');
             $table->index('submitted');
         });

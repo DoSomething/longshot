@@ -12,7 +12,8 @@ class AddCompleteField extends Migration
     public function up()
     {
         Schema::table('applications', function ($table) {
-            $table->tinyInteger('complete')->index()->nullable()->after('gpa');
+            // We had to remove `->nullable()` from this column in this migration in order to allow future alterations to this column. It would allow this to be set initially but when making futer changes gives error of "Invalid default value."
+            $table->tinyInteger('complete')->index()->after('gpa');
         });
     }
 
