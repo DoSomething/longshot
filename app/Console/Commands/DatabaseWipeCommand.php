@@ -3,15 +3,8 @@
 namespace App\Console\Commands;
 
 use DB;
-use App\Models\Race;
 use App\Models\User;
-use App\Models\Rating;
-use App\Models\Profile;
-use App\Models\Nomination;
-use App\Models\Application;
-use App\Models\Recommendation;
 use Illuminate\Console\Command;
-use App\Models\RecommendationToken;
 use Illuminate\Support\Facades\Schema;
 
 class DatabaseWipeCommand extends Command
