@@ -55,43 +55,28 @@ class DatabaseWipeCommand extends Command
             return $this->error('Please take a snapshot of the current database before proceeding!');
         }
 
-        // Get the admins from the Users table.
-        $admins = DB::select(DB::raw('SELECT *
-						                      FROM users u
-						                      INNER JOIN role_user ru
-						                      WHERE ru.id = u.id;'));
-
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-
         // Clear out database tables.
-        Application::truncate();
-        Nomination::truncate();
-        Profile::truncate();
-        Race::truncate();
-        Rating::truncate();
-        Recommendation::truncate();
-        RecommendationToken::truncate();
-        User::truncate();
+        DB::table('applications')->delete();
+        DB::table('nominations')->delete();
+        DB::table('profiles')->delete();
+        DB::table('races')->delete();
+        DB::table('ratings')->delete();
+        DB::table('recommendations')->delete();
+        DB::table('recommendation_tokens')->delete();
         if ((Schema::hasTable('failed_jobs'))) {
-            DB::table('failed_jobs')->truncate();
+            DB::table('failed_jobs')->delete();
         }
-        DB::table('password_resets')->truncate();
+        DB::table('password_resets')->delete();
 
-        // Add the admins back into the Users table.
-        foreach ($admins as $admin) {
-            DB::table('users')->insert([
-            'email'          => $admin->email,
-            'password'       => $admin->password,
-            'first_name'     => $admin->first_name,
-            'last_name'      => $admin->last_name,
-            'remember_token' => null,
-            'created_at'     => date('Y-m-d H:i:s'),
-            'updated_at'     => date('Y-m-d H:i:s'),
-        ]);
-        }
+        // Delete users who are not admins
+        DB::table('users')
+            ->whereNotIn('id', function ($query) {
+                $query->select('user_id')
+                      ->from('role_user')
+                      ->where('role_user.role_id', 1);
+            })
+            ->delete();
 
-        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
-
-        $this->info('All set! We successfully killed all the user data with fire.');
+        $this->info('All set! We successfully killed all the user data with fire and kept existing admins.');
     }
 }
