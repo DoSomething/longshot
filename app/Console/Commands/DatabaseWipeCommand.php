@@ -47,12 +47,12 @@ class DatabaseWipeCommand extends Command
      */
     public function fire()
     {
-        if (! $this->confirm('Did you transfer the winners data to the winners table? [y|n]')) {
-            return $this->error('Please run artisan transfer:winners command!');
+        if (! $this->confirm('If this is Footlocker External, is the winner gallery finished? [y|n]')) {
+            return $this->error('Please award scholarships before running!');
         }
 
-        if (! $this->confirm('Did you run a dump and back up the current database? [y|n]')) {
-            return $this->error('Please back up the current database before proceeding!');
+        if (! $this->confirm('Did you take a snapshot of the current database? [y|n]')) {
+            return $this->error('Please take a snapshot of the current database before proceeding!');
         }
 
         // Get the admins from the Users table.
