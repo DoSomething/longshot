@@ -5,7 +5,6 @@ namespace App\Console\Commands;
 use DB;
 use App\Models\User;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Schema;
 
 class DatabaseWipeCommand extends Command
 {
