@@ -48,7 +48,7 @@ class DatabaseWipeCommand extends Command
             return $this->error('Please take a snapshot of the current database before proceeding!');
         }
 
-        // Clear out database tables.
+        // Clear out database tables with applicant data (except for winners).
         DB::table('applications')->delete();
         DB::table('nominations')->delete();
         DB::table('profiles')->delete();
@@ -56,9 +56,7 @@ class DatabaseWipeCommand extends Command
         DB::table('ratings')->delete();
         DB::table('recommendations')->delete();
         DB::table('recommendation_tokens')->delete();
-        if ((Schema::hasTable('failed_jobs'))) {
-            DB::table('failed_jobs')->delete();
-        }
+        DB::table('failed_jobs')->delete();
         DB::table('password_resets')->delete();
 
         // Delete users who are not admins
