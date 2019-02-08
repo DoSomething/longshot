@@ -70,6 +70,19 @@ class DatabaseWipeCommand extends Command
             })
             ->delete();
 
+        // Do a check to make sure we have the expected number of admins
+        $ids = DB::table('role_user')->pluck('user_id');
+        $emails = DB::table('users')->whereIn('id', $ids)->pluck('email');
+        if (count($ids) === count($emails)) {
+            $this->line('Correct number of '.count($ids).' admins found.');
+        } else {
+            $this->line('WARNING! NUMBER OF ADMIN ASSIGNMENTS DOES NOT MATCH NUMBER OF ADMIN USERS.');
+        }
+        $this->line('The admins are: ');
+        foreach($emails as $email) {
+            $this->line($email);
+        }
+
         $this->info('All set! We successfully killed all the user data with fire and kept existing admins.');
     }
 }
