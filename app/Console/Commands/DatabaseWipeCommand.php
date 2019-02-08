@@ -79,7 +79,7 @@ class DatabaseWipeCommand extends Command
             $this->line('WARNING! NUMBER OF ADMIN ASSIGNMENTS DOES NOT MATCH NUMBER OF ADMIN USERS.');
         }
         $this->line('The admins are: ');
-        foreach($emails as $email) {
+        foreach ($emails as $email) {
             $this->line($email);
         }
 
