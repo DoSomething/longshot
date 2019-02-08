@@ -3,16 +3,8 @@
 namespace App\Console\Commands;
 
 use DB;
-use App\Models\Race;
 use App\Models\User;
-use App\Models\Rating;
-use App\Models\Profile;
-use App\Models\Nomination;
-use App\Models\Application;
-use App\Models\Recommendation;
 use Illuminate\Console\Command;
-use App\Models\RecommendationToken;
-use Illuminate\Support\Facades\Schema;
 
 class DatabaseWipeCommand extends Command
 {
@@ -47,51 +39,47 @@ class DatabaseWipeCommand extends Command
      */
     public function fire()
     {
-        if (! $this->confirm('Did you transfer the winners data to the winners table? [y|n]')) {
-            return $this->error('Please run artisan transfer:winners command!');
+        if (! $this->confirm('If this is Footlocker External, is the winner gallery finished? [y|n]')) {
+            return $this->error('Please award scholarships before running!');
         }
 
-        if (! $this->confirm('Did you run a dump and back up the current database? [y|n]')) {
-            return $this->error('Please back up the current database before proceeding!');
+        if (! $this->confirm('Did you take a snapshot of the current database? [y|n]')) {
+            return $this->error('Please take a snapshot of the current database before proceeding!');
         }
 
-        // Get the admins from the Users table.
-        $admins = DB::select(DB::raw('SELECT *
-						                      FROM users u
-						                      INNER JOIN role_user ru
-						                      WHERE ru.id = u.id;'));
+        // Clear out database tables with applicant data (except for winners).
+        DB::table('applications')->delete();
+        DB::table('nominations')->delete();
+        DB::table('profiles')->delete();
+        DB::table('races')->delete();
+        DB::table('ratings')->delete();
+        DB::table('recommendations')->delete();
+        DB::table('recommendation_tokens')->delete();
+        DB::table('failed_jobs')->delete();
+        DB::table('password_resets')->delete();
 
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        // Delete users who are not admins
+        DB::table('users')
+            ->whereNotIn('id', function ($query) {
+                $query->select('user_id')
+                      ->from('role_user')
+                      ->where('role_user.role_id', 1);
+            })
+            ->delete();
 
-        // Clear out database tables.
-        Application::truncate();
-        Nomination::truncate();
-        Profile::truncate();
-        Race::truncate();
-        Rating::truncate();
-        Recommendation::truncate();
-        RecommendationToken::truncate();
-        User::truncate();
-        if ((Schema::hasTable('failed_jobs'))) {
-            DB::table('failed_jobs')->truncate();
+        // Do a check to make sure we have the expected number of admins
+        $ids = DB::table('role_user')->pluck('user_id');
+        $emails = DB::table('users')->whereIn('id', $ids)->pluck('email');
+        if (count($ids) === count($emails)) {
+            $this->line('Correct number of '.count($ids).' admins found.');
+        } else {
+            $this->line('WARNING! NUMBER OF ADMIN ASSIGNMENTS DOES NOT MATCH NUMBER OF ADMIN USERS.');
         }
-        DB::table('password_resets')->truncate();
-
-        // Add the admins back into the Users table.
-        foreach ($admins as $admin) {
-            DB::table('users')->insert([
-            'email'          => $admin->email,
-            'password'       => $admin->password,
-            'first_name'     => $admin->first_name,
-            'last_name'      => $admin->last_name,
-            'remember_token' => null,
-            'created_at'     => date('Y-m-d H:i:s'),
-            'updated_at'     => date('Y-m-d H:i:s'),
-        ]);
+        $this->line('The admins are: ');
+        foreach ($emails as $email) {
+            $this->line($email);
         }
 
-        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
-
-        $this->info('All set! We successfully killed all the user data with fire.');
+        $this->info('All set! We successfully killed all the user data with fire and kept existing admins.');
     }
 }
