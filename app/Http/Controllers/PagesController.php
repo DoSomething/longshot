@@ -55,10 +55,17 @@ class PagesController extends \Controller
 
         $page = new Page();
         if (Input::hasFile('hero_image')) {
-            $file = Input::file('hero_image');
-            $filename = $file->getClientOriginalName();
-            $file->move(public_path().'/pages/images/', $filename);
-            $page->hero_image = '/pages/images'.$filename;
+            $file = file_get_contents(Input::file('hero_image')->getRealPath());
+
+            // Set title in the database
+            $filename = Input::file('hero_image')->getClientOriginalName();
+            $page->hero_image = '/pages/images/'.$filename;
+
+            // Save file to S3 (or local storage)
+            $extension = Input::file('hero_image')->guessExtension();
+            $storagePath = uploadedContentPath('pages/images').'/'.$filename.'.'.$extension;
+
+            Storage::put($storagePath, $file, 'public');
         }
         $page->title = $input['title'];
         if (! empty($input['description'])) {
@@ -203,10 +210,17 @@ class PagesController extends \Controller
 
         // @TODO: if image already exists, should we delete old one?
         if (Input::hasFile('hero_image')) {
-            $file = Input::file('hero_image');
-            $filename = $file->getClientOriginalName();
-            $file->move(public_path().'/pages/images/', $filename);
-            $inputText['hero_image'] = '/pages/images/'.$filename;
+            $file = file_get_contents(Input::file('hero_image')->getRealPath());
+
+            // Set title in the database
+            $filename = Input::file('hero_image')->getClientOriginalName();
+            $page->hero_image = '/pages/images/'.$filename;
+
+            // Save file to S3 (or local storage)
+            $extension = Input::file('hero_image')->guessExtension();
+            $storagePath = uploadedContentPath('pages/images').'/'.$filename.'.'.$extension;
+
+            Storage::put($storagePath, $file, 'public');
         }
 
         $inputText['description_html'] = MarkdownExtra::defaultTransform($inputText['description']);
