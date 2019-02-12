@@ -57,15 +57,16 @@ class PagesController extends \Controller
         if (Input::hasFile('hero_image')) {
             $file = file_get_contents(Input::file('hero_image')->getRealPath());
 
-            // Set title in the database
+            // Get the filename
             $filename = Input::file('hero_image')->getClientOriginalName();
-            $page->hero_image = '/pages/images/'.$filename;
 
             // Save file to S3 (or local storage)
-            $extension = Input::file('hero_image')->guessExtension();
-            $storagePath = uploadedContentPath('pages/images').'/'.$filename.'.'.$extension;
+            $storagePath = uploadedContentPath('pages/images').'/'.$filename;
 
             Storage::put($storagePath, $file, 'public');
+
+            // Save the path in the database
+            $page->hero_image = $storagePath;
         }
         $page->title = $input['title'];
         if (! empty($input['description'])) {
@@ -212,15 +213,16 @@ class PagesController extends \Controller
         if (Input::hasFile('hero_image')) {
             $file = file_get_contents(Input::file('hero_image')->getRealPath());
 
-            // Set title in the database
+            // Get the filename
             $filename = Input::file('hero_image')->getClientOriginalName();
-            $page->hero_image = '/pages/images/'.$filename;
 
             // Save file to S3 (or local storage)
-            $extension = Input::file('hero_image')->guessExtension();
-            $storagePath = uploadedContentPath('pages/images').'/'.$filename.'.'.$extension;
+            $storagePath = uploadedContentPath('pages/images').'/'.$filename;
 
             Storage::put($storagePath, $file, 'public');
+
+            // Save the path in the database
+            $page->hero_image = $storagePath;
         }
 
         $inputText['description_html'] = MarkdownExtra::defaultTransform($inputText['description']);
