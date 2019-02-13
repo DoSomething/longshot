@@ -8,12 +8,9 @@
 [role="contentinfo"] { @include container(95%); color: #eee; padding: pxcalc(20) 0 pxcalc(50); text-align: center;
 
   .__partner {
-    span,
-    img { display: inline-block; }
-
     span { bottom: pxcalc(5); line-height: 1; margin: pxcalc(15) pxcalc(5) 0 0; vertical-align: top; }
 
-    img { max-height: 50px; max-width: 150px; }
+    img { max-height: 50px; max-width: 200px; }
   }
 
   .__copyright { padding-top: 1.5em; }
