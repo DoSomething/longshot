@@ -75,10 +75,11 @@ class WinnerController extends \Controller
         // @TODO: does the order of variable set and then if make sense here?
         $image = $request->file('photo');
         if ($request->hasFile('photo')) {
+            $file = file_get_contents($image->getRealPath());
             $filename = time().'-'.stringtoKebabCase($image->getClientOriginalName());
             $storagePath = uploadedContentPath('images/winners').'/'.$filename;
 
-            Storage::put($storagePath, $image, 'public');
+            Storage::put($storagePath, $file, 'public');
             $winner->photo = $storagePath;
         }
 
