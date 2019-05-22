@@ -76,8 +76,10 @@ class WinnerController extends \Controller
         $image = $request->file('photo');
         if ($request->hasFile('photo')) {
             $filename = time().'-'.stringtoKebabCase($image->getClientOriginalName());
-            $image->move(uploadedContentPath('images').'/winners/', $filename);
-            $winner->photo = '/content/images/winners/'.$filename;
+            $storagePath = uploadedContentPath('images/winners').'/'.$filename;
+
+            Storage::put($storagePath, $file, 'public');
+            $winner->photo = $storagePath;
         }
 
         $winner->save();
