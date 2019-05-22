@@ -78,7 +78,7 @@ class WinnerController extends \Controller
             $filename = time().'-'.stringtoKebabCase($image->getClientOriginalName());
             $storagePath = uploadedContentPath('images/winners').'/'.$filename;
 
-            Storage::put($storagePath, $file, 'public');
+            Storage::put($storagePath, $image, 'public');
             $winner->photo = $storagePath;
         }
 
